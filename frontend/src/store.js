@@ -8,11 +8,11 @@ import {createStore} from "redux"
 // )
 
 const reducer = (state = [], action) => {
-  
+  console.log(action.type)
   if (action.type === "recent"){
-    return [{text:'POPULAR'}]
-  } else {
     return [{text:'RECENT'}]
+  } else {
+    return [{text:'POPULAR'}]
   }
 }
 

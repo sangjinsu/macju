@@ -13,6 +13,7 @@ function PostList() {
     dispatch({type:event.target.value})
     setOpt(event.target.value)
     setStat(text[0].text)
+    console.log(text[0].text)
     //stat 지우고 setposts로 post값 가져올것.
   }
   
@@ -42,9 +43,10 @@ function PostList() {
         <br></br>
         {stat}
         {posts&&posts.map((post)=> <span key={post.postId}>
+          <img src={post.img} width={100} alt="sample"/>
+          <Link to={`/v1/post/${post.postId}`}>{post.post&&post.post.length > 15 ? post.post.substr(0, 15) + "....": post.post}</Link>
           <p>좋아요 : {post.likes}</p>
-          <Link to={`/v1/post/${post.postId}`}>{post.content&&post.content.length > 15 ? post.content.substr(0, 15) + "....": post.content}</Link>
-          작성 시간 {post.created_at}
+          작성 시간 - {post.created_at}
           </span>)}
       </div>
      

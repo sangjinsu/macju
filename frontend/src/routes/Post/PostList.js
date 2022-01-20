@@ -33,6 +33,9 @@ function PostList() {
         <option>
           인기 순으로
         </option>
+        <option>
+          test
+        </option>
       </select>
       <div>
         {opt === "최신 순으로" ? <h1> 최신 순 게시글</h1> : <h2>인기순 게시글</h2>}

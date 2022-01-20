@@ -2,24 +2,27 @@ import { useEffect, useState } from "react";
 import axios from "axios"
 import {Link} from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux";
-import {actionCreators} from "../../store";
+
 function PostList() {
   const dispatch = useDispatch()
-  const [opt, setOpt] = useState()
+  const text = useSelector((state:any) => state)
+  const [opt, setOpt] = useState("최신 순으로")
   const [posts, setposts] = useState()
+  const [stat, setStat] = useState('')
   const onSelect = (event) => {
-    const tmp = event.target.value
-    setOpt(tmp);
-    dispatch(actionCreators.selectOpt('aaaa'))
-    
-
+    dispatch({type:event.target.value})
+    setOpt(event.target.value)
+    setStat(text[0].text)
+    //stat 지우고 setposts로 post값 가져올것.
   }
+  
   useEffect(async ()=>{
     //api : http://localhost:3000/v1/post
       const json = await axios.get("http://localhost:3000/data/postData.json")
       setposts(json.data)
     }, []
   )
+
   return (
     <>
       <h1>POST</h1>      
@@ -28,21 +31,19 @@ function PostList() {
           정렬 순서를 선택하세요
         </option>
         <option>
-          최신 순으로
+          recent
         </option>
         <option>
-          인기 순으로
-        </option>
-        <option>
-          test
-          test22
+          popular
         </option>
       </select>
       <div>
-        {opt === "최신 순으로" ? <h1> 최신 순 게시글</h1> : <h2>인기순 게시글</h2>}
+        {opt == "recent" ? <h1> 최신 순 게시글</h1> : <h2>인기순 게시글</h2>}
+        <br></br>
+        {stat}
         {posts&&posts.map((post)=> <span key={post.postId}>
           <p>좋아요 : {post.likes}</p>
-          <Link to={`/post/${post.postId}`}>{post.content&&post.content.length > 15 ? post.content.substr(0, 15) + "....": post.content}</Link>
+          <Link to={`/v1/post/${post.postId}`}>{post.content&&post.content.length > 15 ? post.content.substr(0, 15) + "....": post.content}</Link>
           작성 시간 {post.created_at}
           </span>)}
       </div>
@@ -51,4 +52,5 @@ function PostList() {
     </>
   )
   }
+
 export default PostList;

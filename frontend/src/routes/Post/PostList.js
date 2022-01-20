@@ -34,6 +34,7 @@ function PostList() {
           인기 순으로
         </option>
         <option>
+          test
           test22
         </option>
       </select>

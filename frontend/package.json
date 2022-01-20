@@ -9,10 +9,9 @@
     "axios": "^0.25.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-<<<<<<< HEAD
-=======
+
     "react-redux": "^7.2.6",
->>>>>>> 0b652046713e1c453e5f669aeb6a0746e2c27b98
+
     "react-router-dom": "^5.3.0",
     "react-scripts": "5.0.0",
     "web-vitals": "^2.1.3"

@@ -28,7 +28,7 @@ public class Beer {
 
     private String content;
 
-    private Double volumn;
+    private Double volume;
 
     @Column(name = "english_name", unique = true, nullable = false)
     private String englishName;

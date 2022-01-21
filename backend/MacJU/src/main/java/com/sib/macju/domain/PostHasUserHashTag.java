@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@Table(name = "posthasuserhashtag")
+@Table(name = "post_has_user_hash_tag")
 public class PostHasUserHashTag {
 
     @Id

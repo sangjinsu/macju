@@ -9,6 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter
+@Table(name = "member_rate_beer")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MemberRateBeer {
 

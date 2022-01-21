@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @Entity
 @Getter
-@Table(name = "userhashtag")
+@Table(name = "user_hashtag")
 public class UserHashTag {
 
     @Id

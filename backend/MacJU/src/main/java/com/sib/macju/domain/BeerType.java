@@ -19,6 +19,9 @@ public class BeerType {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long beerTypeId;
 
+    @Column(nullable = false)
+    private BeerMainType main;
+
     private String detail;
 
     @OneToMany(mappedBy = "beerType", cascade = CascadeType.ALL)

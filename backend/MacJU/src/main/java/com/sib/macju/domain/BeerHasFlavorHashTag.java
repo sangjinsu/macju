@@ -13,7 +13,7 @@ public class BeerHasFlavorHashTag {
     @Id
     @Column(name = "beer_has_flavor_hash_tag_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long memberFondFlavorHashTagId;
+    private Long beerHasFlavorHashTagId;
 
     @ManyToOne
     @JoinColumn(name = "flavor_hash_tag_id")

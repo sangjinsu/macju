@@ -1,42 +1,37 @@
 package com.sib.macju.domain;
 
-import lombok.Data;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Table(name = "post")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Post {
 
     @Id
     @Column(name = "post_id")
-    @GeneratedValue( strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long postId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "beer_id")
-    private Beer beerId;
+    private Beer beer;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
-    private Member memberId;
+    private Member member;
 
+    @Column(length = 2200, nullable = false)
     private String content;
 
-    @Column(name = "create_at")
-    private Date createAt;
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
-    @Column(name = "update_at")
-    private Date updateAt;
-
-    @Column(name = "view_count")
-    private Long viewCount;
-
-    @Column(name = "like_Num")
-    private int likeNum;
-
-
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 }

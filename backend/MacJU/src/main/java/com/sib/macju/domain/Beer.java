@@ -23,13 +23,14 @@ public class Beer {
     @JoinColumn(name = "beer_type_id")
     private BeerType beerType;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String name;
 
     private String content;
 
     private Double volumn;
 
+    @Column(name = "english_name", unique = true, nullable = false)
     private String englishName;
 
     @OneToMany(mappedBy = "beer", cascade = CascadeType.ALL)

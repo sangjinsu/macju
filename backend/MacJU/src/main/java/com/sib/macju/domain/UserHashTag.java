@@ -18,10 +18,9 @@ public class UserHashTag {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userHashTagId;
 
-    @Column
     private String content;
 
-    @OneToMany
+    @OneToMany(mappedBy = "userHashTag", cascade = CascadeType.ALL)
     private List<PostHasUserHashTag> postHasUserHashTagList = new ArrayList<>();
 
 }

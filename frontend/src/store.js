@@ -1,4 +1,5 @@
-import {createStore} from "redux"
+import { combineReducers, createStore } from "redux"
+
 
 // useEffect(async ()=>{
 //   //api : http://localhost:3000/v1/post
@@ -7,16 +8,33 @@ import {createStore} from "redux"
 //   }, []
 // )
 
+
+
 const reducer = (state = [], action) => {
-  
   if (action.type === "recent"){
-    return [{text:'POPULAR'}]
-  } else {
     return [{text:'RECENT'}]
+  } else {
+    return [{text:'POPULAR'}]
+  }
+}
+
+const commentReducer = (state = [], action) => {
+  console.log(action.comments)
+  // state = [...action.comments]
+  if (action.type === "add"){
+    const copyCommentList = [...action.comments, action.inputComment]
+    return copyCommentList
+  }else if (action.type === "change"){
+    const copyCommentList = [...action.comments]
+    // copyCommentList[action.i]
+    return copyCommentList
+  }
+  else{
+    return state
   }
 }
 
 
 
-const store = createStore(reducer)
+const store = createStore( combineReducers( {reducer, commentReducer} ))
 export default store;

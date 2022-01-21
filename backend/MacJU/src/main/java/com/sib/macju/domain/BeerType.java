@@ -19,6 +19,7 @@ public class BeerType {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long beerTypeId;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private BeerMainType main;
 

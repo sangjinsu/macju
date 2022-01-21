@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Getter
-@Table(name = "flavorhashtag")
+@Table(name = "flavor_hash_tag")
 public class FlavorHashTag {
 
     @Id

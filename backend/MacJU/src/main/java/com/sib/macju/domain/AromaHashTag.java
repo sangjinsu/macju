@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @Entity
 @Getter
-@Table(name = "aromahashtag")
+@Table(name = "aroma_hash_tag")
 public class AromaHashTag {
 
     @Id

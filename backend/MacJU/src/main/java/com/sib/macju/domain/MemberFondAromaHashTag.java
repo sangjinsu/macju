@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@Table(name = "memberfondaromahashtag")
+@Table(name = "member_fond_aroma_hash_tag")
 public class MemberFondAromaHashTag {
 
     @Id

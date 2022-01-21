@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { useDispatch, useStore } from 'react-redux';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import axios from 'axios';
 
@@ -8,10 +7,13 @@ function CommentList() {
   const [comments, setcomments] = useState([]);
   const [inputComment, inputCommentChange] = useState();
   const [addCommentList, setaddCommentList] = useState();
+  const [dispatchComment, setDispatchComment] = useState();
+  
   const { num } = useParams();
   const nickname = "nickname";
 
-  let state = useSelector((state)=>state.commentReducer)
+  // let state = useSelector((state)=>state)
+  const store = useStore((state)=>state)
   let dispatch = useDispatch();
 
   
@@ -19,15 +21,6 @@ function CommentList() {
   const changeComment = (e) => {
     inputCommentChange(e.target.value);
   }
-
-  const dispatchComment = {"postId" : parseInt(num), "nickname" : nickname, "comment":inputComment}
-  // const changeComment = e => {
-  //   inputCommentChange({
-  //     "postId" : num,
-  //     "nickname" : nickname,
-  //     "comment" : e.tatget.value
-  //   });
-  // }
   
 
   const addComment = e => {
@@ -40,14 +33,20 @@ function CommentList() {
     try{
       //api : http://localhost:3000/v1/post/{postId}/comment
       const jsonData = await axios.get("http://localhost:3000/data/commentData.json")
-      setcomments(jsonData.data)
-
+      dispatch({type:"dataLoading", jsonData : jsonData.data})
+      setcomments(store.getState().commentReducer)
     }
     catch{
       console.log("오류")
     }
     }, []
   )
+
+  useEffect( () => {
+    setDispatchComment({"postId" : parseInt(num), "nickname" : nickname, "comment":inputComment})
+  }, [inputComment])
+
+
 
   return(
     

@@ -14,7 +14,7 @@ function CommentList() {
   let state = useSelector((state)=>state.commentReducer)
   let dispatch = useDispatch();
 
-  console.log(state)
+  
 
   const changeComment = (e) => {
     inputCommentChange(e.target.value);
@@ -48,7 +48,7 @@ function CommentList() {
     }
     }, []
   )
-  console.log(comments)
+
   return(
     
     <div className="CommentList">

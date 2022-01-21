@@ -1,5 +1,5 @@
 import { combineReducers, createStore } from "redux"
-
+import axios from 'axios';
 
 // useEffect(async ()=>{
 //   //api : http://localhost:3000/v1/post
@@ -19,7 +19,6 @@ const reducer = (state = [], action) => {
 }
 
 const commentReducer = (state = [], action) => {
-  console.log(action.comments)
   // state = [...action.comments]
   if (action.type === "add"){
     const copyCommentList = [...action.comments, action.inputComment]
@@ -28,11 +27,32 @@ const commentReducer = (state = [], action) => {
     const copyCommentList = [...action.comments]
     // copyCommentList[action.i]
     return copyCommentList
+  }else if (action.type === "test"){
+    console.log('aa')
+
+    const test1 = async ()=>{
+        //api : http://localhost:3000/v1/post/{postId}/comment
+        const jsonData = await axios.get("http://localhost:3000/data/commentData.json")
+        console.log(jsonData.data)
+        return jsonData.data
+    }
+
+    return test1
   }
   else{
     return state
   }
 }
+
+// const commentReducer = (state = [], action) => {
+//   if (action.type === "test"){
+//     console.log('aa')
+//     return state
+//   }
+//   else{
+//     return state
+//   }
+// }
 
 
 

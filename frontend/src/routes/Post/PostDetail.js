@@ -35,7 +35,7 @@ function PostDetail() {
         <div>
           <img src="https://img.hankyung.com/photo/202107/01.26934467.1-1200x.jpg" width="30%"></img>
           {/* <img src={postnow.img } alt="detail 이미지"></img> */}
-          <div>{ postnow.content }</div>
+          <div>{ postnow.post }</div>
           
           <div>
             {

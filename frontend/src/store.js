@@ -36,7 +36,7 @@ const commentReducer = (state = [], action) => {
         console.log(jsonData.data)
         return jsonData.data
     }
-
+    
     return test1
   }
   else{

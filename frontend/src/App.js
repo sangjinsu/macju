@@ -3,6 +3,8 @@ import PostList from "./routes/Post/PostList";
 import PostDetail from "./routes/Post/PostDetail";
 import PostCreate from "./routes/Post/PostCreate";
 import CommentList from "./routes/Post/CommentList";
+import BeerList from './routes/Beer/BeerList.js';
+
 
 function App() {
   return (
@@ -11,6 +13,7 @@ function App() {
         <Route path="/post"><PostList /></Route>
         <Route path="/post/new"><PostCreate /></Route>
         <Route path="/post/:num"><PostDetail /><CommentList /></Route>
+        <Route path='/beer'><BeerList /></Route>
       </Switch>
     </Router>
   );

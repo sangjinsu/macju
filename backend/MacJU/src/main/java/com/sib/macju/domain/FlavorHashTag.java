@@ -15,16 +15,15 @@ public class FlavorHashTag {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long flavorHashTagId;
 
-    @Column
-    private String flavorTagName;
+    private String flavor;
 
-    @OneToMany
+    @OneToMany(mappedBy = "flavorHashTag", cascade = CascadeType.ALL)
     private List<MemberFondFlavorHashTag> memberFondFlavorHashTagList = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(mappedBy = "flavorHashTag", cascade = CascadeType.ALL)
     private List<BeerHasFlavorHashTag> beerHasFlavorHashTagList = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(mappedBy = "flavorHashTag", cascade = CascadeType.ALL)
     private List<RateHasFlavorHashTag> rateHasFlavorHashTagList = new ArrayList<>();
 
 }

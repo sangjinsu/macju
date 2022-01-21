@@ -17,11 +17,11 @@ public class MemberRateBeer {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long memberRateBeerId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "beer_id")
     private Beer beer;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 

@@ -2,6 +2,7 @@ package com.sib.macju.domain;
 
 import lombok.Data;
 import lombok.Getter;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,17 +19,16 @@ public class AromaHashTag {
     private Long aromaHashTagId;
 
     @Column
-    private String aromaTagName;
+    private String aroma;
 
-    @OneToMany
+    @OneToMany(mappedBy = "aromaHashTag", cascade = CascadeType.ALL)
     private List<MemberFondAromaHashTag> memberFondAromaHashTagList = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(mappedBy = "aromaHashTag", cascade = CascadeType.ALL)
     private List<BeerHasAromaHashTag> beerHasAromaHashTagList = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(mappedBy = "aromaHashTag", cascade = CascadeType.ALL)
     private List<RateHasAromaHashTag> rateHasAromaHashTagList = new ArrayList<>();
-
 
 }
 

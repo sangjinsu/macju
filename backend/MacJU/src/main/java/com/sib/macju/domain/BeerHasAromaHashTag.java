@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @Table(name = "beerhasharomahashtag")
-public class BeerHashAromaHashTag {
+public class BeerHasAromaHashTag {
 
     @Id
     @Column(name = "beer_has_aroma_hash_tag_id")

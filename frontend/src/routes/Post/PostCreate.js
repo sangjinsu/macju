@@ -1,33 +1,33 @@
 import { useEffect, useState } from "react";
 
 
-const PostCreate2 = () => {
-  const [imgs, setImgs] = useState([]);
+// const PostCreate2 = () => {
+//   const [imgs, setImgs] = useState([]);
   
-  const onChange = async (event) =>  {
-    const formData = new FormData();
-    const imgList = event.target.files
-    let nowImage = null
-    let newList = [...imgs]
-    for (let i=0; i<imgList.length; i += 1) {
-      nowImage = URL.createObjectURL(imgList[i])
-      newList.push(nowImage)
-      console.log(newList)
-    }
-    setImgs(newList)
-    console.log(newList)
-  }
-  return (
-    <>
-    <input type="file" multiple accept="image/*" onChange={onChange} />
-    <div>
-      { imgs&&imgs.map((img, index)=>(
-        <img key={index} alt="sample" src={img} width={300} style={{margin:"auto"}} />)
-      )}
-    </div>
-    </>
-  )
-}
+//   const onChange = async (event) =>  {
+//     const formData = new FormData();
+//     const imgList = event.target.files
+//     let nowImage = null
+//     let newList = [...imgs]
+//     for (let i=0; i<imgList.length; i += 1) {
+//       nowImage = URL.createObjectURL(imgList[i])
+//       newList.push(nowImage)
+//       console.log(newList)
+//     }
+//     setImgs(newList)
+//     console.log(newList)
+//   }
+//   return (
+//     <>
+//     <input type="file" multiple accept="image/*" onChange={onChange} />
+//     <div>
+//       { imgs&&imgs.map((img, index)=>(
+//         <img key={index} alt="sample" src={img} width={300} style={{margin:"auto"}} />)
+//       )}
+//     </div>
+//     </>
+//   )
+// }
 
 
 function PostCreate() {
@@ -74,11 +74,11 @@ function PostCreate() {
   //   setPostImgs(nowImageURLList)
   //   console.log(setPostImgs)
   // }
-  const deleteImg = ()=>{
-    URL.revokeObjectURL(postImg);
-    setPostImg("");
-    console.log(postImg)
-  }
+  // const deleteImg = ()=>{
+  //   URL.revokeObjectURL(postImg);
+  //   setPostImg("");
+  //   console.log(postImg)
+  // }
 
   // const onImgChange = async (event:any) => {
   //   const formData = new FormData();

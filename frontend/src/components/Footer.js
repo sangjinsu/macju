@@ -3,6 +3,7 @@ import './Footer.css'
 import './responsive.css'
 import { Link } from "react-router-dom"
 
+
 function Footer(){
   return(
   <footer class="footer_section">

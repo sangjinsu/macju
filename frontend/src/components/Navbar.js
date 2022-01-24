@@ -5,7 +5,6 @@ import { Link } from "react-router-dom"
 
 function NavBar(){
   return(
-
     <div class="hero_area">
       <div class="bg-box">
         <img src="img/hero-bg.jpg" alt=""></img>

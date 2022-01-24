@@ -19,7 +19,9 @@
   display: flex;
   align-items: flex-start;
 }
+
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap");
+
 body {
   font-family: "Open Sans", sans-serif;
   color: #0c0c0c;

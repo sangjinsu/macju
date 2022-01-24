@@ -65,7 +65,6 @@ function PostList() {
     </Row>
     </Container>
       </div>
-     
 
     </>
   )

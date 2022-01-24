@@ -26,9 +26,8 @@ function CommentList() {
   }
 
   const deleteComment = (e) => {
-    console.log(e)
-    console.log(e.target)
-    dispatch({ type : "delete", i : e.target.value })
+    dispatch({ type : "delete", i : e.target.attributes.commentid.value })
+    setcomments(store.getState().commentReducer)
   }
   
 
@@ -70,8 +69,7 @@ function CommentList() {
           return(
             <div className="list" key={i}>
               <p> { post.comment } </p>
-              <button type="button" onClick={ deleteComment }>삭제</button>
-              {/* <button type="button" onClick={ () => dispatch({ type : "delete", i : i }) }>삭제</button> */}
+              <button type="button" commentId={i} onClick={ deleteComment }>삭제</button>
             </div>
           );
         })

@@ -6,7 +6,6 @@ import { BsHeartFill, BsHeart } from "react-icons/bs";
 import { Button } from 'react-bootstrap';
 
 function PostDetail() {
-
   const dispatch = useDispatch()
   const [postnow, setpostnow] = useState()
   const { num } = useParams();

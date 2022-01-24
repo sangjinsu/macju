@@ -3,10 +3,8 @@ import axios from "axios"
 // import { useDispatch, useSelector } from "react-redux";
 // import { Button } from 'react-bootstrap';
 
-
 // const PostCreate2 = () => {
 //   const [imgs, setImgs] = useState([]);
-  
 //   const onChange = async (event) =>  {
 //     const formData = new FormData();
 //     const imgList = event.target.files

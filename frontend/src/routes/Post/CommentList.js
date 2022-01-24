@@ -24,6 +24,11 @@ function CommentList() {
     dispatch({ type : "add", inputComment : dispatchComment })
     setcomments(store.getState().commentReducer)
   }
+
+  const deleteComment = (e) => {
+    dispatch({ type : "delete", i : e.target.attributes.commentid.value })
+    setcomments(store.getState().commentReducer)
+  }
   
 
   useEffect(async ()=>{
@@ -64,7 +69,7 @@ function CommentList() {
           return(
             <div className="list" key={i}>
               <p> { post.comment } </p>
-              {/* <button type="button" onClick={ () => dispatch({ type : "change", comments: comments, i : i }) }></button> */}
+              <button type="button" commentId={i} onClick={ deleteComment }>삭제</button>
             </div>
           );
         })

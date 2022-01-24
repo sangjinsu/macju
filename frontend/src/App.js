@@ -6,7 +6,6 @@ import CommentList from "./routes/Post/CommentList";
 import BeerList from './routes/Beer/BeerList.js';
 import Signup from './routes/Signup';
 
-
 function App() {
   return (
     <Router>

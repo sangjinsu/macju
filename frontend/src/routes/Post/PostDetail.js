@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
 import axios from "axios"
 import { useParams } from 'react-router-dom';
-// import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector, useStore } from "react-redux";
 import { BsHeartFill, BsHeart } from "react-icons/bs";
 import { Button } from 'react-bootstrap';
 
 function PostDetail() {
 
-//   const dispatch = useDispatch()
+  const dispatch = useDispatch()
   const [postnow, setpostnow] = useState()
   const { num } = useParams();
+  let state = useSelector((state)=>state)
+  const [test5, test55] = useState([])
+  const store = useStore()
 
   useEffect(async ()=>{
     try{
@@ -25,10 +28,22 @@ function PostDetail() {
     }
   }, [])
 
+  // useEffect(dispatch({type:"test"}),[])
+
+  useEffect( () => {
+    dispatch({type:"test"})
+    test55(store.getState()[0])
+    // test55(state.commentReducer)
+    console.log(test5)
+  }, [])
+
+  
+
   const [isLike, setisLike] = useState(false)
 
   return (
     <div>
+      {test5}
       <h1>POST detail</h1>
       {
         postnow && 

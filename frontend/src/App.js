@@ -11,9 +11,9 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/post"><PostList /></Route>
         <Route path="/post/new"><PostCreate /></Route>
         <Route path="/post/:num"><PostDetail /><CommentList /></Route>
+        <Route path="/post"><PostList /></Route>
         <Route path='/beer'><BeerList /></Route>
         <Route path='/signup'><Signup /></Route>
       </Switch>

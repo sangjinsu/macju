@@ -16,17 +16,14 @@ function CommentList() {
   const store = useStore((state)=>state)
   let dispatch = useDispatch();
 
-  
-
   const changeComment = (e) => {
     inputCommentChange(e.target.value);
   }
-  
 
-  const addComment = e => {
-    setaddCommentList([...addCommentList], e.tatget.value);
+  const addComment = () => {
+    dispatch({ type : "add", inputComment : dispatchComment })
+    setcomments(store.getState().commentReducer)
   }
-
   
 
   useEffect(async ()=>{
@@ -58,9 +55,7 @@ function CommentList() {
           value={ inputComment }
           onChange={ changeComment }
         />
-        <button type="button" onClick={ () => dispatch({ type : "add", comments: comments, inputComment : dispatchComment }) }>Add</button> <br/>
-        
-        <button type="submit" onClick={ addComment }>완료</button>
+        <button type="button" onClick={ addComment }>Add</button>
       </form>
 
       {

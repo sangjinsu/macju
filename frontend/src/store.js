@@ -16,11 +16,13 @@ const commentReducer = (state = [], action) => {
     const copyCommentList = [...state, action.inputComment]
     return copyCommentList
   }
-  // else if (action.type === "change"){
-  //   const copyCommentList = [...CommentData.comments]
-    
-  //   return copyCommentList
-  // }
+  else if (action.type === "delete"){
+    let copyCommentList = [...state]
+    console.log(copyCommentList)
+    copyCommentList.splice(action.i -1, 1)
+    console.log(copyCommentList)
+    return copyCommentList
+  }
   else{
     return state
   }

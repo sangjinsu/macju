@@ -30,47 +30,43 @@ function PostDetail() {
       {
         postnow &&
         <section class="about_section layout_padding">
-        <div class="container  ">
-
-          <div class="row">
-            <div class="col-md-6 ">
-              <div class="img-box">
-                <img src="https://img.hankyung.com/photo/202107/01.26934467.1-1200x.jpg" alt="" />
+          <div class="container  ">
+            <div class="row">
+              <div class="col-md-6 ">
+                <div class="img-box">
+                  <img src="https://img.hankyung.com/photo/202107/01.26934467.1-1200x.jpg" alt="" />
+                </div>
               </div>
-            </div>
-            <div class="col-md-6">
-              <div class="detail-box">
-                <div class="heading_container">
-                  <h2>
+              <div class="col-md-6">
+                <div class="detail-box">
+                  <div class="heading_container">
+                    <h2>
+                      {
+                        postnow.Tag.map((tag, i)=>{
+                          return(<span key={i}>#{tag}</span>)
+                        })
+                      }
+                    </h2>
+                  </div>
+                  <p>{ postnow.post }</p>
+                  <div className="heartInline">
                     {
-                      postnow.Tag.map((tag, i)=>{
-                        return(<span key={i}>#{tag}</span>)
-                      })
+                      isLike === true
+                      ? <BsHeart className="heartIcon" onClick={()=>{setisLike(!isLike)}}>{ postnow.likes }</BsHeart>
+                      : <BsHeartFill className="heartIcon" onClick={()=>{setisLike(!isLike)}}>{ postnow.likes }</BsHeartFill>
                     }
-                  </h2>
+                    <div>({ postnow.likes })</div>
+                  </div>
+                  <div>작성날자 : { postnow.created_at }</div>
+                  <a class="typebtn" href="">페일</a> <br />
+                  {/* 본인 일때만 수정, 삭제 가능하게 해야함 */}
+                  <a href="">수정하기</a>
+                  <a href="">삭제하기</a>
                 </div>
-                <p>{ postnow.post }</p>
-                <div className="heartInline">
-                  {
-                    isLike === true
-                    ? <BsHeart className="heartIcon" onClick={()=>{setisLike(!isLike)}}>{ postnow.likes }</BsHeart>
-                    : <BsHeartFill className="heartIcon" onClick={()=>{setisLike(!isLike)}}>{ postnow.likes }</BsHeartFill>
-                  }
-                  <div>({ postnow.likes })</div>
-                </div>
-                <div>작성날자 : { postnow.created_at }</div>
-                
-                <a class="typebtn" href="">페일</a> <br />
-                {/* <Button variant="light" size="sm">수정하기</Button>
-                <Button variant="danger" size="sm">삭제하기</Button> */}
-                {/* 본인 일때만 수정, 삭제 가능하게 해야함 */}
-                <a href="">수정하기</a>
-                <a href="">삭제하기</a>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
       }
     </div>
   )

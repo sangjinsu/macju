@@ -39,22 +39,26 @@ padding-left: 0;
 }
 
 @media (max-width: 767px) {
+  .img-box {
+    margin-right: 15px;
+    margin-bottom: 0;
+  }
 
   .about_section .detail-box,
   .book_section .form_container {
     margin-bottom: 45px;
   }
 
-  .about_section .row {
-    flex-direction: column-reverse;
-  }
+  /* .about_section .row {
+    flex-direction: column;
+  } */
 
   .offer_section .box {
     flex-direction: row;
     text-align: left;
   }
 
-  .offer_section .box .img-box {
+  .offer_section .box {
     margin-right: 15px;
     margin-bottom: 0;
   }

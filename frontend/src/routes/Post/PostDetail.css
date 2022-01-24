@@ -180,6 +180,11 @@ h2 {
   align-items: flex-start;
 }
 
+.commentList {
+  display: flex;
+  align-items: flex-start;
+}
+
 a.typebtn {
   display: inline-block;
   padding: 10px 30px;
@@ -197,4 +202,27 @@ a.typebtn {
   height: auto;
   margin-left: 5px;
   fill: #ffffff;
+}
+
+button.deletebtn{
+  display: inline-block;
+  padding: 10px 30px;
+  background-color: #ff3333;
+  color: #ffffff;
+  border-radius: 45px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  border: none;
+
+  padding: 2px 8px;
+  margin-top: 13px;
+
+  width: auto;
+  height: auto;
+  margin-left: 5px;
+  fill: #ffffff;
+}
+
+.heartIcon {
+  margin-top: 7px;
 }

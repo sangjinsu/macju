@@ -53,10 +53,10 @@ function PostDetail() {
                 <div className="heartInline">
                   {
                     isLike === true
-                    ? <BsHeart onClick={()=>{setisLike(!isLike)}} display="inline">{ postnow.likes }</BsHeart>
-                    : <BsHeartFill onClick={()=>{setisLike(!isLike)}} display="inline">{ postnow.likes }</BsHeartFill>
+                    ? <BsHeart className="heartIcon" onClick={()=>{setisLike(!isLike)}}>{ postnow.likes }</BsHeart>
+                    : <BsHeartFill className="heartIcon" onClick={()=>{setisLike(!isLike)}}>{ postnow.likes }</BsHeartFill>
                   }
-                  <div display="inline-block">({ postnow.likes })</div>
+                  <div>({ postnow.likes })</div>
                 </div>
                 <div>작성날자 : { postnow.created_at }</div>
                 

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useDispatch, useStore } from 'react-redux';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import axios from 'axios';
+import "./PostDetail.css"
 
 function CommentList() {
   const [comments, setcomments] = useState([]);
@@ -53,7 +54,42 @@ function CommentList() {
   return(
     
     <div className="CommentList">
-      <form action="">
+      <section class="about_section layout_padding">
+        <div class="container  ">
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="detail-box">
+                <div class="heading_container">
+                  <h2>Comment</h2>
+                </div>
+                <form action="">
+                  <input
+                    type="text"
+                    name="inputComment"
+                    value={ inputComment }
+                    onChange={ changeComment }
+                  />
+                  <button type="button" onClick={ addComment }>Add</button>
+                </form>
+                {
+        
+                  comments.map( (post, i) => {
+                    return(
+                      <div className="commentList" key={i}>
+                        <p> { post.comment } </p>
+                        <button class="deletebtn" type="button" commentId={i} onClick={ deleteComment }>삭제</button>
+                      </div>
+                    );
+                  })
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* <form action="">
         <input
           type="text"
           name="inputComment"
@@ -73,7 +109,7 @@ function CommentList() {
             </div>
           );
         })
-      }
+      } */}
 
     </div>
   )

@@ -58,7 +58,7 @@ function PostList() {
         </Card.Text>
         <span style={{color:'red'}}><i className="fas fa-heart"></i></span>{post.likes}
         <p>작성 시간{post.created_at}</p>
-        <Link to={`/v1/post/${post.postId}`}><Button variant="secondary">Detail</Button></Link>
+        <Link to={`/post/${post.postId}`}><Button variant="secondary">Detail</Button></Link>
       </Card.Body>
     </Card>)}
     </Col>

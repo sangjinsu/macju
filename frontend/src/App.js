@@ -5,18 +5,24 @@ import PostCreate from "./routes/Post/PostCreate";
 import CommentList from "./routes/Post/CommentList";
 import BeerList from './routes/Beer/BeerList.js';
 import Signup from './routes/Signup';
+import Navbar from './components/Navbar.js'
+import Footer from './components/Footer.js'
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route path="/post/new"><PostCreate /></Route>
-        <Route path="/post/:num"><PostDetail /><CommentList /></Route>
-        <Route path="/post"><PostList /></Route>
-        <Route path='/beer'><BeerList /></Route>
-        <Route path='/signup'><Signup /></Route>
-      </Switch>
-    </Router>
+    <>
+      <Router>
+        <Navbar></Navbar>
+        <Switch>
+          <Route path="/post/new"><PostCreate /></Route>
+          <Route path="/post/:num"><PostDetail /><CommentList /></Route>
+          <Route path="/post"><PostList /></Route>
+          <Route path='/beer'><BeerList /></Route>
+          <Route path='/signup'><Signup /></Route>
+        </Switch>
+        <Footer></Footer>
+      </Router>
+    </>
   );
 }
 

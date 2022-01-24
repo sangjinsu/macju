@@ -42,11 +42,14 @@ function PostDetail() {
 
   return (
     <div>
+      <img src="img/f2.png"></img>
+
       {test5}
       <h1>POST detail</h1>
       {
         postnow && 
         <div>
+          
           <img src="https://img.hankyung.com/photo/202107/01.26934467.1-1200x.jpg" width="30%"></img>
           {/* <img src={postnow.img } alt="detail 이미지"></img> */}
           <div>{ postnow.post }</div>

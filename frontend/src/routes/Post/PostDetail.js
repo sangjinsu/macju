@@ -43,7 +43,7 @@ function PostDetail() {
                     <h2>
                       {
                         postnow.Tag.map((tag, i)=>{
-                          return(<span key={i}>#{tag}</span>)
+                          return(<span className="postTag" key={i}>#{tag}</span>)
                         })
                       }
                     </h2>

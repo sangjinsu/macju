@@ -34,6 +34,5 @@ const commentReducer = (state = [], action) => {
 }
 
 
-
 const store = createStore( combineReducers( {reducer, commentReducer} ))
 export default store;

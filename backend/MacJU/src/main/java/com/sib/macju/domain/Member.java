@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -40,4 +42,42 @@ public class Member {
 
     @ColumnDefault("0")
     private int grade;
+
+    @ManyToOne
+    @JoinColumn
+    private Member following = this;
+
+    @ManyToOne
+    @JoinColumn
+    private Member follower = this;
+
+    @OneToMany(mappedBy = "following")
+    private List<Member> followings = new ArrayList<>();
+
+    @OneToMany(mappedBy = "follower")
+    private List<Member> followers = new ArrayList<>();
+
+    public void addFollowing(Member following) {
+        this.followings.add(following);
+
+        if (!following.getFollowers().contains(this)) {
+            following.getFollowers().add(this);
+        }
+
+        if (!following.getFollower().getFollowers().contains(this)) {
+            following.getFollower().getFollowers().add(this);
+        }
+    }
+
+    public void addFollower(Member follower) {
+        this.followers.add(follower);
+
+        if (!follower.getFollowings().contains(this)) {
+            follower.getFollowings().add(this);
+        }
+
+        if (!follower.getFollowing().getFollowings().contains(this)) {
+            follower.getFollowing().getFollowings().add(this);
+        }
+    }
 }

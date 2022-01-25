@@ -4,27 +4,32 @@ import './responsive.css'
 import { Link } from "react-router-dom"
 
 function NavBar(){
+
+  const toggleClick = () => {
+    document.getElementById("tglButton").click();
+  }
+
   return(
+    <div className='sub_page'>
     <div class="hero_area">
       <div class="bg-box">
-        <img src="img/hero-bg.jpg" alt=""></img>
+        {/* <img src="img/hero-bg.jpg" alt=""></img> */}
       </div>
       <header class="header_section">
         <div class="container">
-          <nav class="navbar navbar-expand-lg custom_nav-container ">
-            <a class="navbar-brand" href="index.html">
+          <nav class="navbar navbar-expand-sm custom_nav-container ">
+            <a class="navbar-brand" href="/home">
               <span>
                 MacJU
               </span>
             </a>
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button id='tglButton' class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class=""> </span>
-              {}
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav  mx-auto ">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent" onClick={toggleClick}>
+              <ul class="navbar-nav mx-auto" >
                 <li class="nav-item">
                   <Link class='nav-link' to='/home'>Home</Link>
                 </li>
@@ -48,13 +53,13 @@ function NavBar(){
                   <Link class='nav-link' to='/signup'>login</Link>
                 </div>
               </div>
+              
             </div>
           </nav>
         </div>
       </header>
-      
     </div>
-
+    </div>
   )
 }
 export default NavBar;

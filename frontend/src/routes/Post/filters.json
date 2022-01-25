@@ -1,0 +1,5 @@
+[
+  { "label": "all", "isChecked": true },
+  { "label": "popular", "isChecked": false },
+  { "label": "recent", "isChecked": false }
+]

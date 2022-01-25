@@ -3,6 +3,8 @@ import axios from "axios"
 import {Link} from "react-router-dom"
 import { useDispatch, useSelector, useStore } from "react-redux";
 import {Button, Card, Col, Container, Row} from "react-bootstrap"
+import "../../styles/postIndex.css"
+
 function PostList() {
   const dispatch = useDispatch()
   //const text = useSelector((state:any) => state)
@@ -13,8 +15,8 @@ function PostList() {
   const onSelect = (event) => {
     dispatch({type:event.target.value})
     setOpt(event.target.value)
-    setStat(store.getState()[0].text)
-    console.log(store.getState()[0].text)
+    setStat(store.getState().reducer[0].text)
+
     //stat 지우고 setposts로 post값 가져올것.
     //useSelector로 가져올경우 store 는 변경이 되지만 const 에서 정의한 변수값이 반영되는 시점이 좀 더 늦기 때문에 store에서 직접 꺼내옴. 
   }
@@ -28,6 +30,7 @@ function PostList() {
 
   return (
     <>
+
     <h1>POST</h1>      
       <select onChange={onSelect}>
         <option>
@@ -40,35 +43,29 @@ function PostList() {
           popular
         </option>
       </select>
-      <div>
         {opt == "recent" ? <h1> 최신 순 게시글</h1> : <h2>인기순 게시글</h2>}
-        <br></br>
         {stat}
-    <Container>
-      <Row xs={1} md={2} className="g-4">
-        <Col>    
-    {posts&&posts.map((post)=> <Card 
-      bg={'info'}
-      
-      style={{width: '18rem', margin:"20px"}} key={post.postId}>
-      <Card.Img variant="top" src={post.img} />
-      <Card.Body>
+        <br></br>
+    <Row xs={1} sm={2} md={4} className="g-4">
+    {posts&&posts.map((post)=><Col key={post.id}> <div
+      className="box"
+      >
+      <div className="img-box">
+      <Card.Img className="img" variant="top" src={post.img} width={300}/>
+      </div>
+      <Card.Body className="detail-box">
         <Card.Text>
         {post.post&&post.post.length > 15 ? post.post.substr(0, 15) + "....": post.post}
         </Card.Text>
-        <span style={{color:'red'}}><i className="fas fa-heart"></i></span>{post.likes}
-        <p>작성 시간{post.created_at}</p>
-        <Link to={`/v1/post/${post.postId}`}><Button variant="secondary">Detail</Button></Link>
+        <p className="fontaws"><i className="fas fa-heart" style={{color:"red"}}></i>{post.likes}</p>
+        <p className="post-meta">작성한 사람 :{null} 작성 시간{post.created_at}</p>
+        <Link to={`/post/${post.id}`}><Button variant="secondary">Detail</Button></Link>
       </Card.Body>
-    </Card>)}
-    </Col>
+    </div></Col>)}
     </Row>
-    </Container>
-      </div>
-     
-
     </>
   )
   }
+  
 
 export default PostList;

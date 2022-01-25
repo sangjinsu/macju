@@ -19,7 +19,6 @@ const reducer = (state = [], action) => {
 }
 
 const commentReducer = (state = [], action) => {
-  console.log(action.comments)
   // state = [...action.comments]
   if (action.type === "add"){
     const copyCommentList = [...action.comments, action.inputComment]

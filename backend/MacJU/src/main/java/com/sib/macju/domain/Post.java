@@ -37,7 +37,6 @@ public class Post {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "comment_id")
-    List<Post> posts = new ArrayList<>();
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    List<Comment> comments = new ArrayList<>();
 }

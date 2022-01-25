@@ -36,4 +36,6 @@ public class Beer {
     @OneToMany(mappedBy = "beer", cascade = CascadeType.ALL)
     private List<MemberRateBeer> memberRateBeers = new ArrayList<>();
 
+    @OneToMany(mappedBy = "beer", cascade = CascadeType.ALL)
+    private List<Post> posts = new ArrayList<>();
 }

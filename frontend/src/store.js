@@ -1,15 +1,5 @@
 import { combineReducers, createStore } from "redux"
 
-
-// useEffect(async ()=>{
-//   //api : http://localhost:3000/v1/post
-//     const json = await axios.get("http://localhost:3000/data/postData.json")
-//     setposts(json.data)
-//   }, []
-// )
-
-
-
 const reducer = (state = [], action) => {
   if (action.type === "recent"){
     return [{text:'RECENT'}]
@@ -19,20 +9,22 @@ const reducer = (state = [], action) => {
 }
 
 const commentReducer = (state = [], action) => {
-  // state = [...action.comments]
-  if (action.type === "add"){
-    const copyCommentList = [...action.comments, action.inputComment]
-    return copyCommentList
-  }else if (action.type === "change"){
-    const copyCommentList = [...action.comments]
-    // copyCommentList[action.i]
+  if (action.type === "dataLoading") {
+    state = action.jsonData
+    return state
+  }else if (action.type === "add"){
+    const copyCommentList = [...state, action.inputComment]
+    return copyCommentList // return된 copyCommentList가 state(기존reducer에 저장된 값)가 된다
+  }
+  else if (action.type === "delete"){
+    let copyCommentList = [...state]
+    copyCommentList.splice(action.i, 1)
     return copyCommentList
   }
   else{
     return state
   }
 }
-
 
 
 const store = createStore( combineReducers( {reducer, commentReducer} ))

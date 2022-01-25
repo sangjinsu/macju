@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios"
 import { useParams } from 'react-router-dom';
-// import { useDispatch, useSelector } from "react-redux";
 import { BsHeartFill, BsHeart } from "react-icons/bs";
 import { Button } from 'react-bootstrap';
+import './PostDetail.css'
 
 function PostDetail() {
-
-//   const dispatch = useDispatch()
   const [postnow, setpostnow] = useState()
   const { num } = useParams();
 
@@ -28,39 +26,48 @@ function PostDetail() {
   const [isLike, setisLike] = useState(false)
 
   return (
-    <div>
-      <h1>POST detail</h1>
+    <div className="PostDetail">
       {
-        postnow && 
-        <div>
-          <img src="https://img.hankyung.com/photo/202107/01.26934467.1-1200x.jpg" width="30%"></img>
-          {/* <img src={postnow.img } alt="detail 이미지"></img> */}
-          <div>{ postnow.content }</div>
-          
-          <div>
-            {
-              isLike === true
-              ? <BsHeart onClick={()=>{setisLike(!isLike)}}></BsHeart>
-              : <BsHeartFill onClick={()=>{setisLike(!isLike)}}></BsHeartFill>
-            }
-            <div>({ postnow.likes })</div>
+        postnow &&
+        <section class="about_section layout_padding">
+          <div class="container  ">
+            <div class="row">
+              <div class="col-md-6 ">
+                <div class="img-box">
+                  <img src="https://img.hankyung.com/photo/202107/01.26934467.1-1200x.jpg" alt="" />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="detail-box">
+                  <div class="heading_container">
+                    <h2>
+                      {
+                        postnow.Tag.map((tag, i)=>{
+                          return(<span className="postTag" key={i}>#{tag}</span>)
+                        })
+                      }
+                    </h2>
+                  </div>
+                  <p>{ postnow.post }</p>
+                  <div className="heartInline">
+                    {
+                      isLike === true
+                      ? <BsHeart className="heartIcon" onClick={()=>{setisLike(!isLike)}}>{ postnow.likes }</BsHeart>
+                      : <BsHeartFill className="heartIcon" onClick={()=>{setisLike(!isLike)}}>{ postnow.likes }</BsHeartFill>
+                    }
+                    <div>({ postnow.likes })</div>
+                  </div>
+                  <div>작성날자 : { postnow.created_at }</div>
+                  <a class="typebtn" href="">페일</a> <br />
+                  {/* 본인 일때만 수정, 삭제 가능하게 해야함 */}
+                  <a href="">수정하기</a>
+                  <a href="">삭제하기</a>
+                </div>
+              </div>
+            </div>
           </div>
-
-          <div>
-            {
-              postnow.Tag.map((tag)=>{
-                return(<div>#{tag}</div>)
-              })
-            }
-            <div>{ postnow.created_at } 작성</div>
-          </div>
-          
-        </div>
-      }  
-      {/* 본인 일때만 수정, 삭제 가능하게 해야함 */}
-      <Button variant="light" size="sm">수정하기</Button>
-      <Button variant="danger" size="sm">삭제하기</Button>
-      <hr></hr>
+        </section>
+      }
     </div>
   )
   }

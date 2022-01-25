@@ -1,5 +1,6 @@
-package com.sib.macju.domain;
+package com.sib.macju.domain.member;
 
+import com.sib.macju.domain.post.Post;
 import lombok.Getter;
 
 import javax.persistence.*;

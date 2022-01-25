@@ -1,5 +1,8 @@
-package com.sib.macju.domain;
+package com.sib.macju.domain.hashtag;
 
+import com.sib.macju.domain.beer.BeerHasFlavorHashTag;
+import com.sib.macju.domain.member.MemberFondFlavorHashTag;
+import com.sib.macju.domain.member.RateHasFlavorHashTag;
 import lombok.Getter;
 import javax.persistence.*;
 import java.util.ArrayList;

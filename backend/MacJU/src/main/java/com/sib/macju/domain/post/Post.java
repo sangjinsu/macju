@@ -1,5 +1,8 @@
-package com.sib.macju.domain;
+package com.sib.macju.domain.post;
 
+import com.sib.macju.domain.beer.Beer;
+import com.sib.macju.domain.comment.Comment;
+import com.sib.macju.domain.member.Member;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

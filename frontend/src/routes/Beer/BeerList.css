@@ -171,6 +171,21 @@ h2 {
   margin-top: 10px;
 }
 
+.detail-box .detail-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.detail-title .detailBtn {
+  font-size: smaller;
+  padding: 2px;
+  /* background-color: #e69c00; */
+  color: #ffffff;
+  /* border-radius: 5px */
+}
+
+
 .food_section .box .options {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -196,11 +211,6 @@ h2 {
           align-items: center;
 }
 
-.food_section .box .options a svg {
-  width: 18px;
-  height: auto;
-  fill: #ffffff;
-}
 
 .food_section .box:hover .img-box img {
   -webkit-transform: scale(1.1);
@@ -241,4 +251,7 @@ h2 {
   border-radius: 15px;
   background-color: #e69c00;
 
+}
+.heartIcon {
+  color: red;
 }

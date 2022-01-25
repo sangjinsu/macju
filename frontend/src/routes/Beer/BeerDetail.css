@@ -6,8 +6,18 @@ body {
   overflow-x: hidden;
 }
 
+.about_section .backBtn {
+  margin-bottom: 30px;
+  color: #ffffff;
+}
+.backBtn .btnText {
+  color: #ffffff;
+  text-decoration: none;
+}
+
 .layout_padding {
-  padding: 90px 0;
+  padding: 30px 0;
+  padding-bottom: 90px;
 }
 
 .layout_padding2 {
@@ -35,54 +45,13 @@ h2 {
   font-family: 'Dancing Script', cursive;
 }
 
-.heading_container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-}
 
-.heading_container h2 {
-  position: relative;
-  margin-bottom: 0;
+.heading_title h2 {
   font-size: 2.5rem;
   font-weight: bold;
 }
 
-.heading_container h2 span {
-  color: #ffbe33;
-}
 
-.heading_container p {
-  margin-top: 10px;
-  margin-bottom: 0;
-}
-
-.heading_container.heading_center {
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  text-align: center;
-}
-
-.book_section .heading_container {
-  margin-bottom: 25px;
-}
-
-.contact_section .heading_container {
-  margin-bottom: 45px;
-}
-
-
-.client_section .heading_container {
-  margin-bottom: 30px;
-}
 
 .about_section {
   background: #222831;
@@ -132,97 +101,49 @@ h2 {
   background-color: #e69c00;
 }
 
-.slider_section .img-box img {
-  width: 100%;
-}
-
-
-.offer_section .box .detail-box h5 {
-  font-family: 'Dancing Script', cursive;
-  font-size: 24px;
-  margin: 0;
-}
-
-.offer_section .box .detail-box h6 {
-  font-family: 'Dancing Script', cursive;
-  margin: 10px 0;
-}
-
-.offer_section .box .detail-box h6 span {
-  font-size: 2.5rem;
-  font-weight: bold;
-}
-
-.offer_section .box .detail-box a {
-  display: inline-block;
-  padding: 10px 30px;
-  background-color: #ffbe33;
-  color: #ffffff;
-  border-radius: 45px;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  border: none;
-}
-
-.offer_section .box .detail-box a:hover {
-  background-color: #e69c00;
-}
-
-.offer_section .box .detail-box a svg {
-  width: 20px;
-  height: auto;
-  margin-left: 5px;
-  fill: #ffffff;
-}
-
-.heartInline {
+.spaceBetween {
   display: flex;
-  align-items: flex-start;
-}
-
-.commentList {
-  display: flex;
-  align-items: flex-start;
-}
-
-a.typebtn {
-  display: inline-block;
-  padding: 10px 30px;
-  background-color: #ffbe33;
-  color: #ffffff;
-  border-radius: 45px;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  border: none;
-
-  padding: 10px 45px;
-  margin-top: 15px;
-
-  width: auto;
-  height: auto;
-  margin-left: 5px;
-  fill: #ffffff;
-}
-
-button.deletebtn{
-  display: inline-block;
-  padding: 10px 30px;
-  background-color: #ff3333;
-  color: #ffffff;
-  border-radius: 45px;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  border: none;
-
-  padding: 2px 8px;
-  margin-top: 13px;
-
-  width: auto;
-  height: auto;
-  margin-left: 5px;
-  fill: #ffffff;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .heartIcon {
-  margin-top: 7px;
+  width: 150%;
+  color: red;
+}
+.heartInline {
+  display: flex;
+  align-items: center;
+}
+
+.RateBtn {
+  font-size: smaller;
+  display: inline-block;
+  padding: 7px;
+  background-color: #e69c00;
+  color: #ffffff;
+  border-radius: 45px;
+  border: none;
+}
+
+.star {
+  font-size: x-large;
+}
+
+.starInline {
+  display: flex;
+  align-items: flex-end;
+}
+
+
+.beerCategory {
+  margin: 15px 0px;
+  padding: 5px;
+  border-radius: 10px;
+  background-color: #e69c00;
+  display: inline-block;
+}
+
+.hashtag {
+  font-size: 1.1em;
 }

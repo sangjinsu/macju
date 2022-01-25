@@ -2,6 +2,8 @@ import React from 'react';
 import { useState } from "react";
 import { BsHeartFill, BsHeart } from "react-icons/bs";
 import './BeerList.css'
+import { Link } from "react-router-dom"
+
 
 function BeerList(){
   const [isLike, setisLike] = useState(false)
@@ -50,7 +52,10 @@ function BeerList(){
                       <img src="img/terra.png"></img>
                     </div>
                     <div class="detail-box">
-                      <h5>Terra</h5>
+                      <div class='detail-title'>
+                        <h5>테라</h5>
+                        <Link to='/beer/1' class='detailBtn'>자세히</Link>
+                      </div>
                       <div class='star'>★★★★☆</div>
                       <p>
                         Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
@@ -63,8 +68,8 @@ function BeerList(){
                         <a>
                           {
                             isLike === true
-                            ? <BsHeart onClick={()=>{setisLike(!isLike)}}></BsHeart>
-                            : <BsHeartFill onClick={()=>{setisLike(!isLike)}}></BsHeartFill>
+                            ? <BsHeart  size="18" onClick={()=>{setisLike(!isLike)}}></BsHeart>
+                            : <BsHeartFill  size="18" onClick={()=>{setisLike(!isLike)}}></BsHeartFill>
                           }
                         </a>
                       </div>
@@ -80,7 +85,10 @@ function BeerList(){
                       <img src="img/terra.png"></img>
                     </div>
                     <div class="detail-box">
-                      <h5>Terra</h5>
+                      <div class='detail-title'>
+                        <h5>테라</h5>
+                        <Link to='/beer/1' class='detailBtn'>자세히</Link>
+                      </div>
                       <div class='star'>★★★★☆</div>
                       <p>
                         Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
@@ -93,8 +101,8 @@ function BeerList(){
                         <a>
                           {
                             isLike === true
-                            ? <BsHeart onClick={()=>{setisLike(!isLike)}}></BsHeart>
-                            : <BsHeartFill onClick={()=>{setisLike(!isLike)}}></BsHeartFill>
+                            ? <BsHeart  size="18" onClick={()=>{setisLike(!isLike)}}></BsHeart>
+                            : <BsHeartFill  size="18" onClick={()=>{setisLike(!isLike)}}></BsHeartFill>
                           }
                         </a>
                       </div>

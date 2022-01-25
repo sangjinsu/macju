@@ -50,7 +50,7 @@ function NavBar(){
                   </button>
                 </form>
                 <div class="order_online">
-                  <Link class='nav-link' to='/signup'>login</Link>
+                  <Link class='nav-link login' to='/signup'>login</Link>
                 </div>
               </div>
               

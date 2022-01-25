@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import './Signup.css'
 
 function Signup() {
   const [nickname, nicknameChange] = useState("");
@@ -60,7 +61,69 @@ function Signup() {
 
   return(
     <div className="Signup">
-      <form action='./login'>
+      <section class="book_section layout_padding">
+        <div class="container">
+          <div class="heading_container">
+            <h2>
+              Signup
+            </h2>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form_container">
+                <form action="./login">
+                  <div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="NickName"
+                      name="nickname"
+                      value={ nickname }
+                      onChange={ changeNickName }
+                    />
+                  </div>
+                  {/* <button type="button" onClick={ checkNickName } disabled={ nickBtn }>중복확인</button> <br/> */}
+                  <div>
+                    <input
+                      type="number"
+                      class="form-control"
+                      placeholder="Age"
+                      name="age"
+                      value={ age }
+                      onChange={ changeAge }
+                    />
+                  </div>
+                  <div>
+                    <select class="form-control nice-select wide">
+                      <option value="" disabled selected>
+                        성별
+                      </option>
+                      <option value="남자">
+                        남자
+                      </option>
+                      <option value="여자">
+                        여자
+                      </option>
+                    </select>
+                  </div>
+                  <div class="btn_box">
+                    <button>
+                      SignUp Now
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="map_container ">
+                <div id="googleMap">image띄우는 곳</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* <form action='./login'>
         <h2>회원가입</h2>
         <label>별명:</label>
         <input
@@ -100,7 +163,7 @@ function Signup() {
           onChange={ changeAge }
         /><br/>
         <button type="submit" disabled={ submitBtn }>완료</button>
-      </form>
+      </form> */}
   
     </div>
   )

@@ -4,7 +4,8 @@ import PostDetail from "./routes/Post/PostDetail";
 import PostCreate from "./routes/Post/PostCreate";
 import CommentList from "./routes/Post/CommentList";
 import BeerList from './routes/Beer/BeerList.js';
-import Signup from './routes/Signup';
+import Signup from './routes/User/Signup';
+import Login from './routes/User/Login';
 import Navbar from './components/Navbar.js';
 import Footer from './components/Footer.js';
 import BeerDetail from './routes/Beer/BeerDetail';
@@ -20,6 +21,7 @@ function App() {
           <Route path="/post"><PostList /></Route>
           <Route path='/beer/:num'><BeerDetail /></Route>
           <Route path='/beer'><BeerList /></Route>
+          <Route path='/login'><Login /></Route>
           <Route path='/signup'><Signup /></Route>
           <Route path="/user/:username"><Profile /></Route>
         </Switch>

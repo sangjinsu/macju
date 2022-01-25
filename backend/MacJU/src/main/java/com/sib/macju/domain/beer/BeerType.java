@@ -1,4 +1,4 @@
-package com.sib.macju.domain;
+package com.sib.macju.domain.beer;
 
 import lombok.AccessLevel;
 import lombok.Getter;

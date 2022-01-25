@@ -1,6 +1,7 @@
-package com.sib.macju.domain;
+package com.sib.macju.domain.beer;
 
 
+import com.sib.macju.domain.hashtag.AromaHashTag;
 import lombok.Data;
 
 import javax.persistence.*;

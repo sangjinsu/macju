@@ -1,4 +1,4 @@
-package com.sib.macju.domain;
+package com.sib.macju.domain.member;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -8,19 +8,19 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@Table(name = "photo")
+@Table(name = "follow")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Photo {
+public class Follow {
 
     @Id
-    @Column(name = "photo_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long photoId;
+    private long id;
 
     @ManyToOne
-    @JoinColumn(name = "post_id")
-    private Post post;
+    @JoinColumn(name = "follow_id")
+    private Member follower;
 
-    @Column(unique = true)
-    private String data;
+    @ManyToOne
+    @JoinColumn(name = "following_id")
+    private Member following;
 }

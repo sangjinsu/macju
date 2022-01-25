@@ -1,6 +1,7 @@
-package com.sib.macju.domain;
+package com.sib.macju.domain.member;
 
 
+import com.sib.macju.domain.hashtag.FlavorHashTag;
 import lombok.Data;
 
 import javax.persistence.*;

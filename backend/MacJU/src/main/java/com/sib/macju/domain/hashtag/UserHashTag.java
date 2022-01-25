@@ -1,5 +1,6 @@
-package com.sib.macju.domain;
+package com.sib.macju.domain.hashtag;
 
+import com.sib.macju.domain.post.PostHasUserHashTag;
 import lombok.Data;
 import lombok.Getter;
 import javax.persistence.*;

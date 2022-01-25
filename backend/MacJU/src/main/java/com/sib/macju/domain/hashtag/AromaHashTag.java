@@ -1,5 +1,8 @@
-package com.sib.macju.domain;
+package com.sib.macju.domain.hashtag;
 
+import com.sib.macju.domain.beer.BeerHasAromaHashTag;
+import com.sib.macju.domain.member.MemberFondAromaHashTag;
+import com.sib.macju.domain.member.RateHasAromaHashTag;
 import lombok.Data;
 import lombok.Getter;
 

@@ -32,6 +32,8 @@ public class Beer {
 
     private Double volume;
 
+    private String photoPath;
+
     @Column(name = "english_name", unique = true, nullable = false)
     private String englishName;
 

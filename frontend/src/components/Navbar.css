@@ -10,6 +10,7 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  z-index: 10000;
 }
 
 .bg-box {
@@ -19,6 +20,7 @@
   width: 100%;
   height: 100%;
   background-color: #0c0c0c;
+  
 }
 
 .bg-box img {
@@ -38,6 +40,7 @@
   left: 0;
   width: 100%;
   height: 100%;
+
 }
 
 .sub_page .hero_area .bg-box img {
@@ -86,6 +89,7 @@
   border-radius: 5px;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
+  
 }
 
 .custom_nav-container .navbar-nav .nav-item:hover .nav-link, .custom_nav-container .navbar-nav .nav-item.active .nav-link {

@@ -15,7 +15,8 @@ import RecommendBeer from "components/Main/RecommendBeer";
 
 function App() {
   return (
-    <>
+    <div>
+      
       <Router>
         <Navbar></Navbar>
         <Switch>
@@ -31,7 +32,7 @@ function App() {
         </Switch>
         <Footer></Footer>
       </Router>
-    </>
+    </div>
   );
 }
 

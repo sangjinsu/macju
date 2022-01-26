@@ -10,6 +10,7 @@ function NavBar(){
   }
 
   return(
+    <div className='zindex'>
     <div className='sub_page'>
     <div class="hero_area">
       <div class="bg-box">
@@ -61,6 +62,6 @@ function NavBar(){
       </header>
     </div>
     </div>
-  )
+    </div>)
 }
 export default NavBar;

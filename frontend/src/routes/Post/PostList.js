@@ -4,6 +4,7 @@ import {Link} from "react-router-dom"
 import { useDispatch, useSelector, useStore } from "react-redux";
 import {Button, Card, Col, Container, Row} from "react-bootstrap"
 import "../../styles/postIndex.css"
+import FadeIn from 'react-fade-in';
 
 function PostList() {
   const dispatch = useDispatch()
@@ -30,7 +31,7 @@ function PostList() {
 
   return (
     <>
-
+    <div className="header">
     <h1>POST</h1>      
       <select onChange={onSelect}>
         <option>
@@ -45,9 +46,12 @@ function PostList() {
       </select>
         {opt == "recent" ? <h1> 최신 순 게시글</h1> : <h2>인기순 게시글</h2>}
         {stat}
-        <br></br>
+      </div>
+    <div className="container">
     <Row xs={1} sm={2} md={4} className="g-4">
-    {posts&&posts.map((post)=><Col key={post.id}> <div
+    {posts&&posts.map((post)=><Col key={post.id}>
+    <FadeIn>
+      <div
       className="box"
       >
       <div className="img-box">
@@ -61,9 +65,11 @@ function PostList() {
         <p className="post-meta">작성한 사람 :{null} 작성 시간{post.created_at}</p>
         <Link to={`/post/${post.id}`}><Button variant="secondary">Detail</Button></Link>
       </Card.Body>
-    </div></Col>)}
+    </div></FadeIn></Col>)}
     </Row>
+    </div>
     </>
+    
   )
   }
   

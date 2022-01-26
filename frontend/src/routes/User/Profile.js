@@ -1,12 +1,38 @@
-import UserProfile from "../../components/UserProfile"
-
+import UserProfile from "../../components/UserProfile.js"
+import ReactFullpage from '@fullpage/react-fullpage';
+import UserPost from "components/UserPost.js";
+import UserLike from "components/UserLike.js";
 
 
 const Profile = () => {
   return (
-    <>
-    <UserProfile />
-    </>
+    <ReactFullpage
+    scrollingSpeed = {1000} /* Options here */
+    licenseKey = {null}
+    render={({ state, fullpageApi }) => {
+      return (
+        <ReactFullpage.Wrapper>
+          <div className="section">
+            <UserProfile />
+            <p>Section 1 (welcome to fullpage.js)</p>
+            <button onClick={() => fullpageApi.moveSectionDown()}>
+              Click me to move down
+            </button>
+          </div>
+          <div className="section">
+            <UserPost />
+            <p>Section 2</p>
+          </div>
+          <div className="section">
+            <UserLike />
+            <p>Section 3</p>
+
+          </div>
+        </ReactFullpage.Wrapper>
+        
+      );
+    }}
+  />
   )
 }
 export default Profile;

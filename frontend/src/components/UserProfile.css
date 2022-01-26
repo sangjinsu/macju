@@ -1,0 +1,13 @@
+
+.fp-tableCell {
+  /* background-color: tomato; */
+}
+
+
+.user-profile{
+  display: flex;
+  flex-direction: row;
+}
+.img-box {
+  margin-right: 50px;
+}

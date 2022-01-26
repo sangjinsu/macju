@@ -2,10 +2,12 @@ import UserProfile from "../../components/UserProfile.js"
 import ReactFullpage from '@fullpage/react-fullpage';
 import UserPost from "components/UserPost.js";
 import UserLike from "components/UserLike.js";
-
+import NavBar from "components/Navbar.js";
 
 const Profile = () => {
   return (
+    <div>
+
     <ReactFullpage
     scrollingSpeed = {1000} /* Options here */
     licenseKey = {null}
@@ -33,6 +35,7 @@ const Profile = () => {
       );
     }}
   />
+  </div>
   )
 }
 export default Profile;

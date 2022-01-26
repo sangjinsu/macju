@@ -11,3 +11,14 @@
 .img-box {
   margin-right: 50px;
 }
+#name {
+  /* 폰트 적용할것 */
+  display: flex;
+  
+}
+#name div{
+  margin-right: 15px;
+}
+#profile-box{
+  margin-top:50px
+}

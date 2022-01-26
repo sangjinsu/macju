@@ -12,7 +12,8 @@ import Profile from "routes/User/Profile";
 
 function App() {
   return (
-    <>
+    <div>
+      
       <Router>
         <Navbar></Navbar>
         <Switch>
@@ -26,7 +27,7 @@ function App() {
         </Switch>
         <Footer></Footer>
       </Router>
-    </>
+    </div>
   );
 }
 

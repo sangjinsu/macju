@@ -33,7 +33,7 @@ function PostList() {
     <>
     <div className="header">
     <h1>POST</h1>      
-      <select onChange={onSelect}>
+      <select onChange={onSelect} style={{"width":200, "height":35}}>
         <option>
           정렬 순서를 선택하세요
         </option>

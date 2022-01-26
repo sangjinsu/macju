@@ -8,7 +8,7 @@ body {
   left: 50%;
   top: 50%;
   position: relative;
-  transform: translatex(-50%) translatey(-50%);
+  transform: translatex(-50%) translatey(-40%);
 }
 .contain svg {
   vertical-align: top;

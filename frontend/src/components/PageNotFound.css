@@ -13,6 +13,7 @@ body {
 .contain svg {
   vertical-align: top;
   width: 100%;
+  overflow: hidden;
 }
 .contain svg .beer {
   -webkit-animation-name: empty;
@@ -75,5 +76,5 @@ body {
 
 #asdasd {
   background-color: #fffaea;
-  height: 400px; /* 임의로 값 설정 */
+  height: 700px; /* 임의로 값 설정 */
 }

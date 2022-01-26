@@ -10,6 +10,7 @@ import Navbar from './components/Navbar.js';
 import Footer from './components/Footer.js';
 import BeerDetail from './routes/Beer/BeerDetail';
 import Profile from "routes/User/Profile";
+import RecommendBeer from "components/Main/RecommendBeer";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path='/login'><Login /></Route>
           <Route path='/signup'><Signup /></Route>
           <Route path="/:username"><Profile /></Route>
+          <Route path="/"><RecommendBeer /></Route>
         </Switch>
         <Footer></Footer>
       </Router>

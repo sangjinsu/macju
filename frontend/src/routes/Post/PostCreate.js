@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import './PostCreate.css'
+import { Link } from 'react-router-dom';
 
 import axios from "axios"
 // import { useDispatch, useSelector } from "react-redux";
@@ -97,59 +99,70 @@ function PostCreate() {
   // )
 
   return(
-    <div>
-      <h1>Post 작성하기</h1>
-      <form>
-        {/* multiple='multiple'  */}
-        {/* <label>사진 고르기 : 
-          <input type='file' 
-            accept='image/*' 
-            className='imgInput' onChange={saveImg}
-          ></input>
-        </label> */}
-        {/* <br/> */}
-        {/* <div className="postImg">
-          {
-            // postImgs && postImgs.map((postimg)=>{
-            //   {console.log(postimg)}
-            //   <img src={postimg}></img>
-            // })
-            postImg && <img src={postImg} width="300px"></img>
-          }
-        </div>
-        
-        <br/>
-        {  postImg && <button onClick={() => deleteImg()} > 삭제 </button> }
-        */}
+    <div className="postcreate">
+      <section class="postcreate_section layout_padding_postcreate">
+        <div class="container">
+          {/* 맥주detail로 가기 버튼 */}
+          <div class='backBtn_postcreate'>
+            <Link class='backBtn_text' to='/beer/1'><i class="fas fa-angle-double-left fa-lg"></i> back</Link>
+          </div>
+          <div class="heading_postcreate">
+            <h2>Create Post</h2>
+          </div>
+          <div class="row">
+            <div class="col-md-8 offset-md-2">
+              <div class="form_container">
+                <form action="/beer/1">
+                  {/* 사진 선택하기 */}
+                  <div>
+                    <input type="file" multiple accept="image/*" onChange={onChange} />
+                    
+                  </div>
 
-        <input type="file" multiple accept="image/*" onChange={onChange} />
-        <div>
-          { imgs&&imgs.map((img, index)=>(
-            <img key={index} alt="sample" src={img} width={150} style={{margin:"auto"}} />)
-          )}
-        </div>
+                  {/* 사진 띄우는곳 */}
+                  <div>
+                    <div class='image_container'>
+                      { imgs&&imgs.map((img, index)=>(
+                        <img key={index} alt="sample" src={img}/>)
+                      )}
+                    </div>
+                  </div>
+                  <hr/>
 
-        <hr/>
-        
-        <textarea maxLength="2200"
-          required
-          placeholder="문구 입력..."
-          rows="5"
-          cols='40'
-          value={postText}
-          onChange={changeText}
-        ></textarea>
-        <br/>
-        <textarea value={postHashTag}
-          required
-          placeholder="문구 입력..."
-          onChange={changeHashTag}
-          rows="1"
-          cols='40'
-        ></textarea>
-        <br/>
-        <button type="submit"> 작성 완료</button>
-      </form>
+                  {/* 입력창 */}
+                  <div class='input_postcreate'>
+                    <textarea 
+                      className="postcreate_textarea"
+                      maxLength="2200"
+                      required
+                      placeholder="문구 입력..."
+                      rows="5"
+                      // cols='50'
+                      value={postText}
+                      onChange={changeText}
+                    ></textarea>
+                    <br/>
+                    <textarea 
+                      className="postcreate_textarea"
+                      value={postHashTag}
+                      required
+                      placeholder="해시태그 입력..."
+                      onChange={changeHashTag}
+                      rows="1"
+                      // cols='50'
+                    ></textarea>
+                    <br/>
+                  </div>
+                  <div>
+                    <button type="submit"> 작성 완료</button>
+                  </div>
+                </form>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
 
   )

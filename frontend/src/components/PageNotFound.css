@@ -7,7 +7,7 @@ body {
   width: 400px;
   left: 50%;
   top: 50%;
-  position: absolute;
+  position: relative;
   transform: translatex(-50%) translatey(-50%);
 }
 .contain svg {

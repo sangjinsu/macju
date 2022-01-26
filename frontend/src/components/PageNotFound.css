@@ -23,6 +23,7 @@ body {
           animation-duration: 4s;
   -webkit-animation-timing-function: linear;
           animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
   fill: #F9CF68;
 }
 
@@ -70,4 +71,9 @@ body {
     -webkit-clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
             clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
   }
+}
+
+#asdasd {
+  background-color: #fffaea;
+  height: 400px; /* 임의로 값 설정 */
 }

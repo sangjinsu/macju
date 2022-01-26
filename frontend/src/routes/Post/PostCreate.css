@@ -1,0 +1,95 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap");
+body {
+  font-family: "Open Sans", sans-serif;
+  color: #0c0c0c;
+  background-color: #ffffff;
+  overflow-x: hidden;
+}
+
+.layout_padding_postcreate {
+  padding-top: 70px;
+  padding-bottom: 90px;
+}
+.backBtn_postcreate {
+  margin-bottom: 20px;
+}
+
+.backBtn_text {
+  color: black;
+  text-decoration: none;
+}
+
+h1,
+h2 {
+  font-family: 'Dancing Script', cursive;
+}
+
+.heading_postcreate {
+  margin-bottom: 40px;
+
+}
+
+.heading_postcreate h2 {
+  margin-bottom: 0;
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.postcreate_section {
+  /* position: relative; */
+  display: flex;
+  justify-content: center;
+
+}
+
+.postcreate_section .heading_container {
+  margin-bottom: 25px;
+}
+
+.postcreate_section .form_container .form-control {
+  width: 100%;
+  border: none;
+  height: 50px;
+  margin-bottom: 25px;
+  padding-left: 25px;
+  outline: none;
+  border-radius: 5px;
+  outline: none;
+
+}
+
+.input_postcreate {
+  margin: 0 auto;
+}
+
+.postcreate_textarea {
+  resize: none;
+  width: 100%;
+
+}
+
+.postcreate_section .form_container button {
+  margin-top: 15px;
+  border: none;
+  text-transform: uppercase;
+  display: inline-block;
+  padding: 10px 55px;
+  background-color: #ffbe33;
+  color: #ffffff;
+  border-radius: 45px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  border: none;
+}
+
+.postcreate_section .form_container button:hover {
+  background-color: #e69c00;
+}
+
+.postcreate_section .image_container {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  overflow: auto;
+}

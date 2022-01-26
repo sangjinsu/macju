@@ -26,8 +26,8 @@ function App() {
           <Route path='/beer'><BeerList /></Route>
           <Route path='/login'><Login /></Route>
           <Route path='/signup'><Signup /></Route>
+          <Route path="/home"><RecommendBeer /></Route>
           <Route path="/:username"><Profile /></Route>
-          <Route path="/"><RecommendBeer /></Route>
         </Switch>
         <Footer></Footer>
       </Router>

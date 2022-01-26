@@ -29,7 +29,7 @@ function BeerDetail() {
     <div className="BeerDetail">
       {
         postnow &&
-        <section class="about_section layout_padding">
+        <section class="about_section layout_padding_beer">
 
           <div class="container">
             {/* 목록으로 가기 버튼 */}
@@ -84,9 +84,27 @@ function BeerDetail() {
                 </div>
               </div>
             </div>
+
           </div>
         </section>
       }
+
+      <section className="BeerPosts_section">
+        <div class="container">
+          <div class='heading_posts'>
+            <h1>Post</h1>
+            {/* 포스팅하기 버튼 */}
+            <div class='newPostBtn'>
+              <Link class='btnText' to='/post/new'>포스팅하기</Link>
+            </div>
+          </div>
+
+          <div class="row">포스트들</div>
+
+        </div>
+
+        
+      </section>
     </div>
   )
   }

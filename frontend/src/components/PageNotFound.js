@@ -1,11 +1,12 @@
 import React from 'react';
 import './PageNotFound.css'
-import { ReactComponent as PageNot } from './/notFound.svg';
+import './responsive.css'
+import { ReactComponent as PageNot } from './notFound.svg';
  
 function PageNotFound(){
   return(
-    <div id="asdasd">
-      <div class="contain" id="animate">
+    <div className="page404">
+      <div class="svgContainer">
         <PageNot ></PageNot>
       </div>
     </div>

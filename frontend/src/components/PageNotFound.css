@@ -2,7 +2,7 @@ body {
   background-color: #fffaea;
 }
 
-.contain {
+.svgContainer {
   height: 400px;
   width: 400px;
   left: 50%;
@@ -10,12 +10,12 @@ body {
   position: relative;
   transform: translatex(-50%) translatey(-40%);
 }
-.contain svg {
+.svgContainer svg {
   vertical-align: top;
   width: 100%;
   overflow: hidden;
 }
-.contain svg .beer {
+.svgContainer svg .beer {
   -webkit-animation-name: empty;
           animation-name: empty;
   -webkit-animation-fill-mode: forwards;
@@ -25,6 +25,7 @@ body {
   -webkit-animation-timing-function: linear;
           animation-timing-function: linear;
   -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
   fill: #F9CF68;
 }
 
@@ -74,7 +75,7 @@ body {
   }
 }
 
-#asdasd {
+.page404 {
   background-color: #fffaea;
   height: 700px; /* 임의로 값 설정 */
 }

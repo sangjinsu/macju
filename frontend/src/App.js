@@ -11,12 +11,9 @@ import Footer from './components/Footer.js';
 import BeerDetail from './routes/Beer/BeerDetail';
 import Profile from "routes/User/Profile";
 import RecommendBeer from "components/Main/RecommendBeer";
-
-
 function App() {
   return (
     <div>
-      
       <Router>
         <Navbar></Navbar>
         <Switch>

@@ -3,6 +3,7 @@ import ReactFullpage from '@fullpage/react-fullpage';
 import UserPost from "components/UserPost.js";
 import UserLike from "components/UserLike.js";
 import NavBar from "components/Navbar.js";
+import UserReview from "components/UserReview.js";
 
 const Profile = () => {
   return (
@@ -28,6 +29,11 @@ const Profile = () => {
           <div className="section">
             <UserLike />
             <p>Section 3</p>
+
+          </div>
+          <div className="section">
+            <UserReview />
+            <h1>평점</h1>
 
           </div>
         </ReactFullpage.Wrapper>

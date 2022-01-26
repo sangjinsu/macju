@@ -9,6 +9,7 @@ import Navbar from './components/Navbar.js';
 import Footer from './components/Footer.js';
 import BeerDetail from './routes/Beer/BeerDetail';
 import Profile from "routes/User/Profile";
+
 function App() {
   return (
     <>
@@ -16,12 +17,12 @@ function App() {
         <Navbar></Navbar>
         <Switch>
           <Route path="/post/new"><PostCreate /></Route>
-          <Route path="/post/:num"><PostDetail /><CommentList /></Route>
+          <Route path="/post/:postid"><PostDetail /><CommentList /></Route>
           <Route path="/post"><PostList /></Route>
-          <Route path='/beer/:num'><BeerDetail /></Route>
+          <Route path='/beer/:beerid'><BeerDetail /></Route>
           <Route path='/beer'><BeerList /></Route>
           <Route path='/signup'><Signup /></Route>
-          <Route path="/user/:username"><Profile /></Route>
+          <Route path="/:username"><Profile /></Route>
         </Switch>
         <Footer></Footer>
       </Router>

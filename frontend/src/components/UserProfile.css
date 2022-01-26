@@ -1,10 +1,13 @@
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: column;
-  
+
+.fp-tableCell {
+  /* background-color: tomato; */
 }
-.container h1{
-  position: relative;
-  text-align: center;
+
+
+.user-profile{
+  display: flex;
+  flex-direction: row;
+}
+.img-box {
+  margin-right: 50px;
 }

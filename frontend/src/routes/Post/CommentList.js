@@ -78,7 +78,7 @@ function CommentList() {
                     return(
                       <div className="commentList" key={i}>
                         <p> { post.comment } </p>
-                        <button class="deletebtn" type="button" commentId={i} onClick={ deleteComment }>삭제</button>
+                        <button class="deletebtn" type="button" commentid={i} onClick={ deleteComment }>삭제</button>
                       </div>
                     );
                   })

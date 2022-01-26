@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios"
 import { useParams, Link } from 'react-router-dom';
-import { BsHeartFill, BsHeart } from "react-icons/bs";
+import { BsHeartFill, BsHeart, BsSlack, BsFileX } from "react-icons/bs";
 import { Button } from 'react-bootstrap';
 import './BeerDetail.css'
+import Modal from 'react-modal';
 
 function BeerDetail() {
   const [postnow, setpostnow] = useState()
@@ -24,6 +25,32 @@ function BeerDetail() {
   }, [])
 
   const [isLike, setisLike] = useState(false)
+  const [rateModal, set_rateModal] = useState(false)
+
+  const modal_style = {
+    overlay: {
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: 'rgba(52, 52, 52, 0.8)'
+    },
+    content: {
+      position: 'absolute',
+      width: '300px',
+      top: '200px',
+      bottom: '200px',
+      margin: 'auto',
+      border: '1px solid #ccc',
+      background: '#fff',
+      overflow: 'auto',
+      WebkitOverflowScrolling: 'touch',
+      borderRadius: '4px',
+      outline: 'none',
+      // padding: '20px'
+    }
+  }
 
   return (
     <div className="BeerDetail">
@@ -40,7 +67,7 @@ function BeerDetail() {
             <div class="row">
               <div class="col-md-6 ">
                 <div class="img-box">
-                  <img src="https://img.hankyung.com/photo/202107/01.26934467.1-1200x.jpg" width="50%"/>
+                  <img src='\img\5.0_오리지날_라거_medium_-removebg-preview.png'></img>
                 </div>
               </div>
               <div class="col-md-6">
@@ -66,8 +93,15 @@ function BeerDetail() {
                       <div class='star'>★★★★☆</div>
                       <div>(4)</div>
                     </div>
-                    <button class="RateBtn">평가하기</button>
+                    <button class="RateBtn" onClick={()=> set_rateModal(true)}>평가하기</button>
                   </div>
+                  {/* 평가창 모달 */}
+                  {/* <Modal isOpen={rateModal} onRequestClose={() => set_rateModal(false)}> */}
+                  <Modal isOpen={rateModal} style={modal_style}>
+                    <h4> 평가</h4>
+
+                    <button class="RateBtn" onClick={()=> set_rateModal(false)}>닫기</button>
+                  </Modal>
 
                   {/* 맥주 detail 내용 */}
                   <p>{ postnow.post }</p>

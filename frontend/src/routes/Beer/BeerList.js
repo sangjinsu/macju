@@ -49,7 +49,7 @@ function BeerList(){
                 <div class="box">
                   <div>
                     <div class="img-box">
-                      <img src="img/terra.png"></img>
+                      <img src='\img\5.0_오리지날_라거_medium_-removebg-preview.png'></img>
                     </div>
                     <div class="detail-box">
                       <div class='detail-title'>
@@ -82,7 +82,7 @@ function BeerList(){
                 <div class="box">
                   <div>
                     <div class="img-box">
-                      <img src="img/terra.png"></img>
+                      <img src='\img\5.0_오리지날_라거_medium_-removebg-preview.png'></img>
                     </div>
                     <div class="detail-box">
                       <div class='detail-title'>

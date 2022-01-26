@@ -11,6 +11,9 @@ import Footer from './components/Footer.js';
 import BeerDetail from './routes/Beer/BeerDetail';
 import Profile from "routes/User/Profile";
 import RecommendBeer from "components/Main/RecommendBeer";
+import PageNotFound from "components/PageNotFound";
+
+
 function App() {
   return (
     <div>
@@ -26,6 +29,7 @@ function App() {
           <Route path='/signup'><Signup /></Route>
           <Route path="/home"><RecommendBeer /></Route>
           <Route path="/:username"><Profile /></Route>
+          <Route path='/'><PageNotFound /></Route>
         </Switch>
         <Footer></Footer>
       </Router>

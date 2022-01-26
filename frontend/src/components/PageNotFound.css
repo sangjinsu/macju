@@ -1,0 +1,79 @@
+body {
+  background-color: #fffaea;
+}
+
+.contain {
+  height: 400px;
+  width: 400px;
+  left: 50%;
+  top: 50%;
+  position: relative;
+  transform: translatex(-50%) translatey(-40%);
+}
+.contain svg {
+  vertical-align: top;
+  width: 100%;
+}
+.contain svg .beer {
+  -webkit-animation-name: empty;
+          animation-name: empty;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+  -webkit-animation-duration: 4s;
+          animation-duration: 4s;
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+  fill: #F9CF68;
+}
+
+@-webkit-keyframes empty {
+  0% {
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  }
+  30% {
+    -webkit-clip-path: polygon(0 16%, 100% 12%, 100% 100%, 0% 100%);
+            clip-path: polygon(0 16%, 100% 12%, 100% 100%, 0% 100%);
+  }
+  50% {
+    -webkit-clip-path: polygon(0 40%, 100% 44%, 100% 100%, 0% 100%);
+            clip-path: polygon(0 40%, 100% 44%, 100% 100%, 0% 100%);
+  }
+  70% {
+    -webkit-clip-path: polygon(0 69%, 100% 66%, 100% 100%, 0% 100%);
+            clip-path: polygon(0 69%, 100% 66%, 100% 100%, 0% 100%);
+  }
+  100% {
+    -webkit-clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
+            clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
+  }
+}
+
+@keyframes empty {
+  0% {
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  }
+  30% {
+    -webkit-clip-path: polygon(0 16%, 100% 12%, 100% 100%, 0% 100%);
+            clip-path: polygon(0 16%, 100% 12%, 100% 100%, 0% 100%);
+  }
+  50% {
+    -webkit-clip-path: polygon(0 40%, 100% 44%, 100% 100%, 0% 100%);
+            clip-path: polygon(0 40%, 100% 44%, 100% 100%, 0% 100%);
+  }
+  70% {
+    -webkit-clip-path: polygon(0 69%, 100% 66%, 100% 100%, 0% 100%);
+            clip-path: polygon(0 69%, 100% 66%, 100% 100%, 0% 100%);
+  }
+  100% {
+    -webkit-clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
+            clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
+  }
+}
+
+#asdasd {
+  background-color: #fffaea;
+  height: 400px; /* 임의로 값 설정 */
+}

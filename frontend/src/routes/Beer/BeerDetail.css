@@ -56,6 +56,7 @@ h2 {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  z-index: 0;
 }
 
 .about_section .img-box img {
@@ -152,4 +153,8 @@ h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.rateModal {
+  
 }

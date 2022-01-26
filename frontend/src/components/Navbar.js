@@ -49,6 +49,7 @@ function NavBar(){
                     <i class="fa fa-search" aria-hidden="true"></i>
                   </button>
                 </form>
+                
                 <div class="order_online">
                   <Link class='nav-link login' to='/login'>login</Link>
                 </div>

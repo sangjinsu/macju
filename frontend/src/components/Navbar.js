@@ -42,7 +42,7 @@ function NavBar(){
                 </li>
               </ul>
               <div class="user_option">
-                <Link to='/signup' class="user_link">
+                <Link to='/profile' class="user_link">
                   <i class="fa fa-user" aria-hidden="true"></i>
                 </Link>
                 <form class="form-inline">
@@ -50,8 +50,9 @@ function NavBar(){
                     <i class="fa fa-search" aria-hidden="true"></i>
                   </button>
                 </form>
+                
                 <div class="order_online">
-                  <Link class='nav-link login' to='/signup'>login</Link>
+                  <Link class='nav-link login' to='/login'>login</Link>
                 </div>
               </div>
               

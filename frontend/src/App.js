@@ -4,11 +4,14 @@ import PostDetail from "./routes/Post/PostDetail";
 import PostCreate from "./routes/Post/PostCreate";
 import CommentList from "./routes/Post/CommentList";
 import BeerList from './routes/Beer/BeerList.js';
-import Signup from './routes/Signup';
+import Signup from './routes/User/Signup';
+import Login from './routes/User/Login';
 import Navbar from './components/Navbar.js';
 import Footer from './components/Footer.js';
 import BeerDetail from './routes/Beer/BeerDetail';
 import Profile from "routes/User/Profile";
+import RecommendBeer from "components/Main/RecommendBeer";
+
 
 function App() {
   return (
@@ -22,7 +25,9 @@ function App() {
           <Route path="/post"><PostList /></Route>
           <Route path='/beer/:beerid'><BeerDetail /></Route>
           <Route path='/beer'><BeerList /></Route>
+          <Route path='/login'><Login /></Route>
           <Route path='/signup'><Signup /></Route>
+          <Route path="/home"><RecommendBeer /></Route>
           <Route path="/:username"><Profile /></Route>
         </Switch>
         <Footer></Footer>

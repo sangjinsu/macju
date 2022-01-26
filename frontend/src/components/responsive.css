@@ -2,6 +2,10 @@
   .slider_section .detail-box h1 {
     font-size: 3rem;
   }
+  .map_container {
+    display: none;
+  }
+
 }
 
 @media (min-width: 430px) {
@@ -44,6 +48,11 @@
   .postTag {
     font-size: 2.5rem;
   }
+
+  .map_container {
+    display: block;
+  }
+
 }
 
 @media (min-width: 992px) {

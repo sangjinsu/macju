@@ -17,9 +17,9 @@ function App() {
         <Navbar></Navbar>
         <Switch>
           <Route path="/post/new"><PostCreate /></Route>
-          <Route path="/post/:num"><PostDetail /><CommentList /></Route>
+          <Route path="/post/:postid"><PostDetail /><CommentList /></Route>
           <Route path="/post"><PostList /></Route>
-          <Route path='/beer/:num'><BeerDetail /></Route>
+          <Route path='/beer/:beerid'><BeerDetail /></Route>
           <Route path='/beer'><BeerList /></Route>
           <Route path='/login'><Login /></Route>
           <Route path='/signup'><Signup /></Route>

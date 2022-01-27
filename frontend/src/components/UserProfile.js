@@ -20,7 +20,7 @@ const UserProfile = () => {
 			<div id="profile-box">
 				<div id="name">
 					<div><h1>홍길동</h1></div>
-					<Button>프로필 수정</Button>
+					<Button href="/profile/edit">프로필 수정</Button>
 				</div>
 				<div>
 					<div>게시글 : {14} <Button onClick={openModal} variant="success">팔로워</Button> : {84} <Button onClick={openModal} variant="warning"> 팔로잉</Button> : {57}</div>

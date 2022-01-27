@@ -1,0 +1,29 @@
+.edit-box {
+  background-color: #ffffff;
+  border: 1px solid #dbdbdb;
+  border: 1px solid rgba(var(--b6a,219,219,219),1);
+  border-radius: 3px;
+  margin: 60px auto 0;
+  max-width: 935px;
+  width: 100%;
+  padding: 20px 20px 20px 20px;
+}
+.edit-box Link{
+  font-weight: 100;
+  /* 수정 필요 */
+}
+.name-box {
+  display: flex;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+.name-box h5 {
+  margin-right: 80px;
+}
+.intro-box {
+  margin-left: 10px;
+  margin-top: 10px;
+}
+.intro-box textarea {
+  margin-left: 100px;
+}

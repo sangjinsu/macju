@@ -12,6 +12,7 @@ import BeerDetail from './routes/Beer/BeerDetail';
 import Profile from "routes/User/Profile";
 import RecommendBeer from "components/Main/RecommendBeer";
 import PageNotFound from "components/PageNotFound";
+import ProfileEdit from "routes/User/ProfileEdit";
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Route path='/login'><Login /></Route>
           <Route path='/signup'><Signup /></Route>
           <Route path="/home"><RecommendBeer /></Route>
+          <Route path='/:username/edit'><ProfileEdit /></Route>
           <Route path="/:username"><Profile /></Route>
           <Route path='/'><PageNotFound /></Route>
         </Switch>

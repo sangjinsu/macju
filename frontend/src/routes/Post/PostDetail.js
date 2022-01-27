@@ -29,17 +29,17 @@ function PostDetail() {
     <div className="PostDetail">
       {
         postnow &&
-        <section class="postdetail_section layout_padding_postdetail">
-          <div class="container">
-            <div class="row">
-              <div class="col-md-6 ">
-                <div class="img-box">
+        <section className="postdetail_section layout_padding_postdetail">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-6 ">
+                <div className="img-box">
                   <img src="https://img.hankyung.com/photo/202107/01.26934467.1-1200x.jpg" alt="" />
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="detail-box">
-                  <div class="heading_container">
+              <div className="col-md-6">
+                <div className="detail-box">
+                  <div className="heading_container">
                     <h2>
                       {
                         postnow.Tag.map((tag, i)=>{
@@ -58,7 +58,7 @@ function PostDetail() {
                     <div>({ postnow.likes })</div>
                   </div>
                   <div>작성날자 : { postnow.created_at }</div>
-                  <a class="typebtn" href="">페일</a> <br />
+                  <a className="typebtn" href="">페일</a> <br />
                   {/* 본인 일때만 수정, 삭제 가능하게 해야함 */}
                   <a href="">수정하기</a>
                   <a href="">삭제하기</a>

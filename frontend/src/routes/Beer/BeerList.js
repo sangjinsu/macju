@@ -10,15 +10,15 @@ function BeerList(){
 
   return(
     <div>
-      <section class="beerlist_section layout_padding_beerlist">
-        <div class="container">
-          <div class="heading_container heading_center">
+      <section className="beerlist_section layout_padding_beerlist">
+        <div className="container">
+          <div className="heading_container heading_center">
             <h2>
               Our Beer
             </h2>
           </div>
-          <ul class="filters_menu">
-            <li class="active" data-filter="*">All</li>
+          <ul className="filters_menu">
+            <li className="active" data-filter="*">All</li>
             <li data-filter=".ale">Ale</li>
             <li data-filter=".lager">Lager</li>
             <li data-filter=".ladler">Ladler</li>
@@ -43,25 +43,25 @@ function BeerList(){
             </div>
           </div> */}
 
-          <div class="filters-content">
-            <div class="row grid">
-              <div class="col-sm-6 col-lg-4 all ale">
-                <div class="box">
+          <div className="filters-content">
+            <div className="row grid">
+              <div className="col-sm-6 col-lg-4 all ale">
+                <div className="box">
                   <div>
-                    <div class="img-box">
+                    <div className="img-box">
                       <img src='\img\5.0_오리지날_라거_medium_-removebg-preview.png'></img>
                     </div>
-                    <div class="beerdetail-box">
-                      <div class='beerdetail-title'>
+                    <div className="beerdetail-box">
+                      <div className='beerdetail-title'>
                         <h5>테라</h5>
-                        <Link to='/beer/1' class='detailBtn'>자세히</Link>
+                        <Link to='/beer/1' className='detailBtn'>자세히</Link>
                       </div>
-                      <div class='star'>★★★★☆</div>
+                      <div className='star'>★★★★☆</div>
                       <p>
                         Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
                       </p>
                       <div>#과일향 #매운맛</div>
-                      <div class="options">
+                      <div className="options">
                         <h6 className='beerCategory'>
                           Pale Ale
                         </h6>
@@ -78,23 +78,23 @@ function BeerList(){
                 </div>
               </div>
 
-              <div class="col-sm-6 col-lg-4 all ale">
-                <div class="box">
+              <div className="col-sm-6 col-lg-4 all ale">
+                <div className="box">
                   <div>
-                    <div class="img-box">
+                    <div className="img-box">
                       <img src='\img\5.0_오리지날_라거_medium_-removebg-preview.png'></img>
                     </div>
-                    <div class="beerdetail-box">
-                      <div class='beerdetail-title'>
+                    <div className="beerdetail-box">
+                      <div className='beerdetail-title'>
                         <h5>테라</h5>
-                        <Link to='/beer/1' class='detailBtn'>자세히</Link>
+                        <Link to='/beer/1' className='detailBtn'>자세히</Link>
                       </div>
-                      <div class='star'>★★★★☆</div>
+                      <div className='star'>★★★★☆</div>
                       <p>
                         Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
                       </p>
                       <div>#과일향 #매운맛</div>
-                      <div class="options">
+                      <div className="options">
                         <h6 className='beerCategory'>
                           Pale Ale
                         </h6>

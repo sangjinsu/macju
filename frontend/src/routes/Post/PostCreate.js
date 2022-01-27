@@ -100,18 +100,18 @@ function PostCreate() {
 
   return(
     <div className="postcreate">
-      <section class="postcreate_section layout_padding_postcreate">
-        <div class="container">
+      <section className="postcreate_section layout_padding_postcreate">
+        <div className="container">
           {/* 맥주detail로 가기 버튼 */}
-          <div class='backBtn_postcreate'>
-            <Link class='backBtn_text' to='/beer/1'><i class="fas fa-angle-double-left fa-lg"></i> back</Link>
+          <div className='backBtn_postcreate'>
+            <Link className='backBtn_text' to='/beer/1'><i className="fas fa-angle-double-left fa-lg"></i> back</Link>
           </div>
-          <div class="heading_postcreate">
+          <div className="heading_postcreate">
             <h2>Create Post</h2>
           </div>
-          <div class="row">
-            <div class="col-md-8 offset-md-2">
-              <div class="form_container">
+          <div className="row">
+            <div className="col-md-8 offset-md-2">
+              <div className="form_container">
                 <form action="/beer/1">
                   {/* 사진 선택하기 */}
                   <div>
@@ -121,7 +121,7 @@ function PostCreate() {
 
                   {/* 사진 띄우는곳 */}
                   <div>
-                    <div class='image_container'>
+                    <div className='image_container'>
                       { imgs&&imgs.map((img, index)=>(
                         <img key={index} alt="sample" src={img}/>)
                       )}
@@ -130,7 +130,7 @@ function PostCreate() {
                   <hr/>
 
                   {/* 입력창 */}
-                  <div class='input_postcreate'>
+                  <div className='input_postcreate'>
                     <textarea 
                       className="postcreate_textarea"
                       maxLength="2200"

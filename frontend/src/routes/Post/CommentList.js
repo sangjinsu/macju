@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useDispatch, useStore } from 'react-redux';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import axios from 'axios';
-import "./PostDetail.css"
+import "../../styles/CommentList.css"
 
 function CommentList() {
   const [comments, setcomments] = useState([]);
@@ -54,8 +54,8 @@ function CommentList() {
   return(
     
     <div className="CommentList">
-      <section class="about_section layout_padding">
-        <div class="container  ">
+      <section class="comment_section layout_padding">
+        <div class="container">
 
           <div class="row">
             <div class="col-md-12">

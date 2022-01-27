@@ -6,7 +6,7 @@ body {
   overflow-x: hidden;
 }
 
-.about_section .backBtn {
+.beerdetail_section .backBtn {
   margin-bottom: 30px;
   color: #ffffff;
 }
@@ -20,8 +20,8 @@ body {
   padding-bottom: 90px;
 }
 
-h1,
-h2 {
+.beerdetail_section h1,
+.beerdetail_section h2 {
   font-family: 'Dancing Script', cursive;
 }
 
@@ -31,7 +31,7 @@ h2 {
   font-weight: bold;
 }
 
-.about_section {
+.beerdetail_section {
   background: #222831;
   color: #ffffff;
 }
@@ -42,13 +42,13 @@ h2 {
 }
 
 
-.about_section .row {
+.beerdetail_section .row {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
 }
 
-.about_section .img-box {
+.beerdetail_section .img-box {
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -59,18 +59,18 @@ h2 {
   z-index: 0;
 }
 
-.about_section .img-box img {
+.beerdetail_section .img-box img {
   width: 100%;
   max-width: 445px;
   position: relative;
   z-index: 2;
 }
 
-.about_section .detail-box p {
+.beerdetail_section .detail-box p {
   margin-top: 15px;
 }
 
-.about_section .detail-box a {
+.beerdetail_section .detail-box a {
   display: inline-block;
   padding: 10px 45px;
   background-color: #ffbe33;
@@ -82,7 +82,7 @@ h2 {
   margin-top: 15px;
 }
 
-.about_section .detail-box a:hover {
+.beerdetail_section .detail-box a:hover {
   background-color: #e69c00;
 }
 
@@ -92,11 +92,11 @@ h2 {
   align-items: center;
 }
 
-.heartIcon {
+.beerdetail_section .heartIcon {
   width: 150%;
   color: red;
 }
-.heartInline {
+.beerdetail_section .heartInline {
   display: flex;
   align-items: center;
 }
@@ -154,7 +154,7 @@ h2 {
   justify-content: space-between;
   align-items: center;
 }
-
+/* 
 .rateModal {
   
-}
+} */

@@ -8,7 +8,7 @@
   display: flex;
   flex-direction: row;
 }
-.img-box {
+.userprofile_container .user-profile .img-box {
   margin-right: 50px;
 }
 #name {
@@ -23,9 +23,9 @@
 #profile-box{
   margin-top:50px
 }
-
+/* 
 button {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-}
+} */

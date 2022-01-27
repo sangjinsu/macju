@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import './Signup.css'
+import '../../styles/Signup.css'
 
 function Signup() {
   const [nickname, nicknameChange] = useState("");
@@ -61,9 +61,9 @@ function Signup() {
 
   return(
     <div className="Signup">
-      <section class="book_section layout_padding">
+      <section class="signup_section layout_padding_signup">
         <div class="container">
-          <div class="heading_container">
+          <div class="signup_heading_container">
             <h2>
               Signup
             </h2>
@@ -116,7 +116,7 @@ function Signup() {
             </div>
             <div class="col-md-6">
               <div class="map_container ">
-                <div id="googleMap">image띄우는 곳</div>
+                <div id="signupImg">image띄우는 곳</div>
               </div>
             </div>
           </div>

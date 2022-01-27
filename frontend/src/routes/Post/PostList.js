@@ -31,42 +31,42 @@ function PostList() {
 
   return (
     <>
-    <div className="header">
-    <h1>POST</h1>      
-      <select onChange={onSelect} style={{"width":200, "height":35}}>
-        <option>
-          정렬 순서를 선택하세요
-        </option>
-        <option>
-          recent
-        </option>
-        <option>
-          popular
-        </option>
-      </select>
-        {opt == "recent" ? <h1> 최신 순 게시글</h1> : <h2>인기순 게시글</h2>}
-        {stat}
-      </div>
-    <div className="container">
-    <Row xs={1} sm={2} md={4} className="g-4">
-    {posts&&posts.map((post)=><Col key={post.id}>
-    <FadeIn>
-      <div
-      className="box"
-      >
-      <div className="img-box">
-      <Card.Img className="img" variant="top" src={post.img} width={300}/>
-      </div>
-      <Card.Body className="detail-box">
-        <Card.Text>
-        {post.post&&post.post.length > 15 ? post.post.substr(0, 15) + "....": post.post}
-        </Card.Text>
-        <p className="fontaws"><i className="fas fa-heart" style={{color:"red"}}></i>{post.likes}</p>
-        <p className="post-meta">작성한 사람 :{null} 작성 시간{post.created_at}</p>
-        <Link to={`/post/${post.id}`}><Button variant="secondary">Detail</Button></Link>
-      </Card.Body>
-    </div></FadeIn></Col>)}
-    </Row>
+    <div className="postlist_header">
+      <h1>POST</h1>      
+        <select onChange={onSelect} style={{"width":200, "height":35}}>
+          <option>
+            정렬 순서를 선택하세요
+          </option>
+          <option>
+            recent
+          </option>
+          <option>
+            popular
+          </option>
+        </select>
+          {opt == "recent" ? <h1> 최신 순 게시글</h1> : <h2>인기순 게시글</h2>}
+          {stat}
+        </div>
+      <div className="container">
+      <Row xs={1} sm={2} md={4} className="g-4">
+      {posts&&posts.map((post)=><Col key={post.id}>
+      <FadeIn>
+        <div
+        className="postlist_box"
+        >
+        <div className="img-box">
+        <Card.Img className="img" variant="top" src={post.img} width={300}/>
+        </div>
+        <Card.Body className="detail-box">
+          <Card.Text>
+          {post.post&&post.post.length > 15 ? post.post.substr(0, 15) + "....": post.post}
+          </Card.Text>
+          <p className="fontaws"><i className="fas fa-heart" style={{color:"red"}}></i>{post.likes}</p>
+          <p className="post-meta">작성한 사람 :{null} 작성 시간{post.created_at}</p>
+          <Link to={`/post/${post.id}`}><Button variant="secondary">Detail</Button></Link>
+        </Card.Body>
+      </div></FadeIn></Col>)}
+      </Row>
     </div>
     </>
     

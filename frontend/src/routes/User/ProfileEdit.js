@@ -1,6 +1,6 @@
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import "routes/User/ProfileEdit.css"
+import "../../styles/ProfileEdit.css"
 const ProfileEdit = () => {
   return (
     <div className="edit-box">

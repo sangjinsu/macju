@@ -1,6 +1,6 @@
 import React from 'react';
-import './PageNotFound.css'
-import './responsive.css'
+import '../styles/PageNotFound.css'
+import '../styles/responsive.css'
 import { ReactComponent as PageNot } from './notFound.svg';
  
 function PageNotFound(){

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from "react";
 import { BsHeartFill, BsHeart } from "react-icons/bs";
-import './BeerList.css'
+import '../../styles/BeerList.css'
 import { Link } from "react-router-dom"
 
 
@@ -10,7 +10,7 @@ function BeerList(){
 
   return(
     <div>
-      <section class="food_section layout_padding">
+      <section class="beerlist_section layout_padding_beerlist">
         <div class="container">
           <div class="heading_container heading_center">
             <h2>
@@ -51,8 +51,8 @@ function BeerList(){
                     <div class="img-box">
                       <img src='\img\5.0_오리지날_라거_medium_-removebg-preview.png'></img>
                     </div>
-                    <div class="detail-box">
-                      <div class='detail-title'>
+                    <div class="beerdetail-box">
+                      <div class='beerdetail-title'>
                         <h5>테라</h5>
                         <Link to='/beer/1' class='detailBtn'>자세히</Link>
                       </div>
@@ -84,8 +84,8 @@ function BeerList(){
                     <div class="img-box">
                       <img src='\img\5.0_오리지날_라거_medium_-removebg-preview.png'></img>
                     </div>
-                    <div class="detail-box">
-                      <div class='detail-title'>
+                    <div class="beerdetail-box">
+                      <div class='beerdetail-title'>
                         <h5>테라</h5>
                         <Link to='/beer/1' class='detailBtn'>자세히</Link>
                       </div>

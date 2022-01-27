@@ -1,5 +1,5 @@
 package com.sib.macju.domain.beer;
 
 public enum BeerMainType {
-    Ale, Lager
+    Ale, Lager, Bock, Radler
 }

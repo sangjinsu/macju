@@ -25,9 +25,10 @@ public class Beer {
     @JoinColumn(name = "beer_type_id")
     private BeerType beerType;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false, name = "beer_name")
     private String name;
 
+    @Column(columnDefinition = "char(255)")
     private String content;
 
     private Double volume;

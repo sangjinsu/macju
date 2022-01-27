@@ -1,6 +1,6 @@
 import React from 'react';
-import './Footer.css'
-import './responsive.css'
+import '../styles/Footer.css'
+import '../styles/responsive.css'
 import { Link } from "react-router-dom"
 
 

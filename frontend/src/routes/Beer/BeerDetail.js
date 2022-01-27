@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios"
 import { useParams, Link } from 'react-router-dom';
 import { BsHeartFill, BsHeart, BsSlack, BsFileX } from "react-icons/bs";
-import { Button } from 'react-bootstrap';
-import './BeerDetail.css'
+// import { Button } from 'react-bootstrap';
+import '../../styles/BeerDetail.css'
 import Modal from 'react-modal';
 
 function BeerDetail() {
@@ -56,7 +56,7 @@ function BeerDetail() {
     <div className="BeerDetail">
       {
         postnow &&
-        <section class="about_section layout_padding_beer">
+        <section class="beerdetail_section layout_padding_beer">
 
           <div class="container">
             {/* 목록으로 가기 버튼 */}

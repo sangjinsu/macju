@@ -3,7 +3,7 @@ import axios from "axios"
 import { useParams } from 'react-router-dom';
 import { BsHeartFill, BsHeart } from "react-icons/bs";
 import { Button } from 'react-bootstrap';
-import './PostDetail.css'
+import '../../styles/PostDetail.css'
 
 function PostDetail() {
   const [postnow, setpostnow] = useState()
@@ -29,7 +29,7 @@ function PostDetail() {
     <div className="PostDetail">
       {
         postnow &&
-        <section class="about_section layout_padding">
+        <section class="postdetail_section layout_padding_postdetail">
           <div class="container">
             <div class="row">
               <div class="col-md-6 ">

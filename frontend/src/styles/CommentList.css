@@ -1,0 +1,90 @@
+.comment_section {
+  background: #222831;
+  color: #ffffff;
+}
+
+.comment_section .row {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.comment_section .img-box {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.comment_section .img-box img {
+  width: 100%;
+  max-width: 445px;
+  position: relative;
+  z-index: 2;
+}
+
+.comment_section .detail-box p {
+  margin-top: 15px;
+}
+
+.comment_section .detail-box a {
+  display: inline-block;
+  padding: 10px 45px;
+  background-color: #ffbe33;
+  color: #ffffff;
+  border-radius: 45px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  border: none;
+  margin-top: 15px;
+}
+
+.comment_section .detail-box a:hover {
+  background-color: #e69c00;
+}
+
+.commentList {
+  display: flex;
+  align-items: flex-start;
+}
+
+a.typebtn {
+  display: inline-block;
+  padding: 10px 30px;
+  background-color: #ffbe33;
+  color: #ffffff;
+  border-radius: 45px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  border: none;
+
+  padding: 10px 45px;
+  margin-top: 15px;
+
+  width: auto;
+  height: auto;
+  margin-left: 5px;
+  fill: #ffffff;
+}
+
+button.deletebtn{
+  display: inline-block;
+  padding: 10px 30px;
+  background-color: #ff3333;
+  color: #ffffff;
+  border-radius: 45px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  border: none;
+
+  padding: 2px 8px;
+  margin-top: 13px;
+
+  width: auto;
+  height: auto;
+  margin-left: 5px;
+  fill: #ffffff;
+}

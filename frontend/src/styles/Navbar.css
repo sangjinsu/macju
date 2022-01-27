@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap");
 
-.hero_area {
+.navbar_area {
   position: relative;
   min-height: 100vh;
   display: -webkit-box;
@@ -13,7 +13,7 @@
   z-index: 10000;
 }
 
-.bg-box {
+.navbar_area .bg-box {
   position: absolute;
   top: 0;
   left: 0;
@@ -23,18 +23,18 @@
   
 }
 
-.bg-box img {
+.navbar_area .bg-box img {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
 }
 
-.sub_page .hero_area {
+.navbar_page .navbar_area {
   min-height: auto;
 }
 
-.sub_page .hero_area .bg-box {
+.navbar_page .navbar_area .bg-box {
   position: absolute;
   top: 0;
   left: 0;
@@ -43,7 +43,7 @@
 
 }
 
-.sub_page .hero_area .bg-box img {
+.navbar_page .navbar_area .bg-box img {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
@@ -52,11 +52,11 @@
      object-position: right top;
 }
 
-.header_section {
+.navbar_section {
   padding: 15px 0;
 }
 
-.header_section .container-fluid {
+.navbar_section .container-fluid {
   padding-right: 25px;
   padding-left: 25px;
 }
@@ -164,7 +164,7 @@
   transition: all 0.3s;
   border: none;
 }
-.login {
+.nav_login {
   color: white;
 }
 .user_option .order_online:hover {

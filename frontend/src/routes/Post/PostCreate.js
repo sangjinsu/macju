@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import './PostCreate.css'
+import '../../styles/PostCreate.css'
 import { Link } from 'react-router-dom';
 
-import axios from "axios"
+// import axios from "axios"
 // import { useDispatch, useSelector } from "react-redux";
 // import { Button } from 'react-bootstrap';
 

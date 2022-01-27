@@ -54,13 +54,13 @@ function CommentList() {
   return(
     
     <div className="CommentList">
-      <section class="comment_section layout_padding">
-        <div class="container">
+      <section className="comment_section layout_padding">
+        <div className="container">
 
-          <div class="row">
-            <div class="col-md-12">
-              <div class="detail-box">
-                <div class="heading_container">
+          <div className="row">
+            <div className="col-md-12">
+              <div className="detail-box">
+                <div className="heading_container">
                   <h2>Comment</h2>
                 </div>
                 <form action="">
@@ -78,7 +78,7 @@ function CommentList() {
                     return(
                       <div className="commentList" key={i}>
                         <p> { post.comment } </p>
-                        <button class="deletebtn" type="button" commentid={i} onClick={ deleteComment }>삭제</button>
+                        <button className="deletebtn" type="button" commentid={i} onClick={ deleteComment }>삭제</button>
                       </div>
                     );
                   })

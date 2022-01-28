@@ -2,7 +2,6 @@ import '../../styles/StarRate.css'
 
 function StarRate() {
   return (
- 
   <div className="star_container">
     <div className="feedback">
       <div className="rating">

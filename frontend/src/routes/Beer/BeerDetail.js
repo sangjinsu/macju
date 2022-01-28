@@ -7,6 +7,7 @@ import '../../styles/BeerDetail.css'
 import Modal from 'react-modal';
 import StarRate from './StartRate.js'
 
+
 function BeerDetail() {
   const [postnow, setpostnow] = useState()
   const { num } = useParams();

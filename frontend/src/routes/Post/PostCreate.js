@@ -33,7 +33,6 @@ import { Link } from 'react-router-dom';
 //   )
 // }
 
-
 function PostCreate() {
   const [imgs, setImgs] = useState([]);
   

@@ -3,6 +3,7 @@ import '../../styles/PostCreate.css'
 import { Link } from 'react-router-dom';
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 import "../../firebase_config"
+
 function PostCreate() {
   const [imgs, setImgs] = useState([]);
   

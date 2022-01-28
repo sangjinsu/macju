@@ -6,7 +6,7 @@ import { ReactComponent as PageNot } from './notFound.svg';
 function PageNotFound(){
   return(
     <div className="page404">
-      <div class="svgContainer">
+      <div className="svgContainer">
         <PageNot ></PageNot>
       </div>
     </div>

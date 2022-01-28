@@ -61,21 +61,21 @@ function Signup() {
 
   return(
     <div className="Signup">
-      <section class="signup_section layout_padding_signup">
-        <div class="container">
-          <div class="signup_heading_container">
+      <section className="signup_section layout_padding_signup">
+        <div className="container">
+          <div className="signup_heading_container">
             <h2>
               Signup
             </h2>
           </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form_container">
+          <div className="row">
+            <div className="col-md-6">
+              <div className="form_container">
                 <form action="./login">
                   <div>
                     <input
                       type="text"
-                      class="form-control"
+                      className="form-control"
                       placeholder="NickName"
                       name="nickname"
                       value={ nickname }
@@ -86,7 +86,7 @@ function Signup() {
                   <div>
                     <input
                       type="number"
-                      class="form-control"
+                      className="form-control"
                       placeholder="Age"
                       name="age"
                       value={ age }
@@ -94,7 +94,7 @@ function Signup() {
                     />
                   </div>
                   <div>
-                    <select class="form-control nice-select wide">
+                    <select className="form-control nice-select wide">
                       <option value="" disabled selected>
                         성별
                       </option>
@@ -106,7 +106,7 @@ function Signup() {
                       </option>
                     </select>
                   </div>
-                  <div class="btn_box">
+                  <div className="btn_box">
                     <button>
                       SignUp Now
                     </button>
@@ -114,8 +114,8 @@ function Signup() {
                 </form>
               </div>
             </div>
-            <div class="col-md-6">
-              <div class="map_container ">
+            <div className="col-md-6">
+              <div className="map_container ">
                 <div id="signupImg">image띄우는 곳</div>
               </div>
             </div>

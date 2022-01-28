@@ -56,26 +56,26 @@ function BeerDetail() {
     <div className="BeerDetail">
       {
         postnow &&
-        <section class="beerdetail_section layout_padding_beer">
+        <section className="beerdetail_section layout_padding_beer">
 
-          <div class="container">
+          <div className="container">
             {/* 목록으로 가기 버튼 */}
-            <div class='backBtn'>
-              <Link class='btnText' to='/beer'><i class="fas fa-angle-double-left fa-lg"></i> 목록으로</Link>
+            <div className='backBtn'>
+              <Link className='btnText' to='/beer'><i className="fas fa-angle-double-left fa-lg"></i> 목록으로</Link>
             </div>
 
-            <div class="row">
-              <div class="col-md-6 ">
-                <div class="img-box">
+            <div className="row">
+              <div className="col-md-6 ">
+                <div className="img-box">
                   <img src='\img\5.0_오리지날_라거_medium_-removebg-preview.png'></img>
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="detail-box">
-                  <div class="beerCategory" href="">Pale Ale</div>
+              <div className="col-md-6">
+                <div className="detail-box">
+                  <div className="beerCategory" href="">Pale Ale</div>
 
                   {/* 맥주 이름 + 하트 */}
-                  <div class="heading_title spaceBetween">
+                  <div className="heading_title spaceBetween">
                     <h2>Terra</h2>
                     <div className="heartInline">
                       {
@@ -88,26 +88,26 @@ function BeerDetail() {
                   </div>
 
                   {/* 맥주 별점 + 평가하기버튼 */}
-                  <div class="spaceBetween">
-                    <div class='starInline'>
-                      <div class='star'>★★★★☆</div>
+                  <div className="spaceBetween">
+                    <div className='starInline'>
+                      <div className='star'>★★★★☆</div>
                       <div>(4)</div>
                     </div>
-                    <button class="RateBtn" onClick={()=> set_rateModal(true)}>평가하기</button>
+                    <button className="RateBtn" onClick={()=> set_rateModal(true)}>평가하기</button>
                   </div>
                   {/* 평가창 모달 */}
                   {/* <Modal isOpen={rateModal} onRequestClose={() => set_rateModal(false)}> */}
                   <Modal isOpen={rateModal} style={modal_style}>
                     <h4> 평가</h4>
 
-                    <button class="RateBtn" onClick={()=> set_rateModal(false)}>닫기</button>
+                    <button className="RateBtn" onClick={()=> set_rateModal(false)}>닫기</button>
                   </Modal>
 
                   {/* 맥주 detail 내용 */}
                   <p>{ postnow.post }</p>
 
                   {/* 맥주 # 해시태그 */}
-                  <div class="hashtag">
+                  <div className="hashtag">
                     {
                       postnow.Tag.map((tag, i)=>{
                         return(<span className="hashtag" key={i}>#{tag}</span>)
@@ -124,16 +124,16 @@ function BeerDetail() {
       }
 
       <section className="BeerPosts_section">
-        <div class="container">
-          <div class='heading_posts'>
+        <div className="container">
+          <div className='heading_posts'>
             <h1>Post</h1>
             {/* 포스팅하기 버튼 */}
-            <div class='newPostBtn'>
-              <Link class='btnText' to='/post/new'>포스팅하기</Link>
+            <div className='newPostBtn'>
+              <Link className='btnText' to='/post/new'>포스팅하기</Link>
             </div>
           </div>
 
-          <div class="row">포스트들</div>
+          <div className="row">포스트들</div>
 
         </div>
 

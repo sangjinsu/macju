@@ -3,6 +3,7 @@ import '../../styles/PostCreate.css'
 import { Link } from 'react-router-dom';
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 import "../../firebase_config"
+
 function PostCreate() {
   const [imgs, setImgs] = useState([]);
   
@@ -74,6 +75,9 @@ function PostCreate() {
                       // cols='50'
                     ></textarea>
                     <br/>
+
+                    
+
                   </div>
                   <div>
                     <button type="submit" onClick={upLoadImg}> 작성 완료</button>

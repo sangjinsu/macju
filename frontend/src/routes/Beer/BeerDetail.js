@@ -5,6 +5,7 @@ import { BsHeartFill, BsHeart, BsSlack, BsFileX } from "react-icons/bs";
 // import { Button } from 'react-bootstrap';
 import '../../styles/BeerDetail.css'
 import Modal from 'react-modal';
+import StarRate from './StartRate.js'
 
 function BeerDetail() {
   const [postnow, setpostnow] = useState()
@@ -42,6 +43,7 @@ function BeerDetail() {
       top: '200px',
       bottom: '200px',
       margin: 'auto',
+
       border: '1px solid #ccc',
       background: '#fff',
       overflow: 'auto',
@@ -51,6 +53,9 @@ function BeerDetail() {
       // padding: '20px'
     }
   }
+  // 모달창 켜지면 스크롤 안움직이게 함
+  { rateModal ? document.body.style.overflow = "hidden" : document.body.style.overflow = "unset" }
+
 
   return (
     <div className="BeerDetail">
@@ -97,10 +102,29 @@ function BeerDetail() {
                   </div>
                   {/* 평가창 모달 */}
                   {/* <Modal isOpen={rateModal} onRequestClose={() => set_rateModal(false)}> */}
-                  <Modal isOpen={rateModal} style={modal_style}>
-                    <h4> 평가</h4>
-
-                    <button className="RateBtn" onClick={()=> set_rateModal(false)}>닫기</button>
+                  <Modal isOpen={rateModal} style={modal_style} ariaHideApp={false} >
+                    <div className="ratemodal_section">
+                      <h4 className="modal_heading">맥주 평가</h4>
+                      <StarRate></StarRate>
+                      <label> flavor : 
+                        <div></div>
+                        {/* <br></br> */}
+                        <select className="rate_select"  multiple>
+                          <option value="" disabled selected>
+                            맛을 선택해주세요.
+                          </option>
+                          <option value="단맛">#단맛</option>
+                          <option>#쓴맛</option>
+                          <option>#상큼한맛</option>
+                          <option>#매운맛</option>
+                          <option>#씁쓸한맛</option>
+                        </select>
+                      </label>
+                      {/* <label> aroma : 
+                        <input type=""></input>
+                      </label> */}
+                      <button className="submitRateBtn" onClick={()=> set_rateModal(false)}>완료</button>
+                    </div>
                   </Modal>
 
                   {/* 맥주 detail 내용 */}
@@ -142,4 +166,7 @@ function BeerDetail() {
     </div>
   )
   }
+
+
+
 export default BeerDetail;

@@ -51,23 +51,7 @@ function PostCreate() {
     console.log(newList)
   }
   // const [submitBtn, deactivateSubmitBtn ] = useState(true)
-  const [postText, changePostText] = useState("")
-  const [postHashTag, changePostHashTag] = useState("")
 
-  const changeText = ((e)=>{
-    changePostText(e.target.value)
-  })
-  const changeHashTag = ((e)=>{
-    changePostHashTag(e.target.value)
-  })
-
-  const [postImg, setPostImg] = useState();
-   const saveImg = (e)=>{
-    const nowImage = e.target.files[0];
-    const nowImageURL = URL.createObjectURL(nowImage)
-    setPostImg(nowImageURL)
-    console.log(setPostImg)
-  }
   // const saveImg = (e)=>{
   //   const nowImageList = e.target.files;
   //   const nowImageURLList = [...postImgs]
@@ -138,20 +122,23 @@ function PostCreate() {
                       placeholder="문구 입력..."
                       rows="5"
                       // cols='50'
-                      value={postText}
-                      onChange={changeText}
+                      // value={postText}
+                      // onChange={changeText}
                     ></textarea>
                     <br/>
                     <textarea 
                       className="postcreate_textarea"
-                      value={postHashTag}
+                      // value={postHashTag}
                       required
                       placeholder="해시태그 입력..."
-                      onChange={changeHashTag}
+                      // onChange={changeHashTag}
                       rows="1"
                       // cols='50'
                     ></textarea>
                     <br/>
+
+                    
+
                   </div>
                   <div>
                     <button type="submit"> 작성 완료</button>

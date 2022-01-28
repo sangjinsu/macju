@@ -13,7 +13,7 @@ import Profile from "routes/User/Profile";
 import RecommendBeer from "components/Main/RecommendBeer";
 import PageNotFound from "components/PageNotFound";
 import ProfileEdit from "routes/User/ProfileEdit";
-
+import InputCss from "components/InputCss";
 
 function App() {
   return (
@@ -21,6 +21,7 @@ function App() {
       <Router>
         <Navbar></Navbar>
         <Switch>
+          <Route path="/inputcss"><InputCss /></Route>
           <Route path="/post/new"><PostCreate /></Route>
           <Route path="/post/:postid"><PostDetail /><CommentList /></Route>
           <Route path="/post"><PostList /></Route>

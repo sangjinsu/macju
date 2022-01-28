@@ -19,8 +19,8 @@
   text-decoration: none;
 }
 
-h1,
-h2 {
+.postcreate_section h1,
+.postcreate_section h2 {
   font-family: 'Dancing Script', cursive;
 }
 

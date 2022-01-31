@@ -1,32 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap");
 
-.beerOne {
-  background: #eeeeee;
-  padding: 20px;
-  border-radius: 5px;
-  max-width: 500px;
-  width: 100%;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  
-}
-
-.beerContent {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-.beerContentIn {
-  display: flex;
-  align-items: flex-start;
-}
-
+/* 카테고리에 따른 display: none */
 .beerlist_section .displaynone {
   display: none;
 }
 
-
+/* fade in 효과 */
 @keyframes fadeIn {
   from {
      opacity: 0;
@@ -35,7 +14,6 @@
      opacity: 1;
   }
 }
-
 .beerlist_section .fadein {
  opacity: 0;
  animation: fadeIn ease-in 1;
@@ -43,8 +21,8 @@
  animation-duration: 1s;
 }
 
-
-body {
+/* 전체 */
+.beerlist_section body {
   font-family: "Open Sans", sans-serif;
   color: #0c0c0c;
   background-color: #ffffff;
@@ -55,12 +33,12 @@ body {
   padding: 90px 0;
 }
 
-
 .beerlist_section h1,
 .beerlist_section h2 {
   font-family: 'Dancing Script', cursive;
 }
 
+/* 맥주 리스트 제목 */
 .beerlist_section .heading_container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -73,15 +51,12 @@ body {
       -ms-flex-align: start;
           align-items: flex-start;
 }
-
 .beerlist_section .heading_container h2 {
   position: relative;
   margin-bottom: 0;
   font-size: 2.5rem;
   font-weight: bold;
 }
-
-
 .beerlist_section .heading_container.heading_center {
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -89,7 +64,7 @@ body {
   text-align: center;
 }
 
-
+/* 맥주 카테고리 */
 .beerlist_section .filters_menu {
   padding: 0;
   display: -webkit-box;
@@ -108,13 +83,14 @@ body {
   padding: 7px 25px;
   cursor: pointer;
   border-radius: 25px;
+  /* font-family: 'Dancing Script', cursive; */
 }
-
 .beerlist_section .filters_menu li.active {
   background-color: #222831;
   color: #ffffff;
 }
 
+/* 맥주 각각 카드 */
 .beerlist_section .box {
   position: relative;
   margin-top: 25px;
@@ -126,6 +102,7 @@ body {
   background: linear-gradient(to bottom, #f1f2f3 25px, #222831 25px);
 }
 
+/* 맥주 이미지 */
 .beerlist_section .box .img-box {
   background: #f1f2f3;
   display: -webkit-box;
@@ -142,14 +119,18 @@ body {
   margin: -1px;
   padding: 25px;
 }
-
 .beerlist_section .box .img-box img {
   max-width: 100%;
   max-height: 145px;
   -webkit-transition: all .2s;
   transition: all .2s;
 }
+.beerlist_section .box:hover .img-box img {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
 
+/* 맥주 설명란 */
 .beerlist_section .box .beerdetail-box {
   padding: 25px;
 }
@@ -166,13 +147,15 @@ body {
   margin-top: 10px;
 }
 
-.beerdetail-box .beerdetail-title {
+/* 맥주 이름 */
+.beerlist_section .beerdetail-box .beerdetail-title {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.beerdetail-title .detailBtn {
+/* 자세히버튼 */
+.beerlist_section .beerdetail-title .detailBtn {
   font-size: smaller;
   padding: 2px;
   /* background-color: #e69c00; */
@@ -180,16 +163,19 @@ body {
   /* border-radius: 5px */
 }
 
-
+/* 맥주 카테고리 + 하트버튼 */
 .beerlist_section .box .options {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  justify-content: space-between;
+  align-items: center;
+}
+.beerCategory {
+  padding: 7px;
+  border-radius: 15px;
+  background-color: #e69c00;
 }
 
+/* 맥주 하트 */
 .beerlist_section .box .options a {
   width: 40px;
   height: 40px;
@@ -205,23 +191,6 @@ body {
       -ms-flex-align: center;
           align-items: center;
 }
-
-
-.beerlist_section .box:hover .img-box img {
-  -webkit-transform: scale(1.1);
-          transform: scale(1.1);
-}
-
-.beerlist_section .star {
-  color: #e69c00;
-}
-
-.beerCategory {
-  padding: 7px;
-  border-radius: 15px;
-  background-color: #e69c00;
-
-}
-.beerlist_section .heartIcon {
-  color: red;
+.beerlist_section .box .options a:hover {
+  cursor: pointer;
 }

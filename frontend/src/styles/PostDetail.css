@@ -7,61 +7,14 @@
 }
 
 .layout_padding_postdetail {
-  padding: 90px 0;
+  padding-top: 50px ;
+  padding-bottom: 90px;
 }
 
+/* 제목 */
 .PostDetail h1,
 .PostDetail h2 {
   font-family: 'Dancing Script', cursive;
-}
-
-.heading_container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-}
-
-.heading_container h2 {
-  position: relative;
-  margin-bottom: 0;
-  font-size: 2.5rem;
-  font-weight: bold;
-}
-
-.heading_container h2 span {
-  color: #ffbe33;
-}
-
-.heading_container p {
-  margin-top: 10px;
-  margin-bottom: 0;
-}
-
-.heading_container.heading_center {
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  text-align: center;
-}
-
-.book_section .heading_container {
-  margin-bottom: 25px;
-}
-
-.contact_section .heading_container {
-  margin-bottom: 45px;
-}
-
-
-.client_section .heading_container {
-  margin-bottom: 30px;
 }
 
 .postdetail_section {
@@ -75,6 +28,18 @@
           align-items: center;
 }
 
+/* 목록으로 버튼 */
+.postdetail_section .backBtn {
+  margin-bottom: 30px;
+  color: #ffffff;
+}
+.postdetail_section .backBtn .btnText {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+
+/* 포스트 이미지 */
 .postdetail_section .img-box {
   position: relative;
   display: -webkit-box;
@@ -84,7 +49,6 @@
       -ms-flex-pack: center;
           justify-content: center;
 }
-
 .postdetail_section .img-box img {
   width: 100%;
   max-width: 445px;
@@ -92,13 +56,68 @@
   z-index: 2;
 }
 
-.postdetail_section .detail-box p {
-  margin-top: 15px;
+/* 포스트 좋아요,댓글, 맥주이름 */
+.postdetail_heading {
+  display: flex;
+  justify-content: space-between;
 }
 
-.postdetail_section .detail-box a {
+/* 맥주이름 버튼 */
+.postdetail_section .beerName {
+  margin: 10px 0px;
+  padding: 5px 10px;
+  border-radius: 10px;
+  background-color: #e69c00;
   display: inline-block;
-  padding: 10px 45px;
+}
+.postdetail_section .beerName:hover {
+  cursor: pointer;
+}
+
+/* 좋아요 하트 */
+.postdetail_likecomment {
+  display: flex;
+}
+.postdetail_section .heartInline, 
+.postdetail_section .commentInline {
+  display: flex;
+  align-items: center;
+}
+.postdetail_section .commentInline {
+  padding-left: 20px;
+}
+.postdetail_section .heartInline .heartIcon {
+  margin-top: 7px;
+  color: red;
+}
+.heartIcon:hover {
+  cursor: pointer;
+}
+.postdetail_section .postdetail_likecomment .count{
+  padding-left: 8px;
+  font-size: 25px;
+}
+
+/* 해시태그 */
+.postdetail_hashtag {
+  margin-bottom: 10px;
+}
+.postdetail_hashtag span {
+  padding-right: 8px;
+  font-size: 25px;
+}
+
+/* 작성자, 작성날짜 */
+.userdetail {
+  color: grey;
+  margin: 5px 0;
+}
+
+
+/* 수정, 삭제 버튼 */
+.postdetail_section .detail-box .updateBtn {
+  display: inline-block;
+  padding: 5px 15px;
   background-color: #ffbe33;
   color: #ffffff;
   border-radius: 45px;
@@ -107,19 +126,19 @@
   border: none;
   margin-top: 15px;
 }
-
-.postdetail_section .detail-box a:hover {
+.postdetail_section .detail-box .deleteBtn {
+  display: inline-block;
+  padding: 5px 15px;
+  background-color: #ffbe33;
+  color: #ffffff;
+  border-radius: 45px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  border: none;
+  margin-top: 15px;
+}
+.postdetail_section .detail-box .updateBtn:hover,
+.postdetail_section .detail-box .deleteBtn:hover {
   background-color: #e69c00;
-}
-
-
-.postdetail_section .heartInline {
-  display: flex;
-  align-items: flex-start;
-}
-
-
-.heartIcon {
-  margin-top: 7px;
-  color: red;
+  cursor: pointer;
 }

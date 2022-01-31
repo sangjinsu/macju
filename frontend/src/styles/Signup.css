@@ -15,6 +15,11 @@
   font-family: 'Dancing Script', cursive;
 }
 
+
+/* Signup 제목 */
+.signup_section .signup_heading_container {
+  margin-bottom: 40px;
+}
 .signup_heading_container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -27,7 +32,6 @@
       -ms-flex-align: start;
           align-items: flex-start;
 }
-
 .signup_heading_container h2 {
   position: relative;
   margin-bottom: 0;
@@ -35,14 +39,8 @@
   font-weight: bold;
 }
 
-.signup_section {
-  position: relative;
-}
 
-.signup_section .signup_heading_container {
-  margin-bottom: 25px;
-}
-
+/* 입력창 */
 .signup_section .form_container .form-control {
   width: 100%;
   border: none;
@@ -57,27 +55,24 @@
   -webkit-box-shadow: none;
           box-shadow: none;
 }
-
 .signup_section .form_container .form-control::-webkit-input-placeholder {
   color: #222222;
 }
-
 .signup_section .form_container .form-control:-ms-input-placeholder {
   color: #222222;
 }
-
 .signup_section .form_container .form-control::-ms-input-placeholder {
   color: #222222;
 }
-
 .signup_section .form_container .form-control::placeholder {
   color: #222222;
 }
-
 .signup_section .form_container .nice-select .current {
   font-size: 16px;
 }
 
+
+/* 완료 버튼 */
 .signup_section .form_container button {
   margin-top: 15px;
   border: none;
@@ -91,11 +86,12 @@
   transition: all 0.3s;
   border: none;
 }
-
 .signup_section .form_container button:hover {
   background-color: #e69c00;
 }
 
+
+/* 이미지? */
 .signup_section .map_container {
   width: 100%;
   height: 345px;

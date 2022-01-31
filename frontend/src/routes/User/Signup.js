@@ -63,15 +63,20 @@ function Signup() {
     <div className="Signup">
       <section className="signup_section layout_padding_signup">
         <div className="container">
+          {/* Signup 제목 */}
           <div className="signup_heading_container">
             <h2>
               Signup
             </h2>
           </div>
+
+          {/* 회원가입 입력창 */}
           <div className="row">
             <div className="col-md-6">
               <div className="form_container">
                 <form action="./login">
+
+                  {/* 별명 입력 */}
                   <div>
                     <input
                       type="text"
@@ -83,6 +88,8 @@ function Signup() {
                     />
                   </div>
                   {/* <button type="button" onClick={ checkNickName } disabled={ nickBtn }>중복확인</button> <br/> */}
+                  
+                  {/* 나이 입력 */}
                   <div>
                     <input
                       type="number"
@@ -93,6 +100,8 @@ function Signup() {
                       onChange={ changeAge }
                     />
                   </div>
+
+                  {/* 성별 입력 */}
                   <div>
                     <select className="form-control nice-select wide">
                       <option value="" disabled selected>
@@ -106,19 +115,25 @@ function Signup() {
                       </option>
                     </select>
                   </div>
+
+                  {/* 회원가입 완료 버튼 */}
                   <div className="btn_box">
                     <button>
                       SignUp Now
                     </button>
                   </div>
                 </form>
+
               </div>
             </div>
+
+            {/* 추후 추가될 것 (이미지?) */}
             <div className="col-md-6">
               <div className="map_container ">
                 <div id="signupImg">image띄우는 곳</div>
               </div>
             </div>
+
           </div>
         </div>
       </section>

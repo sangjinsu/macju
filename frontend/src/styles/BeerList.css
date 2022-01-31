@@ -22,7 +22,7 @@
   align-items: flex-start;
 }
 
-.displaynone {
+.beerlist_section .displaynone {
   display: none;
 }
 
@@ -36,7 +36,7 @@
   }
 }
 
-.fadein {
+.beerlist_section .fadein {
  opacity: 0;
  animation: fadeIn ease-in 1;
  animation-fill-mode: forwards;
@@ -61,7 +61,7 @@ body {
   font-family: 'Dancing Script', cursive;
 }
 
-.heading_container {
+.beerlist_section .heading_container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -74,23 +74,15 @@ body {
           align-items: flex-start;
 }
 
-.heading_container h2 {
+.beerlist_section .heading_container h2 {
   position: relative;
   margin-bottom: 0;
   font-size: 2.5rem;
   font-weight: bold;
 }
 
-.heading_container h2 span {
-  color: #ffbe33;
-}
 
-.heading_container p {
-  margin-top: 10px;
-  margin-bottom: 0;
-}
-
-.heading_container.heading_center {
+.beerlist_section .heading_container.heading_center {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;

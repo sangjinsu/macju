@@ -33,6 +33,7 @@ function BeerList(){
   
   
   // 오류 : 카테고리 클릭할 때 리스트에 없던 맥주들만 fadein효과 적용되서 원래 리스트에 있던건 fadein이 안됌
+  // 오류 : navbar의 area-expanded 되어있을때 카테고리누르면 닫히게해야함
   return(
     <div>
       <section className="beerlist_section layout_padding_beerlist">
@@ -54,7 +55,7 @@ function BeerList(){
           <div className="filters-content">
             <div className="row grid">
 
-              <div className="col-sm-6 col-lg-4 fadein all ale">
+              <div className="col-sm-6 col-lg-3 fadein all ale">
                 <div className="box">
                   <div>
                     <div className="img-box">
@@ -87,7 +88,7 @@ function BeerList(){
                 </div>
               </div>
 
-              <div className="col-sm-6 col-lg-4 fadein all lager">
+              <div className="col-sm-6 col-lg-3 fadein all lager">
                 <div className="box">
                   <div>
                     <div className="img-box">
@@ -120,7 +121,7 @@ function BeerList(){
                 </div>
               </div>
 
-              <div className="col-sm-6 col-lg-4 fadein all ladler">
+              <div className="col-sm-6 col-lg-3 fadein all ladler">
                 <div className="box">
                   <div>
                     <div className="img-box">
@@ -153,7 +154,7 @@ function BeerList(){
                 </div>
               </div>
 
-              <div className="col-sm-6 col-lg-4 fadein all ale">
+              <div className="col-sm-6 col-lg-3 fadein all ale">
                 <div className="box">
                   <div>
                     <div className="img-box">

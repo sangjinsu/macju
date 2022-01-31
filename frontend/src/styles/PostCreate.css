@@ -6,31 +6,36 @@
   overflow-x: hidden;
 }
 
-
-
 .layout_padding_postcreate {
   padding-top: 70px;
   padding-bottom: 90px;
 }
-.backBtn_postcreate {
-  margin-bottom: 20px;
+.postcreate_section {
+  /* position: relative; */
+  display: flex;
+  justify-content: center;
 }
-
-.backBtn_text {
-  color: black;
-  text-decoration: none;
-}
-
 .postcreate_section h1,
 .postcreate_section h2 {
   font-family: 'Dancing Script', cursive;
 }
 
+
+/* 뒤로가기버튼 */
+.backBtn_postcreate {
+  margin-bottom: 20px;
+}
+.backBtn_text {
+  color: black;
+  text-decoration: none;
+}
+
+
+/* Create Post 제목 */
 .heading_postcreate {
   margin-bottom: 40px;
 
 }
-
 .heading_postcreate h2 {
   margin-bottom: 0;
   font-size: 2.5rem;
@@ -38,39 +43,33 @@
   text-align: center;
 }
 
-.postcreate_section {
-  /* position: relative; */
-  display: flex;
-  justify-content: center;
-
-}
-
-.postcreate_section .heading_container {
-  margin-bottom: 25px;
-}
-
-.postcreate_section .form_container .form-control {
+/* 포스트 업로드할 이미지 */
+.postcreate_section .image_container {
   width: 100%;
-  border: none;
-  height: 50px;
-  margin-bottom: 25px;
-  padding-left: 25px;
-  outline: none;
-  border-radius: 5px;
-  outline: none;
-
+  height: auto;
+  border-radius: 10px;
+  overflow: auto;
 }
 
+
+/* 입력창 */
 .input_postcreate {
   margin: 0 auto;
 }
-
-.postcreate_textarea {
+.input_postcreate .postcreate_textarea {
   resize: none;
   width: 100%;
-
+  border: 1px solid #999;
+  outline: none;
+  color: #000000;
+  border-radius: 5px;
+  outline: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
+
+/* 작성완료버튼 */
 .postcreate_section .form_container button {
   margin-top: 15px;
   border: none;
@@ -84,14 +83,7 @@
   transition: all 0.3s;
   border: none;
 }
-
 .postcreate_section .form_container button:hover {
   background-color: #e69c00;
 }
 
-.postcreate_section .image_container {
-  width: 100%;
-  height: auto;
-  border-radius: 10px;
-  overflow: auto;
-}

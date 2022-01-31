@@ -54,35 +54,42 @@ function CommentList() {
   return(
     
     <div className="CommentList">
-      <section className="comment_section layout_padding">
+      <section className="comment_section layout_padding_comment">
         <div className="container">
 
           <div className="row">
             <div className="col-md-12">
-              <div className="detail-box">
+              <div className="comment-box">
                 <div className="heading_container">
                   <h2>Comment</h2>
                 </div>
+                {/* 댓글 작성 폼 */}
                 <form action="">
                   <input
                     type="text"
                     name="inputComment"
+                    className="comment_input"
+                    placeholder="댓글 입력..."
                     value={ inputComment }
                     onChange={ changeComment }
+                    required
                   />
-                  <button type="button" onClick={ addComment }>Add</button>
+                  {/* 비어있을때 addComment 함수 작동 안되게해야함 */}
+                  <button class="comment_button" onClick={ addComment }>Add</button>
                 </form>
+
+                {/* 댓글 목록 */}
                 {
-        
                   comments.map( (post, i) => {
                     return(
                       <div className="commentList" key={i}>
-                        <p> { post.comment } </p>
+                        <div> { post.comment } </div>
                         <button className="deletebtn" type="button" commentid={i} onClick={ deleteComment }>삭제</button>
                       </div>
                     );
                   })
                 }
+
               </div>
             </div>
           </div>

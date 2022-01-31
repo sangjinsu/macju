@@ -33,17 +33,20 @@ function PostCreate() {
           <div className='backBtn_postcreate'>
             <Link className='backBtn_text' to='/beer/1'><i className="fas fa-angle-double-left fa-lg"></i> back</Link>
           </div>
+
+          {/* 포스트작성 제목 */}
           <div className="heading_postcreate">
             <h2>Create Post</h2>
           </div>
           <div className="row">
             <div className="col-md-8 offset-md-2">
+              {/* 입력 폼 container */}
               <div className="form_container">
                 <form action="/beer/1">
+
                   {/* 사진 선택하기 */}
                   <div>
                     <input type="file" multiple accept="image/*" onChange={onChange} />
-                    
                   </div>
 
                   {/* 사진 띄우는곳 */}
@@ -75,13 +78,13 @@ function PostCreate() {
                       // cols='50'
                     ></textarea>
                     <br/>
-
-                    
-
                   </div>
+
+                  {/* 작성완료 버튼 */}
                   <div>
                     <button type="submit" onClick={upLoadImg}> 작성 완료</button>
                   </div>
+
                 </form>
                 
               </div>

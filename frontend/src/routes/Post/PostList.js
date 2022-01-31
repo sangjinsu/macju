@@ -48,7 +48,7 @@ function PostList() {
           {stat}
         </div>
       <div className="container">
-      <Row xs={1} sm={2} md={4} className="g-4">
+      <Row xs={1} sm={2} md={2} className="g-4">
       {posts&&posts.map((post)=><Col key={post.id}>
       <FadeIn>
         <div

@@ -1,17 +1,19 @@
 package com.sib.macju.controller.comment;
 
 import com.sib.macju.domain.comment.Comment;
+import com.sib.macju.domain.member.Member;
 import com.sib.macju.domain.post.Post;
 import com.sib.macju.repository.comment.CommentRepository;
 import com.sib.macju.repository.post.PostRepository;
 import com.sib.macju.service.comment.CommentService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -64,8 +66,14 @@ public class CommentController {
 
     // delete
     @DeleteMapping("/{postId}/comment/{commentId}")
-    public List<Comment> deleteComment(@PathVariable Long postId, @PathVariable Long commentId){
-        return commentService.deleteComment(postId, commentId);
+    public List<Comment> deleteComment(@PathVariable Long postId, @PathVariable Long commentId, Authentication authentication){
+        String username = authentication.getName();
+        Optional<Comment> comment  = commentRepository.findById(commentId);
+
+        if (username == comment.get().getMember().getNickName()) {
+            return commentService.deleteComment(postId, commentId);
+        }
+        return null;
     }
     // 사용자 인증 추가??
 //    public List<Comment> deleteComment(@PathVariable Long postId, @PathVariable Long commentId, @AuthenticationPrincipal UserDetailsImpl userDetails){

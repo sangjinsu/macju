@@ -7,9 +7,10 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserHashTagRepository extends JpaRepository<UserHashTag, Long> {
     @Query("select tag from UserHashTag tag where tag.content = :content")
-    List<UserHashTag> findByContent(@Param("content") String content);
+    Optional<UserHashTag> findByContent(@Param("content") String content);
 }

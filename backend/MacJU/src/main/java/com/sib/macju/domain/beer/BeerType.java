@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -24,7 +22,4 @@ public class BeerType {
     private BeerMainType main;
 
     private String detail;
-
-    @OneToMany(mappedBy = "beerType", cascade = CascadeType.ALL)
-    private List<Beer> beers = new ArrayList<>();
 }

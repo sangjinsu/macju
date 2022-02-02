@@ -10,11 +10,6 @@ import FadeIn from 'react-fade-in';
 
 function BeerList(){
 
-<<<<<<< HEAD
-
-=======
-  
->>>>>>> b7d98e73527337eb1a4ffce1ed144a5255e22adb
   const [isLike, setisLike] = useState(false)
   const [isActive, setIsActive] = useState('all')   // 현재 활성화된 카테고리 (기본값:all)
 

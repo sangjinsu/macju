@@ -1,9 +1,9 @@
-import UserProfile from "../../components/UserProfile.js"
+import UserProfile from "../../components/User/UserProfile.js"
 import ReactFullpage from '@fullpage/react-fullpage';
-import UserPost from "components/UserPost.js";
-import UserLike from "components/UserLike.js";
-import NavBar from "components/Navbar.js";
-import UserReview from "components/UserReview.js";
+import UserPost from "../../components/User/UserPost.js";
+import UserLike from "../../components/User/UserLike.js";
+import UserReview from "../../components/User/UserReview.js";
+// import NavBar from "components/Navbar.js";
 
 const Profile = () => {
   return (

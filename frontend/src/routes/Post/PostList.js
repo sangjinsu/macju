@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import axios from "axios"
 import {Link} from "react-router-dom"
 import { useDispatch, useSelector, useStore } from "react-redux";
-import {Button, Card, Col, Container, Row} from "react-bootstrap"
 import "../../styles/PostList.css"
 import FadeIn from 'react-fade-in';
 

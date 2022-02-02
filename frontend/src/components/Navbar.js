@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../styles/Navbar.css'
-import '../styles/responsive.css'
+import '../styles/Responsive.css'
 import { Link } from "react-router-dom"
 
 function NavBar(){

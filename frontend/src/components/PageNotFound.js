@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/PageNotFound.css'
-import '../styles/responsive.css'
-import { ReactComponent as PageNot } from './notFound.svg';
+import '../styles/Responsive.css'
+import { ReactComponent as PageNot } from '../styles/NotFound.svg';
  
 function PageNotFound(){
   return(

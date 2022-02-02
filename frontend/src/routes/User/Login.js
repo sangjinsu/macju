@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import '../../styles/login.css'
+import '../../styles/Login.css'
 
 function Login() { // 회원가입 넘어가는 링크만 걸어뒀음
   return(

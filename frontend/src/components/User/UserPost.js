@@ -1,6 +1,6 @@
 import { Button } from "react-bootstrap";
 import PostList from "routes/Post/PostList";
-import "../styles/UserPost.css"
+import "../../styles/UserPost.css"
 
 const UserPost = () => {
   

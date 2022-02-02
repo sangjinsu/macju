@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from "react";
 import { BsHeartFill, BsHeart } from "react-icons/bs";
 import '../../styles/BeerList.css'
 import { Link } from "react-router-dom"
 
 
+
 function BeerList(){
+
+
   const [isLike, setisLike] = useState(false)
 
   return(
@@ -114,6 +117,10 @@ function BeerList(){
           </div>
         </div>
       </section>
+
+
+
+
     </div>
   )
 }

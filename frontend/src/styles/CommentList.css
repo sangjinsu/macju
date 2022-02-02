@@ -2,6 +2,14 @@
   background: #222831;
   color: #ffffff;
 }
+.comment_section .layout_padding_comment {
+  padding: 10px 0;
+}
+
+.comment_section h1,
+.comment_section h2 {
+  font-family: 'Dancing Script', cursive;
+}
 
 .comment_section .row {
   -webkit-box-align: center;
@@ -9,49 +17,19 @@
           align-items: center;
 }
 
-.comment_section .img-box {
-  position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+/* 댓글 작성 폼 */
+.comment_section .comment_input {
+  border: 1px solid #999;
+  outline: none;
+  color: #000000;
+  border-radius: 5px;
+  outline: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
-.comment_section .img-box img {
-  width: 100%;
-  max-width: 445px;
-  position: relative;
-  z-index: 2;
-}
-
-.comment_section .detail-box p {
-  margin-top: 15px;
-}
-
-.comment_section .detail-box a {
-  display: inline-block;
-  padding: 10px 45px;
-  background-color: #ffbe33;
-  color: #ffffff;
-  border-radius: 45px;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  border: none;
-  margin-top: 15px;
-}
-
-.comment_section .detail-box a:hover {
-  background-color: #e69c00;
-}
-
-.commentList {
-  display: flex;
-  align-items: flex-start;
-}
-
-a.typebtn {
+/* 댓글 작성 버튼 */
+.comment_section .comment_button {
   display: inline-block;
   padding: 10px 30px;
   background-color: #ffbe33;
@@ -60,31 +38,30 @@ a.typebtn {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   border: none;
-
-  padding: 10px 45px;
-  margin-top: 15px;
-
-  width: auto;
-  height: auto;
+  padding: 5px 20px;
   margin-left: 5px;
-  fill: #ffffff;
 }
 
-button.deletebtn{
+/* 댓글목록 */
+.comment_section .commentList {
+  display: flex;
+  align-items: baseline;
+  padding-top: 7px;
+}
+
+
+/* 댓글 삭제 버튼 */
+.comment_section button.deletebtn{
   display: inline-block;
-  padding: 10px 30px;
   background-color: #ff3333;
   color: #ffffff;
   border-radius: 45px;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   border: none;
-
   padding: 2px 8px;
-  margin-top: 13px;
-
-  width: auto;
-  height: auto;
+  margin: 5px 0;
   margin-left: 5px;
   fill: #ffffff;
+  font-size: 12px;
 }

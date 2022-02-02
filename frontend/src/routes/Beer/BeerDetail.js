@@ -70,36 +70,42 @@ function BeerDetail() {
             </div>
 
             <div className="row">
+              {/* 맥주 이미지 */}
               <div className="col-md-6 ">
                 <div className="img-box">
                   <img src='\img\5.0_오리지날_라거_medium_-removebg-preview.png'></img>
                 </div>
               </div>
+
+              {/* 맥주 디테일 */}
               <div className="col-md-6">
                 <div className="detail-box">
+
+                  {/* 맥주 종류 */}
                   <div className="beerCategory" href="">Pale Ale</div>
 
                   {/* 맥주 이름 + 하트 */}
-                  <div className="heading_title spaceBetween">
+                  <div className="heading_title">
                     <h2>Terra</h2>
                     <div className="heartInline">
                       {
                         isLike === true
-                        ? <BsHeart className="heartIcon" size="22" onClick={()=>{setisLike(!isLike)}}></BsHeart>
-                        : <BsHeartFill className="heartIcon" size="22" onClick={()=>{setisLike(!isLike)}}></BsHeartFill>
+                        ? <BsHeart className="heartIcon" size="23" onClick={()=>{setisLike(!isLike)}}></BsHeart>
+                        : <BsHeartFill className="heartIcon" size="23" onClick={()=>{setisLike(!isLike)}}></BsHeartFill>
                       }
-                      <div>({ postnow.likes })</div>
+                      <div className="like_count">{ postnow.likes }</div>
                     </div>
                   </div>
 
                   {/* 맥주 별점 + 평가하기버튼 */}
-                  <div className="spaceBetween">
+                  <div className="rate_spacebetween">
                     <div className='starInline'>
                       <div className='star'>★★★★☆</div>
                       <div>(4)</div>
                     </div>
                     <button className="RateBtn" onClick={()=> set_rateModal(true)}>평가하기</button>
                   </div>
+
                   {/* 평가창 모달 */}
                   {/* <Modal isOpen={rateModal} onRequestClose={() => set_rateModal(false)}> */}
                   <Modal isOpen={rateModal} style={modal_style} ariaHideApp={false} >
@@ -147,6 +153,7 @@ function BeerDetail() {
         </section>
       }
 
+      {/* 맥주별 포스트 목록 */}
       <section className="BeerPosts_section">
         <div className="container">
           <div className='heading_posts'>

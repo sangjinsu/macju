@@ -6,9 +6,9 @@ import com.sib.macju.domain.member.Member;
 import com.sib.macju.domain.member.MemberLikeBeer;
 import com.sib.macju.domain.member.MemberLikePost;
 import com.sib.macju.domain.post.Post;
-import com.sib.macju.dto.member.BeerDTO;
-import com.sib.macju.dto.member.MemberDTO;
-import com.sib.macju.dto.member.PostDTO;
+import com.sib.macju.dto.beer.BeerVO;
+import com.sib.macju.dto.member.MemberVO;
+import com.sib.macju.dto.post.PostVO;
 import com.sib.macju.repository.beer.BeerRepository;
 import com.sib.macju.repository.member.FollowRepository;
 import com.sib.macju.repository.member.MemberLikeBeerRepository;
@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MemberServiceImpl implements MemberService{
@@ -70,14 +71,14 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public Beer findByBeerId(Long beerId) {
-        Beer beer = beerRepository.findByBeerId(beerId);
-        return beer;
+        Optional<Beer> beer = beerRepository.findById(beerId);
+        return beer.get();
     }
 
     @Override
     public Post findByPostId(Long postId) {
-        Post post = postRepository.findByPostId(postId);
-        return post;
+        Optional<Post> post = postRepository.findById(postId);
+        return post.get();
     }
 
     @Override
@@ -91,13 +92,13 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public List<BeerDTO> fetchLikedBeer(Long memberId) {
-        List<BeerDTO> result = new ArrayList<>();
+    public List<BeerVO> fetchLikedBeer(Long memberId) {
+        List<BeerVO> result = new ArrayList<>();
         List<MemberLikeBeer> data = memberLikeBeerRepository.findAllByMember(findByMemberId(memberId));
 
         for(int i=0; i<data.size(); i++){
             Beer beer = data.get(i).getBeer();
-            result.add(new BeerDTO(beer.getBeerId(), beer.getBeerType().getMain().toString(), beer.getName(), beer.getEnglishName(), beer.getContent(), beer.getVolume(), beer.getPhotoPath()));
+            result.add(new BeerVO(beer.getBeerId(), beer.getBeerType().getMain().toString(), beer.getName(), beer.getEnglishName(), beer.getContent(), beer.getVolume(), beer.getPhotoPath()));
         }
 
         return result;
@@ -132,14 +133,14 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public List<PostDTO> fetchLikedPost(Long memberId) {
-        List<PostDTO> result = new ArrayList<>();
+    public List<PostVO> fetchLikedPost(Long memberId) {
+        List<PostVO> result = new ArrayList<>();
         List<MemberLikePost> data = memberLikePostRepository.findAllByMember(findByMemberId(memberId));
 
         for(int i=0; i<data.size(); i++){
             Post post = data.get(i).getPost();
             //BeerDTO 시작
-            BeerDTO beer = new BeerDTO();
+            BeerVO beer = new BeerVO();
             beer.setBeerId(post.getBeer().getBeerId());
             beer.setBeerType(post.getBeer().getBeerType().getMain().toString());
             beer.setBeerName(post.getBeer().getName());
@@ -149,14 +150,14 @@ public class MemberServiceImpl implements MemberService{
             beer.setPhotoPath(post.getBeer().getPhotoPath());
             //BeerDTO 끝
             //MemberDTO 시작
-            MemberDTO member = new MemberDTO();
+            MemberVO member = new MemberVO();
             member.setMemberId(post.getMember().getMemberId());
             member.setNickName(post.getMember().getNickName());
             member.setName(post.getMember().getName());
             member.setAge(post.getMember().getAge());
             member.setGrade(post.getMember().getGrade());
             //MemberDTO 끝
-            result.add(new PostDTO(post.getPostId(), beer, member, post.getContent(), post.getCreatedAt(), post.getUpdatedAt()));
+            result.add(new PostVO(post.getPostId(), beer, member, post.getContent(), post.getCreatedAt(), post.getUpdatedAt()));
         }
 
         return result;
@@ -209,15 +210,15 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public List<MemberDTO> fetchFollowings(Long memberId) {
+    public List<MemberVO> fetchFollowings(Long memberId) {
 
         Member member = findByMemberId(memberId);
         List<Follow> data = member.getFollowers();
-        List<MemberDTO> result = new ArrayList<>();
+        List<MemberVO> result = new ArrayList<>();
         for(int i=0; i<data.size(); i++){
             Member following = data.get(i).getFollowing();
             following.toString();
-            MemberDTO memberDTO = new MemberDTO();
+            MemberVO memberDTO = new MemberVO();
             memberDTO.setMemberId(following.getMemberId());
             memberDTO.setGrade(following.getGrade());
             memberDTO.setAge(following.getAge());
@@ -229,15 +230,15 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public List<MemberDTO> fetchFollowers(Long memberId) {
+    public List<MemberVO> fetchFollowers(Long memberId) {
 
         Member member = findByMemberId(memberId);
         List<Follow> data = member.getFollowings();
-        List<MemberDTO> result = new ArrayList<>();
+        List<MemberVO> result = new ArrayList<>();
         for(int i=0; i<data.size(); i++){
             Member follower = data.get(i).getFollower();
             follower.toString();
-            MemberDTO memberDTO = new MemberDTO();
+            MemberVO memberDTO = new MemberVO();
             memberDTO.setMemberId(follower.getMemberId());
             memberDTO.setGrade(follower.getGrade());
             memberDTO.setAge(follower.getAge());

@@ -1,17 +1,13 @@
 package com.sib.macju.dto.member;
 
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
-
-import javax.persistence.*;
-import java.util.List;
 
 
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-public class MemberDTO {
+public class MemberVO {
 
     private Long memberId;
 
@@ -24,7 +20,7 @@ public class MemberDTO {
     private int grade;
 
     @Builder
-    public MemberDTO(Long memberId, String nickName, String name, int age, int grade) {
+    public MemberVO(Long memberId, String nickName, String name, int age, int grade) {
         this.memberId = memberId;
         this.nickName = nickName;
         this.name = name;

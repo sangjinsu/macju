@@ -1,13 +1,10 @@
 package com.sib.macju.controller.member;
 
-import com.sib.macju.domain.beer.Beer;
 import com.sib.macju.domain.member.Member;
-import com.sib.macju.domain.member.ProfileColor;
 import com.sib.macju.domain.member.Status;
-import com.sib.macju.domain.post.Post;
-import com.sib.macju.dto.member.BeerDTO;
-import com.sib.macju.dto.member.MemberDTO;
-import com.sib.macju.dto.member.PostDTO;
+import com.sib.macju.dto.beer.BeerVO;
+import com.sib.macju.dto.member.MemberVO;
+import com.sib.macju.dto.post.PostVO;
 import com.sib.macju.service.member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -132,7 +129,7 @@ public class MemberController {
         Map<String, Object> result = new HashMap<>();
         HttpStatus status = HttpStatus.ACCEPTED;
 
-        List<BeerDTO> data = memberService.fetchLikedBeer(memberId);
+        List<BeerVO> data = memberService.fetchLikedBeer(memberId);
         if(data != null){
             result.put("result",SUCCESS);
             result.put("data",data);
@@ -163,7 +160,7 @@ public class MemberController {
         Map<String, Object> result = new HashMap<>();
         HttpStatus status = HttpStatus.ACCEPTED;
 
-        List<PostDTO> data = memberService.fetchLikedPost(memberId);
+        List<PostVO> data = memberService.fetchLikedPost(memberId);
         if(data != null){
             result.put("result", SUCCESS);
             result.put("data", data);
@@ -219,7 +216,7 @@ public class MemberController {
         Map<String, Object> result = new HashMap<>();
         HttpStatus status = HttpStatus.ACCEPTED;
 
-        List<MemberDTO> data = memberService.fetchFollowings(memberId);
+        List<MemberVO> data = memberService.fetchFollowings(memberId);
         if(data != null){
             result.put("result", SUCCESS);
             result.put("data", data);
@@ -237,7 +234,7 @@ public class MemberController {
         Map<String, Object> result = new HashMap<>();
         HttpStatus status = HttpStatus.ACCEPTED;
 
-        List<MemberDTO> data = memberService.fetchFollowers(memberId);
+        List<MemberVO> data = memberService.fetchFollowers(memberId);
         if(data != null){
             result.put("result", SUCCESS);
             result.put("data", data);

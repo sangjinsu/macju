@@ -3,14 +3,14 @@ package com.sib.macju.domain.member;
 import com.sib.macju.domain.post.Post;
 import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "member_like_post")
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Setter
 public class MemberLikePost {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

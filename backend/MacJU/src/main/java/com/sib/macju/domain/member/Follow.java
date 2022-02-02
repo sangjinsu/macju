@@ -3,13 +3,14 @@ package com.sib.macju.domain.member;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@Setter
 @Table(name = "follow")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Follow {
 
     @Id
@@ -17,10 +18,10 @@ public class Follow {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "follow_id")
+    @JoinColumn(name = "following_id")
     private Member follower;
 
     @ManyToOne
-    @JoinColumn(name = "following_id")
+    @JoinColumn(name = "follow_id")
     private Member following;
 }

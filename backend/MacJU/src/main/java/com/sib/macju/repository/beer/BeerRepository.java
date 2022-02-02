@@ -18,4 +18,5 @@ public interface BeerRepository extends JpaRepository<Beer, Long> {
 //            "where beer.beerType.beerTypeId =" +
 //            " (select bt.beerTypeId from BeerType bt where bt.main = :beerMainType)" )
     List<Beer> findByBeerMainType(@Param("beerMainType") BeerMainType beerMainType);
+    Beer findByBeerId (@Param("beerId") Long beerId);
 }

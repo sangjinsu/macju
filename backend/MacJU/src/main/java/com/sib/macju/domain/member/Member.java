@@ -1,17 +1,17 @@
 package com.sib.macju.domain.member;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
+@ToString
 @Table(name = "member")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor//(access = AccessLevel.PROTECTED)
 public class Member {
 
     @Id
@@ -29,12 +29,14 @@ public class Member {
     @Column(nullable = false)
     private String name;
 
+    @Setter
     @Enumerated(EnumType.STRING)
     private Status status = Status.Activate;
 
     @Column(nullable = false)
     private int age;
 
+    @Setter
     @Enumerated(EnumType.STRING)
     @Column(name = "profile_color")
     private ProfileColor profileColor = ProfileColor.White;
@@ -43,8 +45,8 @@ public class Member {
     private int grade;
 
     @OneToMany(mappedBy = "following")
-    private List<Follow> followings;
+    private List<Follow> followings = new ArrayList<>();
 
     @OneToMany(mappedBy = "follower")
-    private List<Follow> followers;
+    private List<Follow> followers = new ArrayList<>();
 }

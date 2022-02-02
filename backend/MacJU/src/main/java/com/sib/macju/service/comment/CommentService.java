@@ -34,13 +34,17 @@ import java.util.Optional;
         Optional<Member> member = memberRepository.findById(memberId); // member get??? session user get?
         comment.setMember(member.get());
 
+        System.out.println(post.get());
+        System.out.println("***********************"+member);
+
+
         commentRepository.save(comment);
         return comment;
     }
 
     @Transactional
-    public List<Comment> deleteComment(Long commentId, Long postId) {
-        Optional<Comment> comment = commentRepository.findById(commentId);
+    public List<Comment> deleteComment(Long postId, Long commentId) {
+//        Optional<Comment> comment = commentRepository.findById(commentId);
         commentRepository.deleteById(commentId);
         return commentRepository.findCommentsByPost(postId);
     }

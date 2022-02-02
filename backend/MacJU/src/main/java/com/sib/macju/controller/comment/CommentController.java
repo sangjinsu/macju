@@ -8,7 +8,7 @@ import com.sib.macju.repository.post.PostRepository;
 import com.sib.macju.service.comment.CommentService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
+//import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -38,6 +38,8 @@ public class CommentController {
         // memberId = ((SessionUser) httpSession.getAttribute("member")).getId();
         // https://github.com/hahyuning/SpringBoot-Project/blob/60ccff3dadc279f2626dcc5dc89b813df9c994a6/src/main/java/com/desk/spring/config/oauth/dto/SessionUser.java
 
+        System.out.println(comment);
+
         Long memberId = Long.valueOf(1);
         Comment result = commentService.createComment(post.getPostId(), comment, memberId);
 
@@ -66,15 +68,16 @@ public class CommentController {
 
     // delete
     @DeleteMapping("/{postId}/comment/{commentId}")
-    public List<Comment> deleteComment(@PathVariable Long postId, @PathVariable Long commentId, Authentication authentication){
-        String username = authentication.getName();
-        Optional<Comment> comment  = commentRepository.findById(commentId);
+    public List<Comment> deleteComment(@PathVariable Long postId, @PathVariable Long commentId){ // (Authentication authentication)        Optional<Comment> comment  = commentRepository.findById(commentId);
+        return commentService.deleteComment(postId, commentId);
 
-        if (username == comment.get().getMember().getNickName()) {
-            return commentService.deleteComment(postId, commentId);
-        }
-        return null;
+//        String username = authentication.getName();
+//        if (username == comment.get().getMember().getNickName()) {
+//            return commentService.deleteComment(postId, commentId);
+//        }
+//        return null;
     }
+
     // 사용자 인증 추가??
 //    public List<Comment> deleteComment(@PathVariable Long postId, @PathVariable Long commentId, @AuthenticationPrincipal UserDetailsImpl userDetails){
 //        return commentService.deleteComment(postId, commentId, userDetails.getAccount().getId());

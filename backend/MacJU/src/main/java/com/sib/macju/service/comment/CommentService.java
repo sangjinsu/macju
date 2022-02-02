@@ -34,10 +34,6 @@ import java.util.Optional;
         Optional<Member> member = memberRepository.findById(memberId); // member get??? session user get?
         comment.setMember(member.get());
 
-        System.out.println(post.get());
-        System.out.println("***********************"+member);
-
-
         commentRepository.save(comment);
         return comment;
     }

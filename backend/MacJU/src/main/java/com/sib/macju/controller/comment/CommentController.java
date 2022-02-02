@@ -38,8 +38,6 @@ public class CommentController {
         // memberId = ((SessionUser) httpSession.getAttribute("member")).getId();
         // https://github.com/hahyuning/SpringBoot-Project/blob/60ccff3dadc279f2626dcc5dc89b813df9c994a6/src/main/java/com/desk/spring/config/oauth/dto/SessionUser.java
 
-        System.out.println(comment);
-
         Long memberId = Long.valueOf(1);
         Comment result = commentService.createComment(post.getPostId(), comment, memberId);
 

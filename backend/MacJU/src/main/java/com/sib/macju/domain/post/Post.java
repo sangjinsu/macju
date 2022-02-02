@@ -63,7 +63,7 @@ public class Post {
     // 연관관계 메서드
     public void setMember(Member member) {
         this.member = member;
-        //member.posts.add(this);
+        member.getPosts().add(this);
     }
 
     public void setBeer(Beer beer) {

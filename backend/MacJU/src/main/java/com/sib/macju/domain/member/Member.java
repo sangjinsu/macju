@@ -1,5 +1,6 @@
 package com.sib.macju.domain.member;
 
+import com.sib.macju.domain.post.Post;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -49,4 +50,7 @@ public class Member {
 
     @OneToMany(mappedBy = "follower")
     private List<Follow> followers = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<Post> posts = new ArrayList<>();
 }

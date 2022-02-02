@@ -3,6 +3,7 @@ package com.sib.macju.controller.comment;
 import com.sib.macju.domain.comment.Comment;
 import com.sib.macju.domain.member.Member;
 import com.sib.macju.domain.post.Post;
+import com.sib.macju.dto.comment.CommentDto;
 import com.sib.macju.dto.comment.RequestCreateCommentDto;
 import com.sib.macju.repository.comment.CommentRepository;
 import com.sib.macju.repository.member.MemberRepository;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -44,8 +46,11 @@ public class CommentController {
     }
 
     @GetMapping("/{postId}/comment")
-    public List<Comment> fetchComments(@PathVariable Long postId) {
-        return commentService.fetchComments(postId);
+    public List<CommentDto> fetchComments(@PathVariable Long postId) {
+        List<Comment> comments = commentService.fetchComments(postId);
+
+        return comments.stream().map(CommentDto::new).collect(Collectors.toList());
+//        return commentService.fetchComments(postId);
     }
 
     @DeleteMapping("/{postId}/comment/{commentId}")

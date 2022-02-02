@@ -1,4 +1,4 @@
-package com.sib.macju.controller.post;
+package com.sib.macju.dto.post;
 
 import com.sib.macju.domain.member.Member;
 import com.sib.macju.domain.post.Post;

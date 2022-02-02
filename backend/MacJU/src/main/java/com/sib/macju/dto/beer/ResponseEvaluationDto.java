@@ -1,4 +1,4 @@
-package com.sib.macju.controller.beer;
+package com.sib.macju.dto.beer;
 
 import com.sib.macju.domain.member.MemberRateBeer;
 import lombok.Data;

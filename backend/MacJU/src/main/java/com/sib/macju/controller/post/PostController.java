@@ -1,6 +1,10 @@
 package com.sib.macju.controller.post;
 
 import com.sib.macju.domain.post.Post;
+import com.sib.macju.dto.post.PostDetailDto;
+import com.sib.macju.dto.post.PostDto;
+import com.sib.macju.dto.post.RequestCreatePostDto;
+import com.sib.macju.dto.post.RequestUpdatePostDto;
 import com.sib.macju.service.post.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;

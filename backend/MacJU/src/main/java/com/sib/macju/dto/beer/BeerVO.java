@@ -1,6 +1,5 @@
-package com.sib.macju.dto.member;
+package com.sib.macju.dto.beer;
 
-import com.sib.macju.domain.beer.BeerType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BeerDTO {
+public class BeerVO {
 
     private Long beerId;
 

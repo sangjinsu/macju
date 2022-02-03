@@ -14,6 +14,8 @@ function CommentList(props) {
 
   const nickname = "nickname";
 
+  const apiUrl = "http://i6c107.p.ssafy.io:8080/v1/post/" + postId + "/comment"
+
   // let state = useSelector((state)=>state)
   const store = useStore((state)=>state)
   let dispatch = useDispatch();
@@ -22,21 +24,27 @@ function CommentList(props) {
     inputCommentChange(e.target.value);
   }
 
-  const addComment = () => {
-    dispatch({ type : "add", inputComment : dispatchComment })
-    setcomments(store.getState().commentReducer)
+  const addComment = async () => {
+    try{
+      const addData = await axios.post(apiUrl, {
+        requestCreateCommentDto : {
+          content: dispatchComment,
+          memberId: "test"
+        }
+      })
+      dispatch({ type : "add", inputComment : dispatchComment })
+      setcomments(store.getState().commentReducer)
+    }
+    catch{
+      alert("작성 실패")
+    }
   }
 
   const deleteComment = async (e) => {
     try{
       const commentId = e.target.attributes.commentid.value
       const deleteApiUrl = "http://i6c107.p.ssafy.io:8080/v1/post/" + postId + "/comment/" + commentId
-      const deleteData = await axios.delete(deleteApiUrl, {
-        data: {
-          commentId : commentId,
-          postId : postId
-        }
-      })
+      const deleteData = await axios.delete(deleteApiUrl)
       dispatch({ type : "delete", i : commentId })
       setcomments(store.getState().commentReducer)
     }
@@ -49,8 +57,7 @@ function CommentList(props) {
 
   useEffect(async ()=>{
     try{
-      const getApiUrl = "http://i6c107.p.ssafy.io:8080/v1/post/" + postId + "/comment"
-      const responseData = await axios.get(getApiUrl)
+      const responseData = await axios.get(apiUrl)
       dispatch({type:"dataLoading", responseData : responseData.data})
       setcomments(store.getState().commentReducer)
     }
@@ -61,7 +68,16 @@ function CommentList(props) {
   )
 
   useEffect( () => {
-    setDispatchComment({"postId" : parseInt(postId), "nickname" : nickname, "comment":inputComment})
+    const commentLen = comments.length
+    setDispatchComment({
+      commentId: commentLen,
+      content: inputComment,
+      member: {
+        memberId: "test",
+        nickname: "nickname"
+      }
+    })
+    // setDispatchComment({"postId" : parseInt(postId), "nickname" : nickname, "comment":inputComment})
   }, [inputComment])
 
 

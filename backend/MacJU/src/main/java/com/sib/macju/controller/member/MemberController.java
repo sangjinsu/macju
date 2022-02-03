@@ -17,6 +17,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/member")
+@CrossOrigin("*")
 public class MemberController {
 
     private static final String SUCCESS = "success";

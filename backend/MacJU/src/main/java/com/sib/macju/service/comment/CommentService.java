@@ -7,6 +7,7 @@ import com.sib.macju.repository.comment.CommentRepository;
 import com.sib.macju.repository.member.MemberRepository;
 import com.sib.macju.repository.post.PostRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,33 +24,37 @@ import java.util.Optional;
     private final MemberRepository memberRepository;
 
     public List<Comment> fetchComments(Long postId) {
-//        Optional<Post> post = postRepository.findById(postId);
-        return commentRepository.findCommentsByPost(postId);
+        return commentRepository.findByPostId(postId);
     }
 
     @Transactional
-    public Comment createComment(Long postId, Comment comment, Long memberId) {
+    public Long createComment(Long postId, Long memberId, String content) {
+        Comment comment = new Comment();
+
         Optional<Post> post = postRepository.findById(postId);
+        Optional<Member> member = memberRepository.findById(memberId);
+
+        if (post.isEmpty() || member.isEmpty()) {
+            throw new IllegalStateException();
+        }
+
         comment.setPost(post.get());
-        Optional<Member> member = memberRepository.findById(memberId); // member get??? session user get?
         comment.setMember(member.get());
 
+        comment.setContent(content);
         commentRepository.save(comment);
-        return comment;
+
+        return comment.getCommentId();
     }
 
     @Transactional
-    public List<Comment> deleteComment(Long postId, Long commentId) {
-//        Optional<Comment> comment = commentRepository.findById(commentId);
+    public void deleteComment(Long commentId) {
+        Optional<Comment> comment = commentRepository.findById(commentId);
+        if (comment.isEmpty()) {
+            throw new IllegalStateException();
+        }
         commentRepository.deleteById(commentId);
-        return commentRepository.findCommentsByPost(postId);
     }
-
-
-//    public Optional<Comment> findOne(Long commentId) {
-//        return commentRepository.findById(commentId);
-//    }
-
 }
 
 

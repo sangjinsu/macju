@@ -10,9 +10,25 @@ function PostDetail() {
   const [postnow, setpostnow] = useState()
   const postId = useParams().postId;
 
+  const memberId = "test"
+
+  // api
+  // useEffect(async ()=>{
+  //   try{
+  //     const detailPost = "http://i6c107.p.ssafy.io:8080/v1/post/member/" + memberId
+  //     const json = await axios.get(detailPost)
+  //     const postnum = json.data.find(function(post){
+  //         return post.postId == postId
+  //     });
+  //     setpostnow(postnum)
+  //   }catch{
+  //     console.log('오류')
+  //   }
+  // }, [])
+
   useEffect(async ()=>{
     try{
-      //api : http://localhost:3000//v1/post/{postId}
+      //api : http://i6c107.p.ssafy.io:8080/v1/post/member/{memberId}
       const json = await axios.get("http://localhost:3000/data/postData.json")
 
       const postnum = json.data.find(function(post){

@@ -1,4 +1,4 @@
-FROM openjdk:11-jdk
+FROM adoptopenjdk/openjdk11:alpine-jre
 
 WORKDIR /home/spring
 

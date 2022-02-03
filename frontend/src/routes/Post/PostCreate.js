@@ -7,13 +7,16 @@ import "../../firebase_config"
 function PostCreate() {
   const [imgs, setImgs] = useState([]);
   
-  const onChange = async (event) =>  {
+  const uploadBtn = async (event) =>  {
     const formData = new FormData();
     const imgList = event.target.files
-    let newList = [...imgs]
+    let newList = []
     for (let i=0; i<imgList.length; i += 1) {
       const nowImage = URL.createObjectURL(imgList[i])
-      setImgs((prevState) => [...prevState, nowImage])  
+      console.log(nowImage)
+      if (!imgs.includes(nowImage)) {
+        setImgs((prevState) => [...prevState, nowImage])  
+      } 
     }
   }
   const upLoadImg = async () =>{
@@ -46,7 +49,7 @@ function PostCreate() {
 
                   {/* 사진 선택하기 */}
                   <div>
-                    <input type="file" multiple accept="image/*" onChange={onChange} />
+                    <input type="file" multiple accept="image/*" onChange={uploadBtn} />
                   </div>
 
                   {/* 사진 띄우는곳 */}

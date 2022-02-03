@@ -13,7 +13,6 @@ import RecommendBeer from "components/Main/RecommendBeer";
 import PageNotFound from "components/PageNotFound";
 import ProfileEdit from "routes/User/ProfileEdit";
 import BeerTest from "routes/Beer/BeerTest";
-import UserReview from "components/User/UserReview";
 
 function App() {
   return (

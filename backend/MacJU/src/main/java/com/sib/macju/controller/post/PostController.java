@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("v1/post")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class PostController {
 
     private final PostService postService;

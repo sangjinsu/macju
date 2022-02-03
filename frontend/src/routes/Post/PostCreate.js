@@ -26,7 +26,7 @@ function PostCreate() {
   const upLoadImg = async () =>{
     const storage = getStorage();
     images.map(async (img, index)=>{
-      const storageRef = ref(storage, `imgs/${img.name}`);
+      const storageRef = ref(storage, `imgs/${img.name}_${Date.now()}`);
       await uploadBytes(storageRef, img).then((snapshot) => {
       console.log('uploaded')
     })
@@ -49,7 +49,7 @@ function PostCreate() {
             <div className="col-md-8 offset-md-2">
               {/* 입력 폼 container */}
               <div className="form_container">
-                <form action="/beer/1">
+                <form>
 
                   {/* 사진 선택하기 */}
                   <div>

@@ -13,8 +13,6 @@ function CommentList(props) {
   const postId = props.postId;
 
   const nickname = "nickname";
-  // api 주소
-  let apiUrl = "http://i6c107.p.ssafy.io:8080/v1/post/" + postId + "/comment"
 
   // let state = useSelector((state)=>state)
   const store = useStore((state)=>state)
@@ -29,21 +27,35 @@ function CommentList(props) {
     setcomments(store.getState().commentReducer)
   }
 
-  const deleteComment = (e) => {
-    dispatch({ type : "delete", i : e.target.attributes.commentid.value })
-    setcomments(store.getState().commentReducer)
+  const deleteComment = async (e) => {
+    try{
+      const commentId = e.target.attributes.commentid.value
+      const deleteApiUrl = "http://i6c107.p.ssafy.io:8080/v1/post/" + postId + "/comment/" + commentId
+      const deleteData = await axios.delete(deleteApiUrl, {
+        data: {
+          commentId : commentId,
+          postId : postId
+        }
+      })
+      dispatch({ type : "delete", i : commentId })
+      setcomments(store.getState().commentReducer)
+    }
+    catch{
+      alert("삭제 실패")
+    }
+    
   }
   
 
   useEffect(async ()=>{
     try{
-      const jsonData = await axios.get(apiUrl)
-      console.log(jsonData.data)
-      dispatch({type:"dataLoading", jsonData : jsonData.data})
+      const getApiUrl = "http://i6c107.p.ssafy.io:8080/v1/post/" + postId + "/comment"
+      const responseData = await axios.get(getApiUrl)
+      dispatch({type:"dataLoading", responseData : responseData.data})
       setcomments(store.getState().commentReducer)
     }
     catch{
-      console.log("오류")
+      alert("데이터 불러오기 실패")
     }
     }, []
   )

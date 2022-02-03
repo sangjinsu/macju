@@ -16,7 +16,7 @@ const UserProfile = () => {
 		<div className="userprofile_container">
 			<div className="user-profile">
 				<div className="img-box">
-					<img src={"img/user.png"} width={200} alt="아무사진 없습니다." />
+					<img src="/img/user.png" width={200} alt="아무사진 없습니다." />
 				</div>
 				<div id="profile-box">
 					<div id="name">

@@ -26,7 +26,7 @@ function PostCreate() {
   const upLoadImg = async () =>{
     const storage = getStorage();
     images.map(async (img, index)=>{
-      const storageRef = ref(storage, `imgs/${img.name}`);
+      const storageRef = ref(storage, `imgs/${img.name}_${Date.now()}`);
       await uploadBytes(storageRef, img).then((snapshot) => {
       console.log('uploaded')
     })

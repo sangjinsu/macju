@@ -3,8 +3,6 @@ import { getStorage, ref, uploadBytes } from "firebase/storage";
 import { useState } from "react";
 
 const UploadImage = () => {
-  
-  
   const [prevImgs, setPrevImgs] = useState([]);
   const [img, setImg] = useState(null);
   const onChange = async (event) =>  {
@@ -14,6 +12,7 @@ const UploadImage = () => {
     }
     
   }
+  
   console.log(img)
   //허용 후 업로드 시 여러장 추가하는 기능 구현 필요함.
   const upLoadImg = async () =>{

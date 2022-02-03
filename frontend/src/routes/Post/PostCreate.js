@@ -5,23 +5,27 @@ import { getStorage, ref, uploadBytes } from "firebase/storage";
 import "../../firebase_config"
 
 function PostCreate() {
-  const [imgs, setImgs] = useState([]);
-  
+  const [imgUrls, setImgUrls] = useState([]);
+  const [images, setImages] =useState([])
   const uploadBtn = async (event) =>  {
-    const formData = new FormData();
-    const imgList = event.target.files
-    let newList = []
-    for (let i=0; i<imgList.length; i += 1) {
-      const nowImage = URL.createObjectURL(imgList[i])
-      console.log(nowImage)
-      if (!imgs.includes(nowImage)) {
-        setImgs((prevState) => [...prevState, nowImage])  
-      } 
-    }
+  const formData = new FormData();
+  const imgList = event.target.files
+  let newList = []
+  for (let i=0; i<imgList.length; i += 1) {
+    const nowImage = URL.createObjectURL(imgList[i])
+    setImages((prevState)=>[...prevState, imgList[i]])
+    if (!imgUrls.includes(nowImage)) {
+      setImgUrls((prevState) => [...prevState, nowImage])  
+    } 
   }
+  
+  
+  }
+
+  console.log(images)
   const upLoadImg = async () =>{
     const storage = getStorage();
-    imgs.map(async (img, index)=>{
+    images.map(async (img, index)=>{
       const storageRef = ref(storage, `imgs/${img.name}`);
       await uploadBytes(storageRef, img).then((snapshot) => {
       console.log('uploaded')
@@ -55,7 +59,7 @@ function PostCreate() {
                   {/* 사진 띄우는곳 */}
                   <div>
                     <div className='image_container'>
-                      { imgs&&imgs.map((img, index)=>(
+                      { imgUrls&&imgUrls.map((img, index)=>(
                         <img key={index} alt="sample" src={img}/>)
                       )}
                     </div>

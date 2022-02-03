@@ -49,7 +49,7 @@ function PostCreate() {
             <div className="col-md-8 offset-md-2">
               {/* 입력 폼 container */}
               <div className="form_container">
-                <form action="/beer/1">
+                <form>
 
                   {/* 사진 선택하기 */}
                   <div>

@@ -50,7 +50,7 @@ function NavBar(){
                     </li>
                   </ul>
                   <div className="user_option">
-                    <Link to='/profile' className="user_link" onClick={navClick}>
+                    <Link to='/profile/post' className="user_link" onClick={navClick}>
                       <i className="fa fa-user" aria-hidden="true"></i>
                     </Link>
                     <form className="form-inline">

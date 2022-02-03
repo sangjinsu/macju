@@ -4,11 +4,35 @@ import { BsHeartFill, BsHeart } from "react-icons/bs";
 import '../../styles/BeerList.css'
 import { Link } from "react-router-dom"
 import FadeIn from 'react-fade-in';
+import axios from "axios"
+import { getDownloadURL, getStorage , ref } from "firebase/storage";
+import "../../firebase_config"
 // import { default as Fade} from 'react-fade';
 
 
 
 function BeerList(){
+  // 맥주 데이터
+  const [beerdata, setbeerdata] = useState([])
+  // 맥주 사진 URL
+  const [beerImgList, setBeerImgList] = useState([])
+
+  useEffect(async ()=>{
+    // http://i6c107.p.ssafy.io:8080/v1/beer
+    const data = await axios.get("http://i6c107.p.ssafy.io:8080/v1/beer")
+    setbeerdata([data][0].data)
+    
+    const datalist = [data][0].data
+    const storage = getStorage()
+    for(var i=0, j=datalist.length; i<j; i++) {
+      const storageRef = ref(storage, `gs://ssafy-01-beer-image.appspot.com/${datalist[i].photoPath}`)
+      getDownloadURL(storageRef)
+      .then((url)=>{
+        setBeerImgList((prev)=>[...prev,url])
+      })
+    }
+    // console.log(beerImgList)
+  }, [])
 
   const [isLike, setisLike] = useState(false)
   const [isActive, setIsActive] = useState('all')   // 현재 활성화된 카테고리 (기본값:all)
@@ -31,6 +55,7 @@ function BeerList(){
     }
   }
   
+
   
   // 오류 : 카테고리 클릭할 때 리스트에 없던 맥주들만 fadein효과 적용되서 원래 리스트에 있던건 fadein이 안됌
   // 오류 : navbar의 area-expanded 되어있을때 카테고리누르면 닫히게해야함
@@ -57,6 +82,58 @@ function BeerList(){
           
           <FadeIn>
           <div className="row grid">
+          { beerdata && beerdata.map((beer, i) =>
+              <div className="col-sm-6 col-md-4 col-lg-3 fadein all ale" key={beer.beerId}>
+                <div className="box">
+                  <div>
+                    {/* 맥주 이미지 */}
+                    <div className="img-box">
+                      {/* <img src="https://firebasestorage.googleapis.com/v0/b/ssafy-01-beer-image.appspot.com/o/1866_%EB%B8%94%EB%9E%91%EC%89%AC__500ml_medium_-removebg-preview.png?alt=media&token=b3ee4910-fb76-4f03-aad8-387bd213a590"></img> */}
+                      <img src={beerImgList[i]} alt='beerimage'></img>
+                    </div>
+
+                    {/* 맥주 설명란 */}
+                    <div className="beerdetail-box">
+
+                      {/* 맥주 이름 + 자세히 버튼 */}
+                      <div className='beerdetail-title'>
+                        <h5>{beer.name}</h5>
+                        <Link to='/beer/1' className='detailBtn'>자세히</Link>
+                      </div>
+
+                      {/* 맥주 별점 */}
+                      <div className='star'>★★★★☆</div>
+
+                      {/* 맥주 설명 */}
+                      <p>
+                        {beer.content}
+                      </p>
+
+                      {/* 맥주 해시태그 */}
+                      <div>#과일향 #매운맛
+                        
+                      </div>
+
+                      {/* 맥주 카테고리 */}
+                      <div className="options">
+                        <h6 className='beerCategory'>
+                          {/* {beer.beerType.main} */}
+                          {/* {beer.beerType.detail} ? {beer.beerType.detail} : {beer.beerType.main} */}
+                        </h6>
+                        {/* 좋아요 버튼 */}
+                        <a>
+                          { isLike === true
+                            ? <BsHeart  size="18" onClick={()=>{setisLike(!isLike)}}></BsHeart>
+                            : <BsHeartFill  size="18" onClick={()=>{setisLike(!isLike)}}></BsHeartFill>
+                          }
+                        </a>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* 맥주 각각 */}
             <div className="col-sm-6 col-md-4 col-lg-3 fadein all ale">
@@ -73,7 +150,7 @@ function BeerList(){
 
                     {/* 맥주 이름 + 자세히 버튼 */}
                     <div className='beerdetail-title'>
-                      <h5>테라</h5>
+                      {/* <h5>{beerdata.beerId}</h5> */}
                       <Link to='/beer/1' className='detailBtn'>자세히</Link>
                     </div>
 
@@ -82,11 +159,13 @@ function BeerList(){
 
                     {/* 맥주 설명 */}
                     <p>
-                      Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
+                      
                     </p>
 
                     {/* 맥주 해시태그 */}
-                    <div>#과일향 #매운맛</div>
+                    <div>#과일향 #매운맛
+                      
+                    </div>
 
                     {/* 맥주 카테고리 */}
                     <div className="options">

@@ -101,7 +101,7 @@ public class PostService {
     }
 
     public List<Post> fetchPostsByBeerId(Long beerId) {
-        return postRepository.findByBeerId(beerId);
+        return postRepository.findAllByBeer_BeerId(beerId);
     }
 
 

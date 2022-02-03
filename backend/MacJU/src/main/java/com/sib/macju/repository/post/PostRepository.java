@@ -20,7 +20,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findByBeerId(@Param("beerId") Long beerId);
 
     @Query("select post from Post post join fetch post.beer join fetch post.member where post.beer.beerId = :beerId order by post.updatedAt desc ")
-    List<Post> findAllByBeer_BeerId();
+    List<Post> findAllByBeer_BeerId(@Param("beerId") Long beerId);
 
     @Query("select post from Post post join fetch post.member join fetch post.beer order by post.updatedAt desc ")
     List<Post> findAllWithDetails(Pageable pageable);

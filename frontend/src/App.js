@@ -22,7 +22,7 @@ function App() {
         <Switch>
           <Route path="/beer/test" component={BeerTest} />
           <Route path="/post/new" component={PostCreate} />
-          <Route path="/post/:postid" component={PostDetail} />
+          <Route path="/post/:postId" component={PostDetail} />
           <Route path="/post" component={PostList} />
           <Route path="/beer/:beerid" component={BeerDetail} />
           <Route path="/beer" component={BeerList} />

@@ -4,14 +4,17 @@ import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import axios from 'axios';
 import "../../styles/CommentList.css"
 
-function CommentList() {
+function CommentList(props) {
   const [comments, setcomments] = useState([]);
   const [inputComment, inputCommentChange] = useState();
   const [addCommentList, setaddCommentList] = useState();
   const [dispatchComment, setDispatchComment] = useState();
   
-  const { num } = useParams();
+  const postId = props.postId;
+
   const nickname = "nickname";
+  // api 주소
+  let apiUrl = "http://i6c107.p.ssafy.io:8080/v1/post/" + postId + "/comment"
 
   // let state = useSelector((state)=>state)
   const store = useStore((state)=>state)
@@ -34,8 +37,8 @@ function CommentList() {
 
   useEffect(async ()=>{
     try{
-      //api : http://localhost:3000/v1/post/{postId}/comment
-      const jsonData = await axios.get("http://localhost:3000/data/commentData.json")
+      const jsonData = await axios.get(apiUrl)
+      console.log(jsonData.data)
       dispatch({type:"dataLoading", jsonData : jsonData.data})
       setcomments(store.getState().commentReducer)
     }
@@ -46,7 +49,7 @@ function CommentList() {
   )
 
   useEffect( () => {
-    setDispatchComment({"postId" : parseInt(num), "nickname" : nickname, "comment":inputComment})
+    setDispatchComment({"postId" : parseInt(postId), "nickname" : nickname, "comment":inputComment})
   }, [inputComment])
 
 

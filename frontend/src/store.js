@@ -10,7 +10,7 @@ const reducer = (state = [], action) => {
 
 const commentReducer = (state = [], action) => {
   if (action.type === "dataLoading") {
-    state = action.jsonData
+    state = action.responseData
     return state
   }else if (action.type === "add"){
     const copyCommentList = [...state, action.inputComment]

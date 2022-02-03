@@ -1,7 +1,7 @@
 import "../../styles/UserProfile.css"
 import { useState } from "react";
 import { Button } from "react-bootstrap";
-import Modal from "components/Modals/Modals"
+import Modal from "components/Modals/Modals.js"
 
 const UserProfile = () => {
   const [modalOpen, setModalOpen] = useState(false);

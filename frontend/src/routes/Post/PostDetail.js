@@ -8,7 +8,7 @@ import CommentList from "./CommentList";
 
 function PostDetail() {
   const [postnow, setpostnow] = useState()
-  const { num } = useParams();
+  const postId = useParams().postId;
 
   useEffect(async ()=>{
     try{
@@ -16,7 +16,7 @@ function PostDetail() {
       const json = await axios.get("http://localhost:3000/data/postData.json")
 
       const postnum = json.data.find(function(post){
-          return post.postId == num
+          return post.id == postId
       });
       setpostnow(postnum)
     }catch{
@@ -103,7 +103,7 @@ function PostDetail() {
           </div>
         </section>
       }
-      <CommentList />
+      <CommentList postId={postId} />
     </div>
   )
   }

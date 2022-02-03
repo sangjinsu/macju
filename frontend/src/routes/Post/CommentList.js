@@ -4,14 +4,17 @@ import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import axios from 'axios';
 import "../../styles/CommentList.css"
 
-function CommentList() {
+function CommentList(props) {
   const [comments, setcomments] = useState([]);
   const [inputComment, inputCommentChange] = useState();
   const [addCommentList, setaddCommentList] = useState();
   const [dispatchComment, setDispatchComment] = useState();
   
-  const { num } = useParams();
+  const postId = props.postId;
+
   const nickname = "nickname";
+
+  const apiUrl = "http://i6c107.p.ssafy.io:8080/v1/post/" + postId + "/comment"
 
   // let state = useSelector((state)=>state)
   const store = useStore((state)=>state)
@@ -21,32 +24,60 @@ function CommentList() {
     inputCommentChange(e.target.value);
   }
 
-  const addComment = () => {
-    dispatch({ type : "add", inputComment : dispatchComment })
-    setcomments(store.getState().commentReducer)
+  const addComment = async () => {
+    try{
+      const addData = await axios.post(apiUrl, {
+        requestCreateCommentDto : {
+          content: dispatchComment,
+          memberId: "test"
+        }
+      })
+      dispatch({ type : "add", inputComment : dispatchComment })
+      setcomments(store.getState().commentReducer)
+    }
+    catch{
+      alert("작성 실패")
+    }
   }
 
-  const deleteComment = (e) => {
-    dispatch({ type : "delete", i : e.target.attributes.commentid.value })
-    setcomments(store.getState().commentReducer)
+  const deleteComment = async (e) => {
+    try{
+      const commentId = e.target.attributes.commentid.value
+      const deleteApiUrl = "http://i6c107.p.ssafy.io:8080/v1/post/" + postId + "/comment/" + commentId
+      const deleteData = await axios.delete(deleteApiUrl)
+      dispatch({ type : "delete", i : commentId })
+      setcomments(store.getState().commentReducer)
+    }
+    catch{
+      alert("삭제 실패")
+    }
+    
   }
   
 
   useEffect(async ()=>{
     try{
-      //api : http://localhost:3000/v1/post/{postId}/comment
-      const jsonData = await axios.get("http://localhost:3000/data/commentData.json")
-      dispatch({type:"dataLoading", jsonData : jsonData.data})
+      const responseData = await axios.get(apiUrl)
+      dispatch({type:"dataLoading", responseData : responseData.data})
       setcomments(store.getState().commentReducer)
     }
     catch{
-      console.log("오류")
+      alert("데이터 불러오기 실패")
     }
     }, []
   )
 
   useEffect( () => {
-    setDispatchComment({"postId" : parseInt(num), "nickname" : nickname, "comment":inputComment})
+    const commentLen = comments.length
+    setDispatchComment({
+      commentId: commentLen,
+      content: inputComment,
+      member: {
+        memberId: "test",
+        nickname: "nickname"
+      }
+    })
+    // setDispatchComment({"postId" : parseInt(postId), "nickname" : nickname, "comment":inputComment})
   }, [inputComment])
 
 

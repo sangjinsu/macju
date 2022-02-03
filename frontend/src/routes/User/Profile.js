@@ -4,6 +4,7 @@ import UserPost from "../../components/User/UserPost.js";
 import UserLike from "../../components/User/UserLike.js";
 import UserReview from "../../components/User/UserReview.js";
 import { Route } from 'react-router';
+import { Link } from "react-router-dom"
 // import NavBar from "components/Navbar.js";
 
 const Profile = () => {
@@ -22,6 +23,10 @@ const Profile = () => {
             <button onClick={() => fullpageApi.moveSectionDown()}>
               Click me to move down
             </button>
+            {/* <a href="/profile/like">sdfsd</a> */}
+            <Link to="/profile/review">review</Link>
+            {/* <Link to="/profile/like">like</Link>
+            <Link to="/profile/review">review</Link> */}
           </div>
           <Route path="/profile/post">
             <div className="section">
@@ -35,12 +40,12 @@ const Profile = () => {
               <p>Section 3</p>
             </div>
           </Route>
-          <Route path="/profile/review">
+          {/* <Route path="/profile/review">
             <div className="section">
               <UserReview />
               <h1>평점</h1>
             </div>
-          </Route>
+          </Route> */}
         </ReactFullpage.Wrapper>
       );
     }}

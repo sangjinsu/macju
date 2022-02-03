@@ -2,7 +2,6 @@ import {BrowserRouter as Router, Switch, Route  } from "react-router-dom"
 import PostList from "./routes/Post/PostList";
 import PostDetail from "./routes/Post/PostDetail";
 import PostCreate from "./routes/Post/PostCreate";
-import CommentList from "./routes/Post/CommentList";
 import BeerList from './routes/Beer/BeerList.js';
 import Signup from './routes/User/Signup';
 import Login from './routes/User/Login';
@@ -19,22 +18,26 @@ function App() {
   return (
     <div>
       <Router>
-        <Navbar></Navbar>
+        <Navbar />
         <Switch>
-          <Route path="/beer/test"><BeerTest /></Route>
-          <Route path="/post/new"><PostCreate /></Route>
-          <Route path="/post/:postid"><PostDetail /><CommentList /></Route>
-          <Route path="/post"><PostList /></Route>
-          <Route path='/beer/:beerid'><BeerDetail /></Route>
-          <Route path='/beer'><BeerList /></Route>
-          <Route path='/login'><Login /></Route>
-          <Route path='/signup'><Signup /></Route>
-          <Route path="/home"><RecommendBeer /></Route>
-          <Route path='/:username/edit'><ProfileEdit /></Route>
-          <Route path="/:username"><Profile /></Route>
-          <Route path='/'><PageNotFound /></Route>
+          <Route path="/beer/test" component={BeerTest} />
+          <Route path="/post/new" component={PostCreate} />
+          <Route path="/post/:postid" component={PostDetail} />
+          <Route path="/post" component={PostList} />
+          <Route path="/beer/:beerid" component={BeerDetail} />
+          <Route path="/beer" component={BeerList} />
+          <Route path="/login" component={Login} />
+          <Route path="/signup" component={Signup} />
+          <Route path="/home" component={RecommendBeer} />
+          <Route path="/profile">
+            <Switch>
+              <Route path="/:username/edit" component={ProfileEdit} />
+              <Route path="/:username" component={Profile} />
+            </Switch>
+          </Route>
+          <Route path="*" component={PageNotFound} />
         </Switch>
-        <Footer></Footer>
+        <Footer />
       </Router>
     </div>
   );

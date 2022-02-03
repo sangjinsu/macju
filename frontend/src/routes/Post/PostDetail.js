@@ -4,6 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 import { BsHeartFill, BsHeart } from "react-icons/bs";
 // import { Button } from 'react-bootstrap';
 import '../../styles/PostDetail.css'
+import CommentList from "./CommentList";
 
 function PostDetail() {
   const [postnow, setpostnow] = useState()
@@ -102,6 +103,7 @@ function PostDetail() {
           </div>
         </section>
       }
+      <CommentList />
     </div>
   )
   }

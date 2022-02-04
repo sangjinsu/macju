@@ -1,28 +1,30 @@
 import { useEffect, useState } from "react";
-import axios from "axios"
 import { useParams, Link } from 'react-router-dom';
-import { BsHeartFill, BsHeart, BsSlack, BsFileX } from "react-icons/bs";
-// import { Button } from 'react-bootstrap';
-import '../../styles/BeerDetail.css'
+import { BsHeartFill, BsHeart } from "react-icons/bs";
 import Modal from 'react-modal';
 import StarRate from './StartRate.js'
+import axios from "axios"
+import { getDownloadURL, getStorage , ref } from "firebase/storage";
+import "../../firebase_config"
+import '../../styles/BeerDetail.css'
 
 function BeerDetail() {
-  const [postnow, setpostnow] = useState()
-  const { num } = useParams();
+  const [beer, setbeer] = useState()
+  const [beerImg, setbeerImg] = useState()
+  const { beerid } = useParams();
 
   useEffect(async ()=>{
-    try{
-      //api : http://localhost:3000//v1/beer/{beerId}
-      const json = await axios.get("http://localhost:3000/data/postData.json")
+    //api :  http://i6c107.p.ssafy.io:8080/v1/beer/{beerId}
+    const beerdetail = await axios.get(`http://i6c107.p.ssafy.io:8080/v1/beer/${beerid}`)
+    setbeer(beerdetail.data)
 
-      const postnum = json.data.find(function(post){
-          return post.postId == num
-      });
-      setpostnow(postnum)
-    }catch{
-      console.log('오류')
-    }
+    const storage = getStorage()
+    const storageRef = ref(storage, `gs://ssafy-01-beer-image.appspot.com/${beerdetail.data.photoPath}`)
+    getDownloadURL(storageRef)
+    .then((url)=>{
+      setbeerImg(url)
+    })
+
   }, [])
 
   const [isLike, setisLike] = useState(false)
@@ -60,7 +62,7 @@ function BeerDetail() {
   return (
     <div className="BeerDetail">
       {
-        postnow &&
+        beer &&
         <section className="beerdetail_section layout_padding_beer">
 
           <div className="container">
@@ -73,7 +75,7 @@ function BeerDetail() {
               {/* 맥주 이미지 */}
               <div className="col-md-6 ">
                 <div className="img-box">
-                  <img src='\img\5.0_오리지날_라거_medium_-removebg-preview.png'></img>
+                  <img src={beerImg}></img>
                 </div>
               </div>
 
@@ -82,18 +84,20 @@ function BeerDetail() {
                 <div className="detail-box">
 
                   {/* 맥주 종류 */}
-                  <div className="beerCategory" href="">Pale Ale</div>
+                  <div className="beerCategory" href="">{beer.beerType.main}</div>
+                  <div className="beerCategory_detail" href="">{beer.beerType.detail}</div>
 
                   {/* 맥주 이름 + 하트 */}
                   <div className="heading_title">
-                    <h2>Terra</h2>
+                    <h2>{beer.name}</h2>
+                    {/* <h2>{beer.englishName}</h2> */}
                     <div className="heartInline">
                       {
                         isLike === true
                         ? <BsHeart className="heartIcon" size="23" onClick={()=>{setisLike(!isLike)}}></BsHeart>
                         : <BsHeartFill className="heartIcon" size="23" onClick={()=>{setisLike(!isLike)}}></BsHeartFill>
                       }
-                      <div className="like_count">{ postnow.likes }</div>
+                      <div className="like_count">(5)</div>
                     </div>
                   </div>
 
@@ -133,13 +137,23 @@ function BeerDetail() {
                     </div>
                   </Modal>
 
-                  {/* 맥주 detail 내용 */}
-                  <p>{ postnow.post }</p>
+                  {/* 맥주 detail 내용 */
+                  <div className='beer_volume'>
+                    (도수 : {beer.volume}도)
+                  </div>}
+                  <p className="beer_content">{ beer.content }</p>
 
                   {/* 맥주 # 해시태그 */}
-                  <div className="hashtag">
+                  <div className="hashtag_all">
                     {
-                      postnow.Tag.map((tag, i)=>{
+                      beer.aromaHashTags.map((tag, i)=>{
+                        return(<span className="hashtag" key={i}>#{tag}</span>)
+                      })
+                    }
+                  </div>
+                  <div className="hashtag_all">
+                    {
+                      beer.flavorHashTags.map((tag, i)=>{
                         return(<span className="hashtag" key={i}>#{tag}</span>)
                       })
                     }

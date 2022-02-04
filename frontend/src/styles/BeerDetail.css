@@ -1,37 +1,30 @@
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap");
+
+/* 맥주 디테일 전체 */
 .beerdetail_section body {
   font-family: "Open Sans", sans-serif;
   color: #0c0c0c;
   background-color: #ffffff;
   /* overflow-x: hidden; */
 }
-
-
 .layout_padding_beer {
   padding: 50px 0;
   padding-bottom: 90px;
 }
-
-.beerdetail_section h1,
-.beerdetail_section h2 {
-  font-family: 'Dancing Script', cursive;
-}
-
-
 .beerdetail_section {
   background: #222831;
   color: #ffffff;
 }
-
-.BeerPosts_section {
-  background: #222831;
-  color: #ffffff;
-}
-
 .beerdetail_section .row {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+/* 포스트 배경 */
+.BeerPosts_section {
+  background: #222831;
+  color: #ffffff;
 }
 
 
@@ -44,6 +37,13 @@
   color: #ffffff;
   text-decoration: none;
 }
+
+/* 맥주 이름 */
+/* .beerdetail_section h1,
+.beerdetail_section h2 {
+  font-family: 'Dancing Script', cursive;
+} */
+
 
 /* 맥주 이미지 */
 .beerdetail_section .img-box {
@@ -63,31 +63,16 @@
   z-index: 2;
 }
 
-/* 맥주 디테일 */
-.beerdetail_section .detail-box p {
-  margin-top: 15px;
-}
-
-.beerdetail_section .detail-box a {
-  display: inline-block;
-  padding: 10px 45px;
-  background-color: #ffbe33;
-  color: #ffffff;
-  border-radius: 45px;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  border: none;
-  margin-top: 15px;
-}
-
-.beerdetail_section .detail-box a:hover {
-  background-color: #e69c00;
-}
-
-
 
 /* 맥주 종류 */
 .beerdetail_section .beerCategory {
+  margin: 15px 0px;
+  padding: 5px;
+  border-radius: 10px;
+  background-color: #e69c00;
+  display: inline-block;
+}
+.beerdetail_section .beerCategory_detail {
   margin: 15px 0px;
   padding: 5px;
   border-radius: 10px;
@@ -125,6 +110,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 10px;
 }
 .beerdetail_section .starInline {
   display: flex;
@@ -143,9 +129,25 @@
   border: none;
 }
 
+/* 맥주 설명 + 도수 */
+.beerdetail_section .beer_volume {
+  font-size: 20px;
+  /* color: #7a7e83; */
+}
+.beerdetail_section .beer_content {
+  font-size: 17px;
+  margin-top: 15px;
+
+  /* color: #7a7e83; */
+}
+
 /* 맥주 해시태그 */
 .beerdetail_section .hashtag {
-  font-size: 1.1em;
+  font-size: 1.4em;
+  padding-left: 0.1rem;
+  padding-right: 0.6rem;
+  color: #FFC81E;
+
 }
 
 

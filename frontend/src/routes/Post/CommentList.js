@@ -14,7 +14,7 @@ function CommentList(props) {
 
   const nickname = "nickname";
 
-  const apiUrl = "http://i6c107.p.ssafy.io:8080/v1/post/" + postId + "/comment"
+  const apiUrl = `http://i6c107.p.ssafy.io:8080/v1/post/${postId}/comment`
 
   // let state = useSelector((state)=>state)
   const store = useStore((state)=>state)
@@ -64,6 +64,7 @@ function CommentList(props) {
   useEffect(async ()=>{
     try{
       const responseData = await axios.get(apiUrl)
+      console.log(responseData.data)
       dispatch({type:"dataLoading", responseData : responseData.data})
       setcomments(store.getState().commentReducer)
     }
@@ -117,10 +118,10 @@ function CommentList(props) {
 
                 {/* 댓글 목록 */}
                 {
-                  comments.map( (post, i) => {
+                  comments.map( (comment, i) => {
                     return(
                       <div className="commentList" key={i}>
-                        <div> { post.comment } </div>
+                        <div> { comment.content } </div>
                         <button className="deletebtn" type="button" commentid={i} onClick={ deleteComment }>삭제</button>
                       </div>
                     );

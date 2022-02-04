@@ -19,6 +19,7 @@ public class BeerDto implements Serializable {
     private final String photoPath;
     private final List<String> aromaHashTags;
     private final List<String> flavorHashTags;
+    private final Long likes;
 
     @Data
     public static class BeerTypeDto implements Serializable {
@@ -46,5 +47,6 @@ public class BeerDto implements Serializable {
                 .map(beerHasFlavorHashTag ->
                         beerHasFlavorHashTag.getFlavorHashTag().getFlavor()
                 ).collect(Collectors.toList());
+        likes = beer.getMemberLikeBeers().stream().count();
     }
 }

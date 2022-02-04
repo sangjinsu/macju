@@ -53,11 +53,11 @@ public class BeerService {
         Optional<Beer> beer = beerRepository.findById(beerId);
         Optional<Member> member = memberRepository.findById(memberId);
         if (beer.isEmpty() || member.isEmpty()) {
-            throw new IllegalStateException();
+            return;
         }
 
         if (memberRateBeerRepository.findByBeerIdAndMemberId(beerId, memberId).isPresent()) {
-            throw new IllegalStateException();
+            return;
         }
 
         MemberRateBeer memberRateBeer = MemberRateBeer.createMemberRateBeer(beer.get(), member.get(), rate);

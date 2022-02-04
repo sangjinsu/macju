@@ -5,6 +5,7 @@ import com.sib.macju.domain.post.Post;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,6 +19,7 @@ public class PostDetailDto implements Serializable {
     private final List<PhotoDto> photos;
     private final List<UserHashTagDto> userHashTags;
     private final List<MemberDto> likeMembers;
+    private final LocalDateTime updatedAt;
 
     @Data
     public static class BeerDto implements Serializable {
@@ -80,5 +82,7 @@ public class PostDetailDto implements Serializable {
             Member member = memberLikePost.getMember();
             return new MemberDto(member.getMemberId(), member.getNickName());
         }).collect(Collectors.toList());
+
+        this.updatedAt = post.getUpdatedAt();
     }
 }

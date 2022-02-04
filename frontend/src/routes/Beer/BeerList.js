@@ -16,30 +16,57 @@ function BeerList(){
   const [beerdata, setbeerdata] = useState([])
   // 맥주 사진 URL
   const [beerImgList, setBeerImgList] = useState([])
+  // 각 맥주 좋아요
+  const [isLike, setisLike] = useState([])
+  // 현재 활성화된 카테고리 (기본값:all)
+  const [isActive, setIsActive] = useState('all')   
+  // 정렬된 사진 URL
+  const [imgurls, setimgurls] = useState([])
 
   useEffect(async ()=>{
     // http://i6c107.p.ssafy.io:8080/v1/beer
     const data = await axios.get("http://i6c107.p.ssafy.io:8080/v1/beer")
     setbeerdata([data][0].data)
-    
     const datalist = [data][0].data
+
+    // const imgUrlList = []
     const storage = getStorage()
+
     for(var i=0, j=datalist.length; i<j; i++) {
       const storageRef = ref(storage, `gs://ssafy-01-beer-image.appspot.com/${datalist[i].photoPath}`)
       getDownloadURL(storageRef)
       .then((url)=>{
         setBeerImgList((prev)=>[...prev,url])
+        // for(var a=0, b=datalist.length; a<b; a++) {
+        //   // console.log(encodeURIComponent(datalist[a].photoPath))
+        //   if((url).indexOf(encodeURIComponent(datalist[a].photoPath)) != -1) {
+        //     imgUrlList.push(url)
+        //     break
+        //   } 
+        // }
       })
     }
-    // console.log(beerImgList)
+    // console.log(imgUrlList)
+    // setimgurls(imgUrlList)
+    // console.log(imgurls)
+
+    setIsActive('all')
+
+    const newLike = []
+    for(var i=0, j=datalist.length; i<j; i++) {
+      newLike.push(false)
+    }
+    // console.log(newLike)
+    setisLike(newLike)
+
   }, [])
 
-  const [isLike, setisLike] = useState(false)
-  const [isActive, setIsActive] = useState('all')   // 현재 활성화된 카테고리 (기본값:all)
 
-  useEffect(() => {
-    setIsActive('all')
-  },[])
+  const changeLike = ((e)=>{
+    // console.log(e)
+    // console.log(e.target.attributes.beerlikeid)
+    setisLike(!isLike)
+  })
 
   // 클릭한 카테고리버튼 배경색 바꾸기 : 카테고리 클릭시 해당 카테고리 class에 .active 추가 
   const toggleActive = ((e) => {
@@ -55,7 +82,6 @@ function BeerList(){
     }
   }
   
-
   
   // 오류 : 카테고리 클릭할 때 리스트에 없던 맥주들만 fadein효과 적용되서 원래 리스트에 있던건 fadein이 안됌
   // 오류 : navbar의 area-expanded 되어있을때 카테고리누르면 닫히게해야함
@@ -82,14 +108,37 @@ function BeerList(){
           
           <FadeIn>
           <div className="row grid">
+
           { beerdata && beerdata.map((beer, i) =>
-              <div className="col-sm-6 col-md-4 col-lg-3 fadein all ale" key={beer.beerId}>
+            // { beer.beerType.main === 'Ale' 
+            //   ? <div className='ale'>
+            //   : { beer.beerType.main === 'Lager' 
+            //     ? <div className='lager'> 
+            //     : <div className='ladler'> }
+            // }
+            // <div id={`beer_${beer.beerId}`} key={beer.beerId}> 
+              <div className="col-sm-6 col-md-4 col-lg-3 fadein all" key={beer.beerId}>
                 <div className="box">
                   <div>
                     {/* 맥주 이미지 */}
                     <div className="img-box">
+                      {/* {
+                        beerImgList.map((url, a)=>{
+                          // console.log(encodeURIComponent(beerdata[a].photoPath))
+                          // console.log(url.indexOf('%EA%B2%BD%EB%B3%B5%EA%B6%81-removebg-preview.png'))
+                          // console.log(url.indexOf('5.0_%EC%98%A4%EB%A6%AC%EC%A7%80%EB%82%A0_%ED%95%84%EC%8A%A4_medium_-removebg-preview.png'))
+                          // console.log(url)
+                          if((url).indexOf(encodeURIComponent(beerdata[a].photoPath)) == 78){
+                            // console.log(url)
+                            // console.log(encodeURIComponent(beerdata[a].photoPath))
+                            return <img key={a} src={url} alt='beerimage'></img>
+                            // return url
+                          }
+                        })
+                      } */}
+                      <img src={imgurls[i]} alt='beerimage'></img>
+                      {/* {console.log(imgurls.length)} */}
                       {/* <img src="https://firebasestorage.googleapis.com/v0/b/ssafy-01-beer-image.appspot.com/o/1866_%EB%B8%94%EB%9E%91%EC%89%AC__500ml_medium_-removebg-preview.png?alt=media&token=b3ee4910-fb76-4f03-aad8-387bd213a590"></img> */}
-                      <img src={beerImgList[i]} alt='beerimage'></img>
                     </div>
 
                     {/* 맥주 설명란 */}
@@ -105,26 +154,35 @@ function BeerList(){
                       <div className='star'>★★★★☆</div>
 
                       {/* 맥주 설명 */}
-                      <p>
+                      <div className='beer_content'>
                         {beer.content}
-                      </p>
+                      </div>
+                      <div className='beer_volume'>
+                        ({beer.volume}도)
+                      </div>
 
                       {/* 맥주 해시태그 */}
-                      <div>#과일향 #매운맛
-                        
+                      <div className='beer_hashtag_all'>
+                        {beer.aromaHashTags.map((aroma,a) => {
+                          return <div key={a} className='beer_hashtag'>#{aroma}</div>
+                        })}
+                      </div>
+                      <div className='beer_hashtag_all'>
+                        {beer.flavorHashTags.map((flavor,f) => {
+                          return <div key={f} className='beer_hashtag'>#{flavor}</div>
+                        })}
                       </div>
 
                       {/* 맥주 카테고리 */}
                       <div className="options">
                         <h6 className='beerCategory'>
-                          {/* {beer.beerType.main} */}
-                          {/* {beer.beerType.detail} ? {beer.beerType.detail} : {beer.beerType.main} */}
+                          {beer.beerType.main}
                         </h6>
                         {/* 좋아요 버튼 */}
                         <a>
                           { isLike === true
-                            ? <BsHeart  size="18" onClick={()=>{setisLike(!isLike)}}></BsHeart>
-                            : <BsHeartFill  size="18" onClick={()=>{setisLike(!isLike)}}></BsHeartFill>
+                            ? <BsHeart size="18" onClick={changeLike}></BsHeart>
+                            : <BsHeartFill size="18" onClick={changeLike}></BsHeartFill>
                           }
                         </a>
                       </div>
@@ -133,163 +191,12 @@ function BeerList(){
                   </div>
                 </div>
               </div>
+            //  </div>
             )}
 
-            {/* 맥주 각각 */}
-            <div className="col-sm-6 col-md-4 col-lg-3 fadein all ale">
-              <div className="box">
-                <div>
-                  
-                  {/* 맥주 이미지 */}
-                  <div className="img-box">
-                    <img src='\img\5.0_오리지날_라거_medium_-removebg-preview.png'></img>
-                  </div>
-
-                  {/* 맥주 설명란 */}
-                  <div className="beerdetail-box">
-
-                    {/* 맥주 이름 + 자세히 버튼 */}
-                    <div className='beerdetail-title'>
-                      {/* <h5>{beerdata.beerId}</h5> */}
-                      <Link to='/beer/1' className='detailBtn'>자세히</Link>
-                    </div>
-
-                    {/* 맥주 별점 */}
-                    <div className='star'>★★★★☆</div>
-
-                    {/* 맥주 설명 */}
-                    <p>
-                      
-                    </p>
-
-                    {/* 맥주 해시태그 */}
-                    <div>#과일향 #매운맛
-                      
-                    </div>
-
-                    {/* 맥주 카테고리 */}
-                    <div className="options">
-                      <h6 className='beerCategory'>
-                        Pale Ale
-                      </h6>
-                      {/* 좋아요 버튼 */}
-                      <a>
-                        { isLike === true
-                          ? <BsHeart  size="18" onClick={()=>{setisLike(!isLike)}}></BsHeart>
-                          : <BsHeartFill  size="18" onClick={()=>{setisLike(!isLike)}}></BsHeartFill>
-                        }
-                      </a>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* 맥주 각각 */}
-            <div className="col-sm-6 col-md-4 col-lg-3 fadein all lager">
-              <div className="box">
-                <div>
-                  <div className="img-box">
-                    <img src='\img\1866_블랑쉬__500ml_medium_-removebg-preview.png'></img>
-                  </div>
-                  <div className="beerdetail-box">
-                    <div className='beerdetail-title'>
-                      <h5>라거</h5>
-                      <Link to='/beer/1' className='detailBtn'>자세히</Link>
-                    </div>
-                    <div className='star'>★★★★☆</div>
-                    <p>
-                      Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-                    </p>
-                    <div>#과일향 #매운맛</div>
-                    <div className="options">
-                      <h6 className='beerCategory'>
-                        Lager
-                      </h6>
-                      <a>
-                        {
-                          isLike === true
-                          ? <BsHeart  size="18" onClick={()=>{setisLike(!isLike)}}></BsHeart>
-                          : <BsHeartFill  size="18" onClick={()=>{setisLike(!isLike)}}></BsHeartFill>
-                        }
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* 맥주 각각 */}
-            <div className="col-sm-6 col-md-4 col-lg-3 fadein all ladler">
-              <div className="box">
-                <div>
-                  <div className="img-box">
-                    <img src='\img\1866_블랑쉬__500ml_medium_-removebg-preview.png'></img>
-                  </div>
-                  {/* 맥주카드 내용 */}
-                  <div className="beerdetail-box">
-                    <div className='beerdetail-title'>
-                      <h5>블랑쉬</h5>
-                      <Link to='/beer/1' className='detailBtn'>자세히</Link>
-                    </div>
-                    <div className='star'>★★★★☆</div>
-                    <p>
-                      Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-                    </p>
-                    <div>#과일향 #매운맛</div>
-                    <div className="options">
-                      <h6 className='beerCategory'>
-                        Ladler
-                      </h6>
-                      <a>
-                        {
-                          isLike === true
-                          ? <BsHeart  size="18" onClick={()=>{setisLike(!isLike)}}></BsHeart>
-                          : <BsHeartFill  size="18" onClick={()=>{setisLike(!isLike)}}></BsHeartFill>
-                        }
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* 맥주 각각 */}
-            <div className="col-sm-6 col-md-4 col-lg-3 fadein all ale">
-              <div className="box">
-                <div>
-                  <div className="img-box">
-                    <img src='\img\5.0_오리지날_라거_medium_-removebg-preview.png'></img>
-                  </div>
-                  <div className="beerdetail-box">
-                    <div className='beerdetail-title'>
-                      <h5>테라</h5>
-                      <Link to='/beer/1' className='detailBtn'>자세히</Link>
-                    </div>
-                    <div className='star'>★★★★☆</div>
-                    <p>
-                      Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-                    </p>
-                    <div>#과일향 #매운맛</div>
-                    <div className="options">
-                      <h6 className='beerCategory'>
-                        Ale
-                      </h6>
-                      <a>
-                        {
-                          isLike === true
-                          ? <BsHeart  size="18" onClick={()=>{setisLike(!isLike)}}></BsHeart>
-                          : <BsHeartFill  size="18" onClick={()=>{setisLike(!isLike)}}></BsHeartFill>
-                        }
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
           </div>
+          
+          
           </FadeIn>
 
         </div>

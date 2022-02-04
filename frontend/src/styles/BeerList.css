@@ -135,19 +135,21 @@
   padding: 25px;
 }
 
+/* 맥주설명 */
+.beerlist_section .box .beerdetail-box .beer_content {
+  font-size: 15px;
+}
+.beerlist_section .box .beerdetail-box .beer_volume {
+  font-size: 15px;
+  text-align: right;
+  color: #7a7e83;
+}
+
+
+/* 맥주이름 */
 .beerlist_section .box .beerdetail-box h5 {
   font-weight: 600;
 }
-
-.beerlist_section .box .beerdetail-box p {
-  font-size: 15px;
-}
-
-.beerlist_section .box .beerdetail-box h6 {
-  margin-top: 10px;
-}
-
-/* 맥주 이름 */
 .beerlist_section .beerdetail-box .beerdetail-title {
   display: flex;
   justify-content: space-between;
@@ -163,7 +165,22 @@
   /* border-radius: 5px */
 }
 
+/* 맥주 해시태그 */
+.beerlist_section .beer_hashtag_all{
+  display: flex;
+}
+.beerlist_section .beer_hashtag{
+  padding-right: 5px;
+  /* color: #FFA500	; */
+  /* color: #FFB400; */
+  color: #FFC81E;
+}
+
+
 /* 맥주 카테고리 + 하트버튼 */
+.beerlist_section .box .beerdetail-box h6 {
+  margin-top: 10px;
+}
 .beerlist_section .box .options {
   display: flex;
   justify-content: space-between;

@@ -63,6 +63,7 @@ function BeerDetail() {
     <div className="BeerDetail">
       {
         beer &&
+        <div>
         <section className="beerdetail_section layout_padding_beer">
 
           <div className="container">
@@ -85,7 +86,9 @@ function BeerDetail() {
 
                   {/* 맥주 종류 */}
                   <div className="beerCategory" href="">{beer.beerType.main}</div>
-                  <div className="beerCategory_detail" href="">{beer.beerType.detail}</div>
+                  { beer.beerType.detail 
+                    ? <div className="beerCategory_detail" href="">{beer.beerType.detail}</div> 
+                    : null }
 
                   {/* 맥주 이름 + 하트 */}
                   <div className="heading_title">
@@ -165,25 +168,31 @@ function BeerDetail() {
 
           </div>
         </section>
-      }
 
-      {/* 맥주별 포스트 목록 */}
-      <section className="BeerPosts_section">
-        <div className="container">
-          <div className='heading_posts'>
-            <h1>Post</h1>
-            {/* 포스팅하기 버튼 */}
-            <div className='newPostBtn'>
-              <Link className='btnText' to='/post/new'>포스팅하기</Link>
+        {/* 맥주별 포스트 목록 */}
+        <section className="BeerPosts_section">
+          <div className="container">
+            <div className='heading_posts'>
+              <h1>Post</h1>
+              {/* 포스팅하기 버튼 */}
+              <div className='newPostBtn'>
+                <Link 
+                  className='btnText' 
+                  to={{
+                    pathname: '/post/new',
+                    state: {beerid: beer.beerId},
+                  }}
+                >포스팅하기</Link>
+              </div>
             </div>
+            <div className="row">포스트들</div>
           </div>
 
-          <div className="row">포스트들</div>
-
+        </section>
         </div>
+      }
 
-        
-      </section>
+      
     </div>
   )
   }

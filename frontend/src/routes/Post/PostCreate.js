@@ -3,7 +3,7 @@ import '../../styles/PostCreate.css'
 import { Link } from 'react-router-dom';
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 import "../../firebase_config"
-
+import axios from "axios"
 function PostCreate() {
   const [imgUrls, setImgUrls] = useState([]);
   const [images, setImages] =useState([])
@@ -17,12 +17,9 @@ function PostCreate() {
     if (!imgUrls.includes(nowImage)) {
       setImgUrls((prevState) => [...prevState, nowImage])  
     } 
+  }  
   }
-  
-  
-  }
-
-  console.log(images)
+ 
   const upLoadImg = async () =>{
     const storage = getStorage();
     images.map(async (img, index)=>{

@@ -3,17 +3,20 @@ package com.macju.ranking.domain;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
+import org.springframework.data.redis.core.index.Indexed;
 
 import java.io.Serializable;
 
 @Data
-@RedisHash(value="Post", timeToLive = 86400) // 1일간 유지
-public class Post implements Serializable {
+@RedisHash(value="postview")//, timeToLive = 10) // 1일간 유지
+public class PostView {
 
     @Id
+    private Long Id;
+    @Indexed
     private Long postId;
-    private Long viewCount;
-    private Long likeCount;
+    @Indexed
+    private Long memberId;
 
 }
 

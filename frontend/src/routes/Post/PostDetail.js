@@ -5,42 +5,40 @@ import { BsHeartFill, BsHeart } from "react-icons/bs";
 // import { Button } from 'react-bootstrap';
 import '../../styles/PostDetail.css'
 import CommentList from "./CommentList";
+import { getDownloadURL, getStorage , ref } from "firebase/storage";
+import { useHistory } from 'react-router-dom';
 
 function PostDetail() {
-  const [postnow, setpostnow] = useState()
+  const [postnow, setPost] = useState()
+  const [postImg, setPostImg] = useState()
   const postId = useParams().postId;
 
-  const memberId = "test"
+  const [isLike, setisLike] = useState(false)
+
+  let history = useHistory();
 
   // api
-  // useEffect(async ()=>{
-  //   try{
-  //     const detailPost = "http://i6c107.p.ssafy.io:8080/v1/post/member/" + memberId
-  //     const json = await axios.get(detailPost)
-  //     const postnum = json.data.find(function(post){
-  //         return post.postId == postId
-  //     });
-  //     setpostnow(postnum)
-  //   }catch{
-  //     console.log('오류')
-  //   }
-  // }, [])
-
   useEffect(async ()=>{
     try{
-      //api : http://i6c107.p.ssafy.io:8080/v1/post/member/{memberId}
-      const json = await axios.get("http://localhost:3000/data/postData.json")
+      console.log(111)
+      const responseDetail = await axios.get(`http://i6c107.p.ssafy.io:8080/v1/post/${postId}`)
+      console.log(111)
+      const postDetail = responseDetail.data
+      setPost(postDetail)
+      console.log(11)
 
-      const postnum = json.data.find(function(post){
-          return post.id == postId
-      });
-      setpostnow(postnum)
+      const storage = getStorage()
+      const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/${postDetail.photoPath}`)
+      console.log(111)
+      getDownloadURL(storageRef)
+      .then((url)=>{
+        setPostImg(url)
+      })
     }catch{
-      console.log('오류')
+      history.push("/pageNotFound")
     }
   }, [])
-
-  const [isLike, setisLike] = useState(false)
+  
 
   return (
     <div className="PostDetail">

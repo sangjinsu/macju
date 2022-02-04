@@ -31,7 +31,13 @@ function CommentList(props) {
           content: dispatchComment,
           memberId: "test"
         }
-      })
+      }, {
+        headers: {
+          "accept" : "application/json;charset=UTF-8",
+          "Content-Type" : "appication/json;charset=UTF-8"
+        }
+      }
+      )
       dispatch({ type : "add", inputComment : dispatchComment })
       setcomments(store.getState().commentReducer)
     }

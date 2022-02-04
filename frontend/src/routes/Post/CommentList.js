@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { useDispatch, useStore } from 'react-redux';
-import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import axios from 'axios';
 import "../../styles/CommentList.css"
 
 function CommentList(props) {
   const [comments, setcomments] = useState([]);
-  const [inputComment, inputCommentChange] = useState();
-  const [addCommentList, setaddCommentList] = useState();
+  const [inputComment, inputCommentChange] = useState("");
   const [dispatchComment, setDispatchComment] = useState();
+  const newCommentId = useRef("");
   
   const postId = props.postId;
 
@@ -24,31 +23,43 @@ function CommentList(props) {
     inputCommentChange(e.target.value);
   }
 
-  const addComment = async () => {
+  const addComment = async (e) => {
+    e.preventDefault()
     try{
-      const addData = await axios.post(apiUrl, {
-        requestCreateCommentDto : {
-          content: dispatchComment,
-          memberId: "test"
-        }
-      }, {
+      const postData = {
+        "content": inputComment,
+        "memberId": 1
+      }
+      const headers = {
         headers: {
-          "accept" : "application/json;charset=UTF-8",
-          "Content-Type" : "appication/json;charset=UTF-8"
+          "Accept" : "application/json;charset=UTF-8",
+          "Content-Type" : "application/json;charset=UTF-8"
         }
       }
-      )
+      const addData = await axios.post(apiUrl, postData, headers)
+      newCommentId.current = addData.data
+
+      setDispatchComment({
+        commentId: newCommentId,
+        content: inputComment,
+        member: {
+          memberId: 1,
+          // nickname: "nickname" (수정필요)
+        }
+      })
+
       dispatch({ type : "add", inputComment : dispatchComment })
       setcomments(store.getState().commentReducer)
     }
     catch{
-      alert("작성 실패")
+      console.log("요류")
     }
   }
 
   const deleteComment = async (e) => {
     try{
       const commentId = e.target.attributes.commentid.value
+      console.log(commentId)
       const arrayId = e.target.attributes.arrayKey.value
       const deleteApiUrl = `http://i6c107.p.ssafy.io:8080/v1/post/${postId}/comment/${commentId}`
       const deleteData = await axios.delete(deleteApiUrl)
@@ -65,7 +76,6 @@ function CommentList(props) {
   useEffect(async ()=>{
     try{
       const responseData = await axios.get(apiUrl)
-      console.log(responseData.data)
       dispatch({type:"dataLoading", responseData : responseData.data})
       setcomments(store.getState().commentReducer)
     }
@@ -74,21 +84,6 @@ function CommentList(props) {
     }
     }, []
   )
-
-  useEffect( () => {
-    const commentLen = comments.length
-    setDispatchComment({
-      commentId: commentLen,
-      content: inputComment,
-      member: {
-        memberId: "test",
-        nickname: "nickname"
-      }
-    })
-    // setDispatchComment({"postId" : parseInt(postId), "nickname" : nickname, "comment":inputComment})
-  }, [inputComment])
-
-
 
   return(
     
@@ -103,7 +98,7 @@ function CommentList(props) {
                   <h2>Comment</h2>
                 </div>
                 {/* 댓글 작성 폼 */}
-                <form action="">
+                <form>
                   <input
                     type="text"
                     name="inputComment"
@@ -114,7 +109,7 @@ function CommentList(props) {
                     required
                   />
                   {/* 비어있을때 addComment 함수 작동 안되게해야함 */}
-                  <button class="comment_button" onClick={ addComment }>Add</button>
+                  <button className="comment_button" onClick={ addComment }>Add</button>
                 </form>
 
                 {/* 댓글 목록 */}

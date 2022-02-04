@@ -69,10 +69,64 @@
 }
 
 
-/* 작성완료버튼 */
-.postcreate_section .form_container button {
-  margin-top: 15px;
+/* 해시태그 */
+/* .hashtag_wrap {
+  display: flex;
+  justify-content: stretch;
+} */
+.hashtag_wrap_outer {
+  display: flex;
+  /* flex-wrap: wrap; */
+  /* justify-content: stretch; */
+}
+
+.hashtag_wrap_inner {
+  margin-top: 5px;
+  background: #ffeee7;
+  border-radius: 56px;
+  padding: 8px 12px;
+  color: #ff6e35;
+  display: inline-block;
+  /* justify-content: center; */
+  /* align-items: center; */
+  font-weight: bold;
+  /* font-size: 1.4rem; */
+  line-height: 20px;
+  margin-right: 5px;
+  cursor: pointer;
+  /* width: 7rem; */
+  height: auto;
+}
+.addHashBtn {
+  width: 80px;
+  height: 2rem;
+  background-color: #ffbe33;
+  color: #ffffff;
+  text-transform: uppercase;
+  border-radius: 45px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
   border: none;
+  font-size: 0.9rem;
+}
+
+.hashtag_input {
+  /* width: auto;
+  margin: 10px;
+  display: inline-flex;
+  outline: none;
+  cursor: text;
+  line-height: 2rem;
+  margin-bottom: 0.75rem;
+  min-width: 8rem;
+  border: none; */
+  margin-bottom: 5px;
+}
+
+
+/* 작성완료버튼 */
+.postcreate_section .form_container .complete_btn {
+  margin-top: 15px;
   text-transform: uppercase;
   display: inline-block;
   padding: 10px 55px;
@@ -82,8 +136,8 @@
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   border: none;
+  margin-left: 25%;
 }
-.postcreate_section .form_container button:hover {
+.postcreate_section .form_container .complete_btn:hover {
   background-color: #e69c00;
 }
-

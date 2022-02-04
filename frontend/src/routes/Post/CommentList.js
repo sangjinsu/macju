@@ -14,7 +14,7 @@ function CommentList(props) {
 
   const nickname = "nickname";
 
-  const apiUrl = "http://i6c107.p.ssafy.io:8080/v1/post/" + postId + "/comment"
+  const apiUrl = `http://i6c107.p.ssafy.io:8080/v1/post/${postId}/comment`
 
   // let state = useSelector((state)=>state)
   const store = useStore((state)=>state)
@@ -31,7 +31,13 @@ function CommentList(props) {
           content: dispatchComment,
           memberId: "test"
         }
-      })
+      }, {
+        headers: {
+          "accept" : "application/json;charset=UTF-8",
+          "Content-Type" : "appication/json;charset=UTF-8"
+        }
+      }
+      )
       dispatch({ type : "add", inputComment : dispatchComment })
       setcomments(store.getState().commentReducer)
     }
@@ -43,9 +49,10 @@ function CommentList(props) {
   const deleteComment = async (e) => {
     try{
       const commentId = e.target.attributes.commentid.value
-      const deleteApiUrl = "http://i6c107.p.ssafy.io:8080/v1/post/" + postId + "/comment/" + commentId
+      const arrayId = e.target.attributes.arrayKey.value
+      const deleteApiUrl = `http://i6c107.p.ssafy.io:8080/v1/post/${postId}/comment/${commentId}`
       const deleteData = await axios.delete(deleteApiUrl)
-      dispatch({ type : "delete", i : commentId })
+      dispatch({ type : "delete", i : arrayId })
       setcomments(store.getState().commentReducer)
     }
     catch{
@@ -58,6 +65,7 @@ function CommentList(props) {
   useEffect(async ()=>{
     try{
       const responseData = await axios.get(apiUrl)
+      console.log(responseData.data)
       dispatch({type:"dataLoading", responseData : responseData.data})
       setcomments(store.getState().commentReducer)
     }
@@ -111,11 +119,11 @@ function CommentList(props) {
 
                 {/* 댓글 목록 */}
                 {
-                  comments.map( (post, i) => {
+                  comments.map( (comment, i) => {
                     return(
                       <div className="commentList" key={i}>
-                        <div> { post.comment } </div>
-                        <button className="deletebtn" type="button" commentid={i} onClick={ deleteComment }>삭제</button>
+                        <div> { comment.content } </div>
+                        <button className="deletebtn" type="button" commentid={comment.commentId} arrayKey={i} onClick={ deleteComment }>삭제</button>
                       </div>
                     );
                   })

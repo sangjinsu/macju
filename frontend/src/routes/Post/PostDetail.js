@@ -5,47 +5,44 @@ import { BsHeartFill, BsHeart } from "react-icons/bs";
 // import { Button } from 'react-bootstrap';
 import '../../styles/PostDetail.css'
 import CommentList from "./CommentList";
+import { getDownloadURL, getStorage , ref } from "firebase/storage";
+import { useHistory } from 'react-router-dom';
 
 function PostDetail() {
-  const [postnow, setpostnow] = useState()
+  const [postData, setPost] = useState()
+  const [postImg, setPostImg] = useState()
   const postId = useParams().postId;
 
-  const memberId = "test"
+  const [isLike, setisLike] = useState(false)
+
+  let history = useHistory();
 
   // api
-  // useEffect(async ()=>{
-  //   try{
-  //     const detailPost = "http://i6c107.p.ssafy.io:8080/v1/post/member/" + memberId
-  //     const json = await axios.get(detailPost)
-  //     const postnum = json.data.find(function(post){
-  //         return post.postId == postId
-  //     });
-  //     setpostnow(postnum)
-  //   }catch{
-  //     console.log('오류')
-  //   }
-  // }, [])
-
   useEffect(async ()=>{
     try{
-      //api : http://i6c107.p.ssafy.io:8080/v1/post/member/{memberId}
-      const json = await axios.get("http://localhost:3000/data/postData.json")
+      const responseDetail = await axios.get(`http://i6c107.p.ssafy.io:8080/v1/post/${postId}`)
+      const postDetail = responseDetail.data
+      setPost(postDetail)
 
-      const postnum = json.data.find(function(post){
-          return post.id == postId
-      });
-      setpostnow(postnum)
+      const storage = getStorage()
+      const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/${postDetail.data}`)
+      getDownloadURL(storageRef)
+      .then((url)=>{
+        console.log(url)
+        setPostImg(url)
+      })
+      console.log(postData)
     }catch{
-      console.log('오류')
+      console.log("오류")
+      // history.push("/pageNotFound")
     }
   }, [])
-
-  const [isLike, setisLike] = useState(false)
+  
 
   return (
     <div className="PostDetail">
       {
-        postnow &&
+        postData &&
         <section className="postdetail_section layout_padding_postdetail">
           <div className="container">
 
@@ -56,11 +53,10 @@ function PostDetail() {
 
             <div className="row">
 
-              {/* 이미지 */}
+              {/* 이미지(수정필요) */}
               <div className="col-md-6 ">
                 <div className="img-box">
-                  <img src='\img\5.0_오리지날_라거_medium_-removebg-preview.png'></img>
-                  {/* <img src="https://img.hankyung.com/photo/202107/01.26934467.1-1200x.jpg" alt="" /> */}
+                  <img src='\img\5.0_오리지날_라거_medium_-removebg-preview.png'></img> {/* postImg */}
                 </div>
               </div>
 
@@ -71,42 +67,45 @@ function PostDetail() {
                   <div className="postdetail_heading">
 
                     <div className="postdetail_likecomment">
-                      {/* 좋아요 하트 */}
+                      {/* 좋아요 하트 (수정필요) */}
                       <div className="heartInline">
                         {
                           isLike === true
                           ? <BsHeart className="heartIcon" size="23" onClick={()=>{setisLike(!isLike)}}></BsHeart>
                           : <BsHeartFill className="heartIcon" size="23" onClick={()=>{setisLike(!isLike)}}></BsHeartFill>
                         }
-                        <div className="count">{ postnow.likes }</div>
+                        <div className="count">{ postData.likeMembers.length }</div>
                       </div>
                       {/* 댓글 */}
                       <div className="commentInline">
                         <i class="fas fa-comment fs-4"></i>
-                        <div className="count">20</div>
+                        <div className="count">{postData.comments.length}</div>
                       </div>
                     </div>
 
                     {/* 맥주이름 버튼 */}
-                    <div className="beerName" href="">테라</div>
+                    <Link to={`/beer/${postData.beer.beerId}`}>
+                      <div className="beerName" href="">{postData.beer.name}</div>
+                    </Link>
+                    
 
                   </div>
 
                   {/* 해시태그 */}
                   <div className="postdetail_hashtag">
-                    { postnow.Tag.map((tag, i)=>{
-                        return(<span className="postTag" key={i}>#{tag}</span>)
+                    { postData.userHashTags.map((tag, i)=>{
+                        return(<span className="postTag" key={i}>{tag.content}</span>)
                       }) }
                   </div>
 
                   {/* 포스트 내용 */}
-                  <p>{ postnow.post }</p>
+                  <p>{ postData.content }</p>
 
 
                   {/* 작성날짜 */}
                   <div className="userdetail">
-                    <div>작성자 : user1 </div>
-                    <div>작성날짜 : { postnow.created_at }</div>
+                    <div>작성자 : { postData.member.nickName } </div>
+                    {/* <div>작성날짜 : { postData.created_at }</div> */}
                   </div>
 
 

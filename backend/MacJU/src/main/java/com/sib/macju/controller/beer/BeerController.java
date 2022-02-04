@@ -10,6 +10,7 @@ import com.sib.macju.service.beer.BeerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,13 +35,13 @@ public class BeerController {
     }
 
     @GetMapping("/{beerId}")
-    public BeerDto fetchBeerDetail(@PathVariable Long beerId) {
+    public ResponseEntity<BeerDto> fetchBeerDetail(@PathVariable Long beerId) {
         Optional<Beer> foundBeer = beerService.fetchBeer(beerId);
         if (foundBeer.isEmpty()) {
-            throw new IllegalStateException();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         Beer beer = foundBeer.get();
-        return new BeerDto(beer);
+        return ResponseEntity.status(HttpStatus.OK).body(new BeerDto(beer));
     }
 
     @GetMapping("/{search}/type")
@@ -83,15 +84,15 @@ public class BeerController {
     }
 
     @GetMapping("/{beerId}/member/{memberId}")
-    public ResponseEvaluationDto fetchEvaluationByMemberId(
+    public ResponseEntity<ResponseEvaluationDto> fetchEvaluationByMemberId(
             @PathVariable Long beerId,
             @PathVariable Long memberId) {
         Optional<MemberRateBeer> foundMemberRateBeer = beerService.fetchEvaluationByMemberId(beerId, memberId);
         if (foundMemberRateBeer.isEmpty()) {
-            throw new IllegalStateException();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-
         MemberRateBeer memberRateBeer = foundMemberRateBeer.get();
-        return new ResponseEvaluationDto(memberRateBeer);
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseEvaluationDto(memberRateBeer));
     }
 }

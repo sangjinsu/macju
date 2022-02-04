@@ -9,6 +9,7 @@ import com.sib.macju.service.post.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,15 +24,21 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping()
-    public Long createPost(
+    public ResponseEntity<Long> createPost(
             @RequestBody RequestCreatePostDto requestCreatePostDto
     ) {
-        return postService.createPost(
-                requestCreatePostDto.getBeerId(),
-                requestCreatePostDto.getMemberId(),
-                requestCreatePostDto.getContent(),
-                requestCreatePostDto.getPaths(),
-                requestCreatePostDto.getUserHashTags());
+        try {
+            Long postId = postService.createPost(
+                    requestCreatePostDto.getBeerId(),
+                    requestCreatePostDto.getMemberId(),
+                    requestCreatePostDto.getContent(),
+                    requestCreatePostDto.getPaths(),
+                    requestCreatePostDto.getUserHashTags());
+            return ResponseEntity.status(HttpStatus.OK).body(postId);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
     }
 
     @GetMapping("/{postId}")

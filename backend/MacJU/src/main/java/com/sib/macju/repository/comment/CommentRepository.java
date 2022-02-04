@@ -1,14 +1,12 @@
 package com.sib.macju.repository.comment;
 
 import com.sib.macju.domain.comment.Comment;
-import com.sib.macju.domain.post.Post;
-import io.lettuce.core.dynamic.annotation.Param;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 // 댓글 생성, 다수 조회, 삭제 // 단일 조회, 수정은 X
 

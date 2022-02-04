@@ -31,6 +31,7 @@ function BeerList(){
 
     // const imgUrlList = []
     const storage = getStorage()
+
     for(var i=0, j=datalist.length; i<j; i++) {
       const storageRef = ref(storage, `gs://ssafy-01-beer-image.appspot.com/${datalist[i].photoPath}`)
       getDownloadURL(storageRef)
@@ -45,6 +46,7 @@ function BeerList(){
         // }
       })
     }
+    // console.log(imgUrlList)
     // setimgurls(imgUrlList)
     // console.log(imgurls)
 
@@ -129,13 +131,13 @@ function BeerList(){
                           if((url).indexOf(encodeURIComponent(beerdata[a].photoPath)) == 78){
                             // console.log(url)
                             // console.log(encodeURIComponent(beerdata[a].photoPath))
-                            // return <img key={a} src={url} alt='beerimage'></img>
-                            return url
+                            return <img key={a} src={url} alt='beerimage'></img>
+                            // return url
                           }
                         })
                       } */}
-                      <img src={beerImgList[i]} alt='beerimage'></img>
-                      {/* {console.log(imgurls)} */}
+                      <img src={imgurls[i]} alt='beerimage'></img>
+                      {/* {console.log(imgurls.length)} */}
                       {/* <img src="https://firebasestorage.googleapis.com/v0/b/ssafy-01-beer-image.appspot.com/o/1866_%EB%B8%94%EB%9E%91%EC%89%AC__500ml_medium_-removebg-preview.png?alt=media&token=b3ee4910-fb76-4f03-aad8-387bd213a590"></img> */}
                     </div>
 

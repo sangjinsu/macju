@@ -49,9 +49,10 @@ function CommentList(props) {
   const deleteComment = async (e) => {
     try{
       const commentId = e.target.attributes.commentid.value
-      const deleteApiUrl = "http://i6c107.p.ssafy.io:8080/v1/post/" + postId + "/comment/" + commentId
+      const arrayId = e.target.attributes.arrayKey.value
+      const deleteApiUrl = `http://i6c107.p.ssafy.io:8080/v1/post/${postId}/comment/${commentId}`
       const deleteData = await axios.delete(deleteApiUrl)
-      dispatch({ type : "delete", i : commentId })
+      dispatch({ type : "delete", i : arrayId })
       setcomments(store.getState().commentReducer)
     }
     catch{
@@ -122,7 +123,7 @@ function CommentList(props) {
                     return(
                       <div className="commentList" key={i}>
                         <div> { comment.content } </div>
-                        <button className="deletebtn" type="button" commentid={i} onClick={ deleteComment }>삭제</button>
+                        <button className="deletebtn" type="button" commentid={comment.commentId} arrayKey={i} onClick={ deleteComment }>삭제</button>
                       </div>
                     );
                   })

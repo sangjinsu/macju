@@ -16,11 +16,11 @@ function PostCreate(s) {
   // 사진 띄우는용 url
   const [imgUrls, setImgUrls] = useState([]);
 
-  // 사진 선택 버튼 click
+  /////// 사진 선택 버튼 click
   const uploadBtn = async (event) =>  {
     // const formData = new FormData();
     const imgList = event.target.files  // 현재 선택한 사진들
-    const newimglist = []
+    const newimglist = [...images]
     for (let i=0; i<imgList.length; i += 1) {
       newimglist.push(imgList[i].name)    // 이미지 이름 list에 저장
       const nowImage = URL.createObjectURL(imgList[i])
@@ -30,7 +30,7 @@ function PostCreate(s) {
     }
     setImages(newimglist)     // images = 업로드할 사진 리스트
   }
-  // 사진 삭제 버튼 click
+  /////// 사진 삭제 버튼 click
   const deleteImg = ((e)=>{
     e.preventDefault()
     const nowimgurl = e.target.attributes.imgurl.value
@@ -40,9 +40,7 @@ function PostCreate(s) {
   })
 
 
-
-  // console.log(images)
-  // 이미지 업로드
+  //////// 이미지 업로드
   // const upLoadImg = async () =>{
   //   const storage = getStorage();
   //   images.map(async (img, index)=>{
@@ -53,9 +51,9 @@ function PostCreate(s) {
   //   })
   // }
 
-  // 포스트 내용
+  ////// 포스트 내용
   const [content, setContent] = useState("")    
-  // 포스트 해시태그 배열, 문자열
+  ////// 포스트 해시태그 배열, 문자열
   const [hashtagArr, setHashtagArr] = useState([])
   const [hashtag, setHashtag] = useState("")
 
@@ -70,7 +68,7 @@ function PostCreate(s) {
     // console.log(hashtagArr)
   })
 
-  // 해시태그 추가
+  /////// 해시태그 추가
   const keyup_hashtag = ((e)=>{
     /* enter 키 코드 :13 */
     // if (e.keyCode === 13 && e.target.value.trim() !== '') {
@@ -112,17 +110,21 @@ function PostCreate(s) {
     // console.log(hashtagArr)
   })
 
-  // post 전체 개수 가져오기
+  /////// post 전체 개수 가져오기
   const [postid, setPostid] = useState()
-  
   useEffect(async ()=>{
     // http://i6c107.p.ssafy.io:8080/v1/post/new
-    const data = await axios.get("http://i6c107.p.ssafy.io:8080/v1/post/new")
+    // 13.125.157.39
+    const data = await axios.get("http://13.125.157.39:8080/v1/post/new")
     // console.log([data][0].data.length)
-    setPostid([data][0].data[0].postId+1)   
+    // console.log(data.data)
+    data.data.length !== 0 
+    ? setPostid([data][0].data[0].postId+1)   
+    : setPostid(1)
   }, [])
 
-  // post 보내기
+
+  /////// post 보내기
   const postcreateSubmit = ((e) => {
     e.preventDefault()
     const newpost = {
@@ -138,12 +140,14 @@ function PostCreate(s) {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': "application/json; charset=UTF-8"
     }
-    // console.log(newpost)
+    console.log(newpost)
     axios 
-      .post("http://i6c107.p.ssafy.io:8080/v1/post", newpost, {headers})
+    // http://13.125.157.39:8080/v1/beer/
+      // .post("http://i6c107.p.ssafy.io:8080/v1/post", newpost, {headers})
+      .post("http://13.125.157.39:8080/v1/post", newpost, {headers})
       .then((res) => {
       console.log(res)
-      // 이미지 firebase에 업로드
+      // 이미지 firebase에 업로드 (지금 업로드 경로는 됐는데 사진이 undefined로만 업로드됨)
       const storage = getStorage()
       images.map(async (img, index)=>{
         // 이미지 경로 = imgs/{포스트id}/{이미지이름}
@@ -175,7 +179,7 @@ function PostCreate(s) {
               {/* 입력 폼 container */}
               <div className="form_container">
 
-                <form onSubmit={postcreateSubmit}>
+                <form onSubmit={postcreateSubmit} action={`/beer/${beerid}`}>
 
                   {/* 사진 선택하기 */}
                   <div>
@@ -231,9 +235,7 @@ function PostCreate(s) {
                     <button type="submit" className="complete_btn"> 작성 완료</button>
                     {/* <button type="submit" onClick={upLoadImg}> 작성 완료</button> */}
                   </div>
-
                 </form>
-                
               </div>
             </div>
           </div>

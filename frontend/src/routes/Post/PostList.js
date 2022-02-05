@@ -6,6 +6,8 @@ import FadeIn from 'react-fade-in';
 import axios from "axios"
 import { getDownloadURL, getStorage , ref } from "firebase/storage";
 import "../../firebase_config"
+import PostListComponent from "../../components/PostList"
+
 
 function PostList() {
   const dispatch = useDispatch()
@@ -34,14 +36,16 @@ function PostList() {
 
   useEffect(async ()=>{
     // http://i6c107.p.ssafy.io:8080/v1/post/new
-    const data = await axios.get("http://i6c107.p.ssafy.io:8080/v1/post/new")
+    // http://13.125.157.39:8080/v1/post
+    // const data = await axios.get("http://i6c107.p.ssafy.io:8080/v1/post/new")
+    const data = await axios.get("http://13.125.157.39:8080/v1/post/new")
     setpostdata([data][0].data)
     const datalist = [data][0].data
     
     const storage = getStorage()
     for(var i=0, j=datalist.length; i<j; i++) {
       console.log(datalist[i])
-      const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/imgs/${datalist.postId}/${datalist[i].photo.data}`)
+      const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/imgs/${datalist[i].postId}/${datalist[i].photo.data}`)
       getDownloadURL(storageRef)
       .then((url)=>{
         setPostImgList((prev)=>[...prev,url])
@@ -80,45 +84,7 @@ function PostList() {
 
         {/* 포스트 카드들 */}
         <FadeIn>
-        <div className="row grid">
-
-          {/* 포스트 카드 각각 */}
-          { postdata&&postdata.map((post) =>
-            <div className="col-md-6 col-lg-4 fadein" key={post.postId}>
-              <div className="box">
-                <div className="postlist_box">
-
-                {/* {console.log(post)} */}
-                  {/* 포스트 이미지 */}
-                  <div className="img-box">
-                    {/* <img src={post.photo.data}></img> */}
-                    <img src="\img\5.0_오리지날_라거_medium_-removebg-preview.png"></img>
-                  </div>
-                  
-                  {/* 포스트 카드 내용 */}
-                  <div className="postdetail-box">
-                    {/* 포스트 내용 + 자세히 버튼 */}
-                    <div className="postdetail-title">
-                      {/* <h5>{post.content}</h5> */}
-                      <h5>{post.content && post.content.length > 15 ? post.content.substr(0, 15) + "....": post.content}</h5>
-                      <Link to={`/post/${post.postId}`} className='detailBtn'>자세히</Link>
-                    </div>
-
-                    {/* 포스트 좋아요 */}
-                    <p className="fontaws"><i className="fas fa-heart" style={{color:"red"}}></i>{post.likes}</p>
-                    
-                    {/* 포스트 작성 정보 */}
-                    <p className="post-meta">
-                      작성자 :{post.member.nickName} <br/> 
-                      작성시간 : {post.updatedAt[0]}/{post.updatedAt[1]}/{post.updatedAt[2]}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div> 
-          )}
-
-        </div>
+          <PostListComponent postdata={postdata}/>
         </FadeIn>
       </div>
     </section>

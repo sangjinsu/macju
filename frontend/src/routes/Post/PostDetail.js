@@ -16,10 +16,12 @@ function PostDetail() {
 
   let history = useHistory();
 
-  // api
+  // http://13.125.157.39:8080/v1/post
+
   useEffect(async ()=>{
     try{
-      const responseDetail = await axios.get(`http://i6c107.p.ssafy.io:8080/v1/post/${postId}`)
+      // const responseDetail = await axios.get(`http://i6c107.p.ssafy.io:8080/v1/post/${postId}`)
+      const responseDetail = await axios.get(`http://13.125.157.39:8080/v1/post/${postId}`)
       const postDetail = responseDetail.data
       setPost(postDetail)
 

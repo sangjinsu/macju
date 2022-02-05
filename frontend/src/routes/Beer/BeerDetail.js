@@ -7,16 +7,26 @@ import axios from "axios"
 // import { getDownloadURL, getStorage , ref } from "firebase/storage";
 import "../../firebase_config"
 import '../../styles/BeerDetail.css'
+import PostListComponent from "../../components/PostList"
 
 function BeerDetail() {
+  // 맥주 data
   const [beer, setbeer] = useState()
+  // 맥주의 posts
+  const [beerpost, setbeerpost] = useState()
   // const [beerImg, setbeerImg] = useState()
   const { beerid } = useParams();
 
   useEffect(async ()=>{
     //api :  http://i6c107.p.ssafy.io:8080/v1/beer/{beerId}
-    const beerdetail = await axios.get(`http://i6c107.p.ssafy.io:8080/v1/beer/${beerid}`)
+    // http://13.125.157.39:8080/v1/beer/{beerId}
+    // const beerdetail = await axios.get(`http://i6c107.p.ssafy.io:8080/v1/beer/${beerid}`)
+    const beerdetail = await axios.get(`http://13.125.157.39:8080/v1/beer//${beerid}`)
     setbeer(beerdetail.data)
+
+    // 맥주별 포스트 목록
+    const beer_postdetail = await axios.get(`http://13.125.157.39:8080/v1/post/beer//${beerid}`)
+    setbeerpost(beer_postdetail.data)
 
     // const storage = getStorage()
     // const storageRef = ref(storage, `gs://ssafy-01-beer-image.appspot.com/${beerdetail.data.photoPath}`)
@@ -226,7 +236,9 @@ function BeerDetail() {
                 >포스팅하기</Link>
               </div>
             </div>
-            <div className="row">포스트들</div>
+            {beerpost && 
+              <PostListComponent postdata={beerpost}/>
+            }
           </div>
 
         </section>

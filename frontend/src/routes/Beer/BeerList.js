@@ -26,17 +26,16 @@ function BeerList(){
   
   useEffect(async ()=>{
     // http://i6c107.p.ssafy.io:8080/v1/beer
-    const data = await axios.get("http://i6c107.p.ssafy.io:8080/v1/beer")
+    // http://13.125.157.39:8080/v1/beer/
+    // const data = await axios.get("http://i6c107.p.ssafy.io:8080/v1/beer")
+    const data = await axios.get("http://13.125.157.39:8080/v1/beer/")
     setbeerdata([data][0].data)
     const datalist = [data][0].data
-    for(var i=0, j=datalist.length; i<j; i++) {
-      const storageRef = ref(storage, `gs://ssafy-01-beer-image.appspot.com/${datalist[i].photoPath}`)
-      getDownloadURL(storageRef)
-      .then((url)=>{
-        setBeerImgList((prev)=>[...prev,url])
-      })
-    }
+
+    // 카테고리 기본값 all
     setIsActive('all')
+
+    // 좋아요 기본값 false
     const newLike = []
     for(var i=0, j=datalist.length; i<j; i++) {
       newLike.push(false)
@@ -49,7 +48,6 @@ function BeerList(){
 
   
   const changeLike = ((e)=>{
-    // console.log(e)
     // console.log(e.target.attributes.beerlikeid)
     setisLike(!isLike)
   })
@@ -99,7 +97,7 @@ function BeerList(){
             
               <div className="col-sm-6 col-md-4 col-lg-3 fadein all" key={beer.beerId}>
                 <div className="box">
-                {console.log(beer)}
+                {/* {console.log(beer)} */}
                   <div>
                     {/* 맥주 이미지 */}
                     <div className="img-box"> 

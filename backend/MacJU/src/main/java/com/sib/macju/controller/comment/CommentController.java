@@ -39,11 +39,13 @@ public class CommentController {
     @PostMapping("/{postId}/comment")
     public Long createComment(@PathVariable Long postId, @RequestBody RequestCreateCommentDto requestCreateCommentDto){
 
-        return commentService.createComment(
+        Long commentId = commentService.createComment(
                 postId,
                 requestCreateCommentDto.getMemberId(),
                 requestCreateCommentDto.getContent()
         );
+
+        return commentId;
     }
 
     @GetMapping("/{postId}/comment")

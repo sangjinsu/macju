@@ -8,6 +8,7 @@ import axios from "axios"
 import "../../firebase_config"
 import '../../styles/BeerDetail.css'
 import PostListComponent from "../../components/PostList"
+// import "../../styles/PostList.css"
 
 function BeerDetail() {
   // 맥주 data
@@ -22,11 +23,29 @@ function BeerDetail() {
     // http://13.125.157.39:8080/v1/beer/{beerId}
     // const beerdetail = await axios.get(`http://i6c107.p.ssafy.io:8080/v1/beer/${beerid}`)
     const beerdetail = await axios.get(`http://13.125.157.39:8080/v1/beer//${beerid}`)
+    const nowbeerDetail = beerdetail.data
     setbeer(beerdetail.data)
 
     // 맥주별 포스트 목록
     const beer_postdetail = await axios.get(`http://13.125.157.39:8080/v1/post/beer//${beerid}`)
     setbeerpost(beer_postdetail.data)
+
+    // console.log(nowbeerDetail)
+    // 로그 보내기
+    const hashTagArr = [nowbeerDetail.beerType.main, ...nowbeerDetail.aromaHashTags , ...nowbeerDetail.flavorHashTags]
+    // console.log(hashTagArr)
+    const newdata = {
+      id : 1,
+      tags : hashTagArr
+    }
+    const headers = {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': "application/json; charset=UTF-8"
+    }
+    
+    // http://13.125.157.39:8080/v1/beer/
+    // axios.post("http://i6c107.p.ssafy.io:8080/v1/post", newpost, {headers})
+    axios.post("http://13.125.157.39:8080/v1/log", newdata, {headers})
 
     // const storage = getStorage()
     // const storageRef = ref(storage, `gs://ssafy-01-beer-image.appspot.com/${beerdetail.data.photoPath}`)
@@ -221,7 +240,7 @@ function BeerDetail() {
         </section>
 
         {/* 맥주별 포스트 목록 */}
-        <section className="BeerPosts_section">
+        <section className="postlist_section">
           <div className="container">
             <div className='heading_posts'>
               <h1>Post</h1>

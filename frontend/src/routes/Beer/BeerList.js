@@ -87,7 +87,7 @@ function BeerList(){
             <li className={isActive==='all' ? 'active' : null} beerfilter="all" onClick={toggleActive}>All</li>
             <li className={isActive==='ale' ? 'active' : null} beerfilter="ale" onClick={toggleActive}>Ale</li>
             <li className={isActive==='lager' ? 'active' : null} beerfilter="lager" onClick={toggleActive}>Lager</li>
-            <li className={isActive==='ladler' ? 'active' : null} beerfilter="ladler" onClick={toggleActive}>Ladler</li>
+            <li className={isActive==='radler' ? 'active' : null} beerfilter="radler" onClick={toggleActive}>Radler</li>
           </ul>
           
           <FadeIn>
@@ -118,10 +118,11 @@ function BeerList(){
 
                       {/* 맥주 설명 */}
                       <div className='beer_content'>
-                        {beer.content}
+                        {/* {beer.content.length > 15 ? beer.content.substr(0, 15) + "....": beer.content} */}
+                        {/* {beer.content.length > 15 } */}
                       </div>
                       <div className='beer_volume'>
-                        ({beer.volume}도)
+                        ALC : {beer.volume}%
                       </div>
 
                       {/* 맥주 해시태그 */}
@@ -138,16 +139,18 @@ function BeerList(){
 
                       {/* 맥주 카테고리 */}
                       <div className="options">
-                        <h6 className='beerCategory'>
-                          {beer.beerType.main}
-                        </h6>
-                        {/* 좋아요 버튼 */}
-                        <a>
-                          { isLike === true
-                            ? <BsHeart size="18" onClick={changeLike}></BsHeart>
-                            : <BsHeartFill size="18" onClick={changeLike}></BsHeartFill>
-                          }
-                        </a>
+                        <div className='options_space_between'>
+                          <h6 className='beerCategory'>
+                            {beer.beerType.main}
+                          </h6>
+                          {/* 좋아요 버튼 */}
+                          <a>
+                            { isLike === true
+                              ? <BsHeart size="18" onClick={changeLike}></BsHeart>
+                              : <BsHeartFill size="18" onClick={changeLike}></BsHeartFill>
+                            }
+                          </a>
+                        </div>
                       </div>
 
                     </div>

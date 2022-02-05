@@ -5,16 +5,20 @@ function PostListComponent(props){
 
   const postdata = props.postdata
   // console.log(postdata)
+  
 
   return(
     <div className="row grid">
 
     {/* 포스트 카드 각각 */}
-      { postdata&&postdata.map((post) =>
+      { postdata&&
+        postdata.length === 0
+        ? <div> 포스트가 없어요!! </div>
+        : postdata.map((post) =>
         <div className="col-md-6 col-lg-4 fadein" key={post.postId}>
           <div className="box">
             <div className="postlist_box">
-
+ 
             {/* {console.log(post)} */}
               {/* 포스트 이미지 */}
               <div className="img-box">

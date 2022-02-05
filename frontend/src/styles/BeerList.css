@@ -133,6 +133,12 @@
 /* 맥주 설명란 */
 .beerlist_section .box .beerdetail-box {
   padding: 25px;
+  height: 250px;
+  position: relative;
+}
+.beerlist_section .beerdetail-box .options {
+  position: absolute;
+  bottom: 10px;
 }
 
 /* 맥주설명 */
@@ -141,8 +147,9 @@
 }
 .beerlist_section .box .beerdetail-box .beer_volume {
   font-size: 15px;
-  text-align: right;
+  /* text-align: right; */
   color: #7a7e83;
+  margin: 10px 0;
 }
 
 
@@ -181,7 +188,7 @@
 .beerlist_section .box .beerdetail-box h6 {
   margin-top: 10px;
 }
-.beerlist_section .box .options {
+.beerlist_section .box .options_space_between {
   display: flex;
   justify-content: space-between;
   align-items: center;

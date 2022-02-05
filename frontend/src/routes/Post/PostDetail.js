@@ -18,13 +18,18 @@ function PostDetail() {
 
   // http://13.125.157.39:8080/v1/post
 
+  useEffect(()=>{
+    
+    
+  
+  },[postData])
+
   useEffect(async ()=>{
     try{
       // const responseDetail = await axios.get(`http://i6c107.p.ssafy.io:8080/v1/post/${postId}`)
       const responseDetail = await axios.get(`http://13.125.157.39:8080/v1/post/${postId}`)
       const postDetail = responseDetail.data
       setPost(postDetail)
-
       // const storage = getStorage()
       // const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/imgs/${postDetail.postId}/`)
       // getDownloadURL(storageRef)
@@ -33,8 +38,24 @@ function PostDetail() {
       //   setPostImg(url)
       // })
       // console.log(postData)
-    }catch{
-      console.log("오류")
+      
+    const hashTagArr = [postDetail.beer.beerType.main, ...postDetail.beer.aromaHashTags , ...postDetail.beer.flavorHashTags]
+    // console.log(hashTagArr)
+    const newdata = {
+      id : 1,
+      tags : hashTagArr
+    }
+    const headers = {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': "application/json; charset=UTF-8"
+    }
+    axios 
+    // http://13.125.157.39:8080/v1/beer/
+      // .post("http://i6c107.p.ssafy.io:8080/v1/post", newpost, {headers})
+      .post("http://13.125.157.39:8080/v1/log", newdata, {headers})
+    }catch (error) {
+      console.error(error)
+      
       // history.push("/pageNotFound")
     }
   }, [])

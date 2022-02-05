@@ -1,17 +1,20 @@
-import {useEffect, useState} from "react"
-import { getDownloadURL, getStorage , ref } from "firebase/storage";
+import { useState } from "react"
+import { getStorage, ref, updateMetadata } from "firebase/storage";
 import "../../firebase_config"
-const BeerTest = () =>{
-  const [imageTab, setImageTab] = useState([])
-  const storage = getStorage()
-  const storageRef = ref(storage, "gs://ssafy-01-beer-image.appspot.com/")
-  getDownloadURL(storageRef)
-  .then((url)=>{
-    console.log(url)
+import { useEffect } from "react";
+import axios from "axios";
+const BeerTest = () => {
+  const storage = getStorage();
+  
+  const [beerdata, setbeerdata] = useState([])
+  useEffect(async () =>{
+    const data = await axios.get("http://i6c107.p.ssafy.io:8080/v1/beer")
+    setbeerdata([data][0].data)
+    
   })
   return (
     <div>
-      ㅎㅇ
+
     </div>
   )
 }

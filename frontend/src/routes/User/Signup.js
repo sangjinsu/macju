@@ -1,15 +1,15 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import '../../styles/Signup.css'
 
 function Signup() {
+  
   const [nickname, nicknameChange] = useState("");
   const [age, ageChange] = useState("");
   const [radioChecked, setRadioChecked] = useState("");
   const [useNickName, addNickName] = useState(['Dongil', 'Kimdongil'])
   const [nickBtn, deactivateNickBtn] = useState(false)
   const [submitBtn, deactivateSubmitBtn] = useState(true)
-  
-
   const changeNickName = (e) => {
     nicknameChange(e.target.value);
   }

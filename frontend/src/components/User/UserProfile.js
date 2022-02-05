@@ -1,20 +1,42 @@
 import "../../styles/UserProfile.css"
 import { useState } from "react";
 import { Button } from "react-bootstrap";
-import Modal from "components/Modals/Modals.js"
-
+import Followers from "components/Modals/Followers.js"
+import Followings from "components/Modals/Followings.js"
+import axios from "axios";
+import { useEffect } from "react";
 const UserProfile = () => {
-  const [modalOpen, setModalOpen] = useState(false);
+ 	const [user, setUser] = useState('')
+	useEffect(async () =>{
+		const json = await axios.get('http://i6c107.p.ssafy.io:8080/member/')
+		console.log(json.data)
+		
+	})
 
-  const openModal = () => {
-    setModalOpen(true);
+
+
+
+
+
+
+
+  const [followersModalOpen, setFollowersModalOpen] = useState(false);
+  const [followingsModalOpen, setFollowingsModalOpen] = useState(false);
+  const followersOpenModal = () => {
+    setFollowersModalOpen(true);
   };
-  const closeModal = () => {
-    setModalOpen(false);
+  const followersCloseModal = () => {
+    setFollowersModalOpen(false);
+  };
+  const followingsOpenModal = () => {
+    setFollowingsModalOpen(true);
+  };
+  const followingsCloseModal = () => {
+    setFollowingsModalOpen(false);
   };
   return (
 		<div className="userprofile_container">
-			<div className="user-profile">
+			<div className="user-profile ">
 				<div className="img-box">
 					<img src="/img/user.png" width={200} alt="아무사진 없습니다." />
 				</div>
@@ -24,10 +46,13 @@ const UserProfile = () => {
 						<Button href="/profile/edit">프로필 수정</Button>
 					</div>
 					<div>
-						<div>게시글 : {14} <Button onClick={openModal} variant="success">팔로워</Button> : {84} <Button onClick={openModal} variant="warning"> 팔로잉</Button> : {57}</div>
-						<Modal open={modalOpen} close={closeModal} header="Modal heading">
-							sacsac
-						</Modal>
+						<div>게시글 : {14} <Button onClick={followersOpenModal} variant="success">팔로워</Button> : {84} <Button onClick={followingsOpenModal} variant="warning"> 팔로잉</Button> : {57}</div>
+						<Followers open={followersModalOpen} close={followersCloseModal} header="Modal heading">
+							followers
+						</Followers>
+						<Followings open={followingsModalOpen} close={followingsCloseModal} header="Modal heading">
+							followings
+						</Followings>
 						<p>한줄 소개 #~~</p>
 						
 					</div>

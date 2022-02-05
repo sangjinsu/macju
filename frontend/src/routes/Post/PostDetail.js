@@ -31,7 +31,6 @@ function PostDetail() {
       //   console.log(url)
       //   setPostImg(url)
       // })
-      // console.log(postData)
     }catch{
       console.log("오류")
       // history.push("/pageNotFound")

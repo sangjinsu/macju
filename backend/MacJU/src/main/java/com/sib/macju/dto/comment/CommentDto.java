@@ -12,17 +12,13 @@ import java.time.LocalDateTime;
 public class CommentDto implements Serializable {
     private final Long commentId;
     private final String content;
-    private final LocalDateTime createdAt;
     private final Long memberId;
     private final String nickname;
-    private final Long postId;
 
     public CommentDto(Comment comment) {
         this.commentId = comment.getCommentId();
         this.content = comment.getContent();
-        this.createdAt = comment.getCreatedAt();
         this.memberId = comment.getMember().getMemberId();
         this.nickname = comment.getMember().getNickName();
-        this.postId = comment.getPost().getPostId();
     }
 }

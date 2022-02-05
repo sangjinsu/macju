@@ -61,7 +61,8 @@ function CommentList(props) {
       const commentId = e.target.attributes.commentid.value
       console.log(commentId)
       const arrayId = e.target.attributes.arrayKey.value
-      const deleteApiUrl = `http://i6c107.p.ssafy.io:8080/v1/post/${postId}/comment/${commentId}`
+      const deleteApiUrl = `http://13.125.157.39:8080/v1/post/${postId}/comment/${commentId}`
+      // const deleteApiUrl = `http://i6c107.p.ssafy.io:8080/v1/post/${postId}/comment/${commentId}`
       const deleteData = await axios.delete(deleteApiUrl)
       dispatch({ type : "delete", i : arrayId })
       setcomments(store.getState().commentReducer)

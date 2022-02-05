@@ -24,14 +24,14 @@ function PostDetail() {
       const postDetail = responseDetail.data
       setPost(postDetail)
 
-      const storage = getStorage()
-      const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/${postDetail.data}`)
-      getDownloadURL(storageRef)
-      .then((url)=>{
-        console.log(url)
-        setPostImg(url)
-      })
-      console.log(postData)
+      // const storage = getStorage()
+      // const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/${postDetail.data}`)
+      // getDownloadURL(storageRef)
+      // .then((url)=>{
+      //   console.log(url)
+      //   setPostImg(url)
+      // })
+      // console.log(postData)
     }catch{
       console.log("오류")
       // history.push("/pageNotFound")
@@ -78,7 +78,7 @@ function PostDetail() {
                       </div>
                       {/* 댓글 */}
                       <div className="commentInline">
-                        <i class="fas fa-comment fs-4"></i>
+                        <i className="fas fa-comment fs-4"></i>
                         <div className="count">{postData.comments.length}</div>
                       </div>
                     </div>

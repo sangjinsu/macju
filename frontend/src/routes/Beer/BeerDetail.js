@@ -4,13 +4,13 @@ import { BsHeartFill, BsHeart } from "react-icons/bs";
 import Modal from 'react-modal';
 import StarRate from './StartRate.js'
 import axios from "axios"
-import { getDownloadURL, getStorage , ref } from "firebase/storage";
+// import { getDownloadURL, getStorage , ref } from "firebase/storage";
 import "../../firebase_config"
 import '../../styles/BeerDetail.css'
 
 function BeerDetail() {
   const [beer, setbeer] = useState()
-  const [beerImg, setbeerImg] = useState()
+  // const [beerImg, setbeerImg] = useState()
   const { beerid } = useParams();
 
   useEffect(async ()=>{
@@ -18,12 +18,12 @@ function BeerDetail() {
     const beerdetail = await axios.get(`http://i6c107.p.ssafy.io:8080/v1/beer/${beerid}`)
     setbeer(beerdetail.data)
 
-    const storage = getStorage()
-    const storageRef = ref(storage, `gs://ssafy-01-beer-image.appspot.com/${beerdetail.data.photoPath}`)
-    getDownloadURL(storageRef)
-    .then((url)=>{
-      setbeerImg(url)
-    })
+    // const storage = getStorage()
+    // const storageRef = ref(storage, `gs://ssafy-01-beer-image.appspot.com/${beerdetail.data.photoPath}`)
+    // getDownloadURL(storageRef)
+    // .then((url)=>{
+    //   setbeerImg(url)
+    // })
 
   }, [])
 
@@ -76,17 +76,18 @@ function BeerDetail() {
               {/* 맥주 이미지 */}
               <div className="col-md-6 ">
                 <div className="img-box">
-                  <img src={beerImg}></img>
+                  {/* <img src={beerImg}></img> */}
+                  <img src={beer.photoPath}></img>
                 </div>
               </div>
 
               {/* 맥주 디테일 */}
               <div className="col-md-6">
                 <div className="detail-box">
-
+                  
                   {/* 맥주 종류 */}
                   <div className="beerCategory" href="">{beer.beerType.main}</div>
-                  { beer.beerType.detail 
+                  { beer.beerType.detail !== 'NULL'
                     ? <div className="beerCategory_detail" href="">{beer.beerType.detail}</div> 
                     : null }
 
@@ -142,7 +143,7 @@ function BeerDetail() {
 
                   {/* 맥주 detail 내용 */
                   <div className='beer_volume'>
-                    (도수 : {beer.volume}도)
+                    ALC : {beer.volume}%
                   </div>}
                   <p className="beer_content">{ beer.content }</p>
 

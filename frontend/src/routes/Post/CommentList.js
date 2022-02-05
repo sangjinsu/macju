@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch, useStore } from 'react-redux';
-import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+// import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import axios from 'axios';
 import "../../styles/CommentList.css"
 
@@ -114,7 +114,7 @@ function CommentList(props) {
                     required
                   />
                   {/* 비어있을때 addComment 함수 작동 안되게해야함 */}
-                  <button class="comment_button" onClick={ addComment }>Add</button>
+                  <button className="comment_button" onClick={ addComment }>Add</button>
                 </form>
 
                 {/* 댓글 목록 */}

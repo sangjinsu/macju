@@ -147,7 +147,7 @@ function BeerList(){
                       {/* 맥주 이름 + 자세히 버튼 */}
                       <div className='beerdetail-title'>
                         <h5>{beer.name}</h5>
-                        <Link to='/beer/1' className='detailBtn'>자세히</Link>
+                        <Link to={`/beer/${beer.beerId}`} className='detailBtn'>자세히</Link>
                       </div>
 
                       {/* 맥주 별점 */}

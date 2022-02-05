@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react"
 import { useDispatch, useStore } from 'react-redux';
+// import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import axios from 'axios';
 import "../../styles/CommentList.css"
 
@@ -10,9 +11,7 @@ function CommentList(props) {
   const newCommentId = useRef("");
   
   const postId = props.postId;
-
   const nickname = "nickname";
-
   const apiUrl = `http://i6c107.p.ssafy.io:8080/v1/post/${postId}/comment`
 
   // let state = useSelector((state)=>state)

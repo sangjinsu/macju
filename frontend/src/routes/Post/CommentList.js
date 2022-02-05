@@ -7,7 +7,8 @@ import "../../styles/CommentList.css"
 function CommentList(props) {
   const [comments, setcomments] = useState([]);
   const [inputComment, inputCommentChange] = useState("");
-  const [dispatchComment, setDispatchComment] = useState();
+  const dispatchComment = useRef();
+  // const [dispatchComment, setDispatchComment] = useState();
   const newCommentId = useRef("");
   
   const postId = props.postId;
@@ -40,14 +41,14 @@ function CommentList(props) {
       const addData = await axios.post(apiUrl, postData, headers)
       newCommentId.current = addData.data
 
-      setDispatchComment({
-        "commentId": newCommentId,
+      dispatchComment.current = {
+        "commentId": newCommentId.current,
         "content": inputComment,
-        "memberId": 1, // 수정필요
-        "ninkname": "dongilzzang" // 수정필요
-      })
+        "memberId": 1,
+        "ninkname": "kimdongiln"
+      }
 
-      dispatch({ type : "add", inputComment : dispatchComment })
+      dispatch({ type : "add", inputComment : dispatchComment.current })
       setcomments(store.getState().commentReducer)
     }
     catch{
@@ -128,29 +129,6 @@ function CommentList(props) {
           </div>
         </div>
       </section>
-
-      {/* <form action="">
-        <input
-          type="text"
-          name="inputComment"
-          value={ inputComment }
-          onChange={ changeComment }
-        />
-        <button type="button" onClick={ addComment }>Add</button>
-      </form>
-
-      {
-        
-        comments.map( (post, i) => {
-          return(
-            <div className="list" key={i}>
-              <p> { post.comment } </p>
-              <button type="button" commentId={i} onClick={ deleteComment }>삭제</button>
-            </div>
-          );
-        })
-      } */}
-
     </div>
   )
 }

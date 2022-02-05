@@ -23,6 +23,7 @@ public class PostController {
 
     private final PostService postService;
 
+    @ResponseBody
     @PostMapping()
     public ResponseEntity<Long> createPost(
             @RequestBody RequestCreatePostDto requestCreatePostDto

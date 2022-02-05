@@ -8,6 +8,7 @@ import com.sib.macju.dto.beer.RequestEvaluationDto;
 import com.sib.macju.dto.beer.ResponseEvaluationDto;
 import com.sib.macju.service.beer.BeerService;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

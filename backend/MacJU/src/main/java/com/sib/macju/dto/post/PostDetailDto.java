@@ -1,5 +1,7 @@
 package com.sib.macju.dto.post;
 
+import com.sib.macju.domain.beer.Beer;
+import com.sib.macju.domain.beer.BeerMainType;
 import com.sib.macju.domain.member.Member;
 import com.sib.macju.domain.post.Post;
 import lombok.Data;
@@ -25,6 +27,32 @@ public class PostDetailDto implements Serializable {
     public static class BeerDto implements Serializable {
         private final Long beerId;
         private final String name;
+        private final BeerTypeDto beerType;
+        private final List<String> aromaHashTags;
+        private final List<String> flavorHashTags;
+
+        @Data
+        public static class BeerTypeDto implements Serializable {
+            private final BeerMainType main;
+            private final String detail;
+        }
+
+        public BeerDto(Beer beer) {
+            beerId = beer.getBeerId();
+            name = beer.getName();
+            beerType = new BeerTypeDto(beer.getBeerType().getMain(), beer.getBeerType().getDetail());
+            aromaHashTags = beer.getBeerHasAromaHashTags()
+                    .stream()
+                    .map(beerHasAromaHashTag ->
+                            beerHasAromaHashTag.getAromaHashTag().getAroma()
+                    ).collect(Collectors.toList());
+
+            flavorHashTags = beer.getBeerHasFlavorHashTags()
+                    .stream()
+                    .map(beerHasFlavorHashTag ->
+                            beerHasFlavorHashTag.getFlavorHashTag().getFlavor()
+                    ).collect(Collectors.toList());
+        }
     }
 
     @Data
@@ -56,7 +84,10 @@ public class PostDetailDto implements Serializable {
 
     public PostDetailDto(Post post) {
         this.postId = post.getPostId();
-        this.beer = new BeerDto(post.getBeer().getBeerId(), post.getBeer().getName());
+
+        this.beer = new BeerDto(post.getBeer());
+
+
         Member writer = post.getMember();
         this.member = new MemberDto(writer.getMemberId(), writer.getNickName());
         this.content = post.getContent();

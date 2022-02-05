@@ -12,7 +12,9 @@ function CommentList(props) {
   
   const postId = props.postId;
   const nickname = "nickname";
-  const apiUrl = `http://i6c107.p.ssafy.io:8080/v1/post/${postId}/comment`
+  // http://13.125.157.39:8080/v1/post
+  // const apiUrl = `http://i6c107.p.ssafy.io:8080/v1/post/${postId}/comment`
+  const apiUrl = `http://13.125.157.39:8080/v1/post/${postId}/comment`
 
   // let state = useSelector((state)=>state)
   const store = useStore((state)=>state)

@@ -7,16 +7,26 @@ import axios from "axios"
 // import { getDownloadURL, getStorage , ref } from "firebase/storage";
 import "../../firebase_config"
 import '../../styles/BeerDetail.css'
+import PostListComponent from "../../components/PostList"
 
 function BeerDetail() {
+  // 맥주 data
   const [beer, setbeer] = useState()
+  // 맥주의 posts
+  const [beerpost, setbeerpost] = useState()
   // const [beerImg, setbeerImg] = useState()
   const { beerid } = useParams();
 
   useEffect(async ()=>{
     //api :  http://i6c107.p.ssafy.io:8080/v1/beer/{beerId}
-    const beerdetail = await axios.get(`http://i6c107.p.ssafy.io:8080/v1/beer/${beerid}`)
+    // http://13.125.157.39:8080/v1/beer/{beerId}
+    // const beerdetail = await axios.get(`http://i6c107.p.ssafy.io:8080/v1/beer/${beerid}`)
+    const beerdetail = await axios.get(`http://13.125.157.39:8080/v1/beer//${beerid}`)
     setbeer(beerdetail.data)
+
+    // 맥주별 포스트 목록
+    const beer_postdetail = await axios.get(`http://13.125.157.39:8080/v1/post/beer//${beerid}`)
+    setbeerpost(beer_postdetail.data)
 
     // const storage = getStorage()
     // const storageRef = ref(storage, `gs://ssafy-01-beer-image.appspot.com/${beerdetail.data.photoPath}`)
@@ -128,14 +138,55 @@ function BeerDetail() {
                           </option>
                           <option value="단맛">#단맛</option>
                           <option>#쓴맛</option>
+                          <option>#신맛</option>
+                          <option>#감칠맛</option>
+                          <option>#떫은맛</option>
+                          <option>#드라이함</option>
+                          <option>#알싸한맛</option>
+                          <option>#고소한맛</option>
                           <option>#상큼한맛</option>
-                          <option>#매운맛</option>
+                          <option>#시큼한맛</option>
                           <option>#씁쓸한맛</option>
+                          <option>#새콤한맛</option>
+                          <option>#청량한맛</option>
                         </select>
                       </label>
-                      {/* <label> aroma : 
-                        <input type=""></input>
-                      </label> */}
+                      <label> aroma : 
+                        <div></div>
+                        <select className="rate_select"  multiple>
+                          <option value="" disabled selected>
+                            향을 선택해주세요.
+                          </option>
+                          <option value="무향">#무향</option>
+                          <option>#꽃향</option>
+                          <option>#캐러멜향</option>
+                          <option>#허브향</option>
+                          <option>#커피향</option>
+                          <option>#소나무향</option>
+                          <option>#초콜릿향</option>
+                          <option>#건포도향</option>
+                          <option>#스모크향</option>
+                          <option>#바닐라향</option>
+                          <option>#코코넛향</option>
+                          <option>#홉향</option>
+                          <option>#옥수수향</option>
+                          <option>#보리향</option>
+                          <option>#귀리향</option>
+                          <option>#풀향</option>
+                          <option>#곡물향</option>
+                          <option>#민트향</option>
+                          <option>#과일향</option>
+                          <option>#바나나향</option>
+                          <option>#오렌지향</option>
+                          <option>#자두향</option>
+                          <option>#자몽향</option>
+                          <option>#망고향</option>
+                          <option>#귤향</option>
+                          <option>#레몬향</option>
+                          <option>#청포도향</option>
+                          <option>#살구향 </option>
+                        </select>
+                      </label>
                       <button className="submitRateBtn" onClick={()=> set_rateModal(false)}>완료</button>
                     </div>
                   </Modal>
@@ -185,7 +236,9 @@ function BeerDetail() {
                 >포스팅하기</Link>
               </div>
             </div>
-            <div className="row">포스트들</div>
+            {beerpost && 
+              <PostListComponent postdata={beerpost}/>
+            }
           </div>
 
         </section>

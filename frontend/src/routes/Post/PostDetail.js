@@ -16,20 +16,23 @@ function PostDetail() {
 
   let history = useHistory();
 
-  // api
+  // http://13.125.157.39:8080/v1/post
+
   useEffect(async ()=>{
     try{
-      const responseDetail = await axios.get(`http://i6c107.p.ssafy.io:8080/v1/post/${postId}`)
+      // const responseDetail = await axios.get(`http://i6c107.p.ssafy.io:8080/v1/post/${postId}`)
+      const responseDetail = await axios.get(`http://13.125.157.39:8080/v1/post/${postId}`)
       const postDetail = responseDetail.data
       setPost(postDetail)
 
       // const storage = getStorage()
-      // const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/${postDetail.data}`)
+      // const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/imgs/${postDetail.postId}/`)
       // getDownloadURL(storageRef)
       // .then((url)=>{
       //   console.log(url)
       //   setPostImg(url)
       // })
+      // console.log(postData)
     }catch{
       console.log("오류")
       // history.push("/pageNotFound")

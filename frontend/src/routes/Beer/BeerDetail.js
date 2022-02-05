@@ -128,14 +128,55 @@ function BeerDetail() {
                           </option>
                           <option value="단맛">#단맛</option>
                           <option>#쓴맛</option>
+                          <option>#신맛</option>
+                          <option>#감칠맛</option>
+                          <option>#떫은맛</option>
+                          <option>#드라이함</option>
+                          <option>#알싸한맛</option>
+                          <option>#고소한맛</option>
                           <option>#상큼한맛</option>
-                          <option>#매운맛</option>
+                          <option>#시큼한맛</option>
                           <option>#씁쓸한맛</option>
+                          <option>#새콤한맛</option>
+                          <option>#청량한맛</option>
                         </select>
                       </label>
-                      {/* <label> aroma : 
-                        <input type=""></input>
-                      </label> */}
+                      <label> aroma : 
+                        <div></div>
+                        <select className="rate_select"  multiple>
+                          <option value="" disabled selected>
+                            향을 선택해주세요.
+                          </option>
+                          <option value="무향">#무향</option>
+                          <option>#꽃향</option>
+                          <option>#캐러멜향</option>
+                          <option>#허브향</option>
+                          <option>#커피향</option>
+                          <option>#소나무향</option>
+                          <option>#초콜릿향</option>
+                          <option>#건포도향</option>
+                          <option>#스모크향</option>
+                          <option>#바닐라향</option>
+                          <option>#코코넛향</option>
+                          <option>#홉향</option>
+                          <option>#옥수수향</option>
+                          <option>#보리향</option>
+                          <option>#귀리향</option>
+                          <option>#풀향</option>
+                          <option>#곡물향</option>
+                          <option>#민트향</option>
+                          <option>#과일향</option>
+                          <option>#바나나향</option>
+                          <option>#오렌지향</option>
+                          <option>#자두향</option>
+                          <option>#자몽향</option>
+                          <option>#망고향</option>
+                          <option>#귤향</option>
+                          <option>#레몬향</option>
+                          <option>#청포도향</option>
+                          <option>#살구향 </option>
+                        </select>
+                      </label>
                       <button className="submitRateBtn" onClick={()=> set_rateModal(false)}>완료</button>
                     </div>
                   </Modal>

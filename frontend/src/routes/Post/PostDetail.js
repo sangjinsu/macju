@@ -24,12 +24,13 @@ function PostDetail() {
       setPost(postDetail)
 
       // const storage = getStorage()
-      // const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/${postDetail.data}`)
+      // const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/imgs/${postDetail.postId}/`)
       // getDownloadURL(storageRef)
       // .then((url)=>{
       //   console.log(url)
       //   setPostImg(url)
       // })
+      // console.log(postData)
     }catch{
       console.log("오류")
       // history.push("/pageNotFound")

@@ -11,9 +11,7 @@ function CommentList(props) {
   const newCommentId = useRef("");
   
   const postId = props.postId;
-
   const nickname = "nickname";
-
   const apiUrl = `http://i6c107.p.ssafy.io:8080/v1/post/${postId}/comment`
 
   // let state = useSelector((state)=>state)

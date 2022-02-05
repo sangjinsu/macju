@@ -24,7 +24,6 @@ function BeerDetail() {
     // .then((url)=>{
     //   setbeerImg(url)
     // })
-
   }, [])
 
   const [isLike, setisLike] = useState(false)

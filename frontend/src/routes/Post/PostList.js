@@ -7,7 +7,6 @@ import axios from "axios"
 import { getDownloadURL, getStorage , ref } from "firebase/storage";
 import "../../firebase_config"
 
-
 function PostList() {
   const dispatch = useDispatch()
   //const text = useSelector((state:any) => state)

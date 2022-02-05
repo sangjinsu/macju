@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import axios from "axios"
 import { useParams, Link } from 'react-router-dom';
 import { BsHeartFill, BsHeart } from "react-icons/bs";
-// import { Button } from 'react-bootstrap';
 import '../../styles/PostDetail.css'
 import CommentList from "./CommentList";
 import { getDownloadURL, getStorage , ref } from "firebase/storage";

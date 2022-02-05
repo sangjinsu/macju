@@ -6,6 +6,7 @@ import "../../firebase_config"
 import '../../styles/PostCreate.css'
 // import UploadImage from "components/UploadImage";
 
+
 function PostCreate(s) {
   const memberid = 1  //test용 멤버아이디
   const beerid = s.location.state.beerid    // 작성하고있는 포스트의 맥주아이디

@@ -49,7 +49,7 @@ public class PostDto implements Serializable {
         this.postId = post.getPostId();
         this.beer = new BeerDto(post.getBeer().getBeerId(), post.getBeer().getName());
         Member writer = post.getMember();
-        this.member = new MemberDto(writer.getMemberId(), writer.getName());
+        this.member = new MemberDto(writer.getMemberId(), writer.getNickName());
         this.content = post.getContent();
         this.updatedAt = post.getUpdatedAt();
         this.userHashTags = post.getUserHashTags()

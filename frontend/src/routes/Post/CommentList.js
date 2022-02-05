@@ -41,12 +41,10 @@ function CommentList(props) {
       newCommentId.current = addData.data
 
       setDispatchComment({
-        commentId: newCommentId,
-        content: inputComment,
-        member: {
-          memberId: 1,
-          // nickname: "nickname" (수정필요)
-        }
+        "commentId": newCommentId,
+        "content": inputComment,
+        "memberId": 1, // 수정필요
+        "ninkname": "dongilzzang" // 수정필요
       })
 
       dispatch({ type : "add", inputComment : dispatchComment })

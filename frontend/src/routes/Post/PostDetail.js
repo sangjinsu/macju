@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import axios from "axios"
 import { useParams, Link } from 'react-router-dom';
 import { BsHeartFill, BsHeart } from "react-icons/bs";
-// import { Button } from 'react-bootstrap';
 import '../../styles/PostDetail.css'
 import CommentList from "./CommentList";
 import { getDownloadURL, getStorage , ref } from "firebase/storage";
@@ -17,22 +16,46 @@ function PostDetail() {
 
   let history = useHistory();
 
-  // api
+  // http://13.125.157.39:8080/v1/post
+
+  useEffect(()=>{
+    
+    
+  
+  },[postData])
+
   useEffect(async ()=>{
     try{
-      const responseDetail = await axios.get(`http://i6c107.p.ssafy.io:8080/v1/post/${postId}`)
+      // const responseDetail = await axios.get(`http://i6c107.p.ssafy.io:8080/v1/post/${postId}`)
+      const responseDetail = await axios.get(`http://13.125.157.39:8080/v1/post/${postId}`)
       const postDetail = responseDetail.data
       setPost(postDetail)
-
       // const storage = getStorage()
-      // const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/${postDetail.data}`)
+      // const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/imgs/${postDetail.postId}/`)
       // getDownloadURL(storageRef)
       // .then((url)=>{
       //   console.log(url)
       //   setPostImg(url)
       // })
-    }catch{
-      console.log("오류")
+      // console.log(postData)
+      
+    const hashTagArr = [postDetail.beer.beerType.main, ...postDetail.beer.aromaHashTags , ...postDetail.beer.flavorHashTags]
+    // console.log(hashTagArr)
+    const newdata = {
+      id : 1,
+      tags : hashTagArr
+    }
+    const headers = {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': "application/json; charset=UTF-8"
+    }
+    axios 
+    // http://13.125.157.39:8080/v1/beer/
+      // .post("http://i6c107.p.ssafy.io:8080/v1/post", newpost, {headers})
+      .post("http://13.125.157.39:8080/v1/log", newdata, {headers})
+    }catch (error) {
+      console.error(error)
+      
       // history.push("/pageNotFound")
     }
   }, [])
@@ -77,7 +100,7 @@ function PostDetail() {
                       </div>
                       {/* 댓글 */}
                       <div className="commentInline">
-                        <i class="fas fa-comment fs-4"></i>
+                        <i className="fas fa-comment fs-4"></i>
                         <div className="count">{postData.comments.length}</div>
                       </div>
                     </div>

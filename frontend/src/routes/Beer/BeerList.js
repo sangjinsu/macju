@@ -26,18 +26,16 @@ function BeerList(){
   
   useEffect(async ()=>{
     // http://i6c107.p.ssafy.io:8080/v1/beer
-    const data = await axios.get("http://i6c107.p.ssafy.io:8080/v1/beer?size=50")
-    setbeerdata(data.data)  
-    // const datalist = data.data
-    // console.log(datalist)
-    // for(var i=0, j=datalist.length; i<j; i++) {
-    //   const storageRef = ref(storage, `gs://ssafy-01-beer-image.appspot.com/${datalist[i].photoPath}`)
-    //   getDownloadURL(storageRef)
-    //   .then((url)=>{
-    //     setBeerImgList((prev)=>[...prev,url])
-    //   })
-    // }
+    // http://13.125.157.39:8080/v1/beer/
+    // const data = await axios.get("http://i6c107.p.ssafy.io:8080/v1/beer")
+    const data = await axios.get("http://13.125.157.39:8080/v1/beer/")
+    setbeerdata([data][0].data)
+    const datalist = [data][0].data
+
+    // 카테고리 기본값 all
     setIsActive('all')
+
+    // 좋아요 기본값 false
     const newLike = []
     // for(var i=0, j=datalist.length; i<j; i++) {
     //   newLike.push(false)
@@ -50,7 +48,6 @@ function BeerList(){
 
   
   const changeLike = ((e)=>{
-    // console.log(e)
     // console.log(e.target.attributes.beerlikeid)
     setisLike(!isLike)
   })
@@ -90,7 +87,7 @@ function BeerList(){
             <li className={isActive==='all' ? 'active' : null} beerfilter="all" onClick={toggleActive}>All</li>
             <li className={isActive==='ale' ? 'active' : null} beerfilter="ale" onClick={toggleActive}>Ale</li>
             <li className={isActive==='lager' ? 'active' : null} beerfilter="lager" onClick={toggleActive}>Lager</li>
-            <li className={isActive==='ladler' ? 'active' : null} beerfilter="ladler" onClick={toggleActive}>Ladler</li>
+            <li className={isActive==='radler' ? 'active' : null} beerfilter="radler" onClick={toggleActive}>Radler</li>
           </ul>
           
           <FadeIn>
@@ -113,7 +110,7 @@ function BeerList(){
                       {/* 맥주 이름 + 자세히 버튼 */}
                       <div className='beerdetail-title'>
                         <h5>{beer.name}</h5>
-                        <Link to='/beer/1' className='detailBtn'>자세히</Link>
+                        <Link to={`/beer/${beer.beerId}`} className='detailBtn'>자세히</Link>
                       </div>
 
                       {/* 맥주 별점 */}
@@ -121,10 +118,11 @@ function BeerList(){
 
                       {/* 맥주 설명 */}
                       <div className='beer_content'>
-                        {beer.content}
+                        {/* {beer.content.length > 15 ? beer.content.substr(0, 15) + "....": beer.content} */}
+                        {/* {beer.content.length > 15 } */}
                       </div>
                       <div className='beer_volume'>
-                        ({beer.volume}도)
+                        ALC : {beer.volume}%
                       </div>
 
                       {/* 맥주 해시태그 */}
@@ -141,16 +139,18 @@ function BeerList(){
 
                       {/* 맥주 카테고리 */}
                       <div className="options">
-                        <h6 className='beerCategory'>
-                          {beer.beerType.main}
-                        </h6>
-                        {/* 좋아요 버튼 */}
-                        <a>
-                          { isLike === true
-                            ? <BsHeart size="18" onClick={changeLike}></BsHeart>
-                            : <BsHeartFill size="18" onClick={changeLike}></BsHeartFill>
-                          }
-                        </a>
+                        <div className='options_space_between'>
+                          <h6 className='beerCategory'>
+                            {beer.beerType.main}
+                          </h6>
+                          {/* 좋아요 버튼 */}
+                          <a>
+                            { isLike === true
+                              ? <BsHeart size="18" onClick={changeLike}></BsHeart>
+                              : <BsHeartFill size="18" onClick={changeLike}></BsHeartFill>
+                            }
+                          </a>
+                        </div>
                       </div>
 
                     </div>

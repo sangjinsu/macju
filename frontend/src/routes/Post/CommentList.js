@@ -1,19 +1,21 @@
 import React, { useEffect, useRef, useState } from "react"
 import { useDispatch, useStore } from 'react-redux';
+// import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import axios from 'axios';
 import "../../styles/CommentList.css"
 
 function CommentList(props) {
   const [comments, setcomments] = useState([]);
   const [inputComment, inputCommentChange] = useState("");
-  const [dispatchComment, setDispatchComment] = useState();
+  const dispatchComment = useRef();
+  // const [dispatchComment, setDispatchComment] = useState();
   const newCommentId = useRef("");
   
   const postId = props.postId;
-
   const nickname = "nickname";
-
-  const apiUrl = `http://i6c107.p.ssafy.io:8080/v1/post/${postId}/comment`
+  // http://13.125.157.39:8080/v1/post
+  // const apiUrl = `http://i6c107.p.ssafy.io:8080/v1/post/${postId}/comment`
+  const apiUrl = `http://13.125.157.39:8080/v1/post/${postId}/comment`
 
   // let state = useSelector((state)=>state)
   const store = useStore((state)=>state)
@@ -39,16 +41,14 @@ function CommentList(props) {
       const addData = await axios.post(apiUrl, postData, headers)
       newCommentId.current = addData.data
 
-      setDispatchComment({
-        commentId: newCommentId,
-        content: inputComment,
-        member: {
-          memberId: 1,
-          // nickname: "nickname" (수정필요)
-        }
-      })
+      dispatchComment.current = {
+        "commentId": newCommentId.current,
+        "content": inputComment,
+        "memberId": 1,
+        "ninkname": "kimdongiln"
+      }
 
-      dispatch({ type : "add", inputComment : dispatchComment })
+      dispatch({ type : "add", inputComment : dispatchComment.current })
       setcomments(store.getState().commentReducer)
     }
     catch{
@@ -61,7 +61,8 @@ function CommentList(props) {
       const commentId = e.target.attributes.commentid.value
       console.log(commentId)
       const arrayId = e.target.attributes.arrayKey.value
-      const deleteApiUrl = `http://i6c107.p.ssafy.io:8080/v1/post/${postId}/comment/${commentId}`
+      const deleteApiUrl = `http://13.125.157.39:8080/v1/post/${postId}/comment/${commentId}`
+      // const deleteApiUrl = `http://i6c107.p.ssafy.io:8080/v1/post/${postId}/comment/${commentId}`
       const deleteData = await axios.delete(deleteApiUrl)
       dispatch({ type : "delete", i : arrayId })
       setcomments(store.getState().commentReducer)
@@ -129,29 +130,6 @@ function CommentList(props) {
           </div>
         </div>
       </section>
-
-      {/* <form action="">
-        <input
-          type="text"
-          name="inputComment"
-          value={ inputComment }
-          onChange={ changeComment }
-        />
-        <button type="button" onClick={ addComment }>Add</button>
-      </form>
-
-      {
-        
-        comments.map( (post, i) => {
-          return(
-            <div className="list" key={i}>
-              <p> { post.comment } </p>
-              <button type="button" commentId={i} onClick={ deleteComment }>삭제</button>
-            </div>
-          );
-        })
-      } */}
-
     </div>
   )
 }

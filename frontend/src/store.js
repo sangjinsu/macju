@@ -13,7 +13,7 @@ const commentReducer = (state = [], action) => {
     state = action.responseData
     return state
   }else if (action.type === "add"){
-    const copyCommentList = [...state, action.inputComment]
+    const copyCommentList = [action.inputComment, ...state]
     return copyCommentList // return된 copyCommentList가 state(기존reducer에 저장된 값)가 된다
   }
   else if (action.type === "delete"){

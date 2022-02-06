@@ -12,8 +12,10 @@
   padding-bottom: 90px;
 }
 .beerdetail_section {
-  background: #222831;
-  color: #ffffff;
+  /* background: #222831;
+  color: #ffffff; */
+  color: #0c0c0c;
+  background-color: #ffffff;
 }
 .beerdetail_section .row {
   -webkit-box-align: center;
@@ -23,18 +25,21 @@
 
 /* 포스트 배경 */
 .BeerPosts_section {
-  background: #222831;
-  color: #ffffff;
+  /* background: #222831;
+  color: #ffffff; */
+  color: #0c0c0c;
+  background-color: #ffffff;
 }
 
 
 /* 목록으로가기 버튼 */
 .beerdetail_section .backBtn {
   margin-bottom: 30px;
-  color: #ffffff;
+  /* color: #ffffff; */
 }
 .beerdetail_section .backBtn .btnText {
-  color: #ffffff;
+  /* color: #ffffff; */
+  color: #000000;
   text-decoration: none;
 }
 
@@ -71,6 +76,7 @@
   border-radius: 10px;
   background-color: #e69c00;
   display: inline-block;
+  color: white;
 }
 .beerdetail_section .beerCategory_detail {
   margin: 15px 0px;
@@ -79,6 +85,8 @@
   background-color: #e69c00;
   display: inline-block;
 }
+
+
 
 /* 맥주 이름 */
 .heading_title h2 {
@@ -152,24 +160,25 @@
 
 
 /* 맥주별 포스트 */
-.heading_posts h1 {
+.postlist_section .heading_posts h1 {
   font-size: 2rem;
   font-weight: bold;
+  margin-top: 20px;
 }
-.heading_posts {
+.postlist_section .heading_posts {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 /* 포스팅하기버튼 */
-.newPostBtn {
+.postlist_section .newPostBtn {
   margin: 20px 0; 
   padding: 5px;
   border-radius: 45px;
   background-color: #e69c00;
   display: inline-block;
 }
-.newPostBtn .btnText {
+.postlist_section .newPostBtn .btnText {
   color: #ffffff;
   text-decoration: none;
 }

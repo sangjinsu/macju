@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -50,7 +50,7 @@ function CustomSlide(props) {
 
 function A(){
   let bubbleEnd
-  const bubbles = document.getElementById('bubbles'),
+  const bubbles = document.getElementById("bubbles"),
   
   randomN = function(start, end){
     return Math.random()*end+start;
@@ -58,9 +58,9 @@ function A(){
   let i = 0
   let generateBubble = function(){
     if(i < 25){
-      const bubble = document.createElement('div'),
+      const bubble = document.createElement("div"),
           size = randomN(5, 10);
-          bubble.setAttribute('style','width: '+size+'px; height: '+size+'px; left:'+randomN(size, bubbles.offsetWidth-(size+5) )+'px;'); // 방울크기, 방울을 어느 위치에서 띄울것인지
+          bubble.setAttribute("style","width: "+size+"px; height: "+size+"px; left:"+randomN(size, bubbles.offsetWidth-(size+5) )+"px;"); // 방울크기, 방울을 어느 위치에서 띄울것인지
           bubble.setAttribute("class", "bubble")
       bubbles.appendChild(bubble);
       i++;

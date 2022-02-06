@@ -15,4 +15,8 @@ public class BeerVo implements Serializable {
     public BeerVo(BeerLike beer) {
         this.beerId = beer.getBeerId();
     }
+
+    public BeerVo(String beerId) {
+        this.beerId = Long.valueOf(beerId);
+    }
 }

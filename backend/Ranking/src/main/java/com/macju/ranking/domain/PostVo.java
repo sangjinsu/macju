@@ -15,4 +15,8 @@ public class PostVo implements Serializable {
     public PostVo(PostLike post) {
         this.postId = post.getPostId();
     }
+
+    public PostVo(String postId) {
+        this.postId = Long.valueOf(postId);
+    }
 }

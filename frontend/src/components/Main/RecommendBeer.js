@@ -26,10 +26,8 @@ const RecommendBeer = () => {
 
   return(
     <div className="SlickTest">
-        <div>
-            <h3>Best Beer</h3>
-        </div>
         <div id="bubbles">
+          <h3>Best Beer</h3>
           <Slider {...settings}>
               <CustomSlide index={1}></CustomSlide>
               <CustomSlide index={2}></CustomSlide>

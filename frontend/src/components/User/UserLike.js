@@ -1,4 +1,12 @@
+import axios from "axios";
+import { useEffect } from "react";
+import { useState } from "react";
+
 const UserLike = () => {
+  const [likebeers, setLikeBeers] = useState([])
+  // useEffect(async () =>{
+  //   const json = await axios.get(`http://i6c107.p.ssafy.io:8080/v1/member/beer/${memberId}/{beerId}`)
+  // })
   return (
 
     <div className="container" justify-content="space-around">

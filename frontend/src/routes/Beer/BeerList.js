@@ -26,21 +26,22 @@ function BeerList(){
   
   useEffect(async ()=>{
     // http://i6c107.p.ssafy.io:8080/v1/beer
-    const data = await axios.get("http://i6c107.p.ssafy.io:8080/v1/beer")
-    setbeerdata([data][0].data)
-    const datalist = [data][0].data
-    for(var i=0, j=datalist.length; i<j; i++) {
-      const storageRef = ref(storage, `gs://ssafy-01-beer-image.appspot.com/${datalist[i].photoPath}`)
-      getDownloadURL(storageRef)
-      .then((url)=>{
-        setBeerImgList((prev)=>[...prev,url])
-      })
-    }
+    const data = await axios.get("http://i6c107.p.ssafy.io:8080/v1/beer?size=50")
+    setbeerdata(data.data)  
+    // const datalist = data.data
+    // console.log(datalist)
+    // for(var i=0, j=datalist.length; i<j; i++) {
+    //   const storageRef = ref(storage, `gs://ssafy-01-beer-image.appspot.com/${datalist[i].photoPath}`)
+    //   getDownloadURL(storageRef)
+    //   .then((url)=>{
+    //     setBeerImgList((prev)=>[...prev,url])
+    //   })
+    // }
     setIsActive('all')
     const newLike = []
-    for(var i=0, j=datalist.length; i<j; i++) {
-      newLike.push(false)
-    }
+    // for(var i=0, j=datalist.length; i<j; i++) {
+    //   newLike.push(false)
+    // }
     // console.log(newLike)
     setisLike(newLike)
     
@@ -99,7 +100,7 @@ function BeerList(){
             
               <div className="col-sm-6 col-md-4 col-lg-3 fadein all" key={beer.beerId}>
                 <div className="box">
-                {console.log(beer)}
+                {/* {console.log(beer)} */}
                   <div>
                     {/* 맥주 이미지 */}
                     <div className="img-box"> 

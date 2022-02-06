@@ -7,11 +7,11 @@ import axios from "axios";
 import { useEffect } from "react";
 const UserProfile = () => {
  	const [user, setUser] = useState('')
-	useEffect(async () =>{
-		const json = await axios.get('http://i6c107.p.ssafy.io:8080/member/')
-		console.log(json.data)
+	// useEffect(async () =>{
+	// 	const json = await axios.get('http://i6c107.p.ssafy.io:8080/v1/member/profile/1')
+	// 	console.log(json.data)
 		
-	})
+	// })
 
 
 

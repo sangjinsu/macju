@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios"
-import { useParams, Link, Route, Switch } from 'react-router-dom';
+import { useParams, Link, Route, Switch, useHistory } from 'react-router-dom';
 import { BsHeartFill, BsHeart } from "react-icons/bs";
 import '../../styles/PostDetail.css'
 import CommentList from "./CommentList";
@@ -18,10 +18,21 @@ function PostDetail() {
   const dispatch = useDispatch();
   const [updateText, setText] = useState();
 
-  // let history = useHistory();
+  let history = useHistory();
   
   const UpdateContent = (e) => {
     setText(e.target.value)
+  }
+
+  const DeletePost = async() => {
+    try{
+      const postDeleteUrl = `http://i6c107.p.ssafy.io:8080/v1/post/${postId}`
+      await axios.delete(postDeleteUrl)
+      dispatch({ type : "postDelete"})
+      history.push("/post")
+    }catch{
+      console.log("오류")
+    }
   }
 
   // postDetail 불러오는 것 (리덕스에 저장)
@@ -150,6 +161,7 @@ function PostDetail() {
 
                       {/* 본인 일때만 수정, 삭제 가능하게 해야함 */}
                       <Link to={`/post/${postId}/update`}>수정하기</Link>
+                      <button onClick={DeletePost}>삭제하기</button>
                       {/* <div className="updateBtn">수정하기</div> */}
                       <div className="deleteBtn">수정하기</div>
                     </Route>

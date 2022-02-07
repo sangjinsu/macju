@@ -27,6 +27,9 @@ const postDetailReducer = (state= [], action) => {
   }else if (action.type === "postDetailUpdate"){
     const updatePost = action.postUpdate
     return updatePost
+  }else if (action.type === "postDelete"){
+    const deletePost = []
+    return deletePost
   }else{
     return state
   }

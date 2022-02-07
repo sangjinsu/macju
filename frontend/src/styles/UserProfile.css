@@ -1,29 +1,81 @@
+/* 전체 */
 .user-profile {
+  background-color: rgb(240, 240, 240);
+  /* margin: 20px; */
   display: flex;
+  align-items: center;
   justify-content: center;
 }
-.userprofile_container{
-  display: flex;
-  flex-direction: column;
-  
-}
-
-
+/* 유저 프로필 사진 */
 .userprofile_container .user-profile .img-box {
-  margin-right: 50px;
+  width: 150px;
+  height: 150px;
+  margin: 40px 0;
+  margin-right: 20px;
+  /* background-color: orange; */
+  /* border-color: black; */
 }
-#name {
+.usericon {
+  width: 90%;
+  height: 90%;
+  margin-left: 5%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+.White {
+  background-color: white;
+  border-radius: 10px;
+}
+
+#nickname {
   /* 폰트 적용할것 */
   display: flex;
+  align-items: center;
   margin-bottom: 20px;
   
 }
-#name div{
+.editBtn {
+  margin-left: 10px;
+  width: auto;
+  height: auto;
+  font-size: 10px;
+  background-color: beige;
+  border: none;
+  border-radius: 10px;
+
+}
+/* 게시글 수 */
+.postnum {
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+/* follow 버튼 */
+.follow_all {
+  display: flex;
+}
+.follower, .following {
+  margin-right: 5px;
+  font-size: 12px;
+}
+.followBtn {
+  width: auto;
+  height: 20px;
+  font-size: 12px;
+  background-color: beige;
+  border: none;
+  border-radius: 10px;
+}
+
+#nickname div{
   margin-right: 15px;
 }
-#profile-box{
 
-  margin-top:50px
+/* 한줄소개 */
+.user_intro {
+  margin: 15px 0;
+}
+#profile-box{
+  margin: 50px 0;
 }
 /* 
 button {

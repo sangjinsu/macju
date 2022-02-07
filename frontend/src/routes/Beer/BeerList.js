@@ -28,6 +28,9 @@ function BeerList(){
   const storage = getStorage()
   //store
   const dispatch = useDispatch();
+
+
+  //스크롤 이벤트 시 실행할 함수
   const ScrollBottom = () =>{
     const {scrollHeight, scrollTop, clientHeight} = document.documentElement
     if (scrollHeight - Math.round(scrollTop) <= 2*clientHeight){
@@ -37,13 +40,15 @@ function BeerList(){
       }
   }
   
+  // scroll event listener 추가
   useEffect(()=>{
     window.addEventListener('scroll', ScrollBottom);
     return () =>{
       window.removeEventListener('scroll', ScrollBottom)
     }
   })
- 
+  
+  //화면에서 스크롤 없이도 보여줄 초기값
   useEffect(async()=> {
     const temp = await axios.get("http://i6c107.p.ssafy.io:8080/v1/beer/")
     setShowBeer(temp.data)

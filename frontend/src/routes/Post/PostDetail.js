@@ -5,7 +5,8 @@ import { BsHeartFill, BsHeart } from "react-icons/bs";
 import '../../styles/PostDetail.css'
 import CommentList from "./CommentList";
 import { getDownloadURL, getStorage , ref } from "firebase/storage";
-import { useHistory } from 'react-router-dom';
+import { useDispatch, useStore } from "react-redux";
+// import { useHistory } from 'react-router-dom';
 
 function PostDetail() {
   const [postData, setPost] = useState()
@@ -13,17 +14,10 @@ function PostDetail() {
   const postId = useParams().postId;
 
   const [isLike, setisLike] = useState(false)
+  const store = useStore((state)=>state)
   const dispatch = useDispatch();
 
-  let history = useHistory();
-
-  // http://13.125.157.39:8080/v1/post
-
-  useEffect(()=>{
-    
-    
-  
-  },[postData])
+  // let history = useHistory();
 
   // postDetail 불러오는 것 (리덕스에 저장)
   useEffect(async ()=>{
@@ -31,27 +25,7 @@ function PostDetail() {
       const responseDetail = await axios.get(`http://i6c107.p.ssafy.io:8080/v1/post/${postId}`)
       // const responseDetail = await axios.get(`http://13.125.157.39:8080/v1/post/${postId}`)
       const postDetail = responseDetail.data
-      
-      // const storage = getStorage()
-      // const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/imgs/${postDetail.postId}/`)
-      // getDownloadURL(storageRef)
-      // .then((url)=>{
-      //   console.log(url)
-      //   setPostImg(url)
-      // })
-      // console.log(postData)
 
-      dispatch({type:"postDetailLoading", postDetail: postDetail}) // 추후 이미지도 추가?
-      setPost(postDetail)
-    }catch (error) {
-      console.error(error)
-      // history.push("/pageNotFound")
-    }
-  }, [])
-
-  // log 보내는 post
-  useEffect(async () => {
-    try{
       const hashTagArr = [postDetail.beer.beerType.main, ...postDetail.beer.aromaHashTags , ...postDetail.beer.flavorHashTags]
       const newdata = {
         id : 1,
@@ -63,8 +37,20 @@ function PostDetail() {
       }
       axios.post("http://13.125.157.39:8080/v1/log", newdata, {headers})
         // .post("http://i6c107.p.ssafy.io:8080/v1/log", newpost, {headers})
+      
+      // const storage = getStorage()
+      // const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/imgs/${postDetail.postId}/`)
+      // getDownloadURL(storageRef)
+      // .then((url)=>{
+      //   console.log(url)
+      //   setPostImg(url)
+      // })
+      // console.log(postData)
+
+      dispatch({type:"postDetailLoading", postDetail: postDetail}) // 추후 이미지도 추가?
+      setPost(store.getState().postDetailReducer)
     }catch (error) {
-      console.error(error)
+      console.log(error)
     }
   }, [])
   

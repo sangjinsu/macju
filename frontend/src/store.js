@@ -59,5 +59,5 @@ const beerListReducer = (state = [], action) =>{
 }
 
 
-const store = createStore( combineReducers( {userReducer, reducer, commentReducer, beerListReducer} ))
+const store = createStore( combineReducers( {userReducer, reducer, postDetailReducer, commentReducer, beerListReducer} ))
 export default store;

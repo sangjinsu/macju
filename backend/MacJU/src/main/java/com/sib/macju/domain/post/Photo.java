@@ -1,13 +1,10 @@
 package com.sib.macju.domain.post;
 
-import com.sib.macju.domain.hashtag.UserHashTag;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -24,7 +21,7 @@ public class Photo {
     @JoinColumn(name = "post_id")
     private Post post;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String data;
 
     public void setPost(Post post) {

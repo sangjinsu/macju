@@ -5,7 +5,6 @@ function PostListComponent(props){
 
   const postdata = props.postdata
   // console.log(postdata)
-  
 
   return(
     <div className="row grid postlist_component">

@@ -1,5 +1,17 @@
 import { combineReducers, createStore } from "redux"
 
+const userReducer = (state = [], action) => {
+  if (action.type === "login") {
+    const loginState = action.loginUser
+    return loginState
+  }else if (action.type === "logout") {
+    const logoutState = {}
+    return logoutState
+  }else{
+    return state
+  }
+}
+
 const reducer = (state = [], action) => {
   if (action.type === "recent"){
     return [{text:'RECENT'}]
@@ -10,8 +22,8 @@ const reducer = (state = [], action) => {
 
 const commentReducer = (state = [], action) => {
   if (action.type === "dataLoading") {
-    state = action.responseData
-    return state
+    const loadData = action.responseData
+    return loadData
   }else if (action.type === "add"){
     const copyCommentList = [action.inputComment, ...state]
     return copyCommentList // return된 copyCommentList가 state(기존reducer에 저장된 값)가 된다
@@ -35,5 +47,5 @@ const beerListReducer = (state = [], action) =>{
 }
 
 
-const store = createStore( combineReducers( {reducer, commentReducer, beerListReducer} ))
+const store = createStore( combineReducers( {userReducer, reducer, commentReducer, beerListReducer} ))
 export default store;

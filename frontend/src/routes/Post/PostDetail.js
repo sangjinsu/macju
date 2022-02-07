@@ -13,6 +13,7 @@ function PostDetail() {
   const postId = useParams().postId;
 
   const [isLike, setisLike] = useState(false)
+  const dispatch = useDispatch();
 
   let history = useHistory();
 
@@ -30,7 +31,7 @@ function PostDetail() {
       const responseDetail = await axios.get(`http://i6c107.p.ssafy.io:8080/v1/post/${postId}`)
       // const responseDetail = await axios.get(`http://13.125.157.39:8080/v1/post/${postId}`)
       const postDetail = responseDetail.data
-      setPost(postDetail)
+      
       // const storage = getStorage()
       // const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/imgs/${postDetail.postId}/`)
       // getDownloadURL(storageRef)
@@ -40,6 +41,8 @@ function PostDetail() {
       // })
       // console.log(postData)
 
+      dispatch({type:"postDetailLoading", postDetail: postDetail}) // 추후 이미지도 추가?
+      setPost(postDetail)
     }catch (error) {
       console.error(error)
       // history.push("/pageNotFound")

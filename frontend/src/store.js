@@ -64,9 +64,5 @@ const postCreateReducer = (state = [], action) =>{
   return state
 }
 
-<<<<<<< HEAD
-const store = createStore( combineReducers( {reducer, commentReducer, postCreateReducer} ))
-=======
 const store = createStore( combineReducers( {userReducer, reducer, postDetailReducer, commentReducer, beerListReducer} ))
->>>>>>> ed0d8852c12fa7287f6827db2803a0a92fc3c53a
 export default store;

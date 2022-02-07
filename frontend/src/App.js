@@ -21,9 +21,13 @@ function App() {
         <Navbar />
         <Switch>
           <Route path="/beer/test" component={BeerTest} />
-          <Route path="/post/new" component={PostCreate} />
-          <Route path="/post/:postId" component={PostDetail} />
-          <Route path="/post" component={PostList} />
+          <Route path="/post">
+            <Switch>
+              <Route path="/post/new" component={PostCreate} />
+              <Route path="/post/:postId" component={PostDetail} />
+              <Route path="/post" component={PostList} />
+            </Switch>
+          </Route>     
           <Route path="/beer/:beerid" component={BeerDetail} />
           <Route path="/beer" component={BeerList} />
           <Route path="/login" component={Login} />

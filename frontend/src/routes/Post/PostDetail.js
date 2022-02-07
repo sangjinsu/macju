@@ -106,7 +106,8 @@ function PostDetail() {
                     
 
                   </div>
-
+                  
+                  {/* <Route path="" */}
                   {/* 해시태그 */}
                   <div className="postdetail_hashtag">
                     { postData.userHashTags.map((tag, i)=>{

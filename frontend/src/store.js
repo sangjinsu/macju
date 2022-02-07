@@ -20,6 +20,18 @@ const reducer = (state = [], action) => {
   }
 }
 
+const postDetailReducer = (state= [], action) => {
+  if (action.type === "postDetailLoading"){
+    const loadPostDetail = action.postDetail
+    return loadPostDetail
+  }else if (action.type === "postDetailUpdate"){
+    const updatePost = action.postUpdate
+    return updatePost
+  }else{
+    return state
+  }
+}
+
 const commentReducer = (state = [], action) => {
   if (action.type === "dataLoading") {
     const loadData = action.responseData
@@ -47,5 +59,5 @@ const beerListReducer = (state = [], action) =>{
 }
 
 
-const store = createStore( combineReducers( {userReducer, reducer, commentReducer, beerListReducer} ))
+const store = createStore( combineReducers( {userReducer, reducer, postDetailReducer, commentReducer, beerListReducer} ))
 export default store;

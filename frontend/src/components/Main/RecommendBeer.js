@@ -21,7 +21,7 @@ const RecommendBeer = () => {
   };
 
   useEffect( () => {
-    A()
+    CreateBubble()
   }, [])
 
   return(
@@ -48,7 +48,7 @@ function CustomSlide(props) {
   )
 }
 
-function A(){
+function CreateBubble(){
   let bubbleEnd
   const bubbles = document.getElementById("bubbles"),
   

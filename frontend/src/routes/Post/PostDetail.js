@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios"
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, Route, Switch } from 'react-router-dom';
 import { BsHeartFill, BsHeart } from "react-icons/bs";
 import '../../styles/PostDetail.css'
 import CommentList from "./CommentList";
@@ -106,29 +106,45 @@ function PostDetail() {
                     
 
                   </div>
+                  <Switch>
+                    <Route path="/post/:postId/update">
+                      {/* 해시태그 */}
+                      {/* <div className="postdetail_hashtag">
+                        { postData.userHashTags.map((tag, i)=>{
+                            return(<span className="postTag" key={i}>{tag.content}</span>)
+                          }) }
+                      </div> */}
+
+                      {/* 포스트 내용 */}
+                      {/* <p> 수정 </p>
+                      <p>{ postData.content }</p> */}
+                    </Route>
+                    <Route path="/post/:postId">
+                      {/* 해시태그 */}
+                      <div className="postdetail_hashtag">
+                        { postData.userHashTags.map((tag, i)=>{
+                            return(<span className="postTag" key={i}>{tag.content}</span>)
+                          }) }
+                      </div>
+
+                      {/* 포스트 내용 */}
+                      <p>{ postData.content }</p>
+
+                      {/* 작성날짜 */}
+                      <div className="userdetail">
+                        <div>작성자 : { postData.member.nickName } </div>
+                        {/* <div>작성날짜 : { postData.created_at }</div> */}
+                      </div>
+
+
+                      {/* 본인 일때만 수정, 삭제 가능하게 해야함 */}
+                      <div className="updateBtn">수정하기</div>
+                      <div className="deleteBtn">수정하기</div>
+                    </Route>
+
+                  </Switch>
+
                   
-                  {/* <Route path="" */}
-                  {/* 해시태그 */}
-                  <div className="postdetail_hashtag">
-                    { postData.userHashTags.map((tag, i)=>{
-                        return(<span className="postTag" key={i}>{tag.content}</span>)
-                      }) }
-                  </div>
-
-                  {/* 포스트 내용 */}
-                  <p>{ postData.content }</p>
-
-
-                  {/* 작성날짜 */}
-                  <div className="userdetail">
-                    <div>작성자 : { postData.member.nickName } </div>
-                    {/* <div>작성날짜 : { postData.created_at }</div> */}
-                  </div>
-
-
-                  {/* 본인 일때만 수정, 삭제 가능하게 해야함 */}
-                  <div className="updateBtn">수정하기</div>
-                  <div className="deleteBtn">삭제하기</div>
                 </div>
               </div>
             </div>

@@ -4,19 +4,12 @@ import { Link } from 'react-router-dom';
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 import "../../firebase_config"
 import '../../styles/PostCreate.css'
-import { useDispatch, useStore } from "react-redux";
-import { isEmpty } from "@firebase/util";
-import UploadImage from "components/UploadImage";
-import { firebaseApp } from "../../firebase_config";
 
 function PostCreate(s) {
   const memberid = 1  //test용 멤버아이디
   const beerid = s.location.state.beerid    // 작성하고있는 포스트의 맥주아이디
   // DB upload
   const [uploadImages, setUploadImages] =useState([])
-  // browser URL
-  const [browserImages, setBrowserImages] = useState([]);
-  // content(post)
   const [content, setContent] = useState("")    
   // hash(post)
   const [hashtagArr, setHashtagArr] = useState([])
@@ -113,7 +106,7 @@ function PostCreate(s) {
       for (let i = 0; i < uploadImages.length; i++){
         imgNames.push(uploadImages[i].firebase)
       }
-      console.log(imgNames)
+      
     const newpost = {
       
       // beerId : 2,

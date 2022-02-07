@@ -15,6 +15,8 @@ public class MemberVO {
 
     private String name;
 
+    private String comment;
+
     private int age;
 
     private int grade;

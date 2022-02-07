@@ -6,7 +6,7 @@ import FadeIn from 'react-fade-in';
 import axios from "axios"
 import { getDownloadURL, getStorage , ref } from "firebase/storage";
 import "../../firebase_config"
-import PostListComponent from "../../components/PostList"
+import PostListComponent from "../../components/Post/PostList"
 
 
 function PostList() {
@@ -37,8 +37,8 @@ function PostList() {
   useEffect(async ()=>{
     // http://i6c107.p.ssafy.io:8080/v1/post/new
     // http://13.125.157.39:8080/v1/post
-    // const data = await axios.get("http://i6c107.p.ssafy.io:8080/v1/post/new")
-    const data = await axios.get("http://13.125.157.39:8080/v1/post/new")
+    const data = await axios.get("http://i6c107.p.ssafy.io:8080/v1/post/new")
+    // const data = await axios.get("http://13.125.157.39:8080/v1/post/new")
     setpostdata([data][0].data)
     const datalist = [data][0].data
     

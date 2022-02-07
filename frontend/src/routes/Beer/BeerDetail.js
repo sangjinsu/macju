@@ -7,7 +7,7 @@ import axios from "axios"
 // import { getDownloadURL, getStorage , ref } from "firebase/storage";
 import "../../firebase_config"
 import '../../styles/BeerDetail.css'
-import PostListComponent from "../../components/PostList"
+import PostListComponent from "../../components/Post/PostList"
 // import "../../styles/PostList.css"
 
 function BeerDetail() {
@@ -21,16 +21,15 @@ function BeerDetail() {
   useEffect(async ()=>{
     //api :  http://i6c107.p.ssafy.io:8080/v1/beer/{beerId}
     // http://13.125.157.39:8080/v1/beer/{beerId}
-    // const beerdetail = await axios.get(`http://i6c107.p.ssafy.io:8080/v1/beer/${beerid}`)
-    const beerdetail = await axios.get(`http://13.125.157.39:8080/v1/beer//${beerid}`)
+    const beerdetail = await axios.get(`http://i6c107.p.ssafy.io:8080/v1/beer/${beerid}`)
+    // const beerdetail = await axios.get(`http://13.125.157.39:8080/v1/beer//${beerid}`)
     const nowbeerDetail = beerdetail.data
     setbeer(beerdetail.data)
 
     // 맥주별 포스트 목록
-    const beer_postdetail = await axios.get(`http://13.125.157.39:8080/v1/post/beer//${beerid}`)
+    const beer_postdetail = await axios.get(`http://i6c107.p.ssafy.io:8080/v1/post/beer/${beerid}`)
     setbeerpost(beer_postdetail.data)
 
-    // console.log(nowbeerDetail)
     // 로그 보내기
     const hashTagArr = [nowbeerDetail.beerType.main, ...nowbeerDetail.aromaHashTags , ...nowbeerDetail.flavorHashTags]
     // console.log(hashTagArr)
@@ -42,10 +41,9 @@ function BeerDetail() {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': "application/json; charset=UTF-8"
     }
-    
-    // http://13.125.157.39:8080/v1/beer/
-    // axios.post("http://i6c107.p.ssafy.io:8080/v1/post", newpost, {headers})
-    axios.post("http://13.125.157.39:8080/v1/log", newdata, {headers})
+    // axios.post("http://i6c107.p.ssafy.io:8080/v1/log", newdata, {headers})     // 주석풀면 로그에 post 보냄
+    ////// axios.post("http://13.125.157.39:8080/v1/log", newdata, {headers})
+
 
     // const storage = getStorage()
     // const storageRef = ref(storage, `gs://ssafy-01-beer-image.appspot.com/${beerdetail.data.photoPath}`)
@@ -115,7 +113,7 @@ function BeerDetail() {
                   
                   {/* 맥주 종류 */}
                   <div className="beerCategory" href="">{beer.beerType.main}</div>
-                  { beer.beerType.detail !== 'NULL'
+                  { beer.beerType.detail !== null
                     ? <div className="beerCategory_detail" href="">{beer.beerType.detail}</div> 
                     : null }
 

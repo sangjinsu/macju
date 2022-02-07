@@ -7,13 +7,17 @@ import FadeIn from 'react-fade-in';
 import axios from "axios"
 import { getDownloadURL, getMetadata, getStorage , ref, updateMetadata } from "firebase/storage";
 import "../../firebase_config"
+import { useDispatch } from 'react-redux';
+import { useStore } from 'react-redux';
 // import { default as Fade} from 'react-fade';
 
 
 
 function BeerList(){
+  const store = useStore()
   // 맥주 데이터
   const [beerdata, setbeerdata] = useState([])
+  const [showBeer, setShowBeer] = useState([])
   // 맥주 사진 URL
   const [beerImgList, setBeerImgList] = useState([])
   // 각 맥주 좋아요
@@ -22,19 +26,44 @@ function BeerList(){
   const [isActive, setIsActive] = useState('all')   
   // 정렬된 사진 URL
   const storage = getStorage()
-
+  //store
+  const dispatch = useDispatch();
+  const ScrollBottom = () =>{
+    const {scrollHeight, scrollTop, clientHeight} = document.documentElement
+    if (scrollHeight - Math.round(scrollTop) <= 2*clientHeight){
+      if (showBeer !==beerdata.splice(0, 10)) {
+        setShowBeer((prev)=>prev.concat(beerdata.splice(0, 10)))
+      }
+      }
+  }
   
+  useEffect(()=>{
+    window.addEventListener('scroll', ScrollBottom);
+    return () =>{
+      window.removeEventListener('scroll', ScrollBottom)
+    }
+  })
+ 
+  useEffect(async()=> {
+    const temp = await axios.get("http://i6c107.p.ssafy.io:8080/v1/beer/")
+    setShowBeer(temp.data)
+  }, [])
+
+
+
   useEffect(async ()=>{
     // http://i6c107.p.ssafy.io:8080/v1/beer
     // http://13.125.157.39:8080/v1/beer/
-    // const data = await axios.get("http://i6c107.p.ssafy.io:8080/v1/beer")
-    const data = await axios.get("http://13.125.157.39:8080/v1/beer/")
+
+    const data = await axios.get("http://i6c107.p.ssafy.io:8080/v1/beer?size=100")
+    
+    // const data = await axios.get("http://13.125.157.39:8080/v1/beer/")
+    dispatch({type:"getBeerList", data:data})
+    // console.log(store.getState().beerListReducer.data)
     setbeerdata([data][0].data)
     const datalist = [data][0].data
-
     // 카테고리 기본값 all
     setIsActive('all')
-
     // 좋아요 기본값 false
     const newLike = []
     // for(var i=0, j=datalist.length; i<j; i++) {
@@ -42,7 +71,6 @@ function BeerList(){
     // }
     // console.log(newLike)
     setisLike(newLike)
-    
   }, [])
   
 
@@ -93,7 +121,7 @@ function BeerList(){
           <FadeIn>
           <div className="row grid">
 
-          { beerdata && beerdata.map((beer) =>
+          { showBeer && showBeer.map((beer) =>
             
               <div className="col-sm-6 col-md-4 col-lg-3 fadein all" key={beer.beerId}>
                 <div className="box">

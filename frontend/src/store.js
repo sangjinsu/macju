@@ -26,7 +26,14 @@ const commentReducer = (state = [], action) => {
     return state
   }
 }
+const beerListReducer = (state = [], action) =>{
+  if (action.type === "getBeerList") {
+    state = action.data
+    
+  }
+  return state
+}
 
 
-const store = createStore( combineReducers( {reducer, commentReducer} ))
+const store = createStore( combineReducers( {reducer, commentReducer, beerListReducer} ))
 export default store;

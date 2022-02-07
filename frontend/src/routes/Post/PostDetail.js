@@ -26,8 +26,8 @@ function PostDetail() {
 
   useEffect(async ()=>{
     try{
-      // const responseDetail = await axios.get(`http://i6c107.p.ssafy.io:8080/v1/post/${postId}`)
-      const responseDetail = await axios.get(`http://13.125.157.39:8080/v1/post/${postId}`)
+      const responseDetail = await axios.get(`http://i6c107.p.ssafy.io:8080/v1/post/${postId}`)
+      // const responseDetail = await axios.get(`http://13.125.157.39:8080/v1/post/${postId}`)
       const postDetail = responseDetail.data
       setPost(postDetail)
       // const storage = getStorage()
@@ -38,7 +38,7 @@ function PostDetail() {
       //   setPostImg(url)
       // })
       // console.log(postData)
-      
+
     const hashTagArr = [postDetail.beer.beerType.main, ...postDetail.beer.aromaHashTags , ...postDetail.beer.flavorHashTags]
     // console.log(hashTagArr)
     const newdata = {
@@ -51,11 +51,10 @@ function PostDetail() {
     }
     axios 
     // http://13.125.157.39:8080/v1/beer/
-      // .post("http://i6c107.p.ssafy.io:8080/v1/post", newpost, {headers})
+      // .post("http://i6c107.p.ssafy.io:8080/v1/log", newpost, {headers})
       .post("http://13.125.157.39:8080/v1/log", newdata, {headers})
     }catch (error) {
       console.error(error)
-      
       // history.push("/pageNotFound")
     }
   }, [])

@@ -36,24 +36,19 @@ function PostList() {
   // const [imgurls, setimgurls] = useState([])
 
   useEffect(async ()=>{
-    // http://i6c107.p.ssafy.io:8080/v1/post/new
-    // http://13.125.157.39:8080/v1/post
     const data = await axios.get(POST_LIST_URL)
     console.log(data)
-    // const data = await axios.get("http://13.125.157.39:8080/v1/post/new")
-    setpostdata([data][0].data)
-    const datalist = [data][0].data
     
-    const storage = getStorage()
-    for(var i=0, j=datalist.length; i<j; i++) {
-      console.log(datalist[i])
-      const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/imgs/${datalist[i].postId}/${datalist[i].photo.data}`)
-      getDownloadURL(storageRef)
-      .then((url)=>{
-        setPostImgList((prev)=>[...prev,url])
-        // console.log(postImgList)
-      })
-    }
+    // const storage = getStorage()
+    // for(var i=0, j=datalist.length; i<j; i++) {
+    //   console.log(datalist[i])
+    //   const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/imgs/${datalist[i].postId}/${datalist[i].photo.data}`)
+    //   getDownloadURL(storageRef)
+    //   .then((url)=>{
+    //     setPostImgList((prev)=>[...prev,url])
+    //     // console.log(postImgList)
+    //   })
+    // }
   }, [])
   
 
@@ -86,7 +81,7 @@ function PostList() {
 
         {/* 포스트 카드들 */}
         <FadeIn>
-          <PostListComponent postdata={postdata}/>
+          {/* <PostListComponent /> */}
         </FadeIn>
       </div>
     </section>

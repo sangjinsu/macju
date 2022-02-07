@@ -12,63 +12,45 @@ import { firebaseApp } from "../../firebase_config";
 function PostCreate(s) {
   const memberid = 1  //test용 멤버아이디
   const beerid = s.location.state.beerid    // 작성하고있는 포스트의 맥주아이디
-  // 사진 업로드용
-  const [firebaseImg, setFirebaseImg] = useState([])
+  // DB upload
   const [uploadImages, setUploadImages] =useState([])
-  // 사진 띄우는용 url
-  const [BrowserImages, setBrowserImages] = useState([]);
-    ////// 포스트 내용
+  // browser URL
+  const [browserImages, setBrowserImages] = useState([]);
+  // content(post)
   const [content, setContent] = useState("")    
-  ////// 포스트 해시태그 배열, 문자열
+  // hash(post)
   const [hashtagArr, setHashtagArr] = useState([])
   const [hashtag, setHashtag] = useState("")
 
-  
-  useEffect(async ()=>{
-    console.log(uploadImages)       
-  }, [uploadImages])
+
 
   /////// 사진 선택 버튼 click
   const uploadBtn = async (event) => {
     const nowImages = event.target.files  // 현재 선택한 사진들
     //state에 저장
+    const imgArray = [...uploadImages]
     for (let i = 0; i< nowImages.length; i++){
-      setUploadImages((prev)=>[...prev, Date.now() + nowImages[i].name])
-      setBrowserImages((prev)=> [...prev, URL.createObjectURL(nowImages[i])])
-      setFirebaseImg((prev)=> [...prev, nowImages[i]])
+      if (!uploadImages.some((img)=>img.name === nowImages[i].name)){
+        nowImages[i]['url'] = URL.createObjectURL(nowImages[i])
+        nowImages[i]['firebase'] = Date.now() + nowImages[i].name
+        imgArray.push(nowImages[i])
+      } 
     }
-    // 중복 제거 
-    // const filtered_result = uploadImages.filter((arr, index, callback)=> index ===callback.findIndex(t => t.name === arr.name))
-    // //제거 후 state에 저장
-    // setUploadImages(await Promise.all(filtered_result))
-    
-
-    // setUploadImages(_.uniq(uploadImages, 'name'))
- 
-    // for (let i=0; i<nowImages.length; i++) {
-    //   setUploadImages((prev)=>[...prev, nowImages[i].name + Date.now()])
-    //   console.log(uploadImages)
-    //   newimglist.push(nowImages[i].name + Date.now())    // 이미지 이름 list에 저장
-    //   const nowImage = URL.createObjectURL(nowImages[i])
-    //   if (!BrowserImages.includes(nowImage)) {
-    //     setBrowserImages((prevState) => [...prevState, nowImage])     // imgUrls = 보여주는 사진 url 리스트
-    //   } 
-    // }
-    // setUploadImages(newimglist)     // images = 업로드할 사진 리스트
+    const results = await Promise.all(imgArray)
+    setUploadImages(results)
   }
+  
 
 
 
 
 
   /////// 사진 삭제 버튼 click
-  const deleteImg = ((e)=>{
-    e.preventDefault()
-    const nowimgurl = e.target.attributes.imgurl.value
-    URL.revokeObjectURL(nowimgurl);
-    const newimgUrls = BrowserImages.filter((item)=>item !== nowimgurl)
-    setBrowserImages(newimgUrls)
-  })
+  function deleteImg(e){
+    const deletedArray = [...uploadImages]
+    deletedArray.splice(e.target.attributes.idx.value, 1)
+    setUploadImages(deletedArray)
+  }
 
 
   const input_content = ((e)=>{
@@ -127,12 +109,18 @@ function PostCreate(s) {
     if (uploadImages.length === 0 || content==='' || hashtagArr === 0 ) {
       alert('사진/내용을 추가해 주세요')
     } else {
+      const imgNames = [];
+      for (let i = 0; i < uploadImages.length; i++){
+        imgNames.push(uploadImages[i].firebase)
+      }
+      console.log(imgNames)
     const newpost = {
+      
       // beerId : 2,
       beerId : beerid,
       content : content,
       memberId : memberid,
-      paths : uploadImages,
+      paths : imgNames,
       userHashTags : hashtagArr,
       // memberId : memberId,
     }
@@ -147,10 +135,10 @@ function PostCreate(s) {
       .post("http://i6c107.p.ssafy.io:8080/v1/post", newpost, {headers})
       // .post("http://13.125.157.39:8080/v1/post", newpost, {headers})
       .then((res) => {
+        console.log(res)
       const storage = getStorage()
-      firebaseImg.map(async (img, index)=>{
-        
-        const storageRef = ref(storage, `imgs/${img.name}`)
+      uploadImages.map(async (img, index)=>{
+        const storageRef = ref(storage, `imgs/${res.data}/${img.firebase}`)
         await uploadBytes(storageRef, img)
           .then((snapshot) => {
             console.log('uploaded')
@@ -189,10 +177,10 @@ function PostCreate(s) {
 
                   {/* 사진 띄우는곳 */}
                   <div>
-                    { BrowserImages&&BrowserImages.map((img, index)=>(
+                    { uploadImages&&uploadImages.map((img, index)=>(
                       <div className='image_container' key={index}>
-                        <img alt="sample" src={img} className="postimage"/>
-                        <div className="deleteImgBtn" onClick={deleteImg} imgurl={img}>X</div>
+                        <img alt="sample" src={img.url} className="postimage"/>
+                        <div className="deleteImgBtn" role={'button'} onClick={deleteImg} idx={index}>X</div>
                       </div>
                     ))}
                     {/* {console.log(images)} */}

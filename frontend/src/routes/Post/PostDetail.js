@@ -24,6 +24,7 @@ function PostDetail() {
   
   },[postData])
 
+  // postDetail 불러오는 것 (리덕스에 저장)
   useEffect(async ()=>{
     try{
       const responseDetail = await axios.get(`http://i6c107.p.ssafy.io:8080/v1/post/${postId}`)
@@ -39,23 +40,28 @@ function PostDetail() {
       // })
       // console.log(postData)
 
-    const hashTagArr = [postDetail.beer.beerType.main, ...postDetail.beer.aromaHashTags , ...postDetail.beer.flavorHashTags]
-    // console.log(hashTagArr)
-    const newdata = {
-      id : 1,
-      tags : hashTagArr
-    }
-    const headers = {
-      'Content-Type': 'application/json; charset=UTF-8',
-      'Accept': "application/json; charset=UTF-8"
-    }
-    axios 
-    // http://13.125.157.39:8080/v1/beer/
-      // .post("http://i6c107.p.ssafy.io:8080/v1/log", newpost, {headers})
-      .post("http://13.125.157.39:8080/v1/log", newdata, {headers})
     }catch (error) {
       console.error(error)
       // history.push("/pageNotFound")
+    }
+  }, [])
+
+  // log 보내는 post
+  useEffect(async () => {
+    try{
+      const hashTagArr = [postDetail.beer.beerType.main, ...postDetail.beer.aromaHashTags , ...postDetail.beer.flavorHashTags]
+      const newdata = {
+        id : 1,
+        tags : hashTagArr
+      }
+      const headers = {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': "application/json; charset=UTF-8"
+      }
+      axios.post("http://13.125.157.39:8080/v1/log", newdata, {headers})
+        // .post("http://i6c107.p.ssafy.io:8080/v1/log", newpost, {headers})
+    }catch (error) {
+      console.error(error)
     }
   }, [])
   

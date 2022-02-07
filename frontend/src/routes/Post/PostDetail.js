@@ -16,8 +16,13 @@ function PostDetail() {
   const [isLike, setisLike] = useState(false)
   const store = useStore((state)=>state)
   const dispatch = useDispatch();
+  const [updateText, setText] = useState();
 
   // let history = useHistory();
+  
+  const UpdateContent = (e) => {
+    setText(e.target.value)
+  }
 
   // postDetail 불러오는 것 (리덕스에 저장)
   useEffect(async ()=>{
@@ -49,11 +54,12 @@ function PostDetail() {
 
       dispatch({type:"postDetailLoading", postDetail: postDetail}) // 추후 이미지도 추가?
       setPost(store.getState().postDetailReducer)
+      setText(store.getState().postDetailReducer.content)
     }catch (error) {
       console.log(error)
     }
   }, [])
-  
+
 
   return (
     <div className="PostDetail">
@@ -108,6 +114,11 @@ function PostDetail() {
                   </div>
                   <Switch>
                     <Route path="/post/:postId/update">
+                      <input
+                        type="text"
+                        value={updateText}
+                        onChange={UpdateContent}
+                      ></input>
                       {/* 해시태그 */}
                       {/* <div className="postdetail_hashtag">
                         { postData.userHashTags.map((tag, i)=>{
@@ -138,7 +149,8 @@ function PostDetail() {
 
 
                       {/* 본인 일때만 수정, 삭제 가능하게 해야함 */}
-                      <div className="updateBtn">수정하기</div>
+                      <Link to={`/post/${postId}/update`}>수정하기</Link>
+                      {/* <div className="updateBtn">수정하기</div> */}
                       <div className="deleteBtn">수정하기</div>
                     </Route>
 

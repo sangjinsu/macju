@@ -8,10 +8,10 @@ function Login() { // 회원가입 넘어가는 링크만 걸어뒀음
   return(
     <>
       <div className='login_heading'>Login</div>
-      <div className='loginBtn'>
-        <Link to={`https://kauth.kakao.com/oauth/authorize?client_id=${client_id}}&redirect_uri=${redirect_url}&response_type=code`}>
-            <img src="img/kakaoLogin.png"></img>
-        </Link>
+      <div className="loginBtn">
+        <a href={`https://kauth.kakao.com/oauth/authorize?client_id=${client_id}&redirect_uri=${redirect_url}&response_type=code`} target="_blank" rel="noopener noreferrer">
+          <img src="/img/kakaoLogin.png"></img>
+        </a>
       </div>
     </>
   )

@@ -9,6 +9,7 @@ spring:
   cache:
     type: redis
   redis:
-    host: localhost
-    port: 6379
+    host: host.docker.internal
+    port: 6380
+
 

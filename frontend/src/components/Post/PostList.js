@@ -1,14 +1,13 @@
 import {Link} from "react-router-dom"
-import "../styles/PostList.css"
+import "../../styles/PostList.css"
 
 function PostListComponent(props){
 
   const postdata = props.postdata
   // console.log(postdata)
-  
 
   return(
-    <div className="row grid">
+    <div className="row grid postlist_component">
 
     {/* 포스트 카드 각각 */}
       { postdata&&

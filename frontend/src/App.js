@@ -21,18 +21,28 @@ function App() {
         <Navbar />
         <Switch>
           <Route path="/beer/test" component={BeerTest} />
-          <Route path="/post/new" component={PostCreate} />
-          <Route path="/post/:postId" component={PostDetail} />
-          <Route path="/post" component={PostList} />
-          <Route path="/beer/:beerid" component={BeerDetail} />
-          <Route path="/beer" component={BeerList} />
-          <Route path="/login" component={Login} />
-          <Route path="/signup" component={Signup} />
           <Route path="/home" component={RecommendBeer} />
+          <Route path="/post">
+            <Switch>
+              <Route path="/post/new" component={PostCreate} />
+              <Route path="/post/:postId" component={PostDetail} />
+              <Route path="/post" component={PostList} />
+            </Switch>
+          </Route>
+          <Route path="/beer">
+            <Switch>
+              <Route path="/beer/:beerid" component={BeerDetail} />
+              <Route path="/beer" component={BeerList} />
+            </Switch>
+          </Route>
+          <Route path="/user">
+            <Route path="/user/login" component={Login} />
+            <Route path="/user/signup" component={Signup} />
+          </Route>
           <Route path="/profile">
             <Switch>
-              <Route path="/:username/edit" component={ProfileEdit} />
-              <Route path="/:username" component={Profile} />
+              <Route path="/profile/:username/edit" component={ProfileEdit} />
+              <Route path="/profile/:username" component={Profile} />
             </Switch>
           </Route>
           <Route path="*" component={PageNotFound} />

@@ -60,7 +60,7 @@ function NavBar(){
                     </form>
                     
                     <div className="order_online">
-                      <Link className='nav-link nav_login' to='/login' onClick={navClick}>login</Link>
+                      <Link className='nav-link nav_login' to='/user/login' onClick={navClick}>login</Link>
                     </div>
                   </div>
                   

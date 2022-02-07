@@ -9,7 +9,9 @@ spring:
   cache:
     type: redis
   redis:
-    host: host.docker.internal
+    # host: host.docker.internal # 도커로 실행
+    # host: localhost # 로컬에서 실행
+    host: "i6c107.p.ssafy.io"
     port: 6380
 
 

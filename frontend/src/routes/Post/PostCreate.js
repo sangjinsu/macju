@@ -115,7 +115,8 @@ function PostCreate(s) {
   useEffect(async ()=>{
     // http://i6c107.p.ssafy.io:8080/v1/post/new
     // 13.125.157.39
-    const data = await axios.get("http://13.125.157.39:8080/v1/post/new")
+    // const data = await axios.get("http://13.125.157.39:8080/v1/post/new")
+    const data = await axios.get("http://i6c107.p.ssafy.io:8080/v1/post/new")
     // console.log([data][0].data.length)
     // console.log(data.data)
     data.data.length !== 0 

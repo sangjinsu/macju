@@ -150,7 +150,7 @@ function PostCreate(s) {
       const storage = getStorage()
       firebaseImg.map(async (img, index)=>{
         
-        const storageRef = ref(storage, `imgs/${res.data}/${img.name}`)
+        const storageRef = ref(storage, `imgs/${img.name}`)
         await uploadBytes(storageRef, img)
           .then((snapshot) => {
             console.log('uploaded')

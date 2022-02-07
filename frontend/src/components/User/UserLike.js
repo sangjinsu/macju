@@ -1,31 +1,37 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
+import '../../styles/UserLike.css'
 
 const UserLike = () => {
+  const memberId = 1
   const [likebeers, setLikeBeers] = useState([])
-  // useEffect(async () =>{
-  //   const json = await axios.get(`http://i6c107.p.ssafy.io:8080/v1/member/beer/${memberId}/{beerId}`)
-  // })
+  useEffect(async () =>{
+    const memberbeers = await axios.get(`http://i6c107.p.ssafy.io:8080/member/beer/${memberId}`)
+    setLikeBeers(memberbeers.data.data)
+    // console.log(memberbeers.data.data)
+  },[])
   return (
-
-    <div className="container" justify-content="space-around">
-      <h1>Beer</h1>
-      <div className="row gx-5">
-        {/* <div className="col-1"></div> */}
-        {/* 사진이 왼쪽에 있어서 정렬 안된 것처럼 보이는 것 같습니다.. */}
-        <div className="col">
-          <img src="/img/terra.png" width="150px"></img>
+    <div className="memberbeerlike_container">
+      <div className="container" justify-content="space-around">
+        <h1>Like Beers</h1>
+        <div className="row grid">
+          {likebeers && likebeers.map((beer)=>{
+            return(
+              <div className="col-4 col-lg-2 likebeer">
+                {console.log(beer.beerName)}
+                <div>
+                  <img className="likebeer_img" src={beer.photoPath}></img>
+                  {/* <div>{beer.beerName}</div> */}
+                </div>
+              </div>
+            )
+          })}
         </div>
-        <div className="col">
-        <img src="/img/terra.png" width="150px"></img>
-        </div>
-        <div className="col">
-          <img src="/img/terra.png" width="150px"></img>
-        </div>
-        {/* <div className="col-1"></div> */}
+        
       </div>
     </div>
+
 
   )
 }

@@ -1,6 +1,18 @@
 import { Table } from "react-bootstrap";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
 const UserReview = () =>{
+  const memberId = 1
+  const [userReviews, setUserReviews] = useState([])
+
+  // useEffect(async () =>{
+	// 	const memberReviews = await axios.get(`http://i6c107.p.ssafy.io:8080/member/${memberId}/rate`)
+	// 	// console.log(memberReviews.data)
+	// 	setUserReviews(memberReviews.data)
+	// },[])
+
+  
   return (
     <div className="container">
     <Table striped bordered hover>

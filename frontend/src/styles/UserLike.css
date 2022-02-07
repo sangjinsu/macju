@@ -1,0 +1,13 @@
+.memberbeerlike_container {
+  background-color: white;
+  margin: 50px 20px;
+}
+.likebeer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.likebeer_img {
+  height: 8rem;
+
+}

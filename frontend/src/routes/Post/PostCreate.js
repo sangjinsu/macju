@@ -143,8 +143,8 @@ function PostCreate(s) {
     console.log(newpost)
     axios 
     // http://13.125.157.39:8080/v1/beer/
-      // .post("http://i6c107.p.ssafy.io:8080/v1/post", newpost, {headers})
-      .post("http://13.125.157.39:8080/v1/post", newpost, {headers})
+      .post("http://i6c107.p.ssafy.io:8080/v1/post", newpost, {headers})
+      // .post("http://13.125.157.39:8080/v1/post", newpost, {headers})
       .then((res) => {
       console.log(res)
       // 이미지 firebase에 업로드 (지금 업로드 경로는 됐는데 사진이 undefined로만 업로드됨)

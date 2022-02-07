@@ -146,3 +146,7 @@
 .postlist_section .fontaws{
   float:right
 }
+
+.postlist_component {
+  margin-bottom: 80px;
+}

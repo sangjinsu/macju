@@ -27,8 +27,8 @@ function BeerList(){
   useEffect(async ()=>{
     // http://i6c107.p.ssafy.io:8080/v1/beer
     // http://13.125.157.39:8080/v1/beer/
-    // const data = await axios.get("http://i6c107.p.ssafy.io:8080/v1/beer")
-    const data = await axios.get("http://13.125.157.39:8080/v1/beer/")
+    const data = await axios.get("http://i6c107.p.ssafy.io:8080/v1/beer")
+    // const data = await axios.get("http://13.125.157.39:8080/v1/beer/")
     setbeerdata([data][0].data)
     const datalist = [data][0].data
 

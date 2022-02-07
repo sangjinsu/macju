@@ -54,5 +54,5 @@
   padding: 10rem 0;
 } */
 
-@-webkit-keyframes fade{from{bottom:0px;opacity:1;visibility:visible}to{bottom:120%}}
-        @keyframes fade{from{bottom:0px;opacity:1;visibility:visible}to{bottom:120%}}
+@-webkit-keyframes fade{from{bottom:0px;opacity:1;visibility:visible}to{bottom:110%}}
+        @keyframes fade{from{bottom:0px;opacity:1;visibility:visible}to{bottom:110%}}

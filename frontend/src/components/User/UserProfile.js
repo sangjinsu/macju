@@ -7,13 +7,14 @@ import axios from "axios";
 import {IoIosBeer} from  "react-icons/io";
 
 const UserProfile = () => {
+	const memberId = 1
 
 	// user 데이터 불러오기
  	const [user, setUser] = useState('')	// 유저 데이터
 	const [usercolor, setUsercolor] = useState("")		// 사진 색깔
 	 
 	useEffect(async () =>{
-		const profiledata = await axios.get('http://i6c107.p.ssafy.io:8080/member/profile/1')
+		const profiledata = await axios.get(`http://i6c107.p.ssafy.io:8080/member/profile/${memberId}`)
 		// console.log(profiledata.data)
 		setUser(profiledata.data)
 		setUsercolor(profiledata.data.profileColor)		
@@ -42,7 +43,8 @@ const UserProfile = () => {
 			{user && 
 				<div className="user-profile ">
 					<div className="img-box">
-						<div className={usercolor}>
+						{/* user.profileColor 색깔로 배경 지정 (기본흰색) */}
+						<div className={usercolor}>	
 							<IoIosBeer className="usericon"></IoIosBeer>
 						</div>
 					</div>

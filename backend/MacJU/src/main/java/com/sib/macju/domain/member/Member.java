@@ -30,6 +30,9 @@ public class Member {
     @Column(nullable = false)
     private String name;
 
+    @Column(length = 150)
+    private String comment;
+
     @Setter
     @Enumerated(EnumType.STRING)
     private Status status = Status.Activate;

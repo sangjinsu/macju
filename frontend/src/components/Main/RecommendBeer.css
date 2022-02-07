@@ -20,7 +20,7 @@
 } */
 
 /* 이미지 크기 조정 */
-img {
+.slideImg {
   margin: 0 auto;
   width: 30%;
   height: 30%;

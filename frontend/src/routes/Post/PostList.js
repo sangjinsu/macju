@@ -21,7 +21,7 @@ function PostList() {
   const onSelect = (event) => {
     dispatch({type:event.target.value})
     setOpt(event.target.value)
-    setStat(store.getState().reducer[0].text)
+    setStat(store.getState().postReducer[0].text)
     //stat 지우고 setposts로 post값 가져올것.
     //useSelector로 가져올경우 store 는 변경이 되지만 const 에서 정의한 변수값이 반영되는 시점이 좀 더 늦기 때문에 store에서 직접 꺼내옴. 
   }

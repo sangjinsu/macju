@@ -2,10 +2,12 @@ package com.sib.macju.dto.beer;
 
 import com.sib.macju.domain.beer.Beer;
 import com.sib.macju.domain.beer.BeerMainType;
+import com.sib.macju.domain.member.MemberRateBeer;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.OptionalDouble;
 import java.util.stream.Collectors;
 
 @Data
@@ -20,6 +22,7 @@ public class BeerDto implements Serializable {
     private final List<String> aromaHashTags;
     private final List<String> flavorHashTags;
     private final Long likes;
+    private final Double averageRate;
 
     @Data
     public static class BeerTypeDto implements Serializable {
@@ -48,5 +51,12 @@ public class BeerDto implements Serializable {
                         beerHasFlavorHashTag.getFlavorHashTag().getFlavor()
                 ).collect(Collectors.toList());
         likes = beer.getMemberLikeBeers().stream().count();
+        OptionalDouble average = beer.getMemberRateBeers().stream().mapToInt(MemberRateBeer::getRate).average();
+        if (average.isPresent()){
+            averageRate = average.getAsDouble();
+        } else{
+            averageRate = (double) 0;
+        }
+
     }
 }

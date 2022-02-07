@@ -35,8 +35,8 @@
 
 
     <appender name="logstash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-<!--        <destination>i6c107.p.ssafy.io:5000</destination>-->
-        <destination>13.125.157.39:5000</destination>
+        <destination>i6c107.p.ssafy.io:5000</destination>
+<!--        <destination>13.125.157.39:5000</destination>-->
         <!-- ES가 알아먹도록 JSON 형태로 인코딩까지 해주고-->
         <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
             <providers>

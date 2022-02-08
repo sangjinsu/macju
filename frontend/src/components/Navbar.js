@@ -4,6 +4,7 @@ import '../styles/Responsive.css'
 import { Link } from "react-router-dom"
 
 function NavBar(){
+  const memberId = 1    // test용 멤버 아이디
 
   const [isExpanded, setIsExpanded] = useState(false)
   const toggleBtn = document.getElementById("tglButton")
@@ -50,7 +51,7 @@ function NavBar(){
                     </li>
                   </ul>
                   <div className="user_option">
-                    <Link to='/profile/post' className="user_link" onClick={navClick}>
+                    <Link to={`/profile/${memberId}/post`} className="user_link" onClick={navClick}>
                       <i className="fa fa-user" aria-hidden="true"></i>
                     </Link>
                     <form className="form-inline">
@@ -60,7 +61,7 @@ function NavBar(){
                     </form>
                     
                     <div className="order_online">
-                      <Link className='nav-link nav_login' to='/login' onClick={navClick}>login</Link>
+                      <Link className='nav-link nav_login' to='/user/login' onClick={navClick}>login</Link>
                     </div>
                   </div>
                   

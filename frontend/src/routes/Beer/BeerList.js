@@ -7,14 +7,21 @@ import FadeIn from 'react-fade-in';
 import axios from "axios"
 import { getDownloadURL, getMetadata, getStorage , ref, updateMetadata } from "firebase/storage";
 import "../../firebase_config"
+<<<<<<< HEAD
 import { useDispatch, useStore } from 'react-redux';
+=======
+import { useDispatch } from 'react-redux';
+import { useStore } from 'react-redux';
+>>>>>>> 450a376db395daa72253d920b797ea9549d1c662
 // import { default as Fade} from 'react-fade';
 
 
 
 function BeerList(){
+  const store = useStore()
   // 맥주 데이터
   const [beerdata, setbeerdata] = useState([])
+  const [showBeer, setShowBeer] = useState([])
   // 맥주 사진 URL
   const [beerImgList, setBeerImgList] = useState([])
   // 각 맥주 좋아요
@@ -22,13 +29,57 @@ function BeerList(){
   // 현재 활성화된 카테고리 (기본값:all)
   const [isActive, setIsActive] = useState('all')   
   // 정렬된 사진 URL
+<<<<<<< HEAD
+=======
+  const storage = getStorage()
+  //store
+  const dispatch = useDispatch();
+
+
+  //스크롤 이벤트 시 실행할 함수
+  const ScrollBottom = () =>{
+    const {scrollHeight, scrollTop, clientHeight} = document.documentElement
+    if (scrollHeight - Math.round(scrollTop) <= 2*clientHeight){
+      if (showBeer !==beerdata.splice(0, 10)) {
+        setShowBeer((prev)=>prev.concat(beerdata.splice(0, 10)))
+      }
+      }
+  }
+>>>>>>> 450a376db395daa72253d920b797ea9549d1c662
   
+  // scroll event listener 추가
+  useEffect(()=>{
+    window.addEventListener('scroll', ScrollBottom);
+    return () =>{
+      window.removeEventListener('scroll', ScrollBottom)
+    }
+  })
+  
+  //화면에서 스크롤 없이도 보여줄 초기값
+  useEffect(async()=> {
+    const temp = await axios.get("http://i6c107.p.ssafy.io:8080/v1/beer/")
+    setShowBeer(temp.data)
+  }, [])
+
+
+
   useEffect(async ()=>{
     // http://i6c107.p.ssafy.io:8080/v1/beer
     // http://13.125.157.39:8080/v1/beer/
+<<<<<<< HEAD
     // const data = await axios.get("http://i6c107.p.ssafy.io:8080/v1/beer")
     const data = await axios.get("http://i6c107.p.ssafy.io:8080/v1/beer?size=50")
     setbeerdata(data.data)
+=======
+
+    const data = await axios.get("http://i6c107.p.ssafy.io:8080/v1/beer?size=210")
+    
+    // const data = await axios.get("http://13.125.157.39:8080/v1/beer/")
+    dispatch({type:"getBeerList", data:data})
+    // console.log(store.getState().beerListReducer.data)
+    setbeerdata([data][0].data)
+    const datalist = [data][0].data
+>>>>>>> 450a376db395daa72253d920b797ea9549d1c662
     // 카테고리 기본값 all
     setIsActive('all')
     // 좋아요 기본값 false
@@ -38,7 +89,6 @@ function BeerList(){
     // }
     // console.log(newLike)
     setisLike(newLike)
-    
   }, [])
   
 
@@ -89,7 +139,7 @@ function BeerList(){
           <FadeIn>
           <div className="row grid">
 
-          { beerdata && beerdata.map((beer) =>
+          { showBeer && showBeer.map((beer) =>
             
               <div className="col-sm-6 col-md-4 col-lg-3 fadein all" key={beer.beerId}>
                 <div className="box">

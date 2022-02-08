@@ -1,0 +1,21 @@
+#bubbles {
+  width: 100%;
+  height: 100%; /* 사용에 따라서 높이 조절 */
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  background: #ff9c08;
+  z-index: -1;
+}
+#bubbles div.bubble {
+  background: #ffc36e;
+  border-radius: 100%;
+  position: absolute;
+  -webkit-animation: fade 10s infinite;
+}
+/* @media (min-width: 640px)
+.hero {
+  padding: 10rem 0;
+} */
+
+@-webkit-keyframes fade{from{bottom:-24px;opacity:1;visibility:visible}to{bottom:120%}}@keyframes fade{from{bottom:-24px;opacity:1;visibility:visible}to{bottom:120%}}

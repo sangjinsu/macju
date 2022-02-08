@@ -6,10 +6,11 @@ import FadeIn from 'react-fade-in';
 import axios from "axios"
 import { getDownloadURL, getStorage , ref } from "firebase/storage";
 import "../../firebase_config"
-import PostListComponent from "../../components/PostList"
+import PostListComponent from "../../components/Post/PostList"
 
 
 function PostList() {
+  const POST_LIST_URL = process.env.REACT_APP_POST_LIST_URL
   const dispatch = useDispatch()
   //const text = useSelector((state:any) => state)
   const [opt, setOpt] = useState("최신순으로")
@@ -37,8 +38,9 @@ function PostList() {
   useEffect(async ()=>{
     // http://i6c107.p.ssafy.io:8080/v1/post/new
     // http://13.125.157.39:8080/v1/post
-    // const data = await axios.get("http://i6c107.p.ssafy.io:8080/v1/post/new")
-    const data = await axios.get("http://13.125.157.39:8080/v1/post/new")
+    const data = await axios.get(POST_LIST_URL)
+    console.log(data)
+    // const data = await axios.get("http://13.125.157.39:8080/v1/post/new")
     setpostdata([data][0].data)
     const datalist = [data][0].data
     
@@ -49,7 +51,7 @@ function PostList() {
       getDownloadURL(storageRef)
       .then((url)=>{
         setPostImgList((prev)=>[...prev,url])
-        console.log(postImgList)
+        // console.log(postImgList)
       })
     }
   }, [])

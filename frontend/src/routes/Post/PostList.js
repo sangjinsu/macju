@@ -11,7 +11,6 @@ import PostListComponent from "../../components/Post/PostList"
 
 function PostList() {
   const POST_LIST_URL = process.env.REACT_APP_POST_LIST_URL
-  // console.log(process.env.REACT_APP_POST_LIST_URL)
   const dispatch = useDispatch()
   //const text = useSelector((state:any) => state)
   const [opt, setOpt] = useState("최신순으로")
@@ -35,21 +34,11 @@ function PostList() {
   const [isLike, setisLike] = useState([])
   // 정렬된 사진 URL
   // const [imgurls, setimgurls] = useState([])
-
+  const storage = getStorage()
   useEffect(async ()=>{
     const data = await axios.get(POST_LIST_URL)
-    console.log(data)
-    
-    // const storage = getStorage()
-    // for(var i=0, j=datalist.length; i<j; i++) {
-    //   console.log(datalist[i])
-    //   const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/imgs/${datalist[i].postId}/${datalist[i].photo.data}`)
-    //   getDownloadURL(storageRef)
-    //   .then((url)=>{
-    //     setPostImgList((prev)=>[...prev,url])
-    //     // console.log(postImgList)
-    //   })
-    // }
+    //dispatch에 pop data도 추가시켜야 함.
+    dispatch({type:"firstSave", new:data})
   }, [])
   
 
@@ -82,7 +71,7 @@ function PostList() {
 
         {/* 포스트 카드들 */}
         <FadeIn>
-          {/* <PostListComponent /> */}
+          <PostListComponent />
         </FadeIn>
       </div>
     </section>

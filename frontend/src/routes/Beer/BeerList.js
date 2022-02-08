@@ -7,12 +7,7 @@ import FadeIn from 'react-fade-in';
 import axios from "axios"
 import { getDownloadURL, getMetadata, getStorage , ref, updateMetadata } from "firebase/storage";
 import "../../firebase_config"
-<<<<<<< HEAD
 import { useDispatch, useStore } from 'react-redux';
-=======
-import { useDispatch } from 'react-redux';
-import { useStore } from 'react-redux';
->>>>>>> 450a376db395daa72253d920b797ea9549d1c662
 // import { default as Fade} from 'react-fade';
 
 
@@ -32,8 +27,6 @@ function BeerList(){
   // 현재 활성화된 카테고리 (기본값:all)
   const [isActive, setIsActive] = useState('all')   
   // 정렬된 사진 URL
-<<<<<<< HEAD
-=======
   const storage = getStorage()
   //store
   const dispatch = useDispatch();
@@ -48,7 +41,6 @@ function BeerList(){
       }
       }
   }
->>>>>>> 450a376db395daa72253d920b797ea9549d1c662
   
   // scroll event listener 추가
   useEffect(()=>{
@@ -69,11 +61,6 @@ function BeerList(){
   useEffect(async ()=>{
     // http://i6c107.p.ssafy.io:8080/v1/beer
     // http://13.125.157.39:8080/v1/beer/
-<<<<<<< HEAD
-    // const data = await axios.get("http://i6c107.p.ssafy.io:8080/v1/beer")
-    const data = await axios.get("http://i6c107.p.ssafy.io:8080/v1/beer?size=50")
-    setbeerdata(data.data)
-=======
 
     const data = await axios.get(`${BEER_LIST_URL}?size=210`)
     
@@ -82,7 +69,6 @@ function BeerList(){
     // console.log(store.getState().beerListReducer.data)
     setbeerdata([data][0].data)
     const datalist = [data][0].data
->>>>>>> 450a376db395daa72253d920b797ea9549d1c662
     // 카테고리 기본값 all
     setIsActive('all')
     // 좋아요 기본값 false
@@ -143,7 +129,7 @@ function BeerList(){
           <div className="row grid">
 
           { showBeer && showBeer.map((beer) =>
-            
+              
               <div className="col-sm-6 col-md-4 col-lg-3 fadein all" key={beer.beerId}>
                 <div className="box">
                 {/* {console.log(beer)} */}

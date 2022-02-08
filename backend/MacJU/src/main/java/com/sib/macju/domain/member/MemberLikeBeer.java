@@ -2,11 +2,14 @@ package com.sib.macju.domain.member;
 
 import com.sib.macju.domain.beer.Beer;
 import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@Setter
 @Table(name = "member_like_beer")
 public class MemberLikeBeer {
     @Id
@@ -21,4 +24,5 @@ public class MemberLikeBeer {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "beer_id")
     private Beer beer;
+
 }

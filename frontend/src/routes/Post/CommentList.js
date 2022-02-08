@@ -50,7 +50,7 @@ function CommentList(props) {
         "ninkname": "kimdongiln"
       }
 
-      dispatch({ type : "add", inputComment : dispatchComment.current })
+      dispatch({ type : "addComment", inputComment : dispatchComment.current })
       setcomments(store.getState().commentReducer)
     }
     catch{
@@ -61,13 +61,9 @@ function CommentList(props) {
   const deleteComment = async (e) => {
     try{
       const commentId = e.target.attributes.commentid.value
-      console.log(commentId)
-      const arrayId = e.target.attributes.arrayKey.value
-      // const deleteApiUrl = `http://13.125.157.39:8080/v1/post/${postId}/comment/${commentId}`
       const deleteApiUrl = `${COMMENT_LIST_URL}/${postId}/comment/${commentId}`
       const deleteData = await axios.delete(deleteApiUrl)
-      dispatch({ type : "delete", i : arrayId })
-      console.log("1111")
+      dispatch({ type : "deleteComment", commentKey : commentId })
       setcomments(store.getState().commentReducer)
     }
     catch{

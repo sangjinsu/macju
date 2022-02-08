@@ -20,6 +20,7 @@ const postListreducer = (state = [], action) => {
   }
   return state
 }
+
 const postDetailReducer = (state= [], action) => {
   if (action.type === "postDetailLoading"){
     const loadPostDetail = action.postDetail
@@ -45,20 +46,21 @@ const commentReducer = (state = [], action) => {
   if (action.type === "dataLoading") {
     const loadData = action.responseData
     return loadData
-  }else if (action.type === "add"){
+  }else if (action.type === "addComment"){
     const copyCommentList = [action.inputComment, ...state]
     return copyCommentList // return된 copyCommentList가 state(기존reducer에 저장된 값)가 된다
   }
-  else if (action.type === "delete"){
+  else if (action.type === "deleteComment"){
     const copyCommentList = [...state]
-    console.log(copyCommentList)
-    copyCommentList.splice(action.i, 1)
-    return copyCommentList
+    const commentId = parseInt(action.commentKey)
+    const newComments = copyCommentList.filter((comment)=>comment.commentId !== commentId)
+    return newComments
   }
   else{
     return state
   }
 }
+
 const beerListReducer = (state = [], action) =>{
   if (action.type === "getBeerList") {
     state = action.data

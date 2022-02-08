@@ -27,10 +27,10 @@ function BeerList(){
   const [isLike, setisLike] = useState([])
   // 현재 활성화된 카테고리 (기본값:all)
   const [isActive, setIsActive] = useState('all')   
-  // 정렬된 사진 URL
-  const storage = getStorage()
   //store
   const dispatch = useDispatch();
+  // 카테고리에 맞는 맥주 데이터
+  const [nowbeerArr, setnowbeerArr] = useState([])
 
 
   //스크롤 이벤트 시 실행할 함수
@@ -39,9 +39,24 @@ function BeerList(){
     if (scrollHeight - Math.round(scrollTop) <= 2*clientHeight){
       if (showBeer !==beerdata.splice(0, 10)) {
         setShowBeer((prev)=>prev.concat(beerdata.splice(0, 10)))
+        setnowbeerArr((prev)=>prev.concat(beerdata.splice(0, 10)))
       }
       }
+    
   }
+
+  // 카테고리 바뀔때 마다 보여주는 맥주리스트 수정
+  useEffect(()=>{
+    if (isActive !== 'all') {
+      const nowbeer = showBeer.filter(beer => {
+        return beer.beerType.main === isActive
+      })
+      console.log(nowbeer)
+      setnowbeerArr(nowbeer)
+    } else {
+      setnowbeerArr(showBeer)
+    }
+  },[showBeer, isActive])
   
   // scroll event listener 추가
   useEffect(()=>{
@@ -55,30 +70,24 @@ function BeerList(){
   useEffect(async()=> {
     const temp = await axios.get(BEER_LIST_URL)
     setShowBeer(temp.data)
-  }, [])
-
-
-
-  useEffect(async ()=>{
-    // http://i6c107.p.ssafy.io:8080/v1/beer
-    // http://13.125.157.39:8080/v1/beer/
+    setnowbeerArr(temp.data)
 
     const data = await axios.get(`${BEER_LIST_URL}?size=210`)
-    
-    // const data = await axios.get("http://13.125.157.39:8080/v1/beer/")
     dispatch({type:"getBeerList", data:data})
     // console.log(store.getState().beerListReducer.data)
     setbeerdata([data][0].data)
     const datalist = [data][0].data
+
     // 카테고리 기본값 all
     setIsActive('all')
+
     // 좋아요 기본값 false
-    const newLike = []
+    // const newLike = []
     // for(var i=0, j=datalist.length; i<j; i++) {
     //   newLike.push(false)
     // }
     // console.log(newLike)
-    setisLike(newLike)
+    // setisLike(newLike)
   }, [])
   
 
@@ -121,17 +130,18 @@ function BeerList(){
           <ul className="filters_menu">            
             {/* isActive값이 beerfilter와 같을 때 .active 클래스 추가 */}
             <li className={isActive==='all' ? 'active' : null} beerfilter="all" onClick={toggleActive}>All</li>
-            <li className={isActive==='ale' ? 'active' : null} beerfilter="ale" onClick={toggleActive}>Ale</li>
-            <li className={isActive==='lager' ? 'active' : null} beerfilter="lager" onClick={toggleActive}>Lager</li>
-            <li className={isActive==='radler' ? 'active' : null} beerfilter="radler" onClick={toggleActive}>Radler</li>
+            <li className={isActive==='Ale' ? 'active' : null} beerfilter="Ale" onClick={toggleActive}>Ale</li>
+            <li className={isActive==='Lager' ? 'active' : null} beerfilter="Lager" onClick={toggleActive}>Lager</li>
+            <li className={isActive==='Radler' ? 'active' : null} beerfilter="Radler" onClick={toggleActive}>Radler</li>
           </ul>
           
           <FadeIn>
           <div className="row grid">
-
-          { showBeer && showBeer.map((beer) =>
+          
+          { nowbeerArr && nowbeerArr.map((beer) =>
             
-              <div className="col-sm-6 col-md-4 col-lg-3 fadein all" key={beer.beerId}>
+              <div className={`col-sm-6 col-md-4 col-lg-3 fadein all ${beer.beerType.main}`} key={beer.beerId}>
+                {/* <div className={}> */}
                 <div className="box">
                 {/* {console.log(beer)} */}
                   <div>
@@ -192,6 +202,7 @@ function BeerList(){
                     </div>
                   </div>
                 </div>
+              {/* </div> */}
               </div>
             //  </div>
             )}

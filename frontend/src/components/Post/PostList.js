@@ -34,11 +34,11 @@ function PostListComponent(){
 
   useEffect(()=>{
     const fetchData = async() =>{
-      if (store.getState().postListreducer.length === 0){
+      if (store.getState().postListReducer.length === 0){
         const data = await axios.get(POST_LIST_URL)
         setNewPost(data.data)
       } else {
-        setNewPost(store.getState().postListreducer)
+        setNewPost(store.getState().postListReducer)
       }
     }
     fetchData();

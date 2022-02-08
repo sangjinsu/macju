@@ -7,6 +7,7 @@ import FadeIn from 'react-fade-in';
 import axios from "axios"
 import { getDownloadURL, getMetadata, getStorage , ref, updateMetadata } from "firebase/storage";
 import "../../firebase_config"
+import { useDispatch, useStore } from 'react-redux';
 // import { default as Fade} from 'react-fade';
 
 
@@ -21,20 +22,15 @@ function BeerList(){
   // 현재 활성화된 카테고리 (기본값:all)
   const [isActive, setIsActive] = useState('all')   
   // 정렬된 사진 URL
-  const storage = getStorage()
-
   
   useEffect(async ()=>{
     // http://i6c107.p.ssafy.io:8080/v1/beer
     // http://13.125.157.39:8080/v1/beer/
     // const data = await axios.get("http://i6c107.p.ssafy.io:8080/v1/beer")
-    const data = await axios.get("http://13.125.157.39:8080/v1/beer/")
-    setbeerdata([data][0].data)
-    const datalist = [data][0].data
-
+    const data = await axios.get("http://i6c107.p.ssafy.io:8080/v1/beer?size=50")
+    setbeerdata(data.data)
     // 카테고리 기본값 all
     setIsActive('all')
-
     // 좋아요 기본값 false
     const newLike = []
     // for(var i=0, j=datalist.length; i<j; i++) {

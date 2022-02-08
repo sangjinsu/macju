@@ -1,6 +1,6 @@
 import { combineReducers, createStore } from "redux"
-
-const reducer = (state = [], action) => {
+import axios from "axios"
+const postReducer = (state = [], action) => {
   if (action.type === "recent"){
     return [{text:'RECENT'}]
   } else {
@@ -27,6 +27,5 @@ const commentReducer = (state = [], action) => {
   }
 }
 
-
-const store = createStore( combineReducers( {reducer, commentReducer} ))
+const store = createStore( combineReducers( {postReducer, commentReducer} ))
 export default store;

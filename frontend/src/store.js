@@ -12,7 +12,16 @@ const userReducer = (state = [], action) => {
   }
 }
 
-const postListreducer = (state = [], action) => {
+const postImageRecuder = (state=[], action) =>{
+  if (action.type === "newImages"){
+    return action.images
+  }
+  return state 
+}
+
+
+
+const postListReducer = (state = [], action) => {
   if (action.type === "firstSave") {
     return action.new.data
   } else if (action.type === "new"){
@@ -75,5 +84,5 @@ const postCreateReducer = (state = [], action) =>{
   return state
 }
 
-const store = createStore( combineReducers( {userReducer, postListreducer, postDetailReducer, commentReducer, beerListReducer, postCreateReducer} ))
+const store = createStore( combineReducers( {userReducer, postListReducer, postDetailReducer, commentReducer, beerListReducer, postCreateReducer, postImageRecuder} ))
 export default store;

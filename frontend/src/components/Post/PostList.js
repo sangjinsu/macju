@@ -12,13 +12,10 @@ function PostListComponent(){
   const store = useStore((state)=>state)
   const dispatch = useDispatch();
   const storage = getStorage()
-  
-
 
   useEffect(async ()=>{
-    const imageList = [...newPostImage]
+    const imageList = []
     for(let i = 0; i< newPost.length; i++) {
-      console.log(newPost[i])
       const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/imgs/${newPost[i].postId}/${newPost[i].photo.data}`)
       await getDownloadURL(storageRef)
       .then((res)=>{
@@ -27,17 +24,17 @@ function PostListComponent(){
         }
       })
     }
-    setNewPostImage(imageList)
+    dispatch({type:"newImages", images:imageList})
+    setNewPostImage(store.getState().postImageRecuder)
   }, [newPost])
 
   useEffect(async ()=>{
-    if (store.getState().postListreducer.length === 0){
+    if (store.getState().postListReducer.length === 0){
       const data = await axios.get(POST_LIST_URL)
       setNewPost(data.data)
     } else {
-      setNewPost(store.getState().postListreducer)
+      setNewPost(store.getState().postListReducer)
     }
-    
   }, [])
 
 

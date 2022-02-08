@@ -17,6 +17,7 @@ function PostList() {
   // const [posts, setposts] = useState()
   const [stat, setStat] = useState('')
   const store = useStore()
+  
   const onSelect = (event) => {
     dispatch({type:event.target.value})
     setOpt(event.target.value)
@@ -27,10 +28,8 @@ function PostList() {
 
   useEffect(async ()=>{
     const data = await axios.get(POST_LIST_URL)
-    //dispatch에 pop data도 추가시켜야 함.
     dispatch({type:"firstSave", new:data})
   }, [])
-  
 
   return (
     <>

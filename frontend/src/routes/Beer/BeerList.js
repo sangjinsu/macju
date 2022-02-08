@@ -60,7 +60,7 @@ function BeerList(){
     // http://i6c107.p.ssafy.io:8080/v1/beer
     // http://13.125.157.39:8080/v1/beer/
 
-    const data = await axios.get("http://i6c107.p.ssafy.io:8080/v1/beer?size=100")
+    const data = await axios.get("http://i6c107.p.ssafy.io:8080/v1/beer?size=210")
     
     // const data = await axios.get("http://13.125.157.39:8080/v1/beer/")
     dispatch({type:"getBeerList", data:data})

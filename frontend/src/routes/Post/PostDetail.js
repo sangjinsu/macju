@@ -9,6 +9,8 @@ import { useDispatch, useStore } from "react-redux";
 // import { useHistory } from 'react-router-dom';
 
 function PostDetail() {
+  const POST_DETAIL_URL = process.env.REACT_APP_POST_DETAIL_URL
+  const POST_DETAIL_LOG_URL = process.env.REACT_APP_POST_DETAIL_LOG_URL
   const [postData, setPost] = useState()
   const [postImg, setPostImg] = useState()
   const postId = useParams().postId;
@@ -22,7 +24,7 @@ function PostDetail() {
   // postDetail 불러오는 것 (리덕스에 저장)
   useEffect(async ()=>{
     try{
-      const responseDetail = await axios.get(`http://i6c107.p.ssafy.io:8080/v1/post/${postId}`)
+      const responseDetail = await axios.get(`${POST_DETAIL_URL}/${postId}`)
       // const responseDetail = await axios.get(`http://13.125.157.39:8080/v1/post/${postId}`)
       const postDetail = responseDetail.data
 
@@ -35,7 +37,7 @@ function PostDetail() {
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': "application/json; charset=UTF-8"
       }
-      axios.post("http://13.125.157.39:8080/v1/log", newdata, {headers})
+      axios.post(POST_DETAIL_LOG_URL, newdata, {headers})
         // .post("http://i6c107.p.ssafy.io:8080/v1/log", newpost, {headers})
       
       // const storage = getStorage()

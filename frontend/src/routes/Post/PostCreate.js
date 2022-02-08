@@ -6,6 +6,7 @@ import "../../firebase_config"
 import '../../styles/PostCreate.css'
 
 function PostCreate(s) {
+  const CREATE_URL = process.env.REACT_APP_POST_CREATE_URL
   const memberid = 1  //test용 멤버아이디
   const beerid = s.location.state.beerid    // 작성하고있는 포스트의 맥주아이디
   // DB upload
@@ -125,7 +126,7 @@ function PostCreate(s) {
     
     axios 
     // http://13.125.157.39:8080/v1/beer/
-      .post("http://i6c107.p.ssafy.io:8080/v1/post", newpost, {headers})
+      .post(CREATE_URL, newpost, {headers})
       // .post("http://13.125.157.39:8080/v1/post", newpost, {headers})
       .then((res) => {
         console.log(res)

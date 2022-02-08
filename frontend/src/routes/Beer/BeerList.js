@@ -18,6 +18,9 @@ import { useStore } from 'react-redux';
 
 
 function BeerList(){
+  const BEER_LIST_URL = process.env.REACT_APP_BEER_LIST_URL
+  console.log(process.env.REACT_APP_BEER_LIST_URL)
+
   const store = useStore()
   // 맥주 데이터
   const [beerdata, setbeerdata] = useState([])
@@ -57,7 +60,7 @@ function BeerList(){
   
   //화면에서 스크롤 없이도 보여줄 초기값
   useEffect(async()=> {
-    const temp = await axios.get("http://i6c107.p.ssafy.io:8080/v1/beer/")
+    const temp = await axios.get(BEER_LIST_URL)
     setShowBeer(temp.data)
   }, [])
 
@@ -72,7 +75,7 @@ function BeerList(){
     setbeerdata(data.data)
 =======
 
-    const data = await axios.get("http://i6c107.p.ssafy.io:8080/v1/beer?size=210")
+    const data = await axios.get(`${BEER_LIST_URL}?size=210`)
     
     // const data = await axios.get("http://13.125.157.39:8080/v1/beer/")
     dispatch({type:"getBeerList", data:data})

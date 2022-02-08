@@ -11,6 +11,10 @@ import PostListComponent from "../../components/Post/PostList"
 // import "../../styles/PostList.css"
 
 function BeerDetail() {
+  const BEER_DETAIL_URL = process.env.REACT_APP_BEER_DETAIL_URL
+  const BEER_DETAIL_POST_URL = process.env.REACT_APP_BEER_DETAIL_POST_URL
+  const BEER_DETAIL_LOG_URL = process.env.REACT_APP_BEER_DETAIL_LOG_URL
+
   // 맥주 data
   const [beer, setbeer] = useState()
   // 맥주의 posts
@@ -21,13 +25,13 @@ function BeerDetail() {
   useEffect(async ()=>{
     //api :  http://i6c107.p.ssafy.io:8080/v1/beer/{beerId}
     // http://13.125.157.39:8080/v1/beer/{beerId}
-    const beerdetail = await axios.get(`http://i6c107.p.ssafy.io:8080/v1/beer/${beerid}`)
-    // const beerdetail = await axios.get(`http://13.125.157.39:8080/v1/beer//${beerid}`)
+    const beerdetail = await axios.get(`${BEER_DETAIL_URL}/${beerid}`)
+    // const beerdetail = await axios.get(`http://13.125.157.39:8080/v1/beer/${beerid}`)
     const nowbeerDetail = beerdetail.data
     setbeer(beerdetail.data)
 
     // 맥주별 포스트 목록
-    const beer_postdetail = await axios.get(`http://i6c107.p.ssafy.io:8080/v1/post/beer/${beerid}`)
+    const beer_postdetail = await axios.get(`${BEER_DETAIL_POST_URL}/${beerid}`)
     setbeerpost(beer_postdetail.data)
 
     // 로그 보내기
@@ -41,7 +45,7 @@ function BeerDetail() {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': "application/json; charset=UTF-8"
     }
-    // axios.post("http://i6c107.p.ssafy.io:8080/v1/log", newdata, {headers})     // 주석풀면 로그에 post 보냄
+    // axios.post(BEER_DETAIL_LOG_URL, newdata, {headers})     // 주석풀면 로그에 post 보냄
     ////// axios.post("http://13.125.157.39:8080/v1/log", newdata, {headers})
 
 

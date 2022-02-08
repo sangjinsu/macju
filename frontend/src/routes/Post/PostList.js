@@ -11,6 +11,7 @@ import PostListComponent from "../../components/Post/PostList"
 
 function PostList() {
   const POST_LIST_URL = process.env.REACT_APP_POST_LIST_URL
+  // console.log(process.env.REACT_APP_POST_LIST_URL)
   const dispatch = useDispatch()
   //const text = useSelector((state:any) => state)
   const [opt, setOpt] = useState("최신순으로")

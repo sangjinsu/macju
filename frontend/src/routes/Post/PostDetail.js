@@ -64,7 +64,6 @@ function PostDetail() {
     const hashTagKey = e.target.attributes.hashTagKey.value // 중복확인? pass!
     const hashContent = e.target.textContent
     const existHashList = hashtagArr.filter((hash)=> hash !== hashContent)
-    console.log(existHashList)
     setHashtagArr(existHashList)
   })
 
@@ -84,7 +83,6 @@ function PostDetail() {
         }
       }
       const putData = await axios.put(putPostApiUrl, requestUpdatePostDto, headers)
-      console.log(putData.status)
       dispatch({type:"updatePost", updateContent:updateContent, updateHashTag:hashtagArr})
       setPost(store.getState().postDetailReducer)
       history.push(`post/${postId}`)
@@ -179,8 +177,8 @@ function PostDetail() {
                       <div className="beerName" href="">{postData.beer.name}</div>
                     </Link>
                     
-
                   </div>
+
                   <Switch>
                     <Route path="/post/:postId/update">
                       <input
@@ -207,20 +205,10 @@ function PostDetail() {
                         {/* 해시태그 */}
                         {hashtagArr.map((hash, i)=>{
                           return(<div className="hashtag_wrap_inner" hashTagKey={i} onClick={deleteHashTag}>{hash}</div>)
-                        })}
-                        {/* { postData.userHashTags.map((tag, i)=>{
-                            return(<div className="hashtag_wrap_inner" key={i}>{tag.content}</div>)
-                          }) } */}
-                        
+                        })}        
                       </div>
                       <button onClick={changePost}>완료</button>
 
-
-                      
-
-                      {/* 포스트 내용 */}
-                      {/* <p> 수정 </p>
-                      <p>{ postData.content }</p> */}
                     </Route>
                     <Route path="/post/:postId">
                       {/* 해시태그 */}
@@ -228,9 +216,6 @@ function PostDetail() {
                         {postData.userHashTags.map((hash, i)=>{
                           return(<span className="postTag" hashTagKey={i}>#{hash}</span>)
                         })}
-                        {/* { postData.userHashTags.map((tag, i)=>{
-                            return(<span className="postTag" key={i}>#{tag.content}</span>)
-                          }) } */}
                       </div>
 
                       {/* 포스트 내용 */}
@@ -242,14 +227,13 @@ function PostDetail() {
                         {/* <div>작성날짜 : { postData.created_at }</div> */}
                       </div>
 
-
                       {/* 본인 일때만 수정, 삭제 가능하게 해야함 */}
                       <Link to={`/post/${postId}/update`}>수정하기</Link>
                       <button onClick={DeletePost}>삭제하기</button>
+
                       {/* <div className="updateBtn">수정하기</div> */}
                       <div className="deleteBtn">수정하기</div>
                     </Route>
-
                   </Switch>
 
                   

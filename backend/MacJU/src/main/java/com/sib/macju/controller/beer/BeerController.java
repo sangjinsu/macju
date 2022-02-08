@@ -55,11 +55,16 @@ public class BeerController {
     }
 
     @PostMapping("/{beerId}/member/{memberId}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void createEvaluation(
+    public HttpStatus createEvaluation(
             @PathVariable Long beerId,
             @PathVariable Long memberId,
             @RequestBody RequestEvaluationDto requestEvaluationDto) {
+
+        if(requestEvaluationDto.getAromaHashTags().size() == 0 && requestEvaluationDto.getFlavorHashTags().size() == 0){
+            //getAromaHashTags getAromaHashTags 둘 다 사이즈가 0이면 해시태그를 하나도 입력 안 했으므로 반환
+            return HttpStatus.BAD_REQUEST;
+        }
+
         beerService.createEvaluation(
                 beerId,
                 memberId,
@@ -67,14 +72,20 @@ public class BeerController {
                 requestEvaluationDto.getAromaHashTags(),
                 requestEvaluationDto.getFlavorHashTags()
         );
+        return HttpStatus.CREATED;
     }
 
     @PutMapping("/{beerId}/member/{memberId}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public void updateEvaluation(
+    public HttpStatus updateEvaluation(
             @PathVariable Long beerId,
             @PathVariable Long memberId,
             @RequestBody RequestEvaluationDto requestEvaluationDto) {
+
+        if(requestEvaluationDto.getAromaHashTags().size() == 0 && requestEvaluationDto.getFlavorHashTags().size() == 0){
+            //getAromaHashTags getAromaHashTags 둘 다 사이즈가 0이면 해시태그를 하나도 입력 안 했으므로 반환
+            return HttpStatus.BAD_REQUEST;
+        }
+
         beerService.updateEvaluation(
                 beerId,
                 memberId,
@@ -82,6 +93,7 @@ public class BeerController {
                 requestEvaluationDto.getAromaHashTags(),
                 requestEvaluationDto.getFlavorHashTags()
         );
+        return HttpStatus.ACCEPTED;
     }
 
     @GetMapping("/{beerId}/member/{memberId}")

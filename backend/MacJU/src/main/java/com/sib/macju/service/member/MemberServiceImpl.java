@@ -1,15 +1,15 @@
 package com.sib.macju.service.member;
 
 import com.sib.macju.domain.beer.Beer;
-import com.sib.macju.domain.member.Follow;
-import com.sib.macju.domain.member.Member;
-import com.sib.macju.domain.member.MemberLikeBeer;
-import com.sib.macju.domain.member.MemberLikePost;
+import com.sib.macju.domain.member.*;
 import com.sib.macju.domain.post.Post;
+import com.sib.macju.dto.beer.BeerDto;
 import com.sib.macju.dto.beer.BeerVO;
+import com.sib.macju.dto.beer.RateVO;
 import com.sib.macju.dto.member.MemberVO;
 import com.sib.macju.dto.post.PostVO;
 import com.sib.macju.repository.beer.BeerRepository;
+import com.sib.macju.repository.beer.MemberRateBeerRepository;
 import com.sib.macju.repository.member.FollowRepository;
 import com.sib.macju.repository.member.MemberLikeBeerRepository;
 import com.sib.macju.repository.member.MemberLikePostRepository;
@@ -36,6 +36,9 @@ public class MemberServiceImpl implements MemberService{
 
     @Autowired
     private MemberLikePostRepository memberLikePostRepository;
+
+    @Autowired
+    private MemberRateBeerRepository memberRateBeerRepository;
 
     @Autowired
     private BeerRepository beerRepository;
@@ -92,11 +95,27 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
+    public List<RateVO> fetchRatedBeer(Long memberId) {
+        List<MemberRateBeer> mrbList = memberRateBeerRepository.findAllByMemberId(memberId);
+        List<RateVO> result = new ArrayList<>();
+        int size = mrbList.size();
+        for(int i=0; i<size; i++){
+            MemberRateBeer mrb = mrbList.get(i);
+            RateVO vo = new RateVO();
+            vo.setBeer(new BeerDto(findByBeerId(mrb.getBeer().getBeerId())));
+            vo.setRate(mrb.getRate());
+            result.add(vo);
+        }
+
+        return result;
+    }
+
+    @Override
     public List<BeerVO> fetchLikedBeer(Long memberId) {
         List<BeerVO> result = new ArrayList<>();
         List<MemberLikeBeer> data = memberLikeBeerRepository.findAllByMember(findByMemberId(memberId));
-
-        for(int i=0; i<data.size(); i++){
+        int size = data.size();
+        for(int i=0; i<size; i++){
             Beer beer = data.get(i).getBeer();
             result.add(new BeerVO(beer.getBeerId(), beer.getBeerType().getMain().toString(), beer.getName(), beer.getEnglishName(), beer.getContent(), beer.getVolume(), beer.getPhotoPath()));
         }
@@ -136,8 +155,8 @@ public class MemberServiceImpl implements MemberService{
     public List<PostVO> fetchLikedPost(Long memberId) {
         List<PostVO> result = new ArrayList<>();
         List<MemberLikePost> data = memberLikePostRepository.findAllByMember(findByMemberId(memberId));
-
-        for(int i=0; i<data.size(); i++){
+        int size = data.size();
+        for(int i=0; i<size; i++){
             Post post = data.get(i).getPost();
             //BeerDTO 시작
             BeerVO beer = new BeerVO();
@@ -215,7 +234,8 @@ public class MemberServiceImpl implements MemberService{
         Member member = findByMemberId(memberId);
         List<Follow> data = member.getFollowers();
         List<MemberVO> result = new ArrayList<>();
-        for(int i=0; i<data.size(); i++){
+        int size = data.size();
+        for(int i=0; i<size; i++){
             Member following = data.get(i).getFollowing();
             following.toString();
             MemberVO memberDTO = new MemberVO();
@@ -235,7 +255,8 @@ public class MemberServiceImpl implements MemberService{
         Member member = findByMemberId(memberId);
         List<Follow> data = member.getFollowings();
         List<MemberVO> result = new ArrayList<>();
-        for(int i=0; i<data.size(); i++){
+        int size = data.size();
+        for(int i=0; i<size; i++){
             Member follower = data.get(i).getFollower();
             follower.toString();
             MemberVO memberDTO = new MemberVO();

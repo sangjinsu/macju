@@ -4,6 +4,7 @@ import com.sib.macju.domain.beer.Beer;
 import com.sib.macju.domain.member.Member;
 import com.sib.macju.domain.post.Post;
 import com.sib.macju.dto.beer.BeerVO;
+import com.sib.macju.dto.beer.RateVO;
 import com.sib.macju.dto.member.MemberVO;
 import com.sib.macju.dto.post.PostVO;
 
@@ -18,6 +19,7 @@ public interface MemberService {
     public Beer findByBeerId(Long beerId);
     public Post findByPostId(Long postId);
     public int updateProfile(Member member);
+    public List<RateVO> fetchRatedBeer(Long memberId);
     public List<BeerVO> fetchLikedBeer(Long memberId);
     public int changeBeerLike(Long memberId, Long beerId);
     public List<PostVO> fetchLikedPost(Long memberId);

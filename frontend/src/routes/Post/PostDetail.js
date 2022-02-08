@@ -29,7 +29,7 @@ function PostDetail() {
 
   const DeletePost = async() => {
     try{
-      const postDeleteUrl = `http://i6c107.p.ssafy.io:8080/v1/post/${postId}`
+      const postDeleteUrl = `${POST_DETAIL_URL}${postId}`
       await axios.delete(postDeleteUrl)
       dispatch({ type : "postDelete"})
       history.push("/post")
@@ -71,7 +71,7 @@ function PostDetail() {
   const changePost = (async (e)=>{
     try{
       e.preventDefault() //우선 그냥 막아놨음
-      const putPostApiUrl = `http://i6c107.p.ssafy.io:8080/v1/post/${postId}`
+      const putPostApiUrl = `${POST_DETAIL_URL}${postId}`
       const requestUpdatePostDto  = {
         "content": updateContent,
         "postId": postId,

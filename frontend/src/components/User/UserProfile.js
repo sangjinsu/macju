@@ -7,6 +7,8 @@ import axios from "axios";
 import {IoIosBeer} from  "react-icons/io";
 
 const UserProfile = () => {
+  const USER_PROFILE_URL = process.env.REACT_APP_USER_PROFILE_URL
+	
 	const memberId = 1
 
 	// user 데이터 불러오기
@@ -14,7 +16,7 @@ const UserProfile = () => {
 	const [usercolor, setUsercolor] = useState("")		// 사진 색깔
 	 
 	useEffect(async () =>{
-		const profiledata = await axios.get(`http://i6c107.p.ssafy.io:8080/member/profile/${memberId}`)
+		const profiledata = await axios.get(`${USER_PROFILE_URL}/${memberId}`)
 		// console.log(profiledata.data)
 		setUser(profiledata.data)
 		setUsercolor(profiledata.data.profileColor)		

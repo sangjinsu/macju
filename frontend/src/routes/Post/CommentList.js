@@ -5,6 +5,8 @@ import axios from 'axios';
 import "../../styles/CommentList.css"
 
 function CommentList(props) {
+  const COMMENT_LIST_URL = process.env.REACT_APP_COMMENT_LIST_URL
+
   const [comments, setcomments] = useState([]);
   const [inputComment, inputCommentChange] = useState("");
   const dispatchComment = useRef();
@@ -14,7 +16,7 @@ function CommentList(props) {
   const postId = props.postId;
   const nickname = "nickname";
   // http://13.125.157.39:8080/v1/post
-  const apiUrl = `http://i6c107.p.ssafy.io:8080/v1/post/${postId}/comment`
+  const apiUrl = `${COMMENT_LIST_URL}/${postId}/comment`
   // const apiUrl = `http://13.125.157.39:8080/v1/post/${postId}/comment`
 
   // let state = useSelector((state)=>state)
@@ -62,7 +64,7 @@ function CommentList(props) {
       console.log(commentId)
       const arrayId = e.target.attributes.arrayKey.value
       // const deleteApiUrl = `http://13.125.157.39:8080/v1/post/${postId}/comment/${commentId}`
-      const deleteApiUrl = `http://i6c107.p.ssafy.io:8080/v1/post/${postId}/comment/${commentId}`
+      const deleteApiUrl = `${COMMENT_LIST_URL}/${postId}/comment/${commentId}`
       const deleteData = await axios.delete(deleteApiUrl)
       dispatch({ type : "delete", i : arrayId })
       console.log("1111")

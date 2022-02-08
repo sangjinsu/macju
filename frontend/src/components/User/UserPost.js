@@ -7,12 +7,16 @@ import { useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 const UserPost = (s) => {
+  const USER_POST_URL = process.env.REACT_APP_USER_POST_URL
+
   // const memberId = s.location.state.memberId
   const memberId = 1
   const [userPosts, setUserPosts] = useState([])
   const [postimgs, setPostimgs] = useState([])    // 포스트 이미지들
   useEffect(async () => {
-    const memberPosts = await axios.get(`http://i6c107.p.ssafy.io:8080/v1/post/member/${memberId}`)
+    const POST_LIST_URL = process.env.REACT_APP_POST_LIST_URL
+
+    const memberPosts = await axios.get(`${USER_POST_URL}/${memberId}`)
     setUserPosts(memberPosts.data)
     console.log(memberPosts.data)
 
@@ -42,14 +46,15 @@ const UserPost = (s) => {
 
                   {/* 포스트 이미지 */}
                   <div className="img-box">
-                    <img src={post.photo.data}></img>
+                    {/* <img src={post.photo.data}></img> */}
+                    <img src='\img\f2.png'></img>
                   </div>
                   
                   {/* 포스트 카드 내용 */}
                   <div className="postdetail-box">
                     {/* 포스트 내용 + 자세히 버튼 */}
                     <div className="postdetail-title">
-                      <h5>{post.content&&post.content.length > 15 ? post.content.substr(0, 15) + "....": post}</h5>
+                      <h5>{post.content&&post.content.length > 15 ? post.content.substr(0, 15) + "....": post.content}</h5>
                       <Link to={`/post/${post.postId}`} className='detailBtn'>자세히</Link>
                     </div>
 
@@ -57,7 +62,9 @@ const UserPost = (s) => {
                     <p className="fontaws"><i className="fas fa-heart" style={{color:"red"}}></i>{post.likes}</p>
                     
                     {/* 포스트 작성 정보 */}
-                    <p className="post-meta">작성한 사람 :{null} <br/> 작성 시간 : {post.created_at}</p>
+                    <p className="post-meta">작성한 사람 :{post.member.nickName} <br/> 
+                      {/* 작성 시간 : {post.created_at} */}
+                    </p>
                   </div>
                 </div>
               </div>

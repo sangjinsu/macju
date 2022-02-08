@@ -3,11 +3,13 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 const UserReview = () =>{
+  const USER_REVIEW_URL = process.env.REACT_APP_USER_REVIEW_URL
+
   const memberId = 1
   const [userReviews, setUserReviews] = useState([])
 
   // useEffect(async () =>{
-	// 	const memberReviews = await axios.get(`http://i6c107.p.ssafy.io:8080/member/${memberId}/rate`)
+	// 	const memberReviews = await axios.get(`${USER_REVIEW_URL}/${memberId}/rate`)
 	// 	// console.log(memberReviews.data)
 	// 	setUserReviews(memberReviews.data)
 	// },[])

@@ -11,14 +11,15 @@ import { useDispatch, useStore } from "react-redux";
 function PostDetail() {
   const [postData, setPost] = useState()
   const [postImg, setPostImg] = useState()
-  const postId = useParams().postId;
-
   const [isLike, setisLike] = useState(false)
+  const [updateContent, setText] = useState();
+  const [hashtagArr, setHashtagArr] = useState([])
+  const [hashtag, setHashtag] = useState("")
+
+  const postId = useParams().postId;
   const store = useStore((state)=>state)
   const dispatch = useDispatch();
-  const [updateText, setText] = useState();
-
-  let history = useHistory();
+  const history = useHistory();
   
   const UpdateContent = (e) => {
     setText(e.target.value)
@@ -34,6 +35,61 @@ function PostDetail() {
       console.log("오류")
     }
   }
+
+  // 해시태그 input 입력값 
+  const inputHashTag = ((e)=>{
+    setHashtag(e.target.value)
+  })
+
+  // space, enter눌렸을 때 막기
+  const pressKey = ((e)=>{
+    if (e.keyCode === 32 || e.keyCode === 13) {
+      e.target.value = e.target.value.replace(' ','')
+      e.target.value = e.target.value.replace('\n','')
+    }
+  })
+
+
+  const addHashTag = ((e)=>{
+    e.preventDefault()
+    if (hashtag.trim() !== "") {
+      setHashtagArr([hashtag, ...hashtagArr])
+    }
+  })
+
+  const deleteHashTag = ((e)=>{
+    e.preventDefault()
+    const hashTagKey = e.target.attributes.hashTagKey.value // 중복확인? pass!
+    const hashContent = e.target.textContent
+    const existHashList = hashtagArr.filter((hash)=> hash !== hashContent)
+    console.log(existHashList)
+    setHashtagArr(existHashList)
+  })
+
+  const changePost = (async (e)=>{
+    try{
+      e.preventDefault() //우선 그냥 막아놨음
+      const putPostApiUrl = `http://i6c107.p.ssafy.io:8080/v1/post/${postId}`
+      const requestUpdatePostDto  = {
+        "content": updateContent,
+        "postId": postId,
+        "userHashTags": hashtagArr
+      }
+      const headers = {
+        headers: {
+          "Accept" : "application/json;charset=UTF-8",
+          "Content-Type" : "application/json;charset=UTF-8"
+        }
+      }
+      const putData = await axios.put(putPostApiUrl, requestUpdatePostDto, headers)
+      console.log(putData.status)
+      dispatch({type:"updatePost", updateContent:updateContent, updateHashTag:hashtagArr})
+      setPost(store.getState().postDetailReducer)
+      history.push(`post/${postId}`)
+    }catch{
+      console.log("오류")
+    }
+  })
 
   // postDetail 불러오는 것 (리덕스에 저장)
   useEffect(async ()=>{
@@ -65,12 +121,12 @@ function PostDetail() {
 
       dispatch({type:"postDetailLoading", postDetail: postDetail}) // 추후 이미지도 추가?
       setPost(store.getState().postDetailReducer)
-      setText(store.getState().postDetailReducer.content)
+      setText(store.getState().postDetailReducer.content) // update
+      setHashtagArr(store.getState().postDetailReducer.userHashTags) // update
     }catch (error) {
       console.log(error)
     }
   }, [])
-
 
   return (
     <div className="PostDetail">
@@ -127,15 +183,38 @@ function PostDetail() {
                     <Route path="/post/:postId/update">
                       <input
                         type="text"
-                        value={updateText}
+                        value={updateContent}
                         onChange={UpdateContent}
                       ></input>
-                      {/* 해시태그 */}
-                      {/* <div className="postdetail_hashtag">
-                        { postData.userHashTags.map((tag, i)=>{
-                            return(<span className="postTag" key={i}>{tag.content}</span>)
-                          }) }
-                      </div> */}
+
+                      <div className="hashtag_wrap">
+                        <div className="hashtag_wrap_outer">
+                          <textarea 
+                            value={hashtag}
+                            onKeyUp={pressKey}
+                            onChange={inputHashTag}
+                            className="postcreate_textarea hashtag_input"
+                            placeholder="해시태그 입력..."
+                            rows="1"
+                            // cols='50'
+                          >
+                          </textarea>
+                          {console.log(hashtagArr)}
+                          <button type="submit" className="addHashBtn" onClick={addHashTag}>추가</button>
+                        </div>
+                        {/* 해시태그 */}
+                        {hashtagArr.map((hash, i)=>{
+                          return(<div className="hashtag_wrap_inner" hashTagKey={i} onClick={deleteHashTag}>{hash}</div>)
+                        })}
+                        {/* { postData.userHashTags.map((tag, i)=>{
+                            return(<div className="hashtag_wrap_inner" key={i}>{tag.content}</div>)
+                          }) } */}
+                        
+                      </div>
+                      <button onClick={changePost}>완료</button>
+
+
+                      
 
                       {/* 포스트 내용 */}
                       {/* <p> 수정 </p>
@@ -144,9 +223,12 @@ function PostDetail() {
                     <Route path="/post/:postId">
                       {/* 해시태그 */}
                       <div className="postdetail_hashtag">
-                        { postData.userHashTags.map((tag, i)=>{
-                            return(<span className="postTag" key={i}>{tag.content}</span>)
-                          }) }
+                        {postData.userHashTags.map((hash, i)=>{
+                          return(<span className="postTag" hashTagKey={i}>#{hash}</span>)
+                        })}
+                        {/* { postData.userHashTags.map((tag, i)=>{
+                            return(<span className="postTag" key={i}>#{tag.content}</span>)
+                          }) } */}
                       </div>
 
                       {/* 포스트 내용 */}

@@ -118,7 +118,7 @@ function CommentList(props) {
                     return(
                       <div className="commentList" key={i}>
                         <div> { comment.content } </div>
-                        <button className="deletebtn" type="button" commentid={comment.commentId} arrayKey={i} onClick={ deleteComment }>삭제</button>
+                        <button className="deletebtn" type="button" commentid={comment.commentId} onClick={ deleteComment }>삭제</button>
                       </div>
                     );
                   })

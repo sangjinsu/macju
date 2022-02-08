@@ -29,7 +29,7 @@ function PostDetail() {
 
   const DeletePost = async() => {
     try{
-      const postDeleteUrl = `${POST_DETAIL_URL}${postId}`
+      const postDeleteUrl = `${POST_DETAIL_URL}/${postId}`
       await axios.delete(postDeleteUrl)
       dispatch({ type : "postDelete"})
       history.push("/post")

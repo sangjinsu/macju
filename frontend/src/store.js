@@ -16,7 +16,9 @@ const postListreducer = (state = [], action) => {
   if (action.type === "firstSave") {
     return action.new.data
   } else if (action.type === "new"){
-    return state
+    return action.new.data
+  } else if (action.type === 'popular'){
+    return action.new.data
   }
   return state
 }

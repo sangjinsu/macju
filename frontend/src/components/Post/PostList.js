@@ -12,18 +12,18 @@ function PostListComponent(){
   const store = useStore((state)=>state)
   const dispatch = useDispatch();
   const storage = getStorage()
-  const storageRef = ref();
+  
 
 
   useEffect(async ()=>{
     const imageList = [...newPostImage]
     for(let i = 0; i< newPost.length; i++) {
-      // console.log(datalist[i])
+      console.log(newPost[i])
       const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/imgs/${newPost[i].postId}/${newPost[i].photo.data}`)
       await getDownloadURL(storageRef)
       .then((res)=>{
         if (!newPostImage.some((url)=>url===res)){
-          imageList.push(res)
+          imageList.push({id:newPost[i].postId, res})
         }
       })
     }
@@ -31,10 +31,14 @@ function PostListComponent(){
   }, [newPost])
 
   useEffect(async ()=>{
-    const data = await axios.get(POST_LIST_URL)
-    setNewPost(data.data)
+    if (store.getState().postListreducer.length === 0){
+      const data = await axios.get(POST_LIST_URL)
+      setNewPost(data.data)
+    } else {
+      setNewPost(store.getState().postListreducer)
+    }
+    
   }, [])
-
 
 
 
@@ -49,12 +53,14 @@ function PostListComponent(){
             <div className="postlist_box">
                             
               {/* 포스트 이미지 */}
-              {newPostImage&&newPostImage.map((url, i)=>
+              {newPostImage&&newPostImage.map((data, i)=> data.id === post.postId ? 
+              
               <div key={i} className="img-box">
-                <img src={url}></img>
+                
+                <img src={data.res}></img>
                 {/* <img src={post.photo.data}></img> */}
                 
-              </div>
+              </div> : null
               )
               }
           

@@ -25,16 +25,6 @@ function PostList() {
     //useSelector로 가져올경우 store 는 변경이 되지만 const 에서 정의한 변수값이 반영되는 시점이 좀 더 늦기 때문에 store에서 직접 꺼내옴. 
   }
 
-
-  // 포스트 데이터
-  const [postdata, setpostdata] = useState([])
-  // 포스트 사진 URL
-  const [postImgList, setPostImgList] = useState([])
-  // 각 포스트 좋아요
-  const [isLike, setisLike] = useState([])
-  // 정렬된 사진 URL
-  // const [imgurls, setimgurls] = useState([])
-  const storage = getStorage()
   useEffect(async ()=>{
     const data = await axios.get(POST_LIST_URL)
     //dispatch에 pop data도 추가시켜야 함.
@@ -66,7 +56,6 @@ function PostList() {
         </div>
         <div className='postlist_order'>
           {opt == "recent" ? <div> 최신순 게시글</div> : <div>인기순 게시글</div>}
-          {/* {stat} */} 
         </div>
 
         {/* 포스트 카드들 */}

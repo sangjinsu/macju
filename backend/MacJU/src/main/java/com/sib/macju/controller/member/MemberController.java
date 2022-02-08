@@ -3,6 +3,7 @@ package com.sib.macju.controller.member;
 import com.sib.macju.domain.member.Member;
 import com.sib.macju.domain.member.Status;
 import com.sib.macju.dto.beer.BeerVO;
+import com.sib.macju.dto.beer.RateVO;
 import com.sib.macju.dto.member.MemberVO;
 import com.sib.macju.dto.post.PostVO;
 import com.sib.macju.service.member.MemberService;
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/member")
+@RequestMapping("/v1/member")
 @CrossOrigin("*")
 public class MemberController {
 
@@ -126,7 +127,7 @@ public class MemberController {
 
     }
 
-    @GetMapping("/beer/{memberId}")
+    @GetMapping("/{memberId}/like/beer")
     public ResponseEntity<Map<String, Object>> fetchLikedBeer(@PathVariable Long memberId){
         Map<String, Object> result = new HashMap<>();
         HttpStatus status = HttpStatus.ACCEPTED;
@@ -157,7 +158,7 @@ public class MemberController {
         return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping("/post/{memberId}")
+    @GetMapping("/{memberId}/like/post")
     public ResponseEntity<Map<String, Object>> fetchLikedPost(@PathVariable("memberId") Long memberId){
         Map<String, Object> result = new HashMap<>();
         HttpStatus status = HttpStatus.ACCEPTED;
@@ -173,6 +174,16 @@ public class MemberController {
         }
 
         return new ResponseEntity<>(result, status);
+    }
+
+    @GetMapping("/{memberId}/rates")
+    public ResponseEntity<Map<String, Object>> fetchRatedBeer(@PathVariable("memberId") Long memberId){
+        Map<String, Object> result = new HashMap<>();
+        HttpStatus status = HttpStatus.ACCEPTED;
+        List<RateVO> data = memberService.fetchRatedBeer(memberId);
+        result.put("data", data);
+
+        return new ResponseEntity<>(result,status);
     }
 
     @PostMapping("/post/{memberId}/like/{postId}")

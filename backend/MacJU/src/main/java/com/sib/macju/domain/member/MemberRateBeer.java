@@ -34,6 +34,7 @@ public class MemberRateBeer {
     @OneToMany(mappedBy = "memberRateBeer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RateHasFlavorHashTag> rateHasFlavorHashTags;
 
+    @Column(nullable = false)
     private int rate;
 
     public void setBeer(Beer beer) {

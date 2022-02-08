@@ -188,12 +188,12 @@ function BeerList(){
                             {beer.beerType.main}
                           </h6>
                           {/* 좋아요 버튼 */}
-                          <Link>
+                          <a>
                             { isLike === true
                               ? <BsHeart size="18" onClick={changeLike}></BsHeart>
                               : <BsHeartFill size="18" onClick={changeLike}></BsHeartFill>
                             }
-                          </Link>
+                          </a>
                         </div>
                       </div>
 

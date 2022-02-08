@@ -14,7 +14,7 @@ const UserPost = (s) => {
   useEffect(async () => {
     const memberPosts = await axios.get(`http://i6c107.p.ssafy.io:8080/v1/post/member/${memberId}`)
     setUserPosts(memberPosts.data)
-
+    console.log(memberPosts.data)
 
   ////// 포스트 이미지 가져오기
   // const storage = getStorage()
@@ -27,13 +27,11 @@ const UserPost = (s) => {
   //     })
   //   }
   
-
-
   },[])
   
   return (
     <>
-    <FadeIn>
+      <FadeIn>
         <div className="row grid">
           
           {/* 포스트 카드 각각 */}
@@ -67,8 +65,8 @@ const UserPost = (s) => {
           )}
 
         </div>
-        </FadeIn>
-    <div className="post-btn"><Button>see more</Button></div>
+      </FadeIn>
+      <div className="post-btn"><Button>see more</Button></div>
     </>
   )
 }

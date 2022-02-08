@@ -43,6 +43,7 @@ function PostCreate(s) {
     const deletedArray = [...uploadImages]
     deletedArray.splice(e.target.attributes.idx.value, 1)
     setUploadImages(deletedArray)
+    console.log(deletedArray)
   }
 
 

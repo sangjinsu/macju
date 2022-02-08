@@ -41,8 +41,8 @@ function App() {
           </Route>
           <Route path="/profile">
             <Switch>
-              <Route path="/profile/:username/edit" component={ProfileEdit} />
-              <Route path="/profile/:username" component={Profile} />
+              <Route path="/profile/:userid/edit" component={ProfileEdit} />
+              <Route path="/profile/:userid/" component={Profile} />
             </Switch>
           </Route>
           <Route path="*" component={PageNotFound} />

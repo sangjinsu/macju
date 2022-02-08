@@ -187,6 +187,8 @@
 /* 모달 */
 .modal_heading {
   text-align: center;
+  font-family: 'Dancing Script', cursive;
+  font-weight: bold;
 }
 
 .submitRateBtn {
@@ -203,10 +205,19 @@
 .submitRateBtn:hover {
   background-color: #e69c00;
 }
-
+.selecttag_box h4{
+  font-family: 'Dancing Script', cursive;
+  margin: 10px 0 5px;
+}
+.selecttag_box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .ratemodal_section .rate_select {
   border: none;
-  height: auto;
+  height: 100px;
+  width: 120px;
   margin: 0 10px;
   padding-left: 5px;
   border: 1px solid #999;
@@ -232,4 +243,14 @@
 
 .ratemodal_section .rate_select::placeholder {
   color: #222222;
+}
+
+.flavortag_div, .aromatag_div {
+  display: inline-block;
+  
+}
+
+.flavor_wrap_inner, 
+.aroma_wrap_inner {
+  background-color: #fcf3da;
 }

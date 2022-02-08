@@ -1,20 +1,36 @@
+import { useState } from 'react';
+import { useEffect } from 'react';
 import '../../styles/StarRate.css'
 
-function StarRate() {
+function StarRate(props) {
+  // 부모에 있음
+  // const [starrate, setStarrate] = useState()
+  
+  const onRateClick = (e) => {
+    // console.log(e.target.value)
+    return props.setStarrate(e.target.value)
+  }
+  
+
   return (
   <div className="star_container">
     <div className="feedback">
       <div className="rating">
-        <input type="radio" name="rating" id="rating-5" />
+        <input type="radio" name="rating" id="rating-5" value={5} onClick={onRateClick} />
         <label for="rating-5"></label>
-        <input type="radio" name="rating" id="rating-4" />
+
+        <input type="radio" name="rating" id="rating-4" value={4} onClick={onRateClick} />
         <label for="rating-4"></label>
-        <input type="radio" name="rating" id="rating-3" />
+
+        <input type="radio" name="rating" id="rating-3" value={3} onClick={onRateClick} />
         <label for="rating-3"></label>
-        <input type="radio" name="rating" id="rating-2" />
+
+        <input type="radio" name="rating" id="rating-2" value={2} onClick={onRateClick} />
         <label for="rating-2"></label>
-        <input type="radio" name="rating" id="rating-1" />
+
+        <input type="radio" name="rating" id="rating-1" value={1} onClick={onRateClick} />
         <label for="rating-1"></label>
+
         <div className="emoji-wrapper">
           <div className="emoji">
             <svg className="rating-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">

@@ -1,25 +1,25 @@
 import { Button } from "react-bootstrap";
-import PostList from "routes/Post/PostList";
 import "../../styles/UserPost.css"
 import FadeIn from 'react-fade-in';
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+
+
 const UserPost = (s) => {
   const USER_POST_URL = process.env.REACT_APP_USER_POST_URL
-
+  // const POST_LIST_URL = process.env.REACT_APP_POST_LIST_URL
   // const memberId = s.location.state.memberId
   const memberId = 1
   const [userPosts, setUserPosts] = useState([])
-  const [postimgs, setPostimgs] = useState([])    // 포스트 이미지들
-  useEffect(async () => {
-    const POST_LIST_URL = process.env.REACT_APP_POST_LIST_URL
-
-    const memberPosts = await axios.get(`${USER_POST_URL}/${memberId}`)
-    setUserPosts(memberPosts.data)
-    console.log(memberPosts.data)
-
+  
+  useEffect(() => {
+    const fetchData = async() =>{
+      const memberPosts = await axios.get(`${USER_POST_URL}/${memberId}`)
+      setUserPosts(memberPosts.data)
+    }
+    fetchData();
   ////// 포스트 이미지 가져오기
   // const storage = getStorage()
   //   for(var i=0, j=datalist.length; i<j; i++) {
@@ -30,8 +30,7 @@ const UserPost = (s) => {
   //       setPostimgs((prev)=>[...prev,url])
   //     })
   //   }
-  
-  },[])
+  },[USER_POST_URL])
   
   return (
     <>
@@ -45,9 +44,10 @@ const UserPost = (s) => {
                 <div className="postlist_box">
 
                   {/* 포스트 이미지 */}
+                  {/* 여기도 기본 이미지가 필요하네용 */}
                   <div className="img-box">
                     {/* <img src={post.photo.data}></img> */}
-                    <img src='\img\f2.png'></img>
+                    <img src='\img\f2.png' alt=""></img>
                   </div>
                   
                   {/* 포스트 카드 내용 */}

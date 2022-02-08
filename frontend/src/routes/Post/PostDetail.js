@@ -4,7 +4,6 @@ import { useParams, Link, Route, Switch, useHistory } from 'react-router-dom';
 import { BsHeartFill, BsHeart } from "react-icons/bs";
 import '../../styles/PostDetail.css'
 import CommentList from "./CommentList";
-import { getDownloadURL, getStorage , ref } from "firebase/storage";
 import { useDispatch, useStore } from "react-redux";
 // import { useHistory } from 'react-router-dom';
 
@@ -12,7 +11,6 @@ function PostDetail() {
   const POST_DETAIL_URL = process.env.REACT_APP_POST_DETAIL_URL
   const POST_DETAIL_LOG_URL = process.env.REACT_APP_POST_DETAIL_LOG_URL
   const [postData, setPost] = useState()
-  const [postImg, setPostImg] = useState()
   const [isLike, setisLike] = useState(false)
   const [updateContent, setText] = useState();
   const [hashtagArr, setHashtagArr] = useState([])
@@ -61,10 +59,10 @@ function PostDetail() {
 
   const deleteHashTag = ((e)=>{
     e.preventDefault()
-    const hashTagKey = e.target.attributes.hashTagKey.value // 중복확인? pass!
+    const hashtackey = e.target.attributes.hashtackey.value // 중복확인? pass!
     const hashContent = e.target.textContent
     const existHashList = hashtagArr.filter((hash)=> hash !== hashContent)
-    console.log(existHashList)
+    
     setHashtagArr(existHashList)
   })
 
@@ -84,7 +82,7 @@ function PostDetail() {
         }
       }
       const putData = await axios.put(putPostApiUrl, requestUpdatePostDto, headers)
-      console.log(putData.status)
+      
       dispatch({type:"updatePost", updateContent:updateContent, updateHashTag:hashtagArr})
       setPost(store.getState().postDetailReducer)
       history.push(`post/${postId}`)
@@ -94,41 +92,45 @@ function PostDetail() {
   })
 
   // postDetail 불러오는 것 (리덕스에 저장)
-  useEffect(async ()=>{
-    try{
-      const responseDetail = await axios.get(`${POST_DETAIL_URL}/${postId}`)
-      // const responseDetail = await axios.get(`http://13.125.157.39:8080/v1/post/${postId}`)
-      const postDetail = responseDetail.data
-
-      const hashTagArr = [postDetail.beer.beerType.main, ...postDetail.beer.aromaHashTags , ...postDetail.beer.flavorHashTags]
-      const newdata = {
-        id : 1,
-        tags : hashTagArr
+  useEffect(()=>{
+    const fetchData = async () =>{
+      try{
+        const responseDetail = await axios.get(`${POST_DETAIL_URL}/${postId}`)
+        // const responseDetail = await axios.get(`http://13.125.157.39:8080/v1/post/${postId}`)
+        const postDetail = responseDetail.data
+  
+        const hashTagArr = [postDetail.beer.beerType.main, ...postDetail.beer.aromaHashTags , ...postDetail.beer.flavorHashTags]
+        const newdata = {
+          id : 1,
+          tags : hashTagArr
+        }
+        const headers = {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Accept': "application/json; charset=UTF-8"
+        }
+        axios.post(POST_DETAIL_LOG_URL, newdata, {headers})
+          // .post("http://i6c107.p.ssafy.io:8080/v1/log", newpost, {headers})
+        
+        // const storage = getStorage()
+        // const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/imgs/${postDetail.postId}/`)
+        // getDownloadURL(storageRef)
+        // .then((url)=>{
+        //   console.log(url)
+        //   setPostImg(url)
+        // })
+        // console.log(postData)
+  
+        dispatch({type:"postDetailLoading", postDetail: postDetail}) // 추후 이미지도 추가?
+        setPost(store.getState().postDetailReducer)
+        setText(store.getState().postDetailReducer.content) // update
+        setHashtagArr(store.getState().postDetailReducer.userHashTags) // update
+      }catch (error) {
+        console.log(error)
       }
-      const headers = {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Accept': "application/json; charset=UTF-8"
-      }
-      axios.post(POST_DETAIL_LOG_URL, newdata, {headers})
-        // .post("http://i6c107.p.ssafy.io:8080/v1/log", newpost, {headers})
-      
-      // const storage = getStorage()
-      // const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/imgs/${postDetail.postId}/`)
-      // getDownloadURL(storageRef)
-      // .then((url)=>{
-      //   console.log(url)
-      //   setPostImg(url)
-      // })
-      // console.log(postData)
-
-      dispatch({type:"postDetailLoading", postDetail: postDetail}) // 추후 이미지도 추가?
-      setPost(store.getState().postDetailReducer)
-      setText(store.getState().postDetailReducer.content) // update
-      setHashtagArr(store.getState().postDetailReducer.userHashTags) // update
-    }catch (error) {
-      console.log(error)
     }
-  }, [])
+    console.log('gg')
+    fetchData();
+  }, [POST_DETAIL_URL, dispatch, postId, store])
 
   return (
     <div className="PostDetail">
@@ -201,12 +203,12 @@ function PostDetail() {
                             // cols='50'
                           >
                           </textarea>
-                          {console.log(hashtagArr)}
+                          
                           <button type="submit" className="addHashBtn" onClick={addHashTag}>추가</button>
                         </div>
                         {/* 해시태그 */}
                         {hashtagArr.map((hash, i)=>{
-                          return(<div className="hashtag_wrap_inner" hashTagKey={i} onClick={deleteHashTag}>{hash}</div>)
+                          return(<div className="hashtag_wrap_inner" hashtackey={i} onClick={deleteHashTag}>{hash}</div>)
                         })}
                         {/* { postData.userHashTags.map((tag, i)=>{
                             return(<div className="hashtag_wrap_inner" key={i}>{tag.content}</div>)
@@ -226,7 +228,7 @@ function PostDetail() {
                       {/* 해시태그 */}
                       <div className="postdetail_hashtag">
                         {postData.userHashTags.map((hash, i)=>{
-                          return(<span className="postTag" hashTagKey={i}>#{hash}</span>)
+                          return(<span className="postTag" hashtackey={i}>#{hash}</span>)
                         })}
                         {/* { postData.userHashTags.map((tag, i)=>{
                             return(<span className="postTag" key={i}>#{tag.content}</span>)

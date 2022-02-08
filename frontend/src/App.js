@@ -12,7 +12,7 @@ import Profile from "routes/User/Profile";
 import RecommendBeer from "components/Main/RecommendBeer";
 import PageNotFound from "components/PageNotFound";
 import ProfileEdit from "routes/User/ProfileEdit";
-import BeerTest from "routes/Beer/BeerTest";
+
 
 function App() {
   return (
@@ -20,7 +20,6 @@ function App() {
       <Router>
         <Navbar />
         <Switch>
-          <Route path="/beer/test" component={BeerTest} />
           <Route path="/home" component={RecommendBeer} />
           <Route path="/post">
             <Switch>

@@ -1,41 +1,48 @@
 import { getDownloadURL, getStorage , ref } from "firebase/storage";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useDispatch, useStore } from "react-redux";
+import { useStore } from "react-redux";
 import {Link} from "react-router-dom"
 import "../../styles/PostList.css"
 import axios from "axios";
+
+
 function PostListComponent(){
   const POST_LIST_URL = process.env.REACT_APP_POST_LIST_URL
   const [newPost, setNewPost] = useState([])
   const [newPostImage, setNewPostImage] = useState([])
   const store = useStore((state)=>state)
-  const dispatch = useDispatch();
   const storage = getStorage()
 
-  useEffect(async ()=>{
-    const imageList = []
-    for(let i = 0; i< newPost.length; i++) {
-      const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/imgs/${newPost[i].postId}/${newPost[i].photo.data}`)
-      await getDownloadURL(storageRef)
-      .then((res)=>{
-        if (!newPostImage.some((url)=>url===res)){
-          imageList.push({id:newPost[i].postId, res})
-        }
-      })
+  useEffect(()=> {
+    const fetchData = async() =>{
+      const imageList = []
+      for (let i = 0; i < newPost.length; i++) {
+        const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/imgs/${newPost[i].postId}/${newPost[i].photo.data}`)
+        await getDownloadURL(storageRef)
+        .then((res)=>{
+          if (!newPostImage.some((url)=>url===res)){
+            imageList.push({id:newPost[i].postId, res})
+          }
+        })
     }
-    dispatch({type:"newImages", images:imageList})
-    setNewPostImage(store.getState().postImageRecuder)
+    setNewPostImage(imageList)
+  }
+    fetchData();
+  //eslint-disable-next-line
   }, [newPost])
 
-  useEffect(async ()=>{
-    if (store.getState().postListReducer.length === 0){
-      const data = await axios.get(POST_LIST_URL)
-      setNewPost(data.data)
-    } else {
-      setNewPost(store.getState().postListReducer)
+  useEffect(()=>{
+    const fetchData = async() =>{
+      if (store.getState().postListreducer.length === 0){
+        const data = await axios.get(POST_LIST_URL)
+        setNewPost(data.data)
+      } else {
+        setNewPost(store.getState().postListreducer)
+      }
     }
-  }, [])
+    fetchData();
+  }, [store, POST_LIST_URL])
 
 
 
@@ -53,8 +60,8 @@ function PostListComponent(){
               {newPostImage&&newPostImage.map((data, i)=> data.id === post.postId ? 
               
               <div key={i} className="img-box">
-                
-                <img src={data.res}></img>
+                {/* 기본이미지 하나 구해야겠네요 */}
+                <img src={data.res} alt=""></img>
                 {/* <img src={post.photo.data}></img> */}
                 
               </div> : null

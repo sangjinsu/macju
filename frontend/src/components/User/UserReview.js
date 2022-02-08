@@ -1,6 +1,5 @@
 import { Table } from "react-bootstrap";
-import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const UserReview = () =>{
   const USER_REVIEW_URL = process.env.REACT_APP_USER_REVIEW_URL

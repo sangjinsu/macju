@@ -18,7 +18,7 @@ const postListreducer = (state = [], action) => {
   } else if (action.type === "new"){
     return action.new.data
   } else if (action.type === 'popular'){
-    return action.new.data
+    return state
   }
   return state
 }
@@ -53,7 +53,6 @@ const commentReducer = (state = [], action) => {
   }
   else if (action.type === "delete"){
     const copyCommentList = [...state]
-    console.log(copyCommentList)
     copyCommentList.splice(action.i, 1)
     return copyCommentList
   }

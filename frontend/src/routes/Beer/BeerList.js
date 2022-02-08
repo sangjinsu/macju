@@ -5,9 +5,8 @@ import '../../styles/BeerList.css'
 import { Link } from "react-router-dom"
 import FadeIn from 'react-fade-in';
 import axios from "axios"
-import { getDownloadURL, getMetadata, getStorage , ref, updateMetadata } from "firebase/storage";
 import "../../firebase_config"
-import { useDispatch, useStore } from 'react-redux';
+import { useDispatch } from 'react-redux';
 // import { default as Fade} from 'react-fade';
 
 
@@ -16,12 +15,11 @@ function BeerList(){
   const BEER_LIST_URL = process.env.REACT_APP_BEER_LIST_URL
   // console.log(process.env.REACT_APP_BEER_LIST_URL)
 
-  const store = useStore()
   // 맥주 데이터
   const [beerdata, setbeerdata] = useState([])
   const [showBeer, setShowBeer] = useState([])
   // 맥주 사진 URL
-  const [beerImgList, setBeerImgList] = useState([])
+
   // 각 맥주 좋아요
   const [isLike, setisLike] = useState([])
   // 현재 활성화된 카테고리 (기본값:all)
@@ -50,7 +48,7 @@ function BeerList(){
       const nowbeer = showBeer.filter(beer => {
         return beer.beerType.main === isActive
       })
-      console.log(nowbeer)
+      
       setnowbeerArr(nowbeer)
     } else {
       setnowbeerArr(showBeer)
@@ -66,19 +64,19 @@ function BeerList(){
   })
   
   //화면에서 스크롤 없이도 보여줄 초기값
-  useEffect(async()=> {
-    const temp = await axios.get(BEER_LIST_URL)
-    setShowBeer(temp.data)
-    setnowbeerArr(temp.data)
-
-    const data = await axios.get(`${BEER_LIST_URL}?size=210`)
-    dispatch({type:"getBeerList", data:data})
-    // console.log(store.getState().beerListReducer.data)
-    setbeerdata([data][0].data)
-    const datalist = [data][0].data
+  useEffect(()=> {
+    const fetchData = async() =>{
+      const temp = await axios.get(BEER_LIST_URL)
+      setShowBeer(temp.data)
+      setnowbeerArr(temp.data)
+      const data = await axios.get(`${BEER_LIST_URL}?size=210`)
+      dispatch({type:"getBeerList", data:data})
+      setbeerdata([data][0].data)
+    }
+    fetchData();
 
     // 카테고리 기본값 all
-    setIsActive('all')
+    // setIsActive('all')
 
     // 좋아요 기본값 false
     // const newLike = []
@@ -87,7 +85,7 @@ function BeerList(){
     // }
     // console.log(newLike)
     // setisLike(newLike)
-  }, [])
+  }, [BEER_LIST_URL, dispatch])
   
 
   
@@ -146,7 +144,8 @@ function BeerList(){
                   <div>
                     {/* 맥주 이미지 */}
                     <div className="img-box"> 
-                      <img src={beer.photoPath}></img>
+                    {/* 여기도 기본 이미지가 필요하네용 */}
+                      <img src={beer.photoPath} alt=''></img>
                     </div>
 
                     {/* 맥주 설명란 */}
@@ -189,12 +188,12 @@ function BeerList(){
                             {beer.beerType.main}
                           </h6>
                           {/* 좋아요 버튼 */}
-                          <a>
+                          <Link>
                             { isLike === true
                               ? <BsHeart size="18" onClick={changeLike}></BsHeart>
                               : <BsHeartFill size="18" onClick={changeLike}></BsHeartFill>
                             }
-                          </a>
+                          </Link>
                         </div>
                       </div>
 

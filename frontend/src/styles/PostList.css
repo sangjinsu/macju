@@ -36,7 +36,7 @@
 /* 정렬 방법 게시 */
 .postlist_order {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 /* fade in */

@@ -22,40 +22,41 @@ function BeerDetail() {
   // const [beerImg, setbeerImg] = useState()
   const { beerid } = useParams();
 
-  useEffect(async ()=>{
-    //api :  http://i6c107.p.ssafy.io:8080/v1/beer/{beerId}
-    // http://13.125.157.39:8080/v1/beer/{beerId}
-    const beerdetail = await axios.get(`${BEER_DETAIL_URL}/${beerid}`)
-    // const beerdetail = await axios.get(`http://13.125.157.39:8080/v1/beer/${beerid}`)
-    const nowbeerDetail = beerdetail.data
-    setbeer(beerdetail.data)
+  useEffect(()=>{
+    const fetchData = async ()=>{
+      const beerdetail = await axios.get(`${BEER_DETAIL_URL}/${beerid}`)
+      // const beerdetail = await axios.get(`http://13.125.157.39:8080/v1/beer/${beerid}`)
+      const nowbeerDetail = beerdetail.data
+      setbeer(beerdetail.data)
 
-    // 맥주별 포스트 목록
-    const beer_postdetail = await axios.get(`${BEER_DETAIL_POST_URL}/${beerid}`)
-    setbeerpost(beer_postdetail.data)
+      // 맥주별 포스트 목록
+      const beer_postdetail = await axios.get(`${BEER_DETAIL_POST_URL}/${beerid}`)
+      setbeerpost(beer_postdetail.data)
 
-    // 로그 보내기
-    const hashTagArr = [nowbeerDetail.beerType.main, ...nowbeerDetail.aromaHashTags , ...nowbeerDetail.flavorHashTags]
-    // console.log(hashTagArr)
-    const newdata = {
-      id : 1,
-      tags : hashTagArr
+      // 로그 보내기
+      const hashTagArr = [nowbeerDetail.beerType.main, ...nowbeerDetail.aromaHashTags , ...nowbeerDetail.flavorHashTags]
+      // console.log(hashTagArr)
+      const newdata = {
+        id : 1,
+        tags : hashTagArr
+      }
+      const headers = {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': "application/json; charset=UTF-8"
+      }
+      // axios.post(BEER_DETAIL_LOG_URL, newdata, {headers})     // 주석풀면 로그에 post 보냄
+      ////// axios.post("http://13.125.157.39:8080/v1/log", newdata, {headers})
+
+
+      // const storage = getStorage()
+      // const storageRef = ref(storage, `gs://ssafy-01-beer-image.appspot.com/${beerdetail.data.photoPath}`)
+      // getDownloadURL(storageRef)
+      // .then((url)=>{
+      //   setbeerImg(url)
+      // })
     }
-    const headers = {
-      'Content-Type': 'application/json; charset=UTF-8',
-      'Accept': "application/json; charset=UTF-8"
-    }
-    // axios.post(BEER_DETAIL_LOG_URL, newdata, {headers})     // 주석풀면 로그에 post 보냄
-    ////// axios.post("http://13.125.157.39:8080/v1/log", newdata, {headers})
-
-
-    // const storage = getStorage()
-    // const storageRef = ref(storage, `gs://ssafy-01-beer-image.appspot.com/${beerdetail.data.photoPath}`)
-    // getDownloadURL(storageRef)
-    // .then((url)=>{
-    //   setbeerImg(url)
-    // })
-  }, [])
+    fetchData();
+  }, [BEER_DETAIL_POST_URL, BEER_DETAIL_URL, beerid])
 
   const [isLike, setisLike] = useState(false)
   const [rateModal, set_rateModal] = useState(false)
@@ -86,7 +87,8 @@ function BeerDetail() {
               <div className="col-md-6 ">
                 <div className="img-box">
                   {/* <img src={beerImg}></img> */}
-                  <img src={beer.photoPath}></img>
+                  {/* 여기도 기본이미지가... */}
+                  <img src={beer.photoPath} alt=""></img>
                 </div>
               </div>
 
@@ -272,7 +274,6 @@ function BeerDetail() {
       <div className="ratemodal_section">
         <h4 className="modal_heading">Beer Rate</h4>
         <StarRate setStarrate={props.setStarrate}></StarRate>
-        {console.log(props.starrate)}
 
         <div className="row"> 
 

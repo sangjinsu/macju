@@ -23,10 +23,19 @@ const postListreducer = (state = [], action) => {
 const postDetailReducer = (state= [], action) => {
   if (action.type === "postDetailLoading"){
     const loadPostDetail = action.postDetail
+    const newHashTags = loadPostDetail.userHashTags.map( (tag)=> tag.content)
+    loadPostDetail.userHashTags = newHashTags
     return loadPostDetail
-  }else if (action.type === "postDetailUpdate"){
-    const updatePost = action.postUpdate
-    return updatePost
+  }else if (action.type === "updatePost") {
+    const copyPost = Object.assign(state)// [...state]
+    const updateContent = action.updateContent
+    const updateHashTag = action.updateHashTag
+    copyPost.content = updateContent
+    copyPost.userHashTags = updateHashTag
+    return copyPost
+  }else if (action.type === "postDelete"){
+    const deletePost = []
+    return deletePost
   }else{
     return state
   }
@@ -41,7 +50,7 @@ const commentReducer = (state = [], action) => {
     return copyCommentList // return된 copyCommentList가 state(기존reducer에 저장된 값)가 된다
   }
   else if (action.type === "delete"){
-    let copyCommentList = [...state]
+    const copyCommentList = [...state]
     console.log(copyCommentList)
     copyCommentList.splice(action.i, 1)
     return copyCommentList

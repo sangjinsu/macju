@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios"
-import { useParams, Link, Route, Switch } from 'react-router-dom';
+import { useParams, Link, Route, Switch, useHistory } from 'react-router-dom';
 import { BsHeartFill, BsHeart } from "react-icons/bs";
 import '../../styles/PostDetail.css'
 import CommentList from "./CommentList";
@@ -13,13 +13,85 @@ function PostDetail() {
   const POST_DETAIL_LOG_URL = process.env.REACT_APP_POST_DETAIL_LOG_URL
   const [postData, setPost] = useState()
   const [postImg, setPostImg] = useState()
-  const postId = useParams().postId;
-
   const [isLike, setisLike] = useState(false)
+  const [updateContent, setText] = useState();
+  const [hashtagArr, setHashtagArr] = useState([])
+  const [hashtag, setHashtag] = useState("")
+
+  const postId = useParams().postId;
   const store = useStore((state)=>state)
   const dispatch = useDispatch();
+  const history = useHistory();
+  
+  const UpdateContent = (e) => {
+    setText(e.target.value)
+  }
 
-  // let history = useHistory();
+  const DeletePost = async() => {
+    try{
+      const postDeleteUrl = `http://i6c107.p.ssafy.io:8080/v1/post/${postId}`
+      await axios.delete(postDeleteUrl)
+      dispatch({ type : "postDelete"})
+      history.push("/post")
+    }catch{
+      console.log("오류")
+    }
+  }
+
+  // 해시태그 input 입력값 
+  const inputHashTag = ((e)=>{
+    setHashtag(e.target.value)
+  })
+
+  // space, enter눌렸을 때 막기
+  const pressKey = ((e)=>{
+    if (e.keyCode === 32 || e.keyCode === 13) {
+      e.target.value = e.target.value.replace(' ','')
+      e.target.value = e.target.value.replace('\n','')
+    }
+  })
+
+
+  const addHashTag = ((e)=>{
+    e.preventDefault()
+    if (hashtag.trim() !== "") {
+      setHashtagArr([hashtag, ...hashtagArr])
+    }
+  })
+
+  const deleteHashTag = ((e)=>{
+    e.preventDefault()
+    const hashTagKey = e.target.attributes.hashTagKey.value // 중복확인? pass!
+    const hashContent = e.target.textContent
+    const existHashList = hashtagArr.filter((hash)=> hash !== hashContent)
+    console.log(existHashList)
+    setHashtagArr(existHashList)
+  })
+
+  const changePost = (async (e)=>{
+    try{
+      e.preventDefault() //우선 그냥 막아놨음
+      const putPostApiUrl = `http://i6c107.p.ssafy.io:8080/v1/post/${postId}`
+      const requestUpdatePostDto  = {
+        "content": updateContent,
+        "postId": postId,
+        "userHashTags": hashtagArr
+      }
+      const headers = {
+        headers: {
+          "Accept" : "application/json;charset=UTF-8",
+          "Content-Type" : "application/json;charset=UTF-8"
+        }
+      }
+      const putData = await axios.put(putPostApiUrl, requestUpdatePostDto, headers)
+      console.log(putData.status)
+      dispatch({type:"updatePost", updateContent:updateContent, updateHashTag:hashtagArr})
+      setPost(store.getState().postDetailReducer)
+      history.push(`post/${postId}`)
+    }catch{
+      console.log("오류")
+    }
+  })
 
   // postDetail 불러오는 것 (리덕스에 저장)
   useEffect(async ()=>{
@@ -51,11 +123,12 @@ function PostDetail() {
 
       dispatch({type:"postDetailLoading", postDetail: postDetail}) // 추후 이미지도 추가?
       setPost(store.getState().postDetailReducer)
+      setText(store.getState().postDetailReducer.content) // update
+      setHashtagArr(store.getState().postDetailReducer.userHashTags) // update
     }catch (error) {
       console.log(error)
     }
   }, [])
-  
 
   return (
     <div className="PostDetail">
@@ -110,12 +183,40 @@ function PostDetail() {
                   </div>
                   <Switch>
                     <Route path="/post/:postId/update">
-                      {/* 해시태그 */}
-                      {/* <div className="postdetail_hashtag">
-                        { postData.userHashTags.map((tag, i)=>{
-                            return(<span className="postTag" key={i}>{tag.content}</span>)
-                          }) }
-                      </div> */}
+                      <input
+                        type="text"
+                        value={updateContent}
+                        onChange={UpdateContent}
+                      ></input>
+
+                      <div className="hashtag_wrap">
+                        <div className="hashtag_wrap_outer">
+                          <textarea 
+                            value={hashtag}
+                            onKeyUp={pressKey}
+                            onChange={inputHashTag}
+                            className="postcreate_textarea hashtag_input"
+                            placeholder="해시태그 입력..."
+                            rows="1"
+                            // cols='50'
+                          >
+                          </textarea>
+                          {console.log(hashtagArr)}
+                          <button type="submit" className="addHashBtn" onClick={addHashTag}>추가</button>
+                        </div>
+                        {/* 해시태그 */}
+                        {hashtagArr.map((hash, i)=>{
+                          return(<div className="hashtag_wrap_inner" hashTagKey={i} onClick={deleteHashTag}>{hash}</div>)
+                        })}
+                        {/* { postData.userHashTags.map((tag, i)=>{
+                            return(<div className="hashtag_wrap_inner" key={i}>{tag.content}</div>)
+                          }) } */}
+                        
+                      </div>
+                      <button onClick={changePost}>완료</button>
+
+
+                      
 
                       {/* 포스트 내용 */}
                       {/* <p> 수정 </p>
@@ -124,9 +225,12 @@ function PostDetail() {
                     <Route path="/post/:postId">
                       {/* 해시태그 */}
                       <div className="postdetail_hashtag">
-                        { postData.userHashTags.map((tag, i)=>{
-                            return(<span className="postTag" key={i}>{tag.content}</span>)
-                          }) }
+                        {postData.userHashTags.map((hash, i)=>{
+                          return(<span className="postTag" hashTagKey={i}>#{hash}</span>)
+                        })}
+                        {/* { postData.userHashTags.map((tag, i)=>{
+                            return(<span className="postTag" key={i}>#{tag.content}</span>)
+                          }) } */}
                       </div>
 
                       {/* 포스트 내용 */}
@@ -140,7 +244,9 @@ function PostDetail() {
 
 
                       {/* 본인 일때만 수정, 삭제 가능하게 해야함 */}
-                      <div className="updateBtn">수정하기</div>
+                      <Link to={`/post/${postId}/update`}>수정하기</Link>
+                      <button onClick={DeletePost}>삭제하기</button>
+                      {/* <div className="updateBtn">수정하기</div> */}
                       <div className="deleteBtn">수정하기</div>
                     </Route>
 

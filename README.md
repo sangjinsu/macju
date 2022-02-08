@@ -47,7 +47,6 @@
 
 - 메인페이지
   - /home
-
 - 포스트페이지
 
   - 생성 : /post/new
@@ -57,19 +56,16 @@
   - 포스트수정 : /post/:postId/update
 
   - 포스트리스트 : /post
-
 - 맥주페이지
 
   - 상세페이지 : /beer/:beerid
 
   - 맥주리스트 : /beer
-
 - 로그인/회원가입
 
   - 로그인 : /user/login
 
   - 회원가입: /user/signup
-
 - 프로필
 
   - 프로필 수정 : /profile/:userid/edit
@@ -79,9 +75,9 @@
   - 프로필 상세(좋아요) : /profile/:userid/like
 
   - 프로필 상세(리뷰) : /profile/:userid/review
-
 - 404error
   - /*
+- firebase upload 이미지
 
 
 
@@ -120,3 +116,6 @@
 - 404Error
 
   ![404에러](README.assets/404에러.png)
+
+- firebase![image-20220208232057024](README.assets/image-20220208232057024-16443300600151.png)
+

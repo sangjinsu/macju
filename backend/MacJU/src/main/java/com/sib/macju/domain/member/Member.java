@@ -31,7 +31,7 @@ public class Member {
     private String name;
 
     @Column(length = 150)
-    private String comment;
+    private String intro;
 
     @Setter
     @Enumerated(EnumType.STRING)

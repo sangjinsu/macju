@@ -15,7 +15,7 @@ import { useStore } from 'react-redux';
 
 function BeerList(){
   const BEER_LIST_URL = process.env.REACT_APP_BEER_LIST_URL
-  console.log(process.env.REACT_APP_BEER_LIST_URL)
+  // console.log(process.env.REACT_APP_BEER_LIST_URL)
 
   const store = useStore()
   // 맥주 데이터

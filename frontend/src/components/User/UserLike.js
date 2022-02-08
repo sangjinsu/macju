@@ -4,10 +4,11 @@ import { useState } from "react";
 import '../../styles/UserLike.css'
 
 const UserLike = () => {
+  const USER_LIKE_URL = process.env.REACT_APP_USER_LIKE_URL
   const memberId = 1
   const [likebeers, setLikeBeers] = useState([])
   useEffect(async () =>{
-    const memberbeers = await axios.get(`http://i6c107.p.ssafy.io:8080/member/beer/${memberId}`)
+    const memberbeers = await axios.get(`${USER_LIKE_URL}/${memberId}`)
     setLikeBeers(memberbeers.data.data)
     // console.log(memberbeers.data.data)
   },[])

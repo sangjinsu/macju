@@ -15,7 +15,7 @@ import { useDispatch } from "react-redux";
 
 function BeerDetail() {
   const BEER_DETAIL_URL = process.env.REACT_APP_SERVER + ':8080/v1/beer'
-  const BEER_DETAIL_POST_URL = process.env.REACT_APP_SERVER + ':8080/v1/post/member'
+  const BEER_DETAIL_POST_URL = process.env.REACT_APP_SERVER + ':8080/v1/post/beer'
   const RATED_BEER_URL = process.env.REACT_APP_SERVER + ':8080/v1/member'
   const BEER_DETAIL_LOG_URL = process.env.REACT_APP_SERVER + ':8080/v1/log'
   const RANKING_BEER_URL = process.env.REACT_APP_SERVER + ':8081/beer/view'
@@ -44,7 +44,7 @@ function BeerDetail() {
       // const nowbeerDetail = beerdetail.data
 
       // 맥주별 포스트 목록
-      console.log(beerid)
+      // console.log(beerid)
       const beer_postdetail = await axios.get(`${BEER_DETAIL_POST_URL}/${beerid}`)
       dispatch({type:'beerDetailPost', beerdetaildata:beer_postdetail})
 
@@ -52,24 +52,31 @@ function BeerDetail() {
 
       // 평가한 맥주 목록
       const { data : rated_beer } = await axios.get(`${RATED_BEER_URL}/${memberId}/rates`)
-      rated_beer.data.map((ratebeer, i)=>{
-        if (ratebeer.beer.beerId == beerid) {
+      const rated = rated_beer.data
+      for (let i in rated) {
+        if (rated[i].beer.beerId == beerid) {
           setIsRated(true)    // 이 맥주 평가했으면 isRated=true
         }
-      })
+      }
+      
 
       // 로그 보내기
       const hashTagArr = [beerdetail.beerType.main, ...beerdetail.aromaHashTags , ...beerdetail.flavorHashTags]
       // console.log(hashTagArr)
       const newdata = {
-        id : 1,
+        id : 3,
         tags : hashTagArr
       }
+      // console.log(newdata)
+
       const headers = {
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': "application/json; charset=UTF-8"
       }
       // axios.post(BEER_DETAIL_LOG_URL, newdata, {headers})     // 주석풀면 로그에 post 보냄
+      // .then(()=>{
+      //   console.log('로그보냄')
+      // })
       ////// axios.post("http://13.125.157.39:8080/v1/log", newdata, {headers})
 
 
@@ -193,7 +200,7 @@ function BeerDetail() {
                         setStarrate={setStarrate} 
                         rateModal={rateModal} 
                         set_rateModal={set_rateModal} 
-                        beerid={beerid}
+                        beerid={Number(beerid)}
                       />
                   }
                   
@@ -244,9 +251,7 @@ function BeerDetail() {
                 >포스팅하기</Link>
               </div>
             </div>
-
               <PostListComponent />
-
           </div>
 
         </section>

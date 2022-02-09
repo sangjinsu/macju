@@ -16,7 +16,7 @@ function BeerDetail() {
   const BEER_DETAIL_LOG_URL = process.env.REACT_APP_SERVER + ':8080/v1/log'
   const RANKING_BEER_URL = process.env.REACT_APP_SERVER + ':8081/beer/view'
   const RANKING_BEER_LIKE_URL = process.env.REACT_APP_SERVER + ':8081/beer/like'
-
+  
 
   // 맥주 data
   const [beer, setbeer] = useState()

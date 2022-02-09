@@ -12,10 +12,10 @@ function PostDetail() {
   const POST_DETAIL_LOG_URL = process.env.REACT_APP_SERVER + ':8080/v1/log'
 
   const RANKING_BEER_URL = process.env.REACT_APP_SERVER + ':8081/beer/view'
-
-  const RANKING_POST_DLELETE_URL =process.env.REACT_APP_SERVER + ''
-  const RANKING_POST_LIKE_URL = process.env.REACT_APP_SERVER + ''
-  const RANKING_POST_URL = process.env.REACT_APP_SERVER + ''
+  
+  const RANKING_POST_DLELETE_URL = process.env.REACT_APP_SERVER + ":8081/post"
+  const RANKING_POST_LIKE_URL = process.env.REACT_APP_SERVER + ":8081/post/like"
+  const RANKING_POST_URL = process.env.REACT_APP_SERVER + ":8081/post/view"
 
   const [postData, setPost] = useState()
   const [isLike, setisLike] = useState(false)

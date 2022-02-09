@@ -12,6 +12,7 @@ import Profile from "routes/User/Profile";
 import Home from "routes/Home";
 import PageNotFound from "components/PageNotFound";
 import ProfileEdit from "routes/User/ProfileEdit";
+import LoginAuth from "routes/LoginAuth";
 
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
               <Route path="/profile/:userid/" component={Profile} />
             </Switch>
           </Route>
+          <Route path="/oauth/login/response" component={LoginAuth}/>
           <Route path="*" component={PageNotFound} />
         </Switch>
         <Footer />

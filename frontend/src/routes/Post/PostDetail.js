@@ -59,7 +59,6 @@ function PostDetail() {
 
   const deleteHashTag = ((e)=>{
     e.preventDefault()
-    const hashtackey = e.target.attributes.hashtackey.value // 중복확인? pass!
     const hashContent = e.target.textContent
     const existHashList = hashtagArr.filter((hash)=> hash !== hashContent)
     
@@ -128,7 +127,7 @@ function PostDetail() {
         console.log(error)
       }
     }
-    console.log('gg')
+
     fetchData();
   }, [POST_DETAIL_URL, dispatch, postId, store])
 
@@ -207,9 +206,9 @@ function PostDetail() {
                           <button type="submit" className="addHashBtn" onClick={addHashTag}>추가</button>
                         </div>
                         {/* 해시태그 */}
-                        {hashtagArr.map((hash, i)=>{
-                          return(<div className="hashtag_wrap_inner" hashtackey={i} onClick={deleteHashTag}>{hash}</div>)
-                        })}
+                        {hashtagArr.map((hash, i)=>
+                          <div className="hashtag_wrap_inner" key={i} onClick={deleteHashTag}>{hash}</div>
+                        )}
                         {/* { postData.userHashTags.map((tag, i)=>{
                             return(<div className="hashtag_wrap_inner" key={i}>{tag.content}</div>)
                           }) } */}
@@ -227,9 +226,9 @@ function PostDetail() {
                     <Route path="/post/:postId">
                       {/* 해시태그 */}
                       <div className="postdetail_hashtag">
-                        {postData.userHashTags.map((hash, i)=>{
-                          return(<span className="postTag" hashtackey={i}>#{hash}</span>)
-                        })}
+                        {postData.userHashTags.map((hash, i)=>
+                          <div className="postTag" key={i}>#{hash}</div>
+                        )}
                         {/* { postData.userHashTags.map((tag, i)=>{
                             return(<span className="postTag" key={i}>#{tag.content}</span>)
                           }) } */}

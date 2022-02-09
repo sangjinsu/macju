@@ -14,6 +14,7 @@ function BeerDetail() {
   const BEER_DETAIL_URL = process.env.REACT_APP_BEER_DETAIL_URL
   const BEER_DETAIL_POST_URL = process.env.REACT_APP_BEER_DETAIL_POST_URL
   const BEER_DETAIL_LOG_URL = process.env.REACT_APP_BEER_DETAIL_LOG_URL
+  const RANKING_BEER_URL = process.env.REACT_APP_RANKING_BEER_URL
 
   // 맥주 data
   const [beer, setbeer] = useState()
@@ -68,6 +69,22 @@ function BeerDetail() {
   //////// 맥주평가모달창
   // 별점
   const [starrate, setStarrate] = useState()
+
+  useEffect(() => {
+    const spendData = async () => {
+      try{
+        const rankingBeerUrl = `${RANKING_BEER_URL}/${beerid}/1` //추후 memberId 수정필요
+        const headers = {
+          'Accept': "application/json; charset=UTF-8"
+        }
+        await axios.get(rankingBeerUrl, headers)
+        console.log(111111)
+      }catch{
+        console.log("오류입니다")
+      }
+    }
+    spendData()
+  }, [])
 
   return (
     <div className="BeerDetail">

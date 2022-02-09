@@ -38,7 +38,7 @@ const UserProfile = () => {
 
 	useEffect(() =>{
 		const fetchData = async () => {
-			const profiledata = await axios.get(`${USER_PROFILE_URL}/${memberId}`)
+			const profiledata = await axios.get(`${USER_PROFILE_URL}/${3}`)
 			setUser(profiledata.data)
 			setUsercolor(profiledata.data.profileColor)	
 		}
@@ -48,8 +48,7 @@ const UserProfile = () => {
 			setUser(store.getState().userProfileReducer.data)
 			setUsercolor(store.getState().userProfileReducer.data.profileColor)
 		}
-		console.log('dd')
-	},[USER_PROFILE_URL, user])
+	},[USER_PROFILE_URL])
 
 
   const [followersModalOpen, setFollowersModalOpen] = useState(false);

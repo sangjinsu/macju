@@ -77,11 +77,13 @@ function BeerDetail() {
         const headers = {
           'Accept': "application/json; charset=UTF-8"
         }
-        axios.get(rankingBeerUrl, headers)
+        await axios.get(rankingBeerUrl, headers)
+        console.log(111111)
       }catch{
         console.log("오류입니다")
       }
-    } 
+    }
+    spendData()
   }, [])
 
   return (

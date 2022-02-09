@@ -12,11 +12,10 @@ import PostListComponent from "../../components/Post/PostList"
 
 function BeerDetail() {
   const BEER_DETAIL_URL = process.env.REACT_APP_SERVER + ':8080/v1/beer'
-  const BEER_DETAIL_POST_URL = process.env.REACT_APP_SERVER + ':8080/v1/post/beer'
+  const BEER_DETAIL_POST_URL = process.env.REACT_APP_SERVER + ':8080/v1/post/member'
   const BEER_DETAIL_LOG_URL = process.env.REACT_APP_SERVER + ':8080/v1/log'
   const RANKING_BEER_URL = process.env.REACT_APP_SERVER + ':8081/beer/view'
-
-
+  const RANKING_BEER_LIKE_URL = process.env.REACT_APP_SERVER + ':8081/beer/like'
 
 
   // 맥주 data
@@ -72,6 +71,19 @@ function BeerDetail() {
   //////// 맥주평가모달창
   // 별점
   const [starrate, setStarrate] = useState()
+
+  const likeButton = async () => {
+    try{
+      setisLike(!isLike)
+      const rankingBeerLikeeUrl = `${RANKING_BEER_LIKE_URL}/${beerid}/1`
+      const headers = {
+        'Accept': "application/json; charset=UTF-8"
+      }
+      await axios.get(rankingBeerLikeeUrl, headers)
+    }catch{
+      console.log("오류")
+    }
+  }
 
   useEffect(() => {
     const spendData = async () => {
@@ -129,8 +141,8 @@ function BeerDetail() {
                     <div className="heartInline">
                       {
                         isLike === true
-                        ? <BsHeart className="heartIcon" size="23" onClick={()=>{setisLike(!isLike)}}></BsHeart>
-                        : <BsHeartFill className="heartIcon" size="23" onClick={()=>{setisLike(!isLike)}}></BsHeartFill>
+                        ? <BsHeart className="heartIcon" size="23" onClick={likeButton}></BsHeart>
+                        : <BsHeartFill className="heartIcon" size="23" onClick={likeButton}></BsHeartFill>
                       }
                       <div className="like_count">(5)</div>
                     </div>

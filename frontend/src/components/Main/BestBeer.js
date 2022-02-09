@@ -44,7 +44,7 @@ const RecommendBeer = () => {
   return(
     <div className="SlickTest">
         <div id="bubbles">
-          <h3>Best Beer</h3>
+          <h3 className="bestbeer" align="center">Best Beer</h3>
           <Slider {...settings}>
             {
               rankingBeerList&&rankingBeerList.map((beerid, i) => 

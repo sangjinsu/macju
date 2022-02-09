@@ -34,7 +34,7 @@ const RecommendBeer = () => { // 변수명 수정필요
   return(
     <div className="SlickTest">
         <div id="bubbles">
-          <h3 className="recommendtitle">Best Beer</h3>
+          <h3 className="recommendtitle" align="center">Best Beer</h3>
           <Slider {...settings}>
               <CustomSlide index={1}></CustomSlide>
               <CustomSlide index={2}></CustomSlide>

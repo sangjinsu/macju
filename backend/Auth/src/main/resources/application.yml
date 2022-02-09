@@ -1,6 +1,8 @@
 server:
   port: 8752
 spring:
+  cache:
+    type: redis
   redis:
-    host: localhost
+    host: "i6c107.p.ssafy.io"
     port: 6379

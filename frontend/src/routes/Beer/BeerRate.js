@@ -5,7 +5,7 @@ import '../../styles/BeerRate.css'
 import axios from "axios";
 
 function BeerRate(props){
-  const BEER_RATE_URL = process.env.REACT_APP_BEER_DETAIL_URL
+  const BEER_RATE_URL = process.env.REACT_APP_SERVER + ':8080/v1/beer'
   const memberId = 1    // test용 멤버 아이디
   const starrate = props.starrate
   const beerid = props.beerid
@@ -38,8 +38,10 @@ function BeerRate(props){
   }
   // 맛 해시태그 배열
   const [flavorArr, setFlavorArr] = useState([])
+  const [flavorIdArr, setFlavorIdArr] = useState([])
   const addflavor = ((e)=>{
-    const nowtag = e.target.value
+    console.log(e)
+    const nowtag = e.target.innerText.substring(1)
     if (flavorArr.indexOf(nowtag) == -1) {
       setFlavorArr((flavorArr) => [...flavorArr, nowtag])
     }
@@ -131,26 +133,24 @@ function BeerRate(props){
             <option value="" disabled>
               맛 선택!
             </option>
-            <option onClick={addflavor} value="단맛">#단맛</option>
-            <option onClick={addflavor} value="쓴맛">#쓴맛</option>
-            <option onClick={addflavor} value="신맛">#신맛</option>
-            <option onClick={addflavor} value="감칠맛">#감칠맛</option>
-            <option onClick={addflavor} value="떫은맛">#떫은맛</option>
-            <option onClick={addflavor} value="드라이함">#드라이함</option>
-            <option onClick={addflavor} value="알싸한맛">#알싸한맛</option>
-            <option onClick={addflavor} value="고소한맛">#고소한맛</option>
-            <option onClick={addflavor} value="상큼한맛">#상큼한맛</option>
-            <option onClick={addflavor} value="시큼한맛">#시큼한맛</option>
-            <option onClick={addflavor} value="씁쓸한맛">#씁쓸한맛</option>
-            <option onClick={addflavor} value="새콤한맛">#새콤한맛</option>
-            <option onClick={addflavor} value="청량한맛">#청량한맛</option>
+            <option onClick={addflavor} value="1" >#단맛</option>
+            <option onClick={addflavor} value="2" >#쓴맛</option>
+            <option onClick={addflavor} value="3" >#신맛</option>
+            <option onClick={addflavor} value="4" >#감칠맛</option>
+            <option onClick={addflavor} value="5" >#떫은맛</option>
+            <option onClick={addflavor} value="6" >#드라이함</option>
+            <option onClick={addflavor} value="7" >#알싸한맛</option>
+            <option onClick={addflavor} value="8" >#고소한맛</option>
+            <option onClick={addflavor} value="9" >#상큼한맛</option>
+            <option onClick={addflavor} value="10">#시큼한맛</option>
+            <option onClick={addflavor} value="11">#씁쓸한맛</option>
+            <option onClick={addflavor} value="12">#새콤한맛</option>
+            <option onClick={addflavor} value="13">#청량한맛</option>
           </select>
           <div className="flavortag_div">
             { flavorArr && flavorArr.map((flavor, i)=>{
               return (
-                <div key={i}>
-                  <div className="flavor_wrap_inner" onClick={deleteFlavor}>#{flavor}</div>
-                </div>
+                <div key={i} className="flavor_wrap_inner" onClick={deleteFlavor}>#{flavor}</div>
               )
             }) }
           </div>
@@ -165,40 +165,41 @@ function BeerRate(props){
             <option value="" disabled>
               향 선택!
             </option>
-            <option onClick={addAroma} value="무향">#무향</option>
-            <option onClick={addAroma} value="꽃향">#꽃향</option>
-            <option onClick={addAroma} value="캐러멜향">#캐러멜향</option>
-            <option onClick={addAroma} value="허브향">#허브향</option>
-            <option onClick={addAroma} value="커피향">#커피향</option>
-            <option onClick={addAroma} value="소나무향">#소나무향</option>
-            <option onClick={addAroma} value="초콜릿향">#초콜릿향</option>
-            <option onClick={addAroma} value="건포도향">#건포도향</option>
-            <option onClick={addAroma} value="스모크향">#스모크향</option>
-            <option onClick={addAroma} value="바닐라향">#바닐라향</option>
-            <option onClick={addAroma} value="코코넛향">#코코넛향</option>
-            <option onClick={addAroma} value="홉향">#홉향</option>
-            <option onClick={addAroma} value="옥수수향">#옥수수향</option>
-            <option onClick={addAroma} value="보리향">#보리향</option>
-            <option onClick={addAroma} value="귀리향">#귀리향</option>
-            <option onClick={addAroma} value="풀향">#풀향</option>
-            <option onClick={addAroma} value="곡물향">#곡물향</option>
-            <option onClick={addAroma} value="민트향">#민트향</option>
-            <option onClick={addAroma} value="과일향">#과일향</option>
-            <option onClick={addAroma} value="바나나향">#바나나향</option>
-            <option onClick={addAroma} value="오렌지향">#오렌지향</option>
-            <option onClick={addAroma} value="자두향">#자두향</option>
-            <option onClick={addAroma} value="자몽향">#자몽향</option>
-            <option onClick={addAroma} value="망고향">#망고향</option>
-            <option onClick={addAroma} value="귤향">#귤향</option>
-            <option onClick={addAroma} value="레몬향">#레몬향</option>
-            <option onClick={addAroma} value="청포도향">#청포도향</option>
-            <option onClick={addAroma} value="살구향">#살구향 </option>
+            <option onClick={addAroma} value="1">#무향</option>
+            <option onClick={addAroma} value="2">#꽃향</option>
+            <option onClick={addAroma} value="3">#캐러멜향</option>
+            <option onClick={addAroma} value="4">#허브향</option>
+            <option onClick={addAroma} value="5">#커피향</option>
+            <option onClick={addAroma} value="6">#소나무향</option>
+            <option onClick={addAroma} value="7">#초콜릿향</option>
+            <option onClick={addAroma} value="8">#건포도향</option>
+            <option onClick={addAroma} value="9">#스모크향</option>
+            <option onClick={addAroma} value="10">#바닐라향</option>
+            <option onClick={addAroma} value="11">#코코넛향</option>
+            <option onClick={addAroma} value="12">#홉향</option>
+            <option onClick={addAroma} value="13">#옥수수향</option>
+            <option onClick={addAroma} value="14">#보리향</option>
+            <option onClick={addAroma} value="15">#귀리향</option>
+            <option onClick={addAroma} value="16">#풀향</option>
+            <option onClick={addAroma} value="17">#곡물향</option>
+            <option onClick={addAroma} value="18">#민트향</option>
+            <option onClick={addAroma} value="19">#과일향</option>
+            <option onClick={addAroma} value="20">#바나나향</option>
+            <option onClick={addAroma} value="21">#오렌지향</option>
+            <option onClick={addAroma} value="22">#자두향</option>
+            <option onClick={addAroma} value="23">#자몽향</option>
+            <option onClick={addAroma} value="24">#복숭아향</option>
+            <option onClick={addAroma} value="25">#망고향</option>
+            <option onClick={addAroma} value="26">#귤향</option>
+            <option onClick={addAroma} value="27">#레몬향</option>
+            <option onClick={addAroma} value="28">#청포도향</option>
+            <option onClick={addAroma} value="29">#살구향 </option>
           </select>
           <div className="aromatag_div">
             {/* {console.log(aromaArr)} */}
             {aromaArr && aromaArr.map((aroma, i)=>{
               return (
-                  <div key={i} className="aroma_wrap_inner" onClick={deleteAroma}>#{aroma}</div>
+                <div key={i} className="aroma_wrap_inner" onClick={deleteAroma}>#{aroma}</div>
               )
             })}
           </div>

@@ -9,7 +9,7 @@ import Navbar from './components/Navbar.js';
 import Footer from './components/Footer.js';
 import BeerDetail from './routes/Beer/BeerDetail';
 import Profile from "routes/User/Profile";
-import RecommendBeer from "components/Main/RecommendBeer";
+import Home from "routes/Home";
 import PageNotFound from "components/PageNotFound";
 import ProfileEdit from "routes/User/ProfileEdit";
 
@@ -20,7 +20,7 @@ function App() {
       <Router>
         <Navbar />
         <Switch>
-          <Route path="/home" component={RecommendBeer} />
+          <Route path="/home" component={Home} />
           <Route path="/post">
             <Switch>
               <Route path="/post/new" component={PostCreate} />

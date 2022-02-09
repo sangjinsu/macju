@@ -69,6 +69,22 @@ function BeerDetail() {
   // 별점
   const [starrate, setStarrate] = useState()
 
+  useEffect(() => {
+    const spendData = async () => {
+      try{
+        const rankingBeerUrl = `${RANKING_BEER_URL}/${beerid}/1` //추후 memberId 수정필요
+        const headers = {
+          'Accept': "application/json; charset=UTF-8"
+        }
+        await axios.get(rankingBeerUrl, headers)
+        console.log(111111)
+      }catch{
+        console.log("오류입니다")
+      }
+    }
+    spendData()
+  }, [])
+
   return (
     <div className="BeerDetail">
       {

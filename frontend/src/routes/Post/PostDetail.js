@@ -28,8 +28,15 @@ function PostDetail() {
   const DeletePost = async() => {
     try{
       const postDeleteUrl = `${POST_DETAIL_URL}/${postId}`
-      await axios.delete(postDeleteUrl)
+      const rankingpostDeleteUrl = `${RANKING_POST_LIKE_URL}/${postId}/`
+        const headers = {
+          'Accept': "application/json; charset=UTF-8"
+        }
+      await axios.delete(RANKING_POST_DLELETE_URL)
       dispatch({ type : "postDelete"})
+
+      await axios.get()
+
       history.push("/post")
     }catch{
       console.log("오류")
@@ -54,6 +61,7 @@ function PostDetail() {
     e.preventDefault()
     if (hashtag.trim() !== "") {
       setHashtagArr([hashtag, ...hashtagArr])
+      setHashtag("")
     }
   })
 
@@ -67,7 +75,7 @@ function PostDetail() {
   const changePost = (async (e)=>{
     try{
       e.preventDefault() //우선 그냥 막아놨음
-      const putPostApiUrl = `${POST_DETAIL_URL}${postId}`
+      const putPostApiUrl = `${POST_DETAIL_URL}/${postId}`
       const requestUpdatePostDto  = {
         "content": updateContent,
         "postId": postId,
@@ -128,7 +136,22 @@ function PostDetail() {
     }
 
     fetchData();
-  }, [POST_DETAIL_URL, dispatch, postId, store])
+  }, [])
+
+  useEffect(() => {
+    const spendData = async () => {
+      try{
+        const rankingPostUrl = `${RANKING_POST_URL}/${postId}/1` //추후 memberId 수정필요
+        const headers = {
+          'Accept': "application/json; charset=UTF-8"
+        }
+        axios.get(rankingPostUrl, headers)
+      }catch{
+        console.log("오류입니다")
+      }
+    }
+    spendData()
+  }, [])
 
   return (
     <div className="PostDetail">
@@ -241,7 +264,7 @@ function PostDetail() {
                       <button onClick={DeletePost}>삭제하기</button>
 
                       {/* <div className="updateBtn">수정하기</div> */}
-                      <div className="deleteBtn">수정하기</div>
+                      {/* <div className="deleteBtn">수정하기</div> */}
                     </Route>
                   </Switch>
 

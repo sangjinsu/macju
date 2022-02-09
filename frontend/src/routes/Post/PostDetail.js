@@ -10,6 +10,7 @@ import { useDispatch, useStore } from "react-redux";
 function PostDetail() {
   const POST_DETAIL_URL = process.env.REACT_APP_POST_DETAIL_URL
   const POST_DETAIL_LOG_URL = process.env.REACT_APP_POST_DETAIL_LOG_URL
+  const RANKING_POST_URL = process.env.REACT_APP_RANKING_POST_URL
   const [postData, setPost] = useState()
   const [isLike, setisLike] = useState(false)
   const [updateContent, setText] = useState();
@@ -127,7 +128,21 @@ function PostDetail() {
     }
 
     fetchData();
-  }, [POST_DETAIL_URL, dispatch, postId, store])
+  }, [])
+
+  useEffect(() => {
+    const spendData = async () => {
+      try{
+        const rankingPostUrl = `${RANKING_POST_URL}/${postId}/1` //추후 memberId 수정필요
+        const headers = {
+          'Accept': "application/json; charset=UTF-8"
+        }
+        axios.get(rankingPostUrl, headers)
+      }catch{
+        console.log("오류입니다")
+      }
+    } 
+  }, [])
 
   return (
     <div className="PostDetail">

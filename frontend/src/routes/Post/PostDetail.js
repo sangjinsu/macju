@@ -240,7 +240,7 @@ function PostDetail() {
                       <button onClick={DeletePost}>삭제하기</button>
 
                       {/* <div className="updateBtn">수정하기</div> */}
-                      <div className="deleteBtn">수정하기</div>
+                      {/* <div className="deleteBtn">수정하기</div> */}
                     </Route>
                   </Switch>
 

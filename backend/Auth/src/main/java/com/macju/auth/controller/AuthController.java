@@ -17,6 +17,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/oauth")
+@CrossOrigin("*")
 public class AuthController {
 
     private static final String SUCCESS = "success";

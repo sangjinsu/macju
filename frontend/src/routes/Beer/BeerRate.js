@@ -4,7 +4,6 @@ import Modal from 'react-modal';
 import '../../styles/BeerRate.css'
 import axios from "axios";
 
-
 function BeerRate(props){
   const BEER_RATE_URL = process.env.REACT_APP_BEER_DETAIL_URL
   const memberId = 1    // test용 멤버 아이디

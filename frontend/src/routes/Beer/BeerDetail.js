@@ -9,6 +9,7 @@ import PostListComponent from "../../components/Post/PostList"
 import BeerRate from "./BeerRate.js"
 // import "../../styles/PostList.css"
 
+
 function BeerDetail() {
   const BEER_DETAIL_URL = process.env.REACT_APP_SERVER + ':8080/v1/beer'
   const BEER_DETAIL_POST_URL = process.env.REACT_APP_SERVER + ':8080/v1/post/member'

@@ -8,7 +8,6 @@ function StarRate(props) {
     // console.log(e.target.value)
     return props.setStarrate(Number(e.target.value))
   }
-  
 
   return (
   <div className="star_container">

@@ -26,7 +26,8 @@ public class AuthService {
         LoginResult loginResult = new LoginResult();
 
         String redirect_uri= "http://localhost:8752/oauth/login/response";
-        redirect_uri = "http://i6c107.p.ssafy.io:8752/oauth/login/response";
+//        redirect_uri = "http://i6c107.p.ssafy.io:8752/oauth/login/response";
+        redirect_uri = "http://i6c107.p.ssafy.io:3000/login";
         String client_id = "5832f41d4634b598305eaa378a104b94";
         String client_secret = "5nGoaHLznYd2N3tIE2UvKX0x0TDm8T6B";
 

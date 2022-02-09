@@ -6,7 +6,8 @@ import { useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useStore } from "react-redux";
-
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import "../../styles/UserPost.css"
 
 const UserPost = (s) => {
   const USER_POST_URL = process.env.REACT_APP_SERVER + ':8080/v1/post/member'
@@ -15,73 +16,105 @@ const UserPost = (s) => {
   const store = useStore((state) => state)
   const memberId = 1
   const [userPosts, setUserPosts] = useState([])
-  
+  const [userPostImages, setUserPostImages] = useState([])
+
+
+
+
+  const storage = getStorage();
   useEffect(() => {
     const fetchData = async() =>{
       const memberPosts = await axios.get(`${USER_POST_URL}/${memberId}`)
       setUserPosts(memberPosts.data)
     }
-    if (store.getState().profileReducer.length === 0){
+    if (store.getState().userPostReducer.length === 0){
       fetchData();
     } else {
-      console.log(store.getState().profileReducer.data)
+      setUserPosts(store.getState().userPostReducer.data)
     }
 
   ////// 포스트 이미지 가져오기
-  // const storage = getStorage()
-  //   for(var i=0, j=datalist.length; i<j; i++) {
-  //     // console.log(datalist[i])
-  //     const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/imgs/${userpostdata[i].postId}/${userpostdata[i].photo.data}`)
-  //     getDownloadURL(storageRef)
-  //     .then((url)=>{
-  //       setPostimgs((prev)=>[...prev,url])
-  //     })
-  //   }
+  
   },[USER_POST_URL])
   
+  
+
+
+  useEffect(()=> {
+    const fetchData = async() =>{
+      const imageList = []
+      for (let i = 0; i < userPosts.length; i++) {
+        const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/imgs/${userPosts[i].postId}/${userPosts[i].photo.data}`)
+        await getDownloadURL(storageRef)
+        .then((res)=>{
+          if (!userPostImages.some((url)=>url===res)){
+            imageList.push({id:userPosts[i].postId, res})
+          }
+        })
+        
+    }
+    setUserPostImages(imageList)
+  }
+
+    fetchData();
+  //eslint-disable-next-line
+  }, [userPosts])
+
+
+
+
   return (
-    <>
+    <section className="postlist_section layout_padding_postlist">
+
+    <div className="container">
+     <div className="row grid postlist_component">
       <FadeIn>
-        <div className="row grid">
+      { userPosts.length === 0 ? <div> 포스트가 없어요!! </div> : userPosts.map((post) =>
+        <div className="col-md-6 col-lg-4 fadein" key={post.postId}>
+          <div className="box">
+            <div className="postlist_box">
+                            
+              {/* 포스트 이미지 */}
+              {userPostImages&&userPostImages.map((data, i)=> data.id === post.postId ? 
+              
+              <div key={i} className="img-box">
+                {/* 기본이미지 하나 구해야겠네요 */}
+                <img src={data.res} alt=""></img>
+                {/* <img src={post.photo.data}></img> */}
+                
+              </div> : null
+              )
+              }
           
-          {/* 포스트 카드 각각 */}
-          { userPosts&&userPosts.map((post, index) =>
-            <div className="col-md-6 col-lg-4 fadein" key={post.postId}>
-              <div className="box">
-                <div className="postlist_box">
-
-                  {/* 포스트 이미지 */}
-                  {/* 여기도 기본 이미지가 필요하네용 */}
-                  <div className="img-box">
-                    {/* <img src={post.photo.data}></img> */}
-                    <img src='\img\f2.png' alt=""></img>
-                  </div>
-                  
-                  {/* 포스트 카드 내용 */}
-                  <div className="postdetail-box">
-                    {/* 포스트 내용 + 자세히 버튼 */}
-                    <div className="postdetail-title">
-                      <h5>{post.content&&post.content.length > 15 ? post.content.substr(0, 15) + "....": post.content}</h5>
-                      <Link to={`/post/${post.postId}`} className='detailBtn'>자세히</Link>
-                    </div>
-
-                    {/* 포스트 좋아요 */}
-                    <p className="fontaws"><i className="fas fa-heart" style={{color:"red"}}></i>{post.likes}</p>
-                    
-                    {/* 포스트 작성 정보 */}
-                    <p className="post-meta">작성한 사람 :{post.member.nickName} <br/> 
-                      {/* 작성 시간 : {post.created_at} */}
-                    </p>
-                  </div>
+              
+              
+              {/* 포스트 카드 내용 */}
+              <div className="postdetail-box">
+                {/* 포스트 내용 + 자세히 버튼 */}
+                <div className="postdetail-title">
+                  {/* <h5>{post.content}</h5> */}
+                  <h5>{post.content && post.content.length > 15 ? post.content.substr(0, 15) + "....": post.content}</h5>
+                  <Link to={`/post/${post.postId}`} className='detailBtn'>자세히</Link>
                 </div>
-              </div>
-            </div> 
-          )}
 
-        </div>
+                {/* 포스트 좋아요 */}
+                <p className="fontaws"><i className="fas fa-heart" style={{color:"red"}}></i>{post.likes}</p>
+                
+                {/* 포스트 작성 정보 */}
+                <p className="post-meta">
+                  작성자 :{post.member.nickName} <br/> 
+                  작성시간 : {post.updatedAt[0]}/{post.updatedAt[1]}/{post.updatedAt[2]}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div> 
+      )}
       </FadeIn>
-      <div className="post-btn"><Button>see more</Button></div>
-    </>
+      
+      </div>
+    </div>
+    </section>
   )
 }
 export default UserPost;

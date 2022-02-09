@@ -8,6 +8,8 @@ import '../../styles/BeerDetail.css'
 import PostListComponent from "../../components/Post/PostList"
 import BeerRate from "./BeerRate.js"
 import BeerRateUpdate from "./BeerRateUpdate.js"
+import { useDispatch } from "react-redux";
+
 // import "../../styles/PostList.css"
 
 
@@ -19,7 +21,11 @@ function BeerDetail() {
   const RANKING_BEER_URL = process.env.REACT_APP_SERVER + ':8081/beer/view'
   const RANKING_BEER_LIKE_URL = process.env.REACT_APP_SERVER + ':8081/beer/like'
 
+
   const memberId = 1    //test용 멤버아이디
+
+  
+
 
   // 맥주 data
   const [beer, setbeer] = useState()
@@ -28,9 +34,11 @@ function BeerDetail() {
   // 평가한 맥주들
   const [ratebeers, setRatebeers] = useState([])
   const [isRated, setIsRated] = useState(false)
+
   // const [beerImg, setbeerImg] = useState()
   const { beerid } = useParams();
-
+  
+  const dispatch = useDispatch();
   useEffect(()=>{
     const fetchData = async ()=>{
       const { data : beerdetail } = await axios.get(`${BEER_DETAIL_URL}/${beerid}`)
@@ -38,8 +46,11 @@ function BeerDetail() {
       // const nowbeerDetail = beerdetail.data
 
       // 맥주별 포스트 목록
+      console.log(beerid)
       const beer_postdetail = await axios.get(`${BEER_DETAIL_POST_URL}/${beerid}`)
-      setbeerpost(beer_postdetail.data)
+      dispatch({type:'beerDetailPost', beerdetaildata:beer_postdetail})
+
+
 
       // 평가한 맥주 목록
       const { data : rated_beer } = await axios.get(`${RATED_BEER_URL}/${memberId}/rates`)
@@ -106,7 +117,6 @@ function BeerDetail() {
           'Accept': "application/json; charset=UTF-8"
         }
         await axios.get(rankingBeerUrl, headers)
-        console.log(111111)
       }catch{
         console.log("오류입니다")
       }
@@ -236,9 +246,9 @@ function BeerDetail() {
                 >포스팅하기</Link>
               </div>
             </div>
-            {beerpost && 
-              <PostListComponent postdata={beerpost}/>
-            }
+
+              <PostListComponent />
+
           </div>
 
         </section>

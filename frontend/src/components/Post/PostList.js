@@ -2,19 +2,23 @@ import { getDownloadURL, getStorage , ref } from "firebase/storage";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useStore } from "react-redux";
-import {Link} from "react-router-dom"
+import {Link, useParams} from "react-router-dom"
 import "../../styles/PostList.css"
 import axios from "axios";
 
 
 function PostListComponent(){
   const POST_LIST_URL = process.env.REACT_APP_SERVER + ':8080/v1/post/new'
+  const BEER_DETAIL_POST_URL = process.env.REACT_APP_SERVER + ':8080/v1/post/member'
   const [newPost, setNewPost] = useState([])
   const [newPostImage, setNewPostImage] = useState([])
-  const store = useStore((state)=>state)
   const storage = getStorage()
-
+  const {beerid} = useParams();
+  
   useEffect(()=> {
+    if (newPost.length === 0){
+      return
+    }
     const fetchData = async() =>{
       const imageList = []
       for (let i = 0; i < newPost.length; i++) {
@@ -32,18 +36,23 @@ function PostListComponent(){
     fetchData();
   //eslint-disable-next-line
   }, [newPost])
+  const fetchPostListData = async() =>{
+    const data = await axios.get(POST_LIST_URL)
+    setNewPost(data.data)
+  }
 
+  const fetchBeerDetailData = async() =>{
+    const data =await axios.get(`${BEER_DETAIL_POST_URL}/${beerid}`)
+    setNewPost(data.data)
+  }
   useEffect(()=>{
-    const fetchData = async() =>{
-      if (store.getState().postListReducer.length === 0){
-        const data = await axios.get(POST_LIST_URL)
-        setNewPost(data.data)
-      } else {
-        setNewPost(store.getState().postListReducer)
-      }
+    if (beerid) {
+      fetchBeerDetailData();
+    } else {
+      fetchPostListData();
     }
-    fetchData();
-  }, [store, POST_LIST_URL])
+
+  }, [POST_LIST_URL])
 
 
 
@@ -52,7 +61,7 @@ function PostListComponent(){
     <div className="row grid postlist_component">
 
     {/* 포스트 카드 각각 */}
-      { newPost.length === 0 ? <div> 포스트가 없어요!! </div> : newPost.map((post) =>
+      { newPost === undefined ? <div> 포스트가 없어요!! </div> : newPost.map((post) =>
         <div className="col-md-6 col-lg-4 fadein" key={post.postId}>
           <div className="box">
             <div className="postlist_box">

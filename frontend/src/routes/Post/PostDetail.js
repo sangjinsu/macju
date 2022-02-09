@@ -11,6 +11,9 @@ function PostDetail() {
   const POST_DETAIL_URL = process.env.REACT_APP_POST_DETAIL_URL
   const POST_DETAIL_LOG_URL = process.env.REACT_APP_POST_DETAIL_LOG_URL
   const RANKING_POST_URL = process.env.REACT_APP_RANKING_POST_URL
+  const RANKING_POST_LIKE_URL = process.env.REACT_APP_RANKING_POST_LIKE_URL
+  const RANKING_POST_DLELETE_URL = process.env.REACT_APP_RANKING_POST_DLELETE_URL
+
   const [postData, setPost] = useState()
   const [isLike, setisLike] = useState(false)
   const [updateContent, setText] = useState();
@@ -29,8 +32,15 @@ function PostDetail() {
   const DeletePost = async() => {
     try{
       const postDeleteUrl = `${POST_DETAIL_URL}/${postId}`
-      await axios.delete(postDeleteUrl)
+      const rankingpostDeleteUrl = `${RANKING_POST_LIKE_URL}/${postId}/`
+        const headers = {
+          'Accept': "application/json; charset=UTF-8"
+        }
+      await axios.delete(RANKING_POST_DLELETE_URL)
       dispatch({ type : "postDelete"})
+
+      await axios.get()
+
       history.push("/post")
     }catch{
       console.log("오류")
@@ -141,7 +151,8 @@ function PostDetail() {
       }catch{
         console.log("오류입니다")
       }
-    } 
+    }
+    spendData()
   }, [])
 
   return (

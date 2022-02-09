@@ -3,9 +3,12 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./RecommendBeer.css"
+import axios from "axios";
 
 
 const RecommendBeer = () => {
+  
+
   const settings = {
     dots: true,
     infinite: true,
@@ -19,6 +22,10 @@ const RecommendBeer = () => {
     slidesToShow: 1,
     slidesToScroll: 1
   };
+
+  useEffect( () => {
+    PopBeer()
+  }, [])
 
   useEffect( () => {
     CreateBubble()
@@ -39,6 +46,7 @@ const RecommendBeer = () => {
   )
 }
 
+
 function CustomSlide(props) {
   const imgSrc = "img/abc.png"
   return(
@@ -46,6 +54,15 @@ function CustomSlide(props) {
       <img className="slideImg" src={imgSrc} alt=""/>
     </div>
   )
+}
+
+const PopBeer = async () => {
+  const RANKING_POPBEER = process.env.REACT_APP_SERVER + '8081/beer/popbeer'
+  const headers = {
+    'Accept': "application/json; charset=UTF-8"
+  }
+  const rankingBeer = await axios.get(RANKING_POPBEER, headers)
+  console.log(rankingBeer.data)
 }
 
 function CreateBubble(){

@@ -1,19 +1,34 @@
 import { Table } from "react-bootstrap";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { useStore } from "react-redux";
 
 const UserReview = () =>{
   const USER_REVIEW_URL = process.env.REACT_APP_SERVER + ':8080/v1/member'
-
   const memberId = 1
   const [userReviews, setUserReviews] = useState([])
+  const store = useStore((state)=>state)
 
-  // useEffect(async () =>{
-	// 	const memberReviews = await axios.get(`${USER_REVIEW_URL}/${memberId}/rate`)
-	// 	// console.log(memberReviews.data)
-	// 	setUserReviews(memberReviews.data)
-	// },[])
+  const fetchData = async() =>{
+    const data = await axios.get(`${USER_REVIEW_URL}/${memberId}/rates`)
+    
+    setUserReviews(data.data.data)
+  }
 
-  
+
+
+
+
+  useEffect(() =>{
+    if (store.getState().userReviewReducer.length === 0){
+      fetchData();
+    } else {
+      
+      setUserReviews(store.getState().userReviewReducer.data.data)
+    }    
+	},[])
+
+
   return (
     <div className="container">
     <Table striped bordered hover>
@@ -26,25 +41,19 @@ const UserReview = () =>{
           <th>평점</th>
         </tr>
       </thead>
+
+
+      
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>코젤다크</td>
-          <td>4.0</td>
-          <td>4.5</td>
+        {userReviews&&userReviews.map((res, idx)=>
+        <tr key={idx}>
+          <td>{idx + 1}</td>
+          <td>{res.beer.name}</td>
+          <td>{res.beer.averageRate}</td>
+          <td>{res.rate}</td>
         </tr>
-        <tr>
-          <td>2</td>
-          <td>곰표맥주</td>
-          <td>2.8</td>
-          <td>4.5</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>동일맥주</td>
-          <td>3.7</td>
-          <td>4.5</td>
-        </tr>
+      )}
+
       </tbody>
     </Table>    
     </div>

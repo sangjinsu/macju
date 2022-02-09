@@ -7,7 +7,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { useStore } from "react-redux";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
-import '../../styles/UserPost.css'
+import "../../styles/UserPost.css"
 
 const UserPost = (s) => {
   const USER_POST_URL = process.env.REACT_APP_SERVER + ':8080/v1/post/member'
@@ -64,6 +64,8 @@ const UserPost = (s) => {
 
 
   return (
+    <section className="postlist_section layout_padding_postlist">
+
     <div className="container">
      <div className="row grid postlist_component">
       <FadeIn>
@@ -112,6 +114,7 @@ const UserPost = (s) => {
       
       </div>
     </div>
+    </section>
   )
 }
 export default UserPost;

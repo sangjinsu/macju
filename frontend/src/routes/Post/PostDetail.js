@@ -270,7 +270,8 @@ function PostDetail() {
 
                       {/* 작성날짜 */}
                       <div className="userdetail">
-                        <div>작성자 : { postData.member.nickName } </div>
+                      <Link to={`/profile/${postData.member.memberId}/post`}><div>작성자 : { postData.member.nickName } </div></Link>
+                        
                         {/* <div>작성날짜 : { postData.created_at }</div> */}
                       </div>
 

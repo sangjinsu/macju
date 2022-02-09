@@ -34,7 +34,6 @@ function BeerDetail() {
       // const nowbeerDetail = beerdetail.data
 
       // 맥주별 포스트 목록
-      console.log(beerid)
       const beer_postdetail = await axios.get(`${BEER_DETAIL_POST_URL}/${beerid}`)
       dispatch({type:'beerDetailPost', beerdetaildata:beer_postdetail})
 

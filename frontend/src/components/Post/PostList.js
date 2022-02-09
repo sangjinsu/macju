@@ -94,7 +94,7 @@ function PostListComponent(){
                 
                 {/* 포스트 작성 정보 */}
                 <p className="post-meta">
-                  작성자 :{post.member.nickName} <br/> 
+                  작성자 :<Link to={`/profile/${post.member.memberId}/post`}>{post.member.nickName}</Link> <br/> 
                   작성시간 : {post.updatedAt[0]}/{post.updatedAt[1]}/{post.updatedAt[2]}
                 </p>
               </div>

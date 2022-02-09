@@ -15,7 +15,7 @@ const Profile = () => {
   const USER_REVIEW_URL = process.env.REACT_APP_SERVER + ':8080/v1/member'
 
   const dispatch = useDispatch();
-  const memberId = 1
+  const memberId = 2
 
 
 

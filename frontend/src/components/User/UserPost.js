@@ -68,7 +68,7 @@ const UserPost = (s) => {
 
     <div className="container">
      <div className="row grid postlist_component">
-      <FadeIn>
+  
       { userPosts.length === 0 ? <div> 포스트가 없어요!! </div> : userPosts.map((post) =>
         <div className="col-md-6 col-lg-4 fadein" key={post.postId}>
           <div className="box">
@@ -110,8 +110,7 @@ const UserPost = (s) => {
           </div>
         </div> 
       )}
-      </FadeIn>
-      
+ 
       </div>
     </div>
     </section>

@@ -7,6 +7,7 @@ import '../../styles/PostCreate.css'
 
 function PostCreate(s) {
   const CREATE_URL = process.env.REACT_APP_POST_CREATE_URL
+  // console.log(CREATE_URL)
   const memberid = 1  //test용 멤버아이디
   const beerid = s.location.state.beerid    // 작성하고있는 포스트의 맥주아이디
   // DB upload
@@ -126,9 +127,8 @@ function PostCreate(s) {
       'Accept': "application/json; charset=UTF-8"
     }
     // console.log(newpost)
-    
+    console.log(CREATE_URL)
     axios 
-    // http://13.125.157.39:8080/v1/beer/
       .post(CREATE_URL, newpost, {headers})
       // .post("http://13.125.157.39:8080/v1/post", newpost, {headers})
       .then((res) => {

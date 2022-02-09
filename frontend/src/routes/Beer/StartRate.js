@@ -1,5 +1,3 @@
-import { useState } from 'react';
-import { useEffect } from 'react';
 import '../../styles/StarRate.css'
 
 function StarRate(props) {
@@ -8,7 +6,7 @@ function StarRate(props) {
   
   const onRateClick = (e) => {
     // console.log(e.target.value)
-    return props.setStarrate(e.target.value)
+    return props.setStarrate(Number(e.target.value))
   }
   
 
@@ -17,19 +15,19 @@ function StarRate(props) {
     <div className="feedback">
       <div className="rating">
         <input type="radio" name="rating" id="rating-5" value={5} onClick={onRateClick} />
-        <label for="rating-5"></label>
+        <label htmlFor="rating-5"></label>
 
         <input type="radio" name="rating" id="rating-4" value={4} onClick={onRateClick} />
-        <label for="rating-4"></label>
+        <label htmlFor="rating-4"></label>
 
         <input type="radio" name="rating" id="rating-3" value={3} onClick={onRateClick} />
-        <label for="rating-3"></label>
+        <label htmlFor="rating-3"></label>
 
         <input type="radio" name="rating" id="rating-2" value={2} onClick={onRateClick} />
-        <label for="rating-2"></label>
+        <label htmlFor="rating-2"></label>
 
         <input type="radio" name="rating" id="rating-1" value={1} onClick={onRateClick} />
-        <label for="rating-1"></label>
+        <label htmlFor="rating-1"></label>
 
         <div className="emoji-wrapper">
           <div className="emoji">

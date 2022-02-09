@@ -7,7 +7,6 @@ import '../../styles/PostCreate.css'
 
 function PostCreate(s) {
   const POST_CREATE_URL = process.env.REACT_APP_SERVER + ':8080/v1/post' 
-
   const memberid = 1  //test용 멤버아이디
   const beerid = s.location.state.beerid    // 작성하고있는 포스트의 맥주아이디
   // DB upload

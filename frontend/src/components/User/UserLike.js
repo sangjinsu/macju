@@ -2,19 +2,23 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import '../../styles/UserLike.css'
-
+import {useStore} from "react-redux"
 const UserLike = () => {
-  const USER_LIKE_URL = process.env.REACT_APP_USER_LIKE_URL
+  const USER_LIKE_URL = process.env.REACT_APP_SERVER + ':8080/v1/member'
   const memberId = 1
   const [likebeers, setLikeBeers] = useState([])
+  const store = useStore((state) => state);
   useEffect(() =>{
     const fetchData = async () =>{
     const memberbeers = await axios.get(`${USER_LIKE_URL}/${memberId}/like/beer`)
     setLikeBeers(memberbeers.data.data)
     }
-    fetchData();
+    if (store.getState().profileReducer.length === 0){
+      fetchData();
+    } else {
+      setLikeBeers(store.getState().profileReducer[2].data)
+    }
     
-    // console.log(memberbeers.data.data)
   },[USER_LIKE_URL])
   return (
     <div className="memberbeerlike_container">
@@ -23,8 +27,8 @@ const UserLike = () => {
         <div className="row grid">
           {likebeers && likebeers.map((beer)=>{
             return(
-              <div className="col-4 col-lg-2 likebeer">
-                {console.log(beer.beerName)}
+              <div className="col-4 col-lg-2 likebeer" key={beer.beerId}>
+
                 <div>
                   {/* 여기도 기본이미지가 필요하네용 */}
                   <img className="likebeer_img" src={beer.photoPath} alt=""></img>

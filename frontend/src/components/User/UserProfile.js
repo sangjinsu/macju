@@ -5,12 +5,12 @@ import Followings from "components/Modals/Followings.js"
 import axios from "axios";
 import {IoIosBeer} from  "react-icons/io";
 import { Link } from "react-router-dom";
+import { useStore } from "react-redux";
 
 const UserProfile = () => {
-  const USER_PROFILE_URL = process.env.REACT_APP_USER_PROFILE_URL
-	
+  const USER_PROFILE_URL = process.env.REACT_APP_SERVER + ':8080/v1/member/profile'
 	const memberId = 1
-
+	const store = useStore((state)=>state)
 	// user 데이터 불러오기
  	const [user, setUser] = useState('')	// 유저 데이터
 	const [usercolor, setUsercolor] = useState("")		// 사진 색깔
@@ -18,13 +18,16 @@ const UserProfile = () => {
 	useEffect(() =>{
 		const fetchData = async () => {
 			const profiledata = await axios.get(`${USER_PROFILE_URL}/${memberId}`)
-		// console.log(profiledata.data)
-		setUser(profiledata.data)
-		setUsercolor(profiledata.data.profileColor)	
+			setUser(profiledata.data)
+			setUsercolor(profiledata.data.profileColor)	
 		}
-		
-		fetchData();
-	},[USER_PROFILE_URL])
+		if (store.getState().profileReducer.length === 0){
+			fetchData();
+		} else {
+			setUser(store.getState().profileReducer[0].user.data)
+			setUsercolor(store.getState().profileReducer[0].user.data.profileColor)
+		}
+	},[USER_PROFILE_URL, user])
 
 
   const [followersModalOpen, setFollowersModalOpen] = useState(false);
@@ -79,7 +82,7 @@ const UserProfile = () => {
 							<Followings open={followingsModalOpen} close={followingsCloseModal} header="Modal heading">
 								followings
 							</Followings>
-							<p className="user_intro">한줄 소개 #~~</p>
+							<p className="user_intro">한줄 소개 : {user.intro}</p>
 							
 						</div>
 					</div>

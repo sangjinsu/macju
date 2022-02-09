@@ -2,7 +2,7 @@ import { Table } from "react-bootstrap";
 import { useState } from "react";
 
 const UserReview = () =>{
-  const USER_REVIEW_URL = process.env.REACT_APP_USER_REVIEW_URL
+  const USER_REVIEW_URL = process.env.REACT_APP_SERVER + ':8080/v1/member'
 
   const memberId = 1
   const [userReviews, setUserReviews] = useState([])

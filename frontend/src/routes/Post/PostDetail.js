@@ -8,12 +8,8 @@ import { useDispatch, useStore } from "react-redux";
 // import { useHistory } from 'react-router-dom';
 
 function PostDetail() {
-  const POST_DETAIL_URL = process.env.REACT_APP_POST_DETAIL_URL
-  const POST_DETAIL_LOG_URL = process.env.REACT_APP_POST_DETAIL_LOG_URL
-  const RANKING_POST_URL = process.env.REACT_APP_RANKING_POST_URL
-  const RANKING_POST_LIKE_URL = process.env.REACT_APP_RANKING_POST_LIKE_URL
-  const RANKING_POST_DLELETE_URL = process.env.REACT_APP_RANKING_POST_DLELETE_URL
-
+  const POST_DETAIL_URL = process.env.REACT_APP_SERVER + ':8080/v1/post'
+  const POST_DETAIL_LOG_URL = process.env.REACT_APP_SERVER + ':8080/v1/log'
   const [postData, setPost] = useState()
   const [isLike, setisLike] = useState(false)
   const [updateContent, setText] = useState();
@@ -63,6 +59,7 @@ function PostDetail() {
     e.preventDefault()
     if (hashtag.trim() !== "") {
       setHashtagArr([hashtag, ...hashtagArr])
+      setHashtag("")
     }
   })
 
@@ -76,7 +73,7 @@ function PostDetail() {
   const changePost = (async (e)=>{
     try{
       e.preventDefault() //우선 그냥 막아놨음
-      const putPostApiUrl = `${POST_DETAIL_URL}${postId}`
+      const putPostApiUrl = `${POST_DETAIL_URL}/${postId}`
       const requestUpdatePostDto  = {
         "content": updateContent,
         "postId": postId,
@@ -115,6 +112,7 @@ function PostDetail() {
     const fetchData = async () =>{
       try{
         const responseDetail = await axios.get(`${POST_DETAIL_URL}/${postId}`)
+        console.log(responseDetail)
         // const responseDetail = await axios.get(`http://13.125.157.39:8080/v1/post/${postId}`)
         const postDetail = responseDetail.data
   
@@ -277,7 +275,7 @@ function PostDetail() {
                       <button onClick={DeletePost}>삭제하기</button>
 
                       {/* <div className="updateBtn">수정하기</div> */}
-                      <div className="deleteBtn">수정하기</div>
+                      {/* <div className="deleteBtn">수정하기</div> */}
                     </Route>
                   </Switch>
 

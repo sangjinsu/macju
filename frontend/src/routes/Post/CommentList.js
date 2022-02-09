@@ -54,7 +54,7 @@ function CommentList(props) {
       setcomments(store.getState().commentReducer)
     }
     catch{
-      console.log("요류")
+      console.log("오류")
     }
   }
 
@@ -73,17 +73,20 @@ function CommentList(props) {
   }
   
 
-  useEffect(async ()=>{
-    try{
-      const responseData = await axios.get(apiUrl)
-      dispatch({type:"dataLoading", responseData : responseData.data})
-      setcomments(store.getState().commentReducer)
+  useEffect(()=>{
+    const fetchData = async () =>{
+      try{
+        const responseData = await axios.get(apiUrl)
+        dispatch({type:"dataLoading", responseData : responseData.data})
+        setcomments(store.getState().commentReducer)
+      }
+      catch{
+        alert("데이터 불러오기 실패")
+      }
     }
-    catch{
-      alert("데이터 불러오기 실패")
-    }
-    }, []
-  )
+    fetchData();
+    
+    }, [])
 
   return(
     

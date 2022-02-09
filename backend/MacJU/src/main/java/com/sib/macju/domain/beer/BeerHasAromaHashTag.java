@@ -3,12 +3,13 @@ package com.sib.macju.domain.beer;
 
 import com.sib.macju.domain.hashtag.AromaHashTag;
 import lombok.Data;
+import lombok.Getter;
 
 import javax.persistence.*;
 
 
 @Entity
-@Data
+@Getter
 @Table(name = "beer_has_aroma_hash_tag")
 public class BeerHasAromaHashTag {
 
@@ -24,5 +25,4 @@ public class BeerHasAromaHashTag {
     @ManyToOne
     @JoinColumn(name = "beer_id")
     private Beer beer;
-
 }

@@ -1,10 +1,10 @@
 import "../../styles/UserProfile.css"
 import { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
 import Followers from "components/Modals/Followers.js"
 import Followings from "components/Modals/Followings.js"
 import axios from "axios";
 import {IoIosBeer} from  "react-icons/io";
+import { Link } from "react-router-dom";
 
 const UserProfile = () => {
   const USER_PROFILE_URL = process.env.REACT_APP_USER_PROFILE_URL
@@ -15,12 +15,16 @@ const UserProfile = () => {
  	const [user, setUser] = useState('')	// 유저 데이터
 	const [usercolor, setUsercolor] = useState("")		// 사진 색깔
 	 
-	useEffect(async () =>{
-		const profiledata = await axios.get(`${USER_PROFILE_URL}/${memberId}`)
+	useEffect(() =>{
+		const fetchData = async () => {
+			const profiledata = await axios.get(`${USER_PROFILE_URL}/${memberId}`)
 		// console.log(profiledata.data)
 		setUser(profiledata.data)
-		setUsercolor(profiledata.data.profileColor)		
-	},[])
+		setUsercolor(profiledata.data.profileColor)	
+		}
+		
+		fetchData();
+	},[USER_PROFILE_URL])
 
 
   const [followersModalOpen, setFollowersModalOpen] = useState(false);
@@ -53,7 +57,9 @@ const UserProfile = () => {
 					<div id="profile-box">
 						<div id="nickname">
 							<h1>{user.nickName}</h1>
-							<button href="/profile/edit" className="editBtn">수정</button>
+							<Link to={`/profile/${user.memberId}/edit`}>
+							<button className="editBtn">수정</button>
+							</Link>
 						</div>
 						<div>
 							<div className="postnum">게시글 : {14} </div>

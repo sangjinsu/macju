@@ -101,13 +101,14 @@ function PostCreate(s) {
   /////// post 보내기
   const postcreateSubmit = ((e) => {
     e.preventDefault()
-    if (uploadImages.length === 0 || content==='' || hashtagArr === 0 ) {
+    if (uploadImages.length === 0 || content==='' || hashtagArr.length === 0 ) {
       alert('사진/내용을 추가해 주세요')
     } else {
       const imgNames = [];
       for (let i = 0; i < uploadImages.length; i++){
         imgNames.push(uploadImages[i].firebase)
       }
+      
       
     const newpost = {
       
@@ -119,6 +120,7 @@ function PostCreate(s) {
       userHashTags : hashtagArr,
       // memberId : memberId,
     }
+    console.log(imgNames)
     const headers = {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': "application/json; charset=UTF-8"

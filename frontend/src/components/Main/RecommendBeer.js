@@ -43,7 +43,7 @@ function CustomSlide(props) {
   const imgSrc = "img/abc.png"
   return(
     <div {...props}>
-      <img className="slideImg" src={imgSrc}/>
+      <img className="slideImg" src={imgSrc} alt=""/>
     </div>
   )
 }

@@ -27,7 +27,7 @@ function PostDetail() {
 
   const DeletePost = async() => {
     try{
-      const postDeleteUrl = `http://i6c107.p.ssafy.io:8080/v1/post/${postId}`
+      const postDeleteUrl = `${POST_DETAIL_URL}/${postId}`
       await axios.delete(postDeleteUrl)
       dispatch({ type : "postDelete"})
       history.push("/post")
@@ -61,14 +61,13 @@ function PostDetail() {
     e.preventDefault()
     const hashContent = e.target.textContent
     const existHashList = hashtagArr.filter((hash)=> hash !== hashContent)
-    
     setHashtagArr(existHashList)
   })
 
   const changePost = (async (e)=>{
     try{
       e.preventDefault() //우선 그냥 막아놨음
-      const putPostApiUrl = `http://i6c107.p.ssafy.io:8080/v1/post/${postId}`
+      const putPostApiUrl = `${POST_DETAIL_URL}${postId}`
       const requestUpdatePostDto  = {
         "content": updateContent,
         "postId": postId,
@@ -81,7 +80,6 @@ function PostDetail() {
         }
       }
       const putData = await axios.put(putPostApiUrl, requestUpdatePostDto, headers)
-      
       dispatch({type:"updatePost", updateContent:updateContent, updateHashTag:hashtagArr})
       setPost(store.getState().postDetailReducer)
       history.push(`post/${postId}`)
@@ -180,8 +178,8 @@ function PostDetail() {
                       <div className="beerName" href="">{postData.beer.name}</div>
                     </Link>
                     
-
                   </div>
+
                   <Switch>
                     <Route path="/post/:postId/update">
                       <input
@@ -216,12 +214,6 @@ function PostDetail() {
                       </div>
                       <button onClick={changePost}>완료</button>
 
-
-                      
-
-                      {/* 포스트 내용 */}
-                      {/* <p> 수정 </p>
-                      <p>{ postData.content }</p> */}
                     </Route>
                     <Route path="/post/:postId">
                       {/* 해시태그 */}
@@ -243,14 +235,13 @@ function PostDetail() {
                         {/* <div>작성날짜 : { postData.created_at }</div> */}
                       </div>
 
-
                       {/* 본인 일때만 수정, 삭제 가능하게 해야함 */}
                       <Link to={`/post/${postId}/update`}>수정하기</Link>
                       <button onClick={DeletePost}>삭제하기</button>
+
                       {/* <div className="updateBtn">수정하기</div> */}
                       <div className="deleteBtn">수정하기</div>
                     </Route>
-
                   </Switch>
 
                   

@@ -3,12 +3,11 @@
 #### 맥주 큐레이팅 SNS
 
 
-
 #### 전체 일정
 
 ![전체일정](README.assets/전체일정.png)
 
-
+ 
 
 ### BACKEND
 
@@ -47,6 +46,7 @@
 
 - 메인페이지
   - /home
+
 - 포스트페이지
 
   - 생성 : /post/new
@@ -56,16 +56,19 @@
   - 포스트수정 : /post/:postId/update
 
   - 포스트리스트 : /post
+
 - 맥주페이지
 
   - 상세페이지 : /beer/:beerid
 
   - 맥주리스트 : /beer
+
 - 로그인/회원가입
 
   - 로그인 : /user/login
 
   - 회원가입: /user/signup
+
 - 프로필
 
   - 프로필 수정 : /profile/:userid/edit

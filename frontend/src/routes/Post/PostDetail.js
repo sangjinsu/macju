@@ -10,20 +10,10 @@ import { useDispatch, useStore } from "react-redux";
 function PostDetail() {
   const POST_DETAIL_URL = process.env.REACT_APP_SERVER + ':8080/v1/post'
   const POST_DETAIL_LOG_URL = process.env.REACT_APP_SERVER + ':8080/v1/log'
-<<<<<<< HEAD
-
-  const RANKING_BEER_URL = process.env.REACT_APP_SERVER + ':8081/beer/view'
-  
-  const RANKING_POST_DLELETE_URL = process.env.REACT_APP_SERVER + ":8081/post"
-  const RANKING_POST_LIKE_URL = process.env.REACT_APP_SERVER + ":8081/post/like"
-  const RANKING_POST_URL = process.env.REACT_APP_SERVER + ":8081/post/view"
-
-=======
   const RANKING_POST_DLELETE_URL = process.env.REACT_APP_SERVER + ":8081/post"
   const RANKING_POST_LIKE_URL = process.env.REACT_APP_SERVER + ":8081/post/like"
   const RANKING_POST_URL = process.env.REACT_APP_SERVER + ":8081/post/view"
   
->>>>>>> b3f54efc3a81a42633f495515084d40f60beebd4
   const [postData, setPost] = useState()
   const [isLike, setisLike] = useState(false)
   const [updateContent, setText] = useState();

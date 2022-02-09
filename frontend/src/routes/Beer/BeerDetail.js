@@ -7,6 +7,7 @@ import "../../firebase_config"
 import '../../styles/BeerDetail.css'
 import PostListComponent from "../../components/Post/PostList"
 import BeerRate from "./BeerRate.js"
+import { useDispatch } from "react-redux";
 // import "../../styles/PostList.css"
 
 
@@ -21,10 +22,11 @@ function BeerDetail() {
   // 맥주 data
   const [beer, setbeer] = useState()
   // 맥주의 posts
-  const [beerpost, setbeerpost] = useState()
+
   // const [beerImg, setbeerImg] = useState()
   const { beerid } = useParams();
-
+  
+  const dispatch = useDispatch();
   useEffect(()=>{
     const fetchData = async ()=>{
       const { data : beerdetail } = await axios.get(`${BEER_DETAIL_URL}/${beerid}`)
@@ -32,8 +34,11 @@ function BeerDetail() {
       // const nowbeerDetail = beerdetail.data
 
       // 맥주별 포스트 목록
+      console.log(beerid)
       const beer_postdetail = await axios.get(`${BEER_DETAIL_POST_URL}/${beerid}`)
-      setbeerpost(beer_postdetail.data)
+      dispatch({type:'beerDetailPost', beerdetaildata:beer_postdetail})
+
+
 
       // 로그 보내기
       const hashTagArr = [beerdetail.beerType.main, ...beerdetail.aromaHashTags , ...beerdetail.flavorHashTags]
@@ -92,7 +97,6 @@ function BeerDetail() {
           'Accept': "application/json; charset=UTF-8"
         }
         await axios.get(rankingBeerUrl, headers)
-        console.log(111111)
       }catch{
         console.log("오류입니다")
       }
@@ -210,9 +214,9 @@ function BeerDetail() {
                 >포스팅하기</Link>
               </div>
             </div>
-            {beerpost && 
-              <PostListComponent postdata={beerpost}/>
-            }
+
+              <PostListComponent />
+
           </div>
 
         </section>

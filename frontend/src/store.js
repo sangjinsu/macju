@@ -52,16 +52,7 @@ const postImageRecuder = (state=[], action) =>{
 
 
 
-const postListReducer = (state = [], action) => {
-  if (action.type === "firstSave") {
-    return action.new.data
-  } else if (action.type === "new"){
-    return action.new.data
-  } else if (action.type === 'popular'){
-    return state
-  }
-  return state
-}
+
 
 const postDetailReducer = (state= [], action) => {
   if (action.type === "postDetailLoading"){
@@ -120,7 +111,6 @@ const postCreateReducer = (state = [], action) =>{
 const store = createStore( combineReducers
   ( {
     userReducer,
-     postListReducer,
      postDetailReducer,
      commentReducer,
      beerListReducer, 

@@ -13,7 +13,7 @@ import PostListComponent from "../../components/Post/PostList"
 function BeerDetail() {
   const BEER_DETAIL_URL = process.env.REACT_APP_SERVER + ':8080/v1/beer'
   const BEER_DETAIL_POST_URL = process.env.REACT_APP_SERVER + ':8080/v1/post/beer'
-  const BEER_DETAIL_LOG_URL = process.env.REACT_APP_SERVER + ':8080/v1/log'
+
   const RANKING_BEER_URL = process.env.REACT_APP_SERVER + ':8081/beer/view'
 
 

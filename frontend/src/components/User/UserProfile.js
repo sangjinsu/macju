@@ -21,11 +21,11 @@ const UserProfile = () => {
 			setUser(profiledata.data)
 			setUsercolor(profiledata.data.profileColor)	
 		}
-		if (store.getState().profileReducer.length === 0){
+		if (store.getState().userProfileReducer.length === 0){
 			fetchData();
 		} else {
-			setUser(store.getState().profileReducer[0].user.data)
-			setUsercolor(store.getState().profileReducer[0].user.data.profileColor)
+			setUser(store.getState().userProfileReducer.data)
+			setUsercolor(store.getState().userProfileReducer.data.profileColor)
 		}
 	},[USER_PROFILE_URL, user])
 

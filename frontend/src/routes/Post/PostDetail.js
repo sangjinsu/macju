@@ -13,6 +13,7 @@ function PostDetail() {
   const RANKING_POST_DLELETE_URL = process.env.REACT_APP_SERVER + ":8081/post"
   const RANKING_POST_LIKE_URL = process.env.REACT_APP_SERVER + ":8081/post/like"
   const RANKING_POST_URL = process.env.REACT_APP_SERVER + ":8081/post/view"
+  
   const [postData, setPost] = useState()
   const [isLike, setisLike] = useState(false)
   const [updateContent, setText] = useState();
@@ -116,7 +117,6 @@ function PostDetail() {
     const fetchData = async () =>{
       try{
         const responseDetail = await axios.get(`${POST_DETAIL_URL}/${postId}`)
-        console.log(responseDetail)
         // const responseDetail = await axios.get(`http://13.125.157.39:8080/v1/post/${postId}`)
         const postDetail = responseDetail.data
   
@@ -270,7 +270,8 @@ function PostDetail() {
 
                       {/* 작성날짜 */}
                       <div className="userdetail">
-                        <div>작성자 : { postData.member.nickName } </div>
+                      <Link to={`/profile/${postData.member.memberId}/post`}><div>작성자 : { postData.member.nickName } </div></Link>
+                        
                         {/* <div>작성날짜 : { postData.created_at }</div> */}
                       </div>
 

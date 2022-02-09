@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../styles/Navbar.css'
 import '../styles/Responsive.css'
 import { Link } from "react-router-dom"
+import SearchBar from './SearchBar.js'
 
 function NavBar(){
   const memberId = 1    // test용 멤버 아이디
@@ -27,12 +28,15 @@ function NavBar(){
           </div>
           <header className="navbar_section">
             <div className="container">
-              <nav className="navbar navbar-expand-sm custom_nav-container ">
+              <nav className="navbar navbar-expand-xs custom_nav-container ">
                 <a className="navbar-brand" href="/home">
                   <span>
                     MacJU
                   </span>
                 </a>
+
+                {/* 수정 필요 - x 지우는거 안됌 */}
+                <SearchBar/>
 
                 <button onClick={toggleClick} id='tglButton' className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                   <span className=""> </span>

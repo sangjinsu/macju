@@ -7,24 +7,34 @@ import "../../firebase_config"
 import '../../styles/BeerDetail.css'
 import PostListComponent from "../../components/Post/PostList"
 import BeerRate from "./BeerRate.js"
+import BeerRateUpdate from "./BeerRateUpdate.js"
+import { useDispatch } from "react-redux";
+
 // import "../../styles/PostList.css"
-
-
 function BeerDetail() {
   const BEER_DETAIL_URL = process.env.REACT_APP_SERVER + ':8080/v1/beer'
-  const BEER_DETAIL_POST_URL = process.env.REACT_APP_SERVER + ':8080/v1/post/member'
+  const BEER_DETAIL_POST_URL = process.env.REACT_APP_SERVER + ':8080/v1/post/beer'
+  const RATED_BEER_URL = process.env.REACT_APP_SERVER + ':8080/v1/member'
   const BEER_DETAIL_LOG_URL = process.env.REACT_APP_SERVER + ':8080/v1/log'
   const RANKING_BEER_URL = process.env.REACT_APP_SERVER + ':8081/beer/view'
   const RANKING_BEER_LIKE_URL = process.env.REACT_APP_SERVER + ':8081/beer/like'
 
 
+  const memberId = 1    //test용 멤버아이디
+
+  
   // 맥주 data
   const [beer, setbeer] = useState()
   // 맥주의 posts
   const [beerpost, setbeerpost] = useState()
+  // 평가한 맥주들
+  const [ratebeers, setRatebeers] = useState([])
+  const [isRated, setIsRated] = useState(false)
+
   // const [beerImg, setbeerImg] = useState()
   const { beerid } = useParams();
-
+  
+  const dispatch = useDispatch();
   useEffect(()=>{
     const fetchData = async ()=>{
       const { data : beerdetail } = await axios.get(`${BEER_DETAIL_URL}/${beerid}`)
@@ -33,20 +43,37 @@ function BeerDetail() {
 
       // 맥주별 포스트 목록
       const beer_postdetail = await axios.get(`${BEER_DETAIL_POST_URL}/${beerid}`)
-      setbeerpost(beer_postdetail.data)
+      dispatch({type:'beerDetailPost', beerdetaildata:beer_postdetail})
+
+
+
+      // 평가한 맥주 목록
+      const { data : rated_beer } = await axios.get(`${RATED_BEER_URL}/${memberId}/rates`)
+      const rated = rated_beer.data
+      for (let i in rated) {
+        if (rated[i].beer.beerId == beerid) {
+          setIsRated(true)    // 이 맥주 평가했으면 isRated=true
+        }
+      }
+      
 
       // 로그 보내기
       const hashTagArr = [beerdetail.beerType.main, ...beerdetail.aromaHashTags , ...beerdetail.flavorHashTags]
       // console.log(hashTagArr)
       const newdata = {
-        id : 1,
+        id : 3,
         tags : hashTagArr
       }
+      // console.log(newdata)
+
       const headers = {
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': "application/json; charset=UTF-8"
       }
       // axios.post(BEER_DETAIL_LOG_URL, newdata, {headers})     // 주석풀면 로그에 post 보냄
+      // .then(()=>{
+      //   console.log('로그보냄')
+      // })
       ////// axios.post("http://13.125.157.39:8080/v1/log", newdata, {headers})
 
 
@@ -58,7 +85,7 @@ function BeerDetail() {
       // })
     }
     fetchData();
-  }, [BEER_DETAIL_POST_URL, BEER_DETAIL_URL, beerid])
+  }, [BEER_DETAIL_POST_URL, BEER_DETAIL_URL, RATED_BEER_URL, beerid])
 
   const [isLike, setisLike] = useState(false)
   const [rateModal, set_rateModal] = useState(false)
@@ -92,7 +119,6 @@ function BeerDetail() {
           'Accept': "application/json; charset=UTF-8"
         }
         await axios.get(rankingBeerUrl, headers)
-        console.log(111111)
       }catch{
         console.log("오류입니다")
       }
@@ -157,13 +183,25 @@ function BeerDetail() {
                   </div>
 
                   {/* 평가창 모달 */}
-                  <BeerRate 
-                    starrate={starrate}
-                    setStarrate={setStarrate} 
-                    rateModal={rateModal} 
-                    set_rateModal={set_rateModal} 
-                    beerid={beerid}
-                  />
+                  {/* 평가했는지 여부에 따라 보여줄 모달이 다름 */}
+                  { isRated 
+                    ? <BeerRateUpdate 
+                        starrate={starrate}
+                        setStarrate={setStarrate} 
+                        rateModal={rateModal} 
+                        set_rateModal={set_rateModal} 
+                        beerid={beerid}
+                      />
+                    : <BeerRate 
+                        starrate={starrate}
+                        setStarrate={setStarrate} 
+                        rateModal={rateModal} 
+                        set_rateModal={set_rateModal} 
+                        beerid={Number(beerid)}
+                      />
+                  }
+                  
+
 
                   {/* 맥주 detail 내용 */
                   <div className='beer_volume'>
@@ -210,9 +248,7 @@ function BeerDetail() {
                 >포스팅하기</Link>
               </div>
             </div>
-            {beerpost && 
-              <PostListComponent postdata={beerpost}/>
-            }
+              <PostListComponent />
           </div>
 
         </section>

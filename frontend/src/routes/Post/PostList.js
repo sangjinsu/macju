@@ -23,16 +23,6 @@ function PostList() {
     //useSelector로 가져올경우 store 는 변경이 되지만 const 에서 정의한 변수값이 반영되는 시점이 좀 더 늦기 때문에 store에서 직접 꺼내옴. 
   }
 
-  useEffect( ()=>{
-    const fetchData = async ()=>{
-      const data = await axios.get(POST_LIST_URL)
-      dispatch({type:"firstSave", new:data})
-    }
-    fetchData();
-    //dispatch에 pop data도 추가시켜야 함.
-
-  }, [dispatch, POST_LIST_URL])
-  
 
   return (
     <>

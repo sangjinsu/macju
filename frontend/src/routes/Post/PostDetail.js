@@ -32,14 +32,12 @@ function PostDetail() {
   const DeletePost = async() => {
     try{
       const postDeleteUrl = `${POST_DETAIL_URL}/${postId}`
-      const rankingpostDeleteUrl = `${RANKING_POST_LIKE_URL}/${postId}/`
-        const headers = {
-          'Accept': "application/json; charset=UTF-8"
-        }
-      await axios.delete(RANKING_POST_DLELETE_URL)
+      const rankingPostDeleteUrl = `${RANKING_POST_DLELETE_URL}/${postId}/1`
+
+      await axios.delete(postDeleteUrl)
       dispatch({ type : "postDelete"})
 
-      await axios.get()
+      await axios.get(rankingPostDeleteUrl)
 
       history.push("/post")
     }catch{
@@ -98,6 +96,19 @@ function PostDetail() {
       console.log("오류")
     }
   })
+
+  const likeButton = async () => {
+    try{
+      setisLike(!isLike)
+      const rankingPostDeleteUrl = `${RANKING_POST_LIKE_URL}/${postId}/1`
+      const headers = {
+        'Accept': "application/json; charset=UTF-8"
+      }
+      await axios.get(rankingPostDeleteUrl, headers)
+    }catch{
+      console.log("오류")
+    }
+  }
 
   // postDetail 불러오는 것 (리덕스에 저장)
   useEffect(()=>{
@@ -187,8 +198,8 @@ function PostDetail() {
                       <div className="heartInline">
                         {
                           isLike === true
-                          ? <BsHeart className="heartIcon" size="23" onClick={()=>{setisLike(!isLike)}}></BsHeart>
-                          : <BsHeartFill className="heartIcon" size="23" onClick={()=>{setisLike(!isLike)}}></BsHeartFill>
+                          ? <BsHeart className="heartIcon" size="23" onClick={likeButton}></BsHeart>
+                          : <BsHeartFill className="heartIcon" size="23" onClick={likeButton}></BsHeartFill>
                         }
                         <div className="count">{ postData.likeMembers.length }</div>
                       </div>

@@ -5,7 +5,7 @@ spring:
         registration:
           kakao:
             client-id: 8b2edeeea0bc47e50d780f87e70112f3
-            redirect-uri: http://localhost:8752/oauth/login
+            redirect-uri: http://i6c107.p.ssafy.io:8752/oauth/login
             client-authentication-method: POST
             authorization-grant-type: authorization_code
             scope: profile_nickname, account_email

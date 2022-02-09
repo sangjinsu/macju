@@ -26,6 +26,7 @@ public class AuthService {
         LoginResult loginResult = new LoginResult();
 
         String redirect_uri= "http://localhost:8752/oauth/login/response";
+        redirect_uri = "http://i6c107.p.ssafy.io:8752/oauth/login/response";
         String client_id = "5832f41d4634b598305eaa378a104b94";
         String client_secret = "5nGoaHLznYd2N3tIE2UvKX0x0TDm8T6B";
 
@@ -96,7 +97,9 @@ public class AuthService {
         }
         loginResult.setMember(member);
         loginResult.getMember().setAccessToken(encodingToken);//반환해줄 토큰에는 인코딩한 토큰으로 바꿔주기
-        loginResult.setFirstCheck(isIn(loginResult.getMember().getKakaoMemberId())?false : true);
+//        boolean flag = isIn(member.getKakaoMemberId());
+//        System.out.println(flag);
+        loginResult.setFirstCheck(!memberRepository.existsById(member.getKakaoMemberId()));
         //TODO checkUser를 통해 레디스에 값이 있으면(반환이 true) false를 넣어서 처음 들어오는 사용자가 아님을 표시
         System.out.println(loginResult.toString());
         save(member, access_Token, refresh_Token);
@@ -168,7 +171,16 @@ public class AuthService {
 
         //대충 레디스에서 id로 찾는 내용
         //레디스에서 id가 있으면 true;
-        return memberRepository.findById(kakaoMemberId).equals(null) ? false : true;
+//        if(memberRepository.findById(kakaoMemberId) != null || !memberRepository.findById(kakaoMemberId).isPresent()) {
+//            System.out.println(memberRepository.findById(kakaoMemberId));
+//            return true;
+//        }else{
+//            System.out.println("Not Content");
+//            return false;
+//        }
+
+//        return memberRepository.findById(kakaoMemberId).equals(null) ? false : true;
+        return memberRepository.existsById(kakaoMemberId);//로 축약함.
     }
 
 

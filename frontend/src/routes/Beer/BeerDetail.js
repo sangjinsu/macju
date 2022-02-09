@@ -11,7 +11,6 @@ import BeerRateUpdate from "./BeerRateUpdate.js"
 import { useDispatch } from "react-redux";
 
 // import "../../styles/PostList.css"
-
 function BeerDetail() {
   const BEER_DETAIL_URL = process.env.REACT_APP_SERVER + ':8080/v1/beer'
   const BEER_DETAIL_POST_URL = process.env.REACT_APP_SERVER + ':8080/v1/post/beer'

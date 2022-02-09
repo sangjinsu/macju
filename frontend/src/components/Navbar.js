@@ -4,7 +4,6 @@ import '../styles/Responsive.css'
 import { Link } from "react-router-dom"
 import SearchBar from './SearchBar.js'
 
-
 function NavBar(){
   const memberId = 1    // test용 멤버 아이디
 

@@ -10,7 +10,6 @@ function StarRate(props) {
     return props.setStarrate(Number(e.target.value))
   }
 
-
   // 현재 starrate 값에따라 보여주는 별 바꿈
   useEffect(()=>{
     const rateScore = document.getElementsByName('rating')

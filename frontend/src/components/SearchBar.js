@@ -17,7 +17,6 @@ function SearchBar(){
   }, [])
 
 
-
   return(
     <div className="input">
       <div className="text">

@@ -10,7 +10,6 @@ function BeerRate(props){
   const starrate = props.starrate
   const beerid = props.beerid
   
-
   const modal_style = {
     overlay: {
       position: 'fixed',

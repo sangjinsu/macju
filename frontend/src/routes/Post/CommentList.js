@@ -5,7 +5,7 @@ import axios from 'axios';
 import "../../styles/CommentList.css"
 
 function CommentList(props) {
-  const COMMENT_LIST_URL = process.env.REACT_APP_COMMENT_LIST_URL
+  const COMMENT_LIST_URL = process.env.REACT_APP_SERVER + ':8080/v1/post'
 
   const [comments, setcomments] = useState([]);
   const [inputComment, inputCommentChange] = useState("");

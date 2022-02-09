@@ -8,8 +8,8 @@ import { useDispatch, useStore } from "react-redux";
 // import { useHistory } from 'react-router-dom';
 
 function PostDetail() {
-  const POST_DETAIL_URL = process.env.REACT_APP_POST_DETAIL_URL
-  const POST_DETAIL_LOG_URL = process.env.REACT_APP_POST_DETAIL_LOG_URL
+  const POST_DETAIL_URL = process.env.REACT_APP_SERVER + ':8080/v1/post'
+  const POST_DETAIL_LOG_URL = process.env.REACT_APP_SERVER + ':8080/v1/log'
   const [postData, setPost] = useState()
   const [isLike, setisLike] = useState(false)
   const [updateContent, setText] = useState();
@@ -93,6 +93,7 @@ function PostDetail() {
     const fetchData = async () =>{
       try{
         const responseDetail = await axios.get(`${POST_DETAIL_URL}/${postId}`)
+        console.log(responseDetail)
         // const responseDetail = await axios.get(`http://13.125.157.39:8080/v1/post/${postId}`)
         const postDetail = responseDetail.data
   

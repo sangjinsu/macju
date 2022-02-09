@@ -27,3 +27,9 @@
 .intro-box textarea {
   margin-left: 100px;
 }
+.success {
+  color: blue;
+}
+.fail {
+  color:tomato
+}

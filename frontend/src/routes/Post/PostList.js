@@ -8,7 +8,7 @@ import PostListComponent from "../../components/Post/PostList"
 
 
 function PostList() {
-  const POST_LIST_URL = process.env.REACT_APP_POST_LIST_URL
+  const POST_LIST_URL = process.env.REACT_APP_SERVER + ':8080/v1/post/new'
   const dispatch = useDispatch()
   //const text = useSelector((state:any) => state)
   const [opt, setOpt] = useState("recent")

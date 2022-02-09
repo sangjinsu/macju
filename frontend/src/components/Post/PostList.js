@@ -8,7 +8,7 @@ import axios from "axios";
 
 
 function PostListComponent(){
-  const POST_LIST_URL = process.env.REACT_APP_POST_LIST_URL
+  const POST_LIST_URL = process.env.REACT_APP_SERVER + ':8080/v1/post/new'
   const [newPost, setNewPost] = useState([])
   const [newPostImage, setNewPostImage] = useState([])
   const store = useStore((state)=>state)

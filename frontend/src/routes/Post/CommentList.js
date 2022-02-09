@@ -52,6 +52,7 @@ function CommentList(props) {
 
       dispatch({ type : "addComment", inputComment : dispatchComment.current })
       setcomments(store.getState().commentReducer)
+      inputCommentChange("")
     }
     catch{
       console.log("오류")

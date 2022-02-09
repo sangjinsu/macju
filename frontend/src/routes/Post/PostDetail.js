@@ -54,6 +54,7 @@ function PostDetail() {
     e.preventDefault()
     if (hashtag.trim() !== "") {
       setHashtagArr([hashtag, ...hashtagArr])
+      setHashtag("")
     }
   })
 
@@ -67,7 +68,7 @@ function PostDetail() {
   const changePost = (async (e)=>{
     try{
       e.preventDefault() //우선 그냥 막아놨음
-      const putPostApiUrl = `${POST_DETAIL_URL}${postId}`
+      const putPostApiUrl = `${POST_DETAIL_URL}/${postId}`
       const requestUpdatePostDto  = {
         "content": updateContent,
         "postId": postId,
@@ -240,7 +241,7 @@ function PostDetail() {
                       <button onClick={DeletePost}>삭제하기</button>
 
                       {/* <div className="updateBtn">수정하기</div> */}
-                      <div className="deleteBtn">수정하기</div>
+                      {/* <div className="deleteBtn">수정하기</div> */}
                     </Route>
                   </Switch>
 

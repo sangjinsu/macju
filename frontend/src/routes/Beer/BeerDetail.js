@@ -25,8 +25,6 @@ function BeerDetail() {
   const memberId = 1    //test용 멤버아이디
 
   
-
-
   // 맥주 data
   const [beer, setbeer] = useState()
   // 맥주의 posts

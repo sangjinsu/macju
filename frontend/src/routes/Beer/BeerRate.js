@@ -139,6 +139,7 @@ function BeerRate(props){
         </div>
       
 
+      
         {/* 향 해시태그 선택 */}
         <div className="selecttag_box col-6"> 
           <h4>Aroma</h4>

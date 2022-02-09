@@ -100,11 +100,11 @@ function PostDetail() {
   const likeButton = async () => {
     try{
       setisLike(!isLike)
-      const rankingPostDeleteUrl = `${RANKING_POST_LIKE_URL}/${postId}/1`
+      const rankingPostLikeeUrl = `${RANKING_POST_LIKE_URL}/${postId}/1`
       const headers = {
         'Accept': "application/json; charset=UTF-8"
       }
-      await axios.get(rankingPostDeleteUrl, headers)
+      await axios.get(rankingPostLikeeUrl, headers)
     }catch{
       console.log("오류")
     }

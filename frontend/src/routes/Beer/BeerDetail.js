@@ -15,6 +15,7 @@ function BeerDetail() {
   const BEER_DETAIL_POST_URL = process.env.REACT_APP_BEER_DETAIL_POST_URL
   const BEER_DETAIL_LOG_URL = process.env.REACT_APP_BEER_DETAIL_LOG_URL
   const RANKING_BEER_URL = process.env.REACT_APP_RANKING_BEER_URL
+  const RANKING_BEER_LIKE_URL = process.env.REACT_APP_RANKING_BEER_LIKE_URL
 
   // 맥주 data
   const [beer, setbeer] = useState()
@@ -69,6 +70,19 @@ function BeerDetail() {
   //////// 맥주평가모달창
   // 별점
   const [starrate, setStarrate] = useState()
+
+  const likeButton = async () => {
+    try{
+      setisLike(!isLike)
+      const rankingBeerLikeeUrl = `${RANKING_BEER_LIKE_URL}/${beerid}/1`
+      const headers = {
+        'Accept': "application/json; charset=UTF-8"
+      }
+      await axios.get(rankingBeerLikeeUrl, headers)
+    }catch{
+      console.log("오류")
+    }
+  }
 
   useEffect(() => {
     const spendData = async () => {
@@ -126,8 +140,8 @@ function BeerDetail() {
                     <div className="heartInline">
                       {
                         isLike === true
-                        ? <BsHeart className="heartIcon" size="23" onClick={()=>{setisLike(!isLike)}}></BsHeart>
-                        : <BsHeartFill className="heartIcon" size="23" onClick={()=>{setisLike(!isLike)}}></BsHeartFill>
+                        ? <BsHeart className="heartIcon" size="23" onClick={likeButton}></BsHeart>
+                        : <BsHeartFill className="heartIcon" size="23" onClick={likeButton}></BsHeartFill>
                       }
                       <div className="like_count">(5)</div>
                     </div>

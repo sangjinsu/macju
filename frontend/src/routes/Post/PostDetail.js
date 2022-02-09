@@ -13,7 +13,6 @@ function PostDetail() {
   const RANKING_POST_DLELETE_URL = process.env.REACT_APP_SERVER + ":8081/post"
   const RANKING_POST_LIKE_URL = process.env.REACT_APP_SERVER + ":8081/post/like"
   const RANKING_POST_URL = process.env.REACT_APP_SERVER + ":8081/post/view"
-  
   const [postData, setPost] = useState()
   const [isLike, setisLike] = useState(false)
   const [updateContent, setText] = useState();

@@ -62,6 +62,7 @@ public class AuthController {
     public Map<String, Object> accessTokenCheck (@RequestBody TokenInfo tokenInfo){
         System.out.println("accessCheck in");
         Map<String, Object> result = new HashMap<>();
+        System.out.println(tokenInfo.toString());
 
         String decodingToken = authService.decoding(tokenInfo.getAccessToken());
         Member member = null;

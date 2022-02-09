@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+
 import { gsap } from "gsap/dist/gsap";
 import './SearchBar.css'
 
@@ -7,22 +8,21 @@ function SearchBar(){
   const setInput = (e) => {
     setSearchInput(e.target.value);
   }
-
+  
   const eraseInput = () => {
     setSearchInput("");
-  } 
+  }
 
   useEffect( () => {
     EraseEffect()
   }, [])
 
-
   return(
-    <div className="input">
+    <div class="input">
       <div className="text">
-           <input type="text" placeholder="#맥주" onChange={ setInput }/>
+           <input type="text" placeholder="Placeholder" onChange={ setInput } />
        </div>
-       <button className="clear" onClick={ eraseInput }>
+       <button className="clear" onClick={ eraseInput } >
            <svg viewBox="0 0 24 24">
                <path className="line" d="M2 2L22 22" />
                <path className="long" d="M9 15L20 4" />
@@ -35,6 +35,7 @@ function SearchBar(){
 }
 
 /* input 효과 */
+/* npm i gsap@3.4.0 react-gsap*/
 const { to, set } = gsap
 
 function Delay(fn, ms) {
@@ -49,7 +50,7 @@ function EraseEffect() {
   document.querySelectorAll('.input').forEach( elem => {
     let clear = elem.querySelector('.clear'),
                 input = elem.querySelector('input'),
-                { classNameList } = elem,
+                { classList } = elem,
                 svgLine = clear.querySelector('.line'),
                 svgLineProxy = new Proxy(
                   { x: null },
@@ -83,7 +84,7 @@ function EraseEffect() {
     }, 250))
 
     clear.addEventListener('click', e => {
-      classNameList.add('clearing')
+      classList.add('clearing')
       set(elem, {
         '--clear-swipe-left': (input.offsetWidth - 16) * -1 + 'px'
       })
@@ -126,7 +127,7 @@ function EraseEffect() {
               duration: 0,
               delay: .7,
               onStart() {
-                classNameList.remove('clearing')
+                classList.remove('clearing')
               }
             })
             to(elem, {
@@ -193,5 +194,6 @@ function GetPath(x, smoothing) {
     [22, 22]
   ].reduce((acc, point, i, a) => i === 0 ? `M ${point[0]},${point[1]}` : `${acc} ${GetPoint(point, i, a, smoothing)}`, '')
 }
+
 
 export default SearchBar;

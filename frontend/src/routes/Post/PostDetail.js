@@ -13,7 +13,7 @@ function PostDetail() {
 
   const RANKING_BEER_URL = process.env.REACT_APP_SERVER + ':8081/beer/view'
 
-
+  const RANKING_POST_DLELETE_URL =process.env.REACT_APP_SERVER + ''
 
 
   const [postData, setPost] = useState()

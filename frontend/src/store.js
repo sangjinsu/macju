@@ -1,8 +1,8 @@
 import { combineReducers, createStore } from "redux"
 
 const userReducer = (state = [], action) => {
-  if (action.type === "login") {
-    const loginState = action.loginUser
+  if (action.type === "loginSucess") {
+    const loginState = action.userData
     return loginState
   }else if (action.type === "logout") {
     const logoutState = {}

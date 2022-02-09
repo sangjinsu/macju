@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { gsap } from "gsap/dist/gsap";
 import './SearchBar.css'
 
@@ -16,10 +16,11 @@ function SearchBar(){
     EraseEffect()
   }, [])
 
+
   return(
     <div className="input">
       <div className="text">
-           <input type="text" placeholder="Placeholder" onChange={ setInput }/>
+           <input type="text" placeholder="#맥주" onChange={ setInput }/>
        </div>
        <button className="clear" onClick={ eraseInput }>
            <svg viewBox="0 0 24 24">

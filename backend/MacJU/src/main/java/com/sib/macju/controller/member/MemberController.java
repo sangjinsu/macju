@@ -88,7 +88,7 @@ public class MemberController {
             result.put("status", member.getStatus());
             result.put("followings", member.getFollowings());
             result.put("followers", member.getFollowers());
-            result.put("comment",member.getComment());
+            result.put("intro",member.getIntro());
             result.put("result",SUCCESS);
             status = HttpStatus.OK;
         }else{

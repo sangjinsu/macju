@@ -7,21 +7,31 @@ import "../../firebase_config"
 import '../../styles/BeerDetail.css'
 import PostListComponent from "../../components/Post/PostList"
 import BeerRate from "./BeerRate.js"
+import BeerRateUpdate from "./BeerRateUpdate.js"
 import { useDispatch } from "react-redux";
+
 // import "../../styles/PostList.css"
 
 
 function BeerDetail() {
   const BEER_DETAIL_URL = process.env.REACT_APP_SERVER + ':8080/v1/beer'
   const BEER_DETAIL_POST_URL = process.env.REACT_APP_SERVER + ':8080/v1/post/member'
+  const RATED_BEER_URL = process.env.REACT_APP_SERVER + ':8080/v1/member'
   const BEER_DETAIL_LOG_URL = process.env.REACT_APP_SERVER + ':8080/v1/log'
   const RANKING_BEER_URL = process.env.REACT_APP_SERVER + ':8081/beer/view'
   const RANKING_BEER_LIKE_URL = process.env.REACT_APP_SERVER + ':8081/beer/like'
-  
 
+
+  const memberId = 1    //test용 멤버아이디
+
+  
   // 맥주 data
   const [beer, setbeer] = useState()
   // 맥주의 posts
+  const [beerpost, setbeerpost] = useState()
+  // 평가한 맥주들
+  const [ratebeers, setRatebeers] = useState([])
+  const [isRated, setIsRated] = useState(false)
 
   // const [beerImg, setbeerImg] = useState()
   const { beerid } = useParams();
@@ -38,6 +48,14 @@ function BeerDetail() {
       dispatch({type:'beerDetailPost', beerdetaildata:beer_postdetail})
 
 
+
+      // 평가한 맥주 목록
+      const { data : rated_beer } = await axios.get(`${RATED_BEER_URL}/${memberId}/rates`)
+      rated_beer.data.map((ratebeer, i)=>{
+        if (ratebeer.beer.beerId == beerid) {
+          setIsRated(true)    // 이 맥주 평가했으면 isRated=true
+        }
+      })
 
       // 로그 보내기
       const hashTagArr = [beerdetail.beerType.main, ...beerdetail.aromaHashTags , ...beerdetail.flavorHashTags]
@@ -62,7 +80,7 @@ function BeerDetail() {
       // })
     }
     fetchData();
-  }, [BEER_DETAIL_POST_URL, BEER_DETAIL_URL, beerid])
+  }, [BEER_DETAIL_POST_URL, BEER_DETAIL_URL, RATED_BEER_URL, beerid])
 
   const [isLike, setisLike] = useState(false)
   const [rateModal, set_rateModal] = useState(false)
@@ -160,13 +178,25 @@ function BeerDetail() {
                   </div>
 
                   {/* 평가창 모달 */}
-                  <BeerRate 
-                    starrate={starrate}
-                    setStarrate={setStarrate} 
-                    rateModal={rateModal} 
-                    set_rateModal={set_rateModal} 
-                    beerid={beerid}
-                  />
+                  {/* 평가했는지 여부에 따라 보여줄 모달이 다름 */}
+                  { isRated 
+                    ? <BeerRateUpdate 
+                        starrate={starrate}
+                        setStarrate={setStarrate} 
+                        rateModal={rateModal} 
+                        set_rateModal={set_rateModal} 
+                        beerid={beerid}
+                      />
+                    : <BeerRate 
+                        starrate={starrate}
+                        setStarrate={setStarrate} 
+                        rateModal={rateModal} 
+                        set_rateModal={set_rateModal} 
+                        beerid={beerid}
+                      />
+                  }
+                  
+
 
                   {/* 맥주 detail 내용 */
                   <div className='beer_volume'>

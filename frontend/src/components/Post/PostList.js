@@ -1,7 +1,6 @@
 import { getDownloadURL, getStorage , ref } from "firebase/storage";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useStore } from "react-redux";
 import {Link, useParams} from "react-router-dom"
 import "../../styles/PostList.css"
 import axios from "axios";
@@ -9,7 +8,7 @@ import axios from "axios";
 
 function PostListComponent(){
   const POST_LIST_URL = process.env.REACT_APP_SERVER + ':8080/v1/post/new'
-  const BEER_DETAIL_POST_URL = process.env.REACT_APP_SERVER + ':8080/v1/post/member'
+  const BEER_DETAIL_POST_URL = process.env.REACT_APP_SERVER + ':8080/v1/post/beer'
   const [newPost, setNewPost] = useState([])
   const [newPostImage, setNewPostImage] = useState([])
   const storage = getStorage()

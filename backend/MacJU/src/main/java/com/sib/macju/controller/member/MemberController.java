@@ -86,8 +86,8 @@ public class MemberController {
             result.put("nickName", member.getNickName());
             result.put("profileColor", member.getProfileColor());
             result.put("status", member.getStatus());
-            result.put("followings", member.getFollowings());
-            result.put("followers", member.getFollowers());
+            result.put("followings", fetchFollowings(memberId));
+            result.put("followers", fetchFollowers(memberId));
             result.put("intro",member.getIntro());
             result.put("result",SUCCESS);
             status = HttpStatus.OK;

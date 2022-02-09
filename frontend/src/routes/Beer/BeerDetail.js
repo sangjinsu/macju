@@ -11,13 +11,12 @@ import BeerRate from "./BeerRate.js"
 
 function BeerDetail() {
   const BEER_DETAIL_URL = process.env.REACT_APP_SERVER + ':8080/v1/beer'
-  const BEER_DETAIL_POST_URL = process.env.REACT_APP_SERVER + ':8080/v1/post/beer'
+  const BEER_DETAIL_POST_URL = process.env.REACT_APP_SERVER + ':8080/v1/post/member'
   const BEER_DETAIL_LOG_URL = process.env.REACT_APP_SERVER + ':8080/v1/log'
   const RANKING_BEER_URL = process.env.REACT_APP_SERVER + ':8081/beer/view'
   const RANKING_BEER_LIKE_URL = process.env.REACT_APP_SERVER + ':8081/beer/like'
-  const RANKING_POPBEER = process.env.REACT_APP_SERVER + '8081/beer/popbeer'
 
-  
+
   // 맥주 data
   const [beer, setbeer] = useState()
   // 맥주의 posts
@@ -71,6 +70,35 @@ function BeerDetail() {
   // 별점
   const [starrate, setStarrate] = useState()
 
+  const likeButton = async () => {
+    try{
+      setisLike(!isLike)
+      const rankingBeerLikeeUrl = `${RANKING_BEER_LIKE_URL}/${beerid}/1`
+      const headers = {
+        'Accept': "application/json; charset=UTF-8"
+      }
+      await axios.get(rankingBeerLikeeUrl, headers)
+    }catch{
+      console.log("오류")
+    }
+  }
+
+  useEffect(() => {
+    const spendData = async () => {
+      try{
+        const rankingBeerUrl = `${RANKING_BEER_URL}/${beerid}/1` //추후 memberId 수정필요
+        const headers = {
+          'Accept': "application/json; charset=UTF-8"
+        }
+        await axios.get(rankingBeerUrl, headers)
+        console.log(111111)
+      }catch{
+        console.log("오류입니다")
+      }
+    }
+    spendData()
+  }, [])
+
   return (
     <div className="BeerDetail">
       {
@@ -111,8 +139,8 @@ function BeerDetail() {
                     <div className="heartInline">
                       {
                         isLike === true
-                        ? <BsHeart className="heartIcon" size="23" onClick={()=>{setisLike(!isLike)}}></BsHeart>
-                        : <BsHeartFill className="heartIcon" size="23" onClick={()=>{setisLike(!isLike)}}></BsHeartFill>
+                        ? <BsHeart className="heartIcon" size="23" onClick={likeButton}></BsHeart>
+                        : <BsHeartFill className="heartIcon" size="23" onClick={likeButton}></BsHeartFill>
                       }
                       <div className="like_count">(5)</div>
                     </div>

@@ -6,8 +6,8 @@ import "../../firebase_config"
 import '../../styles/PostCreate.css'
 
 function PostCreate(s) {
-  const CREATE_URL = process.env.REACT_APP_POST_CREATE_URL
-  // console.log(CREATE_URL)
+  const POST_CREATE_URL = process.env.REACT_APP_SERVER + ':8080/v1/post' 
+
   const memberid = 1  //test용 멤버아이디
   const beerid = s.location.state.beerid    // 작성하고있는 포스트의 맥주아이디
   // DB upload
@@ -121,15 +121,15 @@ function PostCreate(s) {
       userHashTags : hashtagArr,
       // memberId : memberId,
     }
-    console.log(imgNames)
     const headers = {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': "application/json; charset=UTF-8"
     }
     // console.log(newpost)
-    console.log(CREATE_URL)
+
     axios 
-      .post(CREATE_URL, newpost, {headers})
+    // http://13.125.157.39:8080/v1/beer/
+      .post(POST_CREATE_URL, newpost, {headers})
       // .post("http://13.125.157.39:8080/v1/post", newpost, {headers})
       .then((res) => {
         console.log(res)

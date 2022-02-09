@@ -8,8 +8,8 @@ import { useDispatch, useStore } from "react-redux";
 // import { useHistory } from 'react-router-dom';
 
 function PostDetail() {
-  const POST_DETAIL_URL = process.env.REACT_APP_POST_DETAIL_URL
-  const POST_DETAIL_LOG_URL = process.env.REACT_APP_POST_DETAIL_LOG_URL
+  const POST_DETAIL_URL = process.env.REACT_APP_SERVER + ':8080/v1/post'
+  const POST_DETAIL_LOG_URL = process.env.REACT_APP_SERVER + ':8080/v1/log'
   const [postData, setPost] = useState()
   const [isLike, setisLike] = useState(false)
   const [updateContent, setText] = useState();
@@ -24,12 +24,18 @@ function PostDetail() {
   const UpdateContent = (e) => {
     setText(e.target.value)
   }
+  
 
   const DeletePost = async() => {
     try{
       const postDeleteUrl = `${POST_DETAIL_URL}/${postId}`
+      const rankingPostDeleteUrl = `${RANKING_POST_DLELETE_URL}/${postId}/1`
+
       await axios.delete(postDeleteUrl)
       dispatch({ type : "postDelete"})
+
+      await axios.get(rankingPostDeleteUrl)
+
       history.push("/post")
     }catch{
       console.log("오류")
@@ -54,6 +60,7 @@ function PostDetail() {
     e.preventDefault()
     if (hashtag.trim() !== "") {
       setHashtagArr([hashtag, ...hashtagArr])
+      setHashtag("")
     }
   })
 
@@ -67,7 +74,7 @@ function PostDetail() {
   const changePost = (async (e)=>{
     try{
       e.preventDefault() //우선 그냥 막아놨음
-      const putPostApiUrl = `${POST_DETAIL_URL}${postId}`
+      const putPostApiUrl = `${POST_DETAIL_URL}/${postId}`
       const requestUpdatePostDto  = {
         "content": updateContent,
         "postId": postId,
@@ -88,11 +95,25 @@ function PostDetail() {
     }
   })
 
+  const likeButton = async () => {
+    try{
+      setisLike(!isLike)
+      const rankingPostLikeeUrl = `${RANKING_POST_LIKE_URL}/${postId}/1`
+      const headers = {
+        'Accept': "application/json; charset=UTF-8"
+      }
+      await axios.get(rankingPostLikeeUrl, headers)
+    }catch{
+      console.log("오류")
+    }
+  }
+
   // postDetail 불러오는 것 (리덕스에 저장)
   useEffect(()=>{
     const fetchData = async () =>{
       try{
         const responseDetail = await axios.get(`${POST_DETAIL_URL}/${postId}`)
+        console.log(responseDetail)
         // const responseDetail = await axios.get(`http://13.125.157.39:8080/v1/post/${postId}`)
         const postDetail = responseDetail.data
   
@@ -127,7 +148,22 @@ function PostDetail() {
     }
 
     fetchData();
-  }, [POST_DETAIL_URL, dispatch, postId, store])
+  }, [])
+
+  useEffect(() => {
+    const spendData = async () => {
+      try{
+        const rankingPostUrl = `${RANKING_POST_URL}/${postId}/1` //추후 memberId 수정필요
+        const headers = {
+          'Accept': "application/json; charset=UTF-8"
+        }
+        axios.get(rankingPostUrl, headers)
+      }catch{
+        console.log("오류입니다")
+      }
+    }
+    spendData()
+  }, [])
 
   return (
     <div className="PostDetail">
@@ -161,8 +197,8 @@ function PostDetail() {
                       <div className="heartInline">
                         {
                           isLike === true
-                          ? <BsHeart className="heartIcon" size="23" onClick={()=>{setisLike(!isLike)}}></BsHeart>
-                          : <BsHeartFill className="heartIcon" size="23" onClick={()=>{setisLike(!isLike)}}></BsHeartFill>
+                          ? <BsHeart className="heartIcon" size="23" onClick={likeButton}></BsHeart>
+                          : <BsHeartFill className="heartIcon" size="23" onClick={likeButton}></BsHeartFill>
                         }
                         <div className="count">{ postData.likeMembers.length }</div>
                       </div>
@@ -240,7 +276,7 @@ function PostDetail() {
                       <button onClick={DeletePost}>삭제하기</button>
 
                       {/* <div className="updateBtn">수정하기</div> */}
-                      <div className="deleteBtn">수정하기</div>
+                      {/* <div className="deleteBtn">수정하기</div> */}
                     </Route>
                   </Switch>
 

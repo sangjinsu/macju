@@ -12,6 +12,27 @@ const userReducer = (state = [], action) => {
   }
 }
 
+
+
+const profileReducer = (state = [], action)=>{
+  if (action.type === "user"){
+    state = [...state, {'user': action.userdata}] 
+  } else if (action.type ==='post') {
+    state =[...state, {'post':action.userpost}]
+  } else if (action.type === 'like'){
+    state= [...state, {'like':action.userlike}]
+  } else if (action.type ==='review'){
+    state =[...state, {'review':action.userreview}]
+  }
+  return state
+}
+
+
+
+
+
+
+
 const postImageRecuder = (state=[], action) =>{
   if (action.type === "newImages"){
     return action.images
@@ -86,5 +107,5 @@ const postCreateReducer = (state = [], action) =>{
   return state
 }
 
-const store = createStore( combineReducers( {userReducer, postListReducer, postDetailReducer, commentReducer, beerListReducer, postCreateReducer, postImageRecuder} ))
+const store = createStore( combineReducers( {userReducer, postListReducer, postDetailReducer, commentReducer, beerListReducer, postCreateReducer, postImageRecuder, profileReducer} ))
 export default store;

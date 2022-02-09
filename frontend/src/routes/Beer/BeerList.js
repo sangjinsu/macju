@@ -12,7 +12,7 @@ import { useDispatch } from 'react-redux';
 
 
 function BeerList(){
-  const BEER_LIST_URL = process.env.REACT_APP_BEER_LIST_URL
+  const BEER_LIST_URL = process.env.REACT_APP_SERVER + ':8080/v1/beer'
   // console.log(process.env.REACT_APP_BEER_LIST_URL)
 
   // 맥주 데이터

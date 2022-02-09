@@ -5,12 +5,14 @@ import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useStore } from "react-redux";
 
 
 const UserPost = (s) => {
-  const USER_POST_URL = process.env.REACT_APP_USER_POST_URL
+  const USER_POST_URL = process.env.REACT_APP_SERVER + ':8080/v1/post/member'
   // const POST_LIST_URL = process.env.REACT_APP_POST_LIST_URL
   // const memberId = s.location.state.memberId
+  const store = useStore((state) => state)
   const memberId = 1
   const [userPosts, setUserPosts] = useState([])
   
@@ -19,7 +21,12 @@ const UserPost = (s) => {
       const memberPosts = await axios.get(`${USER_POST_URL}/${memberId}`)
       setUserPosts(memberPosts.data)
     }
-    fetchData();
+    if (store.getState().profileReducer.length === 0){
+      fetchData();
+    } else {
+      console.log(store.getState().profileReducer.data)
+    }
+
   ////// 포스트 이미지 가져오기
   // const storage = getStorage()
   //   for(var i=0, j=datalist.length; i<j; i++) {

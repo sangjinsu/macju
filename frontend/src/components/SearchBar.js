@@ -16,6 +16,8 @@ function SearchBar(){
     EraseEffect()
   }, [])
 
+
+
   return(
     <div className="input">
       <div className="text">

@@ -28,6 +28,7 @@ function PostDetail() {
   const UpdateContent = (e) => {
     setText(e.target.value)
   }
+  
 
   const DeletePost = async() => {
     try{

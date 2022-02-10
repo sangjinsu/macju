@@ -17,7 +17,6 @@ public class PostDetailDto implements Serializable {
     private final BeerDto beer;
     private final MemberDto member;
     private final String content;
-    private final List<CommentDto> comments;
     private final List<PhotoDto> photos;
     private final List<UserHashTagDto> userHashTags;
     private final List<MemberDto> likeMembers;
@@ -91,13 +90,6 @@ public class PostDetailDto implements Serializable {
         Member writer = post.getMember();
         this.member = new MemberDto(writer.getMemberId(), writer.getNickName());
         this.content = post.getContent();
-        this.comments = post.getComments()
-                .stream()
-                .map(comment -> {
-                    Member member = comment.getMember();
-                    MemberDto memberDto = new MemberDto(member.getMemberId(), member.getNickName());
-                    return new CommentDto(comment.getCommentId(), memberDto, comment.getContent());
-                }).collect(Collectors.toList());
 
         this.photos = post.getPhotos()
                 .stream()

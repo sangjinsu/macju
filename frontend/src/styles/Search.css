@@ -66,11 +66,12 @@
 
 /* 맥주 검색 결과 */
 .beer_title {
-  
+  margin-top: 30px;
+  margin-left: 10px;
+  font-size: 30px;
 }
-
 /* 맥주 각각 카드 */
-.search_section .box {
+.search_section .beerlist_box {
   position: relative;
   margin-top: 25px;
   background-color: #ffffff;
@@ -82,7 +83,7 @@
 }
 
 /* 맥주 이미지 */
-.search_section .box .img-box {
+.search_section .beerlist_box .img-box {
   background: #f1f2f3;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -98,19 +99,19 @@
   margin: -1px;
   padding: 25px;
 }
-.search_section .box .img-box img {
+.search_section .beerlist_box .img-box img {
   max-width: 100%;
   max-height: 145px;
   -webkit-transition: all .2s;
   transition: all .2s;
 }
-.search_section .box:hover .img-box img {
+.search_section .beerlist_box:hover .img-box img {
   -webkit-transform: scale(1.1);
           transform: scale(1.1);
 }
 
 /* 맥주 설명란 */
-.search_section .box .beerdetail-box {
+.search_section .beerlist_box .beerdetail-box {
   padding: 25px;
   height: 250px;
   position: relative;
@@ -121,16 +122,15 @@
 }
 
 /* 맥주설명 */
-.search_section .box .beerdetail-box .beer_volume {
+.search_section .beerlist_box .beerdetail-box .beer_volume {
   font-size: 15px;
   /* text-align: right; */
   color: #7a7e83;
   margin: 10px 0;
 }
 
-
 /* 맥주이름 */
-.search_section .box .beerdetail-box h5 {
+.search_section .beerlist_box .beerdetail-box h5 {
   font-weight: 600;
 }
 .search_section .beerdetail-box .beerdetail-title {
@@ -139,7 +139,7 @@
   align-items: center;
 }
 
-/* 자세히버튼 */
+/* 맥주 자세히버튼 */
 .search_section .beerdetail-title .detailBtn {
   font-size: smaller;
   padding: 2px;
@@ -159,12 +159,11 @@
   color: #FFC81E;
 }
 
-
 /* 맥주 카테고리 */
-.search_section .box .beerdetail-box h6 {
+.search_section .beerlist_box .beerdetail-box h6 {
   margin-top: 10px;
 }
-.search_section .box .options_space_between {
+.search_section .beerlist_box .options_space_between {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -174,5 +173,106 @@
   border-radius: 15px;
   background-color: #e69c00;
 }
+.search_section .moreBtn {
+  display: flex;
+  justify-content: end;
+  margin-top: 30px;
+}
 
 
+/* 포스트 검색 결과 */
+.post_title {
+  margin-top: 30px;
+  margin-left: 10px;
+  font-size: 30px;
+}
+/* 포스트 카드 박스 */
+.search_section .postlist_box {
+  position: relative;
+  margin-top: 25px;
+  color: #ffffff;
+  overflow: hidden;
+  background: linear-gradient(to bottom, #f1f2f3 25px, #222831 25px);
+  font-size: 20px;
+  line-height: 1.25em;
+  font-weight: 600;
+  border-radius: 20px;
+}
+
+/* 포스트 이미지 */
+.search_section .postlist_box .img-box {
+  background: #f1f2f3;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 215px;
+  border-radius: 0 0 0 45px;
+  margin: -1px;
+  /* padding: 25px; */
+}
+.search_section .postlist_box .img-box img {
+  max-width: 100%;
+  max-height: 200px;
+  -webkit-transition: all .2s;
+  transition: all .2s;
+}
+.search_section .box:hover .img-box img {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+/* 포스트 카드 내용 */
+.search_section .postlist_box .postdetail-box {
+  padding: 25px;
+}
+.search_section .postlist_box .postdetail-box h5 {
+  font-weight: 600;
+  font-size: 15px;
+}
+.search_section .postlist_box .postdetail-box p {
+  font-size: 14px;
+}
+.search_section .postlist_box .postdetail-box h6 {
+  margin-top: 10px;
+}
+
+/* 포스트 내용 + 자세히버튼 한줄 */
+.postdetail-box .postdetail-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 3px;
+}
+
+/* 자세히 버튼 */
+.postdetail-title .detailBtn {
+  font-size: 10px;
+  padding: 2px;
+  background-color: #ffbe33;
+  color: white;
+  border-radius: 10px;
+  text-decoration: none;
+}
+
+/* 포스트 작성 정보 */
+.search_section .post-meta{
+  margin-right: 15px;
+  opacity: 0.6;
+  color:grey;
+  font-size: 0.85em;
+}
+
+/* 포스트 좋아요수 */
+.search_section .fontaws{
+  float:right
+}
+
+.postlist_component {
+  margin-bottom: 80px;
+}

@@ -61,10 +61,7 @@
 .postlist_section .postlist_box {
   position: relative;
   margin-top: 25px;
-  background-color: #ffffff;
-  border-radius: 10px;
   color: #ffffff;
-  border-radius: 15px;
   overflow: hidden;
   background: linear-gradient(to bottom, #f1f2f3 25px, #222831 25px);
   font-size: 20px;
@@ -88,11 +85,11 @@
   height: 215px;
   border-radius: 0 0 0 45px;
   margin: -1px;
-  padding: 25px;
+  /* padding: 25px; */
 }
 .postlist_section .postlist_box .img-box img {
   max-width: 100%;
-  max-height: 145px;
+  max-height: 200px;
   -webkit-transition: all .2s;
   transition: all .2s;
 }

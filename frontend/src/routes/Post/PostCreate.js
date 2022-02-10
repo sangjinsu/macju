@@ -2,10 +2,13 @@ import { useEffect, useState } from "react";
 import axios from "axios"
 import { Link } from 'react-router-dom';
 import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { useHistory } from "react-router-dom";
 import "../../firebase_config"
 import '../../styles/PostCreate.css'
 
 function PostCreate(s) {
+  const history = useHistory()
+
   const POST_CREATE_URL = process.env.REACT_APP_SERVER + ':8080/v1/post' 
   const memberid = 1  //test용 멤버아이디
   const beerid = s.location.state.beerid    // 작성하고있는 포스트의 맥주아이디
@@ -109,9 +112,7 @@ function PostCreate(s) {
         imgNames.push(uploadImages[i].firebase)
       }
       
-      
     const newpost = {
-      
       // beerId : 2,
       beerId : beerid,
       content : content,
@@ -127,17 +128,16 @@ function PostCreate(s) {
     // console.log(newpost)
 
     axios 
-    // http://13.125.157.39:8080/v1/beer/
       .post(POST_CREATE_URL, newpost, {headers})
-      // .post("http://13.125.157.39:8080/v1/post", newpost, {headers})
       .then((res) => {
         console.log(res)
-      const storage = getStorage()
-      uploadImages.map(async (img, index)=>{
-        const storageRef = ref(storage, `imgs/${res.data}/${img.firebase}`)
-        await uploadBytes(storageRef, img)
+        const storage = getStorage()
+        uploadImages.map(async (img, index)=>{
+          const storageRef = ref(storage, `imgs/${res.data}/${img.firebase}`)
+          await uploadBytes(storageRef, img)
           .then((snapshot) => {
             console.log('uploaded')
+            history.replace(`/beer/${beerid}`)
           })
       })
     })

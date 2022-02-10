@@ -11,10 +11,11 @@ import { useDispatch } from 'react-redux';
 
 
 
+
 function BeerList(){
   const BEER_LIST_URL = process.env.REACT_APP_SERVER + ':8080/v1/beer'
   // console.log(process.env.REACT_APP_BEER_LIST_URL)
-
+  
   // 맥주 데이터
   const [beerdata, setbeerdata] = useState([])
   const [showBeer, setShowBeer] = useState([])
@@ -108,6 +109,10 @@ function BeerList(){
     }
   }
   
+  const openClose = () => {
+    dispatch({type:"navClose"})
+    console.log('click')
+  }
   
   // 오류 : 카테고리 클릭할 때 리스트에 없던 맥주들만 fadein효과 적용되서 원래 리스트에 있던건 fadein이 안됌
   // 오류 : navbar의 area-expanded 되어있을때 카테고리누르면 닫히게해야함
@@ -154,7 +159,7 @@ function BeerList(){
                       {/* 맥주 이름 + 자세히 버튼 */}
                       <div className='beerdetail-title'>
                         <h5>{beer.name}</h5>
-                        <Link to={`/beer/${beer.beerId}`} className='detailBtn'>자세히</Link>
+                        <Link to={`/beer/${beer.beerId}`} onClick={openClose} className='detailBtn'>자세히</Link>
                       </div>
 
                       {/* 맥주 별점 */}

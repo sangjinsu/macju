@@ -3,9 +3,14 @@ import '../styles/Navbar.css'
 import '../styles/Responsive.css'
 import { Link } from "react-router-dom"
 import SearchBar from './SearchBar.js'
+import { useStore } from 'react-redux';
+import { useEffect } from 'react';
+
 
 function NavBar(){
   const memberId = 1    // test용 멤버 아이디
+
+  const store = useStore((state)=>state)
 
   const [isExpanded, setIsExpanded] = useState(false)
   const toggleBtn = document.getElementById("tglButton")
@@ -18,7 +23,21 @@ function NavBar(){
      toggleBtn.click()
     }
   })
+  
+  // const [isClose, setIsClose] = useState()
 
+  // useEffect(()=>{
+  //   const isClosed = store.getState().navbarReducer
+  //   console.log(store.getState().navbarReducer)    
+  //   if (isClosed === false) {
+  //     toggleBtn.click()
+  //   }
+  // },[])
+  
+  
+  
+
+  
   return(
     <div className='zindex'>
       <div className='navbar_page'>
@@ -36,7 +55,11 @@ function NavBar(){
                 </a>
 
                 {/* 수정 필요 - x 지우는거 안됌 */}
-                <SearchBar/>
+                <div className='searchbar'>
+                  <SearchBar/>
+                  <button class="btn btn-outline-light" type="submit">Search</button>
+                </div>
+
 
                 <button onClick={toggleClick} id='tglButton' className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                   <span className=""> </span>

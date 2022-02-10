@@ -13,9 +13,11 @@ function PostDetail() {
   const RANKING_POST_DLELETE_URL = process.env.REACT_APP_SERVER + ":8081/post"
   const RANKING_POST_LIKE_URL = process.env.REACT_APP_SERVER + ":8081/post/like"
   const RANKING_POST_URL = process.env.REACT_APP_SERVER + ":8081/post/view"
+  const POST_LIKE_URL = process.env.REACT_APP_SERVER + ':8080/v1/member'
   
+  const memberId = 1 //test용 멤버아이디
+
   const [postData, setPost] = useState()
-  const [isLike, setisLike] = useState(false)
   const [updateContent, setText] = useState();
   const [hashtagArr, setHashtagArr] = useState([])
   const [hashtag, setHashtag] = useState("")
@@ -24,7 +26,12 @@ function PostDetail() {
   const store = useStore((state)=>state)
   const dispatch = useDispatch();
   const history = useHistory();
-  
+
+  // 좋아한 맥주들
+  const [likeposts, setLikeposts] = useState([])
+  const [isLiked, setIsLiked] = useState()
+  const [postlikeNum, setPostlikeNum] = useState()
+
   const UpdateContent = (e) => {
     setText(e.target.value)
   }
@@ -99,9 +106,21 @@ function PostDetail() {
     }
   })
 
+  // 좋아요
   const likeButton = async () => {
     try{
-      setisLike(!isLike)
+      setIsLiked(!isLiked)
+      if (isLiked) {
+        setPostlikeNum(postlikeNum-1)
+      } else {
+        setPostlikeNum(postlikeNum+1)
+      }
+
+      // 좋아요 post 보내기
+      axios.post(`${POST_LIKE_URL}/post/${memberId}/like/${postId}`)
+      .then(console.log('좋아요완료'))
+      
+      // 랭킹 get
       const rankingPostLikeeUrl = `${RANKING_POST_LIKE_URL}/${postId}/1`
       const headers = {
         'Accept': "application/json; charset=UTF-8"
@@ -117,7 +136,6 @@ function PostDetail() {
     const fetchData = async () =>{
       try{
         const responseDetail = await axios.get(`${POST_DETAIL_URL}/${postId}`)
-        // const responseDetail = await axios.get(`http://13.125.157.39:8080/v1/post/${postId}`)
         const postDetail = responseDetail.data
   
         const hashTagArr = [postDetail.beer.beerType.main, ...postDetail.beer.aromaHashTags , ...postDetail.beer.flavorHashTags]
@@ -145,6 +163,18 @@ function PostDetail() {
         setPost(store.getState().postDetailReducer)
         setText(store.getState().postDetailReducer.content) // update
         setHashtagArr(store.getState().postDetailReducer.userHashTags) // update
+
+        // 좋아한 포스트 목록
+        const { data : postlikedata } = await axios.get(`${POST_LIKE_URL}/${memberId}/like/post`)
+        setLikeposts(postlikedata.data)
+        console.log(postlikedata.data)
+        for (let i in postlikedata.data) {
+          if (postlikedata.data[i].postId == postId) {
+            setIsLiked(true)    // 이 맥주 좋아요 눌렀으면 isLiked=true
+          }
+        }
+        setPostlikeNum(postDetail.likeMembers.length)
+
       }catch (error) {
         console.log(error)
       }
@@ -152,6 +182,7 @@ function PostDetail() {
 
     fetchData();
   }, [])
+
 
   useEffect(() => {
     const spendData = async () => {
@@ -166,6 +197,7 @@ function PostDetail() {
       }
     }
     spendData()
+    
   }, [])
 
   return (
@@ -199,17 +231,13 @@ function PostDetail() {
                       {/* 좋아요 하트 (수정필요) */}
                       <div className="heartInline">
                         {
-                          isLike === true
-                          ? <BsHeart className="heartIcon" size="23" onClick={likeButton}></BsHeart>
-                          : <BsHeartFill className="heartIcon" size="23" onClick={likeButton}></BsHeartFill>
+                          isLiked === true
+                          ? <BsHeartFill className="heartIcon" size="23" onClick={likeButton}></BsHeartFill>
+                          : <BsHeart className="heartIcon" size="23" onClick={likeButton}></BsHeart>
                         }
-                        <div className="count">{ postData.likeMembers.length }</div>
+                        <div className="count">{ postlikeNum }</div>
                       </div>
-                      {/* 댓글 */}
-                      <div className="commentInline">
-                        <i className="fas fa-comment fs-4"></i>
-                        <div className="count">{postData.comments.length}</div>
-                      </div>
+                      
                     </div>
 
                     {/* 맥주이름 버튼 */}

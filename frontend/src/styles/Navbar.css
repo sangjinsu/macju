@@ -61,6 +61,11 @@
   padding-left: 25px;
 }
 
+.searchbar {
+  display: flex;
+  align-items: baseline;
+}
+
 .navbar-brand {
   font-family: 'Dancing Script', cursive;
 }

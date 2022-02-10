@@ -110,6 +110,21 @@ const postCreateReducer = (state = [], action) =>{
   return state
 }
 
+
+const navbarReducer = (state=false, action) => {
+  if (action.type === "navOpen"){
+    const newState = true
+    return newState
+  } else if (action.type === "navClose"){
+    const newState = false
+    console.log(newState, 'navbar')
+    return newState
+  } 
+  else {
+    return state
+  }
+}
+
 const store = createStore( combineReducers
   ( {
     userReducer,
@@ -121,6 +136,10 @@ const store = createStore( combineReducers
      userProfileReducer, 
      userPostReducer, 
      userLikeReducer,
-     userReviewReducer
+     userReviewReducer,
+     navbarReducer
   } ))
+
+
+
 export default store;

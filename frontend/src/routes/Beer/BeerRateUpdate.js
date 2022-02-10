@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import StarRate from './StartRate.js'
 import Modal from 'react-modal';
 import '../../styles/BeerRate.css'
@@ -9,8 +9,7 @@ function BeerRate(props){
   const memberId = 1    // test용 멤버 아이디
   const starrate = props.starrate
   const beerid = props.beerid
-  // console.log(props)
-
+  
   const modal_style = {
     overlay: {
       position: 'fixed',
@@ -74,7 +73,7 @@ function BeerRate(props){
     // console.log(aromaArr)
   }
 
-  /////// 평가완료 = post 보내기
+  /////// 평가수정 = put 보내기
   const submitRate = ()=> {
     const newrate = {
       aromaHashTags : aromaIdArr,
@@ -86,9 +85,10 @@ function BeerRate(props){
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': "application/json; charset=UTF-8"
     }
-    console.log(aromaArr, flavorArr)
+    // console.log(aromaArr, flavorArr)
     if (aromaArr.length && flavorArr.length && starrate) {
-      axios.post(`${BEER_RATE_URL}/${beerid}/member/${memberId}`, newrate, {headers}) 
+      console.log(newrate)
+      axios.put(`${BEER_RATE_URL}/${beerid}/member/${memberId}`, newrate, {headers}) 
       .then((res) => {
         console.log(res)
         props.set_rateModal(false)
@@ -98,12 +98,31 @@ function BeerRate(props){
     }
   }
 
+  // 평가했던 값들 불러오기
+  const [rateDetail, setRateDetail] = useState()
+  useEffect(()=>{
+    const fetchData = async ()=>{
+      const {data:ratedata} = await axios.get(`${BEER_RATE_URL}/${beerid}/member/${memberId}`)
+      setRateDetail(ratedata)
+      setAromaArr(ratedata.aromaHashTags)
+      setFlavorArr(ratedata.flavorHashTags)
+      props.setStarrate(ratedata.rate)
+
+      // setAromaIdArr(ratedata.aromaHashTags.id)
+      // setFlavorIdArr(ratedata.flavorHashTags.id)
+
+    }
+
+    fetchData();
+  }, [BEER_RATE_URL])
+
+
   return(
-    <Modal isOpen={props.rateModal} onRequestClose={() => props.set_rateModal(false)} style={modal_style} ariaHideApp={false} >
-    {/* <Modal isOpen={props.rateModal} style={modal_style} ariaHideApp={false} > */}
+    // <Modal isOpen={props.rateModal} onRequestClose={() => props.set_rateModal(false)} style={modal_style} ariaHideApp={false} >
+    <Modal isOpen={props.rateModal} style={modal_style} ariaHideApp={false} >
     <div className="ratemodal_section">
       <h4 className="modal_heading">Beer Rate</h4>
-      <StarRate setStarrate={props.setStarrate}></StarRate>
+      <StarRate setStarrate={props.setStarrate} starrate={props.starrate}></StarRate>
 
       <div className="row"> 
 

@@ -1,21 +1,27 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux';
 import '../../styles/Signup.css'
 
-function Signup() {
+function Signup(props) {
+  const VALIDATE_NICKNAME_URL = process.env.REACT_APP_SERVER + ':8080/v1/member/validateninkname'
+  const USER_SIGNUP_URL = process.env.REACT_APP_SERVER + ':8080/v1/member/signup'
+  const userData = props.userData
+  const dispatch = useDispatch()
   
   const [nickname, nicknameChange] = useState("");
   const [age, ageChange] = useState("");
-  const [radioChecked, setRadioChecked] = useState("");
-  const [useNickName, addNickName] = useState(['Dongil', 'Kimdongil'])
-  const [nickBtn, deactivateNickBtn] = useState(false)
+  const [gender, setGender] = useState("");
+  const [AvailableNick, setAvailable] = useState()
   const [submitBtn, deactivateSubmitBtn] = useState(true)
-  const changeNickName = (e) => {
+  
+  const changeNickName = e => {
     nicknameChange(e.target.value);
   }
 
-  const changeRadioChecked = e => {
-    if (e.target.checked) { // e.target.checked는 radio버튼 클릭되면 true
-      setRadioChecked(e.target.id); 
+  const selectValue = e => {
+    if (e.target.value) {
+      setGender(e.target.value); 
     }
   }
 
@@ -23,39 +29,77 @@ function Signup() {
     ageChange(e.target.value);
   }
 
-  const checkNickName = () => { //중복여부에 따른 버튼활성화
-    // 닉네임 중복에 대한 결과값을 Back에서 받아온다.
-    let resultOverlap = false
-    for (let nick of useNickName){
-      if (nickname === nick) {
-        resultOverlap = true
+  const signupBtn = e => {
+    const signup = async() => {
+      try{
+        const singupData = {
+          "memberId": 1, // userData.
+          "age": 1, // userData.
+          "name": "dongil", // userData.
+          "nickName": nickname
+        }
+        const headers = {
+          headers: {
+            "Accept" : "application/json;charset=UTF-8",
+            "Content-Type" : "application/json;charset=UTF-8"
+          }
+        }
+        await axios.post(USER_SIGNUP_URL, )
+      }catch{
+        console.log("회원가입 실패")
       }
     }
-    if ( resultOverlap ) {
-      return (
-        alert("중복입니다")
-      )
-    } else {
-      addNickName( [...useNickName, nickname] )
-      deactivateNickBtn(true)
-      return (
-        alert("사용가능합니다")
-      )
-    }
+    signup()
+    dispatch({type:"loginSucess", userData:userData})
   }
 
-  useEffect( () => { // 닉네임 수정할 때 버튼 막아놓기
-    deactivateNickBtn(false)
+  // const checkNickName = () => { //중복여부에 따른 버튼활성화
+  //   // 닉네임 중복에 대한 결과값을 Back에서 받아온다.
+  //   let resultOverlap = false
+  //   for (let nick of useNickName){
+  //     if (nickname === nick) {
+  //       resultOverlap = true
+  //     }
+  //   }
+  //   if ( resultOverlap ) {
+  //     return (
+  //       alert("중복입니다")
+  //     )
+  //   } else {
+  //     addNickName( [...useNickName, nickname] )
+  //     deactivateNickBtn(true)
+  //     return (
+  //       alert("사용가능합니다")
+  //     )
+  //   }
+  // }
+  useEffect( () => { // 닉네임 수정할 때 버튼 막아놓고 시작
     deactivateSubmitBtn(true)
-    console.log(nickname)
+    }, [nickname]
+  )
+
+  useEffect( () => {
+    const validationNinkname = async () => {
+      try{
+        const { status : nicknameStatus } = await axios.get(`${VALIDATE_NICKNAME_URL}/${nickname}`)
+        if (nicknameStatus === 200) {
+          setAvailable(true)
+        }else {
+          setAvailable(false)
+        }
+      }catch{
+        console.log("중복확인 실패")
+      }
+    }
+    validationNinkname()
     }, [nickname]
   )
 
   useEffect( () => { // 수정필요
-    if (nickBtn && radioChecked && age) {
+    if (AvailableNick && gender && age) {
       deactivateSubmitBtn(false)
     }
-    }, [nickBtn, nickname, radioChecked, age]
+    }, [AvailableNick, nickname, gender, age]
   )
 
   return(
@@ -102,14 +146,14 @@ function Signup() {
 
                   {/* 성별 입력 */}
                   <div>
-                    <select className="form-control nice-select wide">
+                    <select className="form-control nice-select wide" name="choice" onChange={selectValue}>
                       <option value="" disabled selected>
                         성별
                       </option>
-                      <option value="남자">
+                      <option value="man">
                         남자
                       </option>
-                      <option value="여자">
+                      <option value="woman">
                         여자
                       </option>
                     </select>
@@ -117,7 +161,7 @@ function Signup() {
 
                   {/* 회원가입 완료 버튼 */}
                   <div className="btn_box">
-                    <button>
+                    <button disabled={submitBtn} onClick={signupBtn}>
                       SignUp Now
                     </button>
                   </div>

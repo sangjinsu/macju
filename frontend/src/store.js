@@ -1,7 +1,15 @@
 import { combineReducers, createStore } from "redux"
 
-const userReducer = (state= [], action) => {
-  return 2
+const userReducer = (state = [], action) => {
+  if (action.type === "loginSucess") {
+    const loginState = action.userData
+    return loginState
+  }else if (action.type === "logout") {
+    const logoutState = {}
+    return logoutState
+  }else{
+    return state
+  }
 }
 
 const followersReducer = (state = [], action) => {
@@ -20,18 +28,6 @@ const followingsReducer = (state = [], action) => {
 }
 
 
-
-// const userReducer = (state = [], action) => {
-//   if (action.type === "login") {
-//     const loginState = action.loginUser
-//     return loginState
-//   }else if (action.type === "logout") {
-//     const logoutState = {}
-//     return logoutState
-//   }else{
-//     return state
-//   }
-// }
 
 
 const userProfileReducer = (state = [], action)=>{

@@ -20,7 +20,6 @@ const UserPost = (s) => {
 
 
 
-
   const storage = getStorage();
   useEffect(() => {
     const fetchData = async() =>{

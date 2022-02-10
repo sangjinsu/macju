@@ -3,12 +3,12 @@
 }
 
 /* 제목 */
-.postlist_section h1,
-.postlist_section h2 {
+.userpost_section h1,
+.userpost_section h2 {
   font-family: 'Dancing Script', cursive;
 }
 
-.postlist_section .postlist_header {
+.userpost_section .postlist_header {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -20,13 +20,13 @@
       -ms-flex-align: start;
           align-items: flex-start;
 }
-.postlist_section .postlist_header h2 {
+.userpost_section .postlist_header h2 {
   position: relative;
   margin-bottom: 40px;
   font-size: 2.5rem;
   font-weight: bold;
 }
-.postlist_section .postlist_header.heading_center {
+.userpost_section .postlist_header.heading_center {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -48,7 +48,7 @@
      opacity: 1;
   }
 }
-.postlist_section .fadein {
+.userpost_section .fadein {
  opacity: 0;
  animation: fadeIn ease-in 1;
  animation-fill-mode: forwards;
@@ -58,7 +58,7 @@
 
 
 /* 포스트 카드 박스 */
-.postlist_section .postlist_box {
+.userpost_section .postlist_box {
   position: relative;
   margin-top: 25px;
   background-color: #ffffff;
@@ -74,7 +74,7 @@
 }
 
 /* 포스트 이미지 */
-.postlist_section .postlist_box .img-box {
+.userpost_section .postlist_box .img-box {
   background: #f1f2f3;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -90,29 +90,29 @@
   margin: -1px;
   padding: 25px;
 }
-.postlist_section .postlist_box .img-box img {
+.userpost_section .postlist_box .img-box img {
   max-width: 100%;
   max-height: 145px;
   -webkit-transition: all .2s;
   transition: all .2s;
 }
-.postlist_section .box:hover .img-box img {
+.userpost_section .box:hover .img-box img {
   -webkit-transform: scale(1.1);
           transform: scale(1.1);
 }
 
 /* 포스트 카드 내용 */
-.postlist_section .postlist_box .postdetail-box {
+.userpost_section .postlist_box .postdetail-box {
   padding: 25px;
 }
-.postlist_section .postlist_box .postdetail-box h5 {
+.userpost_section .postlist_box .postdetail-box h5 {
   font-weight: 600;
   font-size: 15px;
 }
-.postlist_section .postlist_box .postdetail-box p {
+.userpost_section .postlist_box .postdetail-box p {
   font-size: 14px;
 }
-.postlist_section .postlist_box .postdetail-box h6 {
+.userpost_section .postlist_box .postdetail-box h6 {
   margin-top: 10px;
 }
 
@@ -135,7 +135,7 @@
 }
 
 /* 포스트 작성 정보 */
-.postlist_section .post-meta{
+.userpost_section .post-meta{
   margin-right: 15px;
   opacity: 0.6;
   color:grey;
@@ -143,7 +143,7 @@
 }
 
 /* 포스트 좋아요수 */
-.postlist_section .fontaws{
+.userpost_section .fontaws{
   float:right
 }
 

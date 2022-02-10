@@ -13,6 +13,7 @@ function NavBar(){
   const toggleBtn = document.getElementById("tglButton")
   const toggleClick = (() => {
     setIsExpanded(!isExpanded)
+    // console.log('click')
   })
   
   
@@ -58,7 +59,7 @@ function NavBar(){
                 {/* 수정 필요 - x 지우는거 안됌 */}
                 <div className='searchbar'>
                   <SearchBar/>
-                  <Link to='/search' class="btn btn-outline-light" onClick={navClick}>Search</Link>
+                  <Link to='/search' className="btn btn-outline-light" onClick={navClick}>Search</Link>
                 </div>
 
 
@@ -82,12 +83,12 @@ function NavBar(){
                     <Link to={`/profile/${memberId}/post`} className="user_link" onClick={navClick}>
                       <i className="fa fa-user" aria-hidden="true"></i>
                     </Link>
-                    <form className="form-inline">
+                    {/* <form className="form-inline">
                       <button className="btn  my-2 my-sm-0 nav_search-btn" type="submit" onClick={navClick}>
                         <i className="fa fa-search" aria-hidden="true"></i>
                       </button>
                     </form>
-                    
+                     */}
                     <div className="order_online">
                       <Link className='nav-link nav_login' to='/user/login' onClick={navClick}>login</Link>
                     </div>

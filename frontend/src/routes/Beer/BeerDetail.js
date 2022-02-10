@@ -220,10 +220,21 @@ function BeerDetail() {
                   {/* 맥주 별점 + 평가하기버튼 */}
                   <div className="rate_spacebetween">
                     <div className='starInline'>
-                      {/* {console.log(beer.averageRate)} */}
-                      <div className='star'>★★★★☆</div>
-                      <div>(4)</div>
+                      {/* 맥주 별점 */}
+                      <div className="star-ratings">
+                        <div 
+                          className="star-ratings-fill space-x-2 text-lg"
+                          style={{width:`${beer.averageRate*20}%` }}
+                        >
+                          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                        </div>
+                        <div class="star-ratings-base space-x-2 text-lg">
+                          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                        </div>
+                      </div>
+                      <div>({beer.averageRate})</div>
                     </div>
+                    {/* 평가하기 버튼 */}
                     <button className="RateBtn" onClick={()=> set_rateModal(true)}>평가하기</button>
                   </div>
 

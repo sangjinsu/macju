@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import axios from "axios"
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 import { useHistory } from "react-router-dom";
 import "../../firebase_config"
 import '../../styles/PostCreate.css'
-
+import {useStore} from "react-redux"
 function PostCreate(s) {
   const history = useHistory()
 
   const POST_CREATE_URL = process.env.REACT_APP_SERVER + ':8080/v1/post' 
+  const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8080/v1/member/profile'
+  const history = useHistory();
   const memberid = 1  //test용 멤버아이디
   const beerid = s.location.state.beerid    // 작성하고있는 포스트의 맥주아이디
   // DB upload
@@ -18,7 +20,7 @@ function PostCreate(s) {
   // hash(post)
   const [hashtagArr, setHashtagArr] = useState([])
   const [hashtag, setHashtag] = useState("")
-
+  const store = useStore((state)=>state)
 
 
   /////// 사진 선택 버튼 click
@@ -130,16 +132,24 @@ function PostCreate(s) {
     axios 
       .post(POST_CREATE_URL, newpost, {headers})
       .then((res) => {
-        console.log(res)
+        const profiledata = store.getState().profileReducer
+        profiledata['grade'] = profiledata['grade'] + 10
+        axios.put(USER_UPDATE_PROFILE, profiledata)
+        .then((res)=>{
+          axios.get(`${USER_UPDATE_PROFILE}/1`)
+          .then((res)=>{
+            history.push(`/post`)
+            // history.replace(`/beer/${beerid}`)
+          })
+        })
         const storage = getStorage()
         uploadImages.map(async (img, index)=>{
           const storageRef = ref(storage, `imgs/${res.data}/${img.firebase}`)
           await uploadBytes(storageRef, img)
-          .then((snapshot) => {
-            console.log('uploaded')
-            history.replace(`/beer/${beerid}`)
-          })
-      })
+            .then((snapshot) => {
+              console.log('uploaded')
+            })
+        })
     })
   }
   })

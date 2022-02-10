@@ -12,7 +12,7 @@ import { getDownloadURL, getStorage, ref } from "firebase/storage";
 function PostDetail() {
 
   //url
-
+  const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8080/v1/member/profile'
   const POST_DETAIL_URL = process.env.REACT_APP_SERVER + ':8080/v1/post'
   const POST_DETAIL_LOG_URL = process.env.REACT_APP_SERVER + ':8080/v1/log'
   const RANKING_POST_DLELETE_URL = process.env.REACT_APP_SERVER + ":8081/post"
@@ -65,12 +65,26 @@ function PostDetail() {
   const DeletePost = async() => {
     try{
       const postDeleteUrl = `${POST_DETAIL_URL}/${postId}`
-      const rankingPostDeleteUrl = `${RANKING_POST_DLELETE_URL}/${postId}/1`
+      const rankingPostDeleteUrl = `${RANKING_POST_DLELETE_URL}/${postId}`
 
       await axios.delete(postDeleteUrl)
       dispatch({ type : "postDelete"})
 
       await axios.get(rankingPostDeleteUrl)
+
+      const profiledata = store.getState().profileReducer
+      profiledata['grade'] = profiledata['grade'] - 10
+      axios.put(USER_UPDATE_PROFILE, profiledata)
+      .then((res)=>{
+        axios.get(`${USER_UPDATE_PROFILE}/1`)
+        .then((res)=>{
+          console.log(res)
+          
+        })
+      })
+
+
+
 
       history.push("/post")
     }catch{

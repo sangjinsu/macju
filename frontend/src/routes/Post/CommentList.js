@@ -3,13 +3,15 @@ import { useDispatch, useStore } from 'react-redux';
 // import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import axios from 'axios';
 import "../../styles/CommentList.css"
+import { useHistory } from "react-router-dom";
 
 function CommentList(props) {
   const COMMENT_LIST_URL = process.env.REACT_APP_SERVER + ':8080/v1/post'
-
+  const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8080/v1/member/profile'
   const [comments, setcomments] = useState([]);
   const [inputComment, inputCommentChange] = useState("");
   const dispatchComment = useRef();
+  const history = useHistory();
   // const [dispatchComment, setDispatchComment] = useState();
   const newCommentId = useRef("");
   
@@ -40,7 +42,10 @@ function CommentList(props) {
           "Content-Type" : "application/json;charset=UTF-8"
         }
       }
+
+      
       const addData = await axios.post(apiUrl, postData, headers)
+     
       newCommentId.current = addData.data
 
       dispatchComment.current = {
@@ -53,6 +58,16 @@ function CommentList(props) {
       dispatch({ type : "addComment", inputComment : dispatchComment.current })
       setcomments(store.getState().commentReducer)
       inputCommentChange("")
+      const profiledata = store.getState().profileReducer
+      profiledata['grade'] = profiledata['grade'] + 3
+      axios.put(USER_UPDATE_PROFILE, profiledata)
+      .then((res)=>{
+        axios.get(`${USER_UPDATE_PROFILE}/1`)
+        .then((res)=>{
+          console.log(res)
+          
+        })
+      })
     }
     catch{
       console.log("오류")
@@ -66,6 +81,16 @@ function CommentList(props) {
       const deleteData = await axios.delete(deleteApiUrl)
       dispatch({ type : "deleteComment", commentKey : commentId })
       setcomments(store.getState().commentReducer)
+      const profiledata = store.getState().profileReducer
+      profiledata['grade'] = profiledata['grade'] - 3
+      axios.put(USER_UPDATE_PROFILE, profiledata)
+      .then((res)=>{
+        axios.get(`${USER_UPDATE_PROFILE}/1`)
+        .then((res)=>{
+          console.log(res)
+          
+        })
+      })
     }
     catch{
       alert("삭제 실패")

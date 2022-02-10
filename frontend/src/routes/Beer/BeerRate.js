@@ -3,13 +3,15 @@ import StarRate from './StartRate.js'
 import Modal from 'react-modal';
 import '../../styles/BeerRate.css'
 import axios from "axios";
-
+import {useStore} from "react-redux"
 
 function BeerRate(props){
+  const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8080/v1/member/profile'
   const BEER_RATE_URL = process.env.REACT_APP_SERVER + ':8080/v1/beer'
   const memberId = 1    // test용 멤버 아이디
   const starrate = props.starrate
   const beerid = props.beerid
+  const store = useStore((state)=>state)
   // console.log(props)
 
 
@@ -103,7 +105,20 @@ function BeerRate(props){
         updateRate()
         console.log(starrate)
         props.setIsRated(true)
-
+        
+      })
+      .then(()=>{
+        const profiledata = store.getState().profileReducer
+        profiledata['grade'] = profiledata['grade'] + 5
+        axios.put(USER_UPDATE_PROFILE, profiledata)
+        .then((res)=>{
+          console.log(res)
+          axios.get(`${USER_UPDATE_PROFILE}/1`)
+          .then((res)=>{
+            console.log(res)
+      })
+      
+      })
       })
     } else {
       alert('평가를 완료해주세요!')

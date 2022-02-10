@@ -75,8 +75,8 @@ function Signup(props) {
   // }
   useEffect( () => { // 닉네임 수정할 때 버튼 막아놓고 시작
     deactivateSubmitBtn(true)
-    console.log('gg')
-    }, [nickname])
+    }, [nickname]
+  )
 
   useEffect( () => {
     const validationNinkname = async () => {

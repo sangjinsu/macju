@@ -3,14 +3,11 @@ import '../styles/Navbar.css'
 import '../styles/Responsive.css'
 import { Link } from "react-router-dom"
 import SearchBar from './SearchBar.js'
-import { useStore } from 'react-redux';
-import { useEffect } from 'react';
 
 
 function NavBar(){
   const memberId = 1    // test용 멤버 아이디
 
-  const store = useStore((state)=>state)
 
   const [isExpanded, setIsExpanded] = useState(false)
   const toggleBtn = document.getElementById("tglButton")

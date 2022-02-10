@@ -75,7 +75,12 @@ const postImageRecuder = (state=[], action) =>{
 const postDetailReducer = (state= [], action) => {
   if (action.type === "postDetailLoading"){
     const loadPostDetail = action.postDetail
-    const newHashTags = loadPostDetail.userHashTags.map( (tag)=> tag.content)
+    let newHashTags;
+    if (loadPostDetail.userHashTags) {
+      newHashTags = loadPostDetail.userHashTags.map( (tag)=> tag.content)
+    } else {
+      newHashTags = []
+    }
     loadPostDetail.userHashTags = newHashTags
     return loadPostDetail
   }else if (action.type === "updatePost") {

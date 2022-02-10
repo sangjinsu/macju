@@ -9,6 +9,9 @@ import { getDownloadURL, getStorage, ref } from "firebase/storage";
 // import { useHistory } from 'react-router-dom';
 
 function PostDetail() {
+
+  //url
+
   const POST_DETAIL_URL = process.env.REACT_APP_SERVER + ':8080/v1/post'
   const POST_DETAIL_LOG_URL = process.env.REACT_APP_SERVER + ':8080/v1/log'
   const RANKING_POST_DLELETE_URL = process.env.REACT_APP_SERVER + ":8081/post"
@@ -16,17 +19,27 @@ function PostDetail() {
   const RANKING_POST_URL = process.env.REACT_APP_SERVER + ":8081/post/view"
   const POST_LIKE_URL = process.env.REACT_APP_SERVER + ':8080/v1/member'
   
+
+  //basic data
+  const history = useHistory();
+  const postId = useParams().postId;
   const memberId = 1 //test용 멤버아이디
 
+
+  //redux
+  const dispatch = useDispatch();
+  const store = useStore((state)=>state)
+
+
+
+  //useState
   const [postData, setPost] = useState()
   const [updateContent, setText] = useState();
   const [hashtagArr, setHashtagArr] = useState([])
   const [hashtag, setHashtag] = useState("")
   const [postDetailImage, setPostDetailImage] = useState([])
-  const postId = useParams().postId;
-  const store = useStore((state)=>state)
-  const dispatch = useDispatch();
-  const history = useHistory();
+
+  
 
   // 좋아한 맥주들
   const [likeposts, setLikeposts] = useState([])
@@ -43,13 +56,11 @@ function PostDetail() {
 
 
 
-
+  //function
 
   const UpdateContent = (e) => {
     setText(e.target.value)
   }
-  
-
   const DeletePost = async() => {
     try{
       const postDeleteUrl = `${POST_DETAIL_URL}/${postId}`
@@ -144,11 +155,24 @@ function PostDetail() {
     }
   }
 
-  useEffect(()=>{
-    const postId = store.getState().postDetailReducer.postId
-    const images = store.getState().postDetailReducer.photos
+  const fetchPostDetailData = async () =>{
+    const postDetail = await axios.get(`${POST_DETAIL_URL}/${postId}`)
+    const imageList = [...postDetailImage]
+    for (let i = 0; i < postDetail.data.photos.length; i++){
+      const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/imgs/${postId}/${postDetail.data.photos[i].data}`)
+      await getDownloadURL(storageRef)
+      .then((res) =>{
+        if (!postDetailImage.some((url)=>url===res)) {
+          imageList.push(res)
+        }
+      })
+    }
+    setPostDetailImage(imageList)
+  }
+
+  const images = store.getState().postDetailReducer.photos
     const fetchData = async() =>{
-      const imageList = []
+      const imageList = [...postDetailImage]
       for (let i = 0; i < images.length; i++){
         const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/imgs/${postId}/${images[i].data}`)
         await getDownloadURL(storageRef)
@@ -161,33 +185,16 @@ function PostDetail() {
       setPostDetailImage(imageList)
     }
 
+  //useEffect
+
+  useEffect(()=>{
     if (images) {
       fetchData();
     } else  {
-      const fetchPostDetailData = async () =>{
-        const postDetail = await axios.get(`${POST_DETAIL_URL}/${postId}`)
-        dispatch({type:"postDetailLoading", postDetail: postDetail})
-      }
       fetchPostDetailData();
     }
-
-
-    
-
-  }, [store.getState().postDetailReducer])
-
-
-
-
-
-
-
-
-
-
-
-
-
+       
+  }, [])
 
 
   // postDetail 불러오는 것 (리덕스에 저장)
@@ -229,7 +236,7 @@ function PostDetail() {
         setLikeposts(postlikedata.data)
 
         for (let i in postlikedata.data) {
-          if (postlikedata.data[i].postId == postId) {
+          if (postlikedata.data[i].postId === postId) {
             setIsLiked(true)    // 이 맥주 좋아요 눌렀으면 isLiked=true
           }
         }
@@ -276,7 +283,7 @@ function PostDetail() {
           {postDetailImage&& postDetailImage.map((data, i)=>
             <div className="col-md-6 " key={i}>
             <div className="img-box">
-              <img src={data}></img> 
+              <img src={data} alt=''></img> 
             </div>
           </div>
           )}

@@ -4,11 +4,12 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./RecommendBeer.css"
 import axios from "axios";
+import { useState } from "react";
 
 
 const RecommendBeer = () => { // 변수명 수정필요
+  const [beerList, setBeer] = useState()
   
-
   const settings = {
     dots: true,
     infinite: true,
@@ -24,7 +25,16 @@ const RecommendBeer = () => { // 변수명 수정필요
   };
 
   useEffect( () => {
-    PopBeer()
+    const getRecommend = async () => {
+      const RECOMMEND_BEER = process.env.REACT_APP_SERVER + ':8000/v1/recommend/1' // memberId 추후 수정
+      const headers = {
+        'Accept': "application/json; charset=UTF-8"
+      }
+      console.log("111")
+      const { data: recommendBeer} = await axios.get(RECOMMEND_BEER, headers)
+      setBeer(recommendBeer.recommend)
+    }
+    getRecommend()
   }, [])
 
   useEffect( () => {
@@ -34,12 +44,13 @@ const RecommendBeer = () => { // 변수명 수정필요
   return(
     <div className="SlickTest">
         <div id="bubbles">
-          <h3 className="recommendtitle" align="center">Best Beer</h3>
+          <h3 className="recommendtitle" align="center">Recommend Beer</h3>
           <Slider {...settings}>
-              <CustomSlide index={1}></CustomSlide>
-              <CustomSlide index={2}></CustomSlide>
-              <CustomSlide index={3}></CustomSlide>
-              <CustomSlide index={4}></CustomSlide>
+            {
+              beerList&&beerList.map((beerid, i) => 
+                <CustomSlide beerid={beerid} key={i} />
+              )
+            }
           </Slider>
         </div>
     </div>
@@ -48,7 +59,15 @@ const RecommendBeer = () => { // 변수명 수정필요
 
 
 function CustomSlide(props) {
-  const imgSrc = "img/abc.png"
+  const BEER_DETAIL_URL = process.env.REACT_APP_SERVER + ':8080/v1/beer'
+  const [imgSrc, setImgSrc] = useState()
+  useEffect( () => {
+    const fetchData = async ()=>{
+      const { data : beerDetail } = await axios.get(`${BEER_DETAIL_URL}/${props.beerid}`)
+      setImgSrc(beerDetail.photoPath)
+    }
+    fetchData();
+  }, [])
   return(
     <div {...props}>
       <img className="slideImg" src={imgSrc} alt=""/>
@@ -56,14 +75,7 @@ function CustomSlide(props) {
   )
 }
 
-const PopBeer = async () => {
-  const RANKING_POPBEER = process.env.REACT_APP_SERVER + '8081/beer/popbeer'
-  const headers = {
-    'Accept': "application/json; charset=UTF-8"
-  }
-  const rankingBeer = await axios.get(RANKING_POPBEER, headers)
-  console.log(rankingBeer.data)
-}
+
 
 function CreateBubble(){
   let bubbleEnd

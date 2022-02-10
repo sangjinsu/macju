@@ -7,7 +7,7 @@ import axios from "axios";
 import { useState } from "react";
 
 
-const RecommendBeer = () => {
+const BestBeer = () => {
   const [rankingBeerList, setRanking] = useState()
 
   const settings = {
@@ -100,4 +100,4 @@ function CreateBubble(){
 }
 
 
-export default RecommendBeer;
+export default BestBeer;

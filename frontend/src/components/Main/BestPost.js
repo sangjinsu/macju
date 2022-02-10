@@ -5,11 +5,13 @@ import "slick-carousel/slick/slick-theme.css";
 import "./RecommendBeer.css"
 import axios from "axios";
 import { useState } from "react";
+import { getDownloadURL, getStorage, ref } from "firebase/storage";
+import { useRef } from "react";
 
 
-const RecommendBeer = () => { // 변수명 수정필요
-  const [beerList, setBeer] = useState()
-  
+const BestPost = () => {
+  const [rankingPostList, setRanking] = useState()
+
   const settings = {
     dots: true,
     infinite: true,
@@ -25,17 +27,22 @@ const RecommendBeer = () => { // 변수명 수정필요
   };
 
   useEffect( () => {
-    const getRecommend = async () => {
-      const RECOMMEND_BEER = process.env.REACT_APP_SERVER + ':8000/v1/recommend/1' // memberId 추후 수정
-      const headers = {
-        'Accept': "application/json; charset=UTF-8"
+    const hotPost = async () => {
+      try{
+        const RANKING_HOTPOST = process.env.REACT_APP_SERVER + ':8081/post/hotpost'
+        const headers = {
+          'Accept': "application/json; charset=UTF-8"
+        }
+        const { data : rankingPost } = await axios.get(RANKING_HOTPOST, headers)
+        const rankingPostId = rankingPost.map( (post) => post.postId )
+        setRanking(rankingPostId)
+      }catch{
+        console.log("불러오기 실패")
       }
-      console.log("111")
-      const { data: recommendBeer} = await axios.get(RECOMMEND_BEER, headers)
-      setBeer(recommendBeer.recommend)
     }
-    getRecommend()
+    hotPost()
   }, [])
+  
 
   useEffect( () => {
     CreateBubble()
@@ -44,11 +51,11 @@ const RecommendBeer = () => { // 변수명 수정필요
   return(
     <div className="SlickTest">
         <div id="bubbles">
-          <h3 className="recommendtitle" align="center">Recommend Beer</h3>
+          <h3 className="bestbeer" align="center">Hot Post</h3>
           <Slider {...settings}>
             {
-              beerList&&beerList.map((beerid, i) => 
-                <CustomSlide beerid={beerid} key={i} />
+              rankingPostList&&rankingPostList.map((postid, i) => 
+                <CustomSlide postid={postid} key={i} />
               )
             }
           </Slider>
@@ -59,23 +66,33 @@ const RecommendBeer = () => { // 변수명 수정필요
 
 
 function CustomSlide(props) {
-  const BEER_DETAIL_URL = process.env.REACT_APP_SERVER + ':8080/v1/beer'
+  const BEER_DETAIL_URL = process.env.REACT_APP_SERVER + `:8080/v1/post/${props.postid}`
   const [imgSrc, setImgSrc] = useState()
+  const storage = getStorage()
+  const aa = props.postid
+  const [bb, setbb] = useState()
   useEffect( () => {
     const fetchData = async ()=>{
-      const { data : beerDetail } = await axios.get(`${BEER_DETAIL_URL}/${props.beerid}`)
-      setImgSrc(beerDetail.photoPath)
+      const { data : postDetail } = await axios.get(`${BEER_DETAIL_URL}`)
+      console.log(postDetail.photos[0])
+      setImgSrc(postDetail)
+
+      console.log(aa)
+      const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/imgs/${aa}/${postDetail.photos[0].data}`)
+      console.log("!!!!")
+      const test = await getDownloadURL(storageRef)
+      setbb(test)
+      console.log(bb.current)
     }
     fetchData();
   }, [])
+
   return(
     <div {...props}>
-      <img className="slideImg" src={imgSrc} alt=""/>
+      <img className="slideImg" src={bb} alt=""/>
     </div>
   )
 }
-
-
 
 function CreateBubble(){
   let bubbleEnd
@@ -102,4 +119,4 @@ function CreateBubble(){
 }
 
 
-export default RecommendBeer;
+export default BestPost;

@@ -7,7 +7,7 @@ import axios from "axios";
 import { useState } from "react";
 
 
-const RecommendBeer = () => {
+const BestBeer = () => {
   const [rankingBeerList, setRanking] = useState()
 
   const settings = {
@@ -18,8 +18,8 @@ const RecommendBeer = () => {
     // centerMode: true,
     // centerPadding: "60px",
     fade:true, //center랑 중복 불가능
-    autoplaySpeed: 1000,
-    speed: 1000,
+    autoplaySpeed: 5000,
+    speed: 5000,
     slidesToShow: 1,
     slidesToScroll: 1
   };
@@ -100,4 +100,4 @@ function CreateBubble(){
 }
 
 
-export default RecommendBeer;
+export default BestBeer;

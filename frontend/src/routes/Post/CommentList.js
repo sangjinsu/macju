@@ -99,8 +99,10 @@ function CommentList(props) {
             <div className="col-md-12">
               <div className="comment-box">
                 <div className="heading_container">
+                  {/* <i className="fas fa-comment fs-4"></i> */}
                   <h2>Comment</h2>
                 </div>
+
                 {/* 댓글 작성 폼 */}
                 <form>
                   <input

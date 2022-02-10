@@ -35,6 +35,9 @@ function BeerDetail() {
   // 좋아한 맥주들
   const [likebeers, setLikebeers] = useState([])
   const [isLiked, setIsLiked] = useState(false)
+  // 좋아요수
+  // const [likes, setLikes] = useState()
+  const [beerlikeNum, setBeerlikeNum] = useState()
 
   // const [beerImg, setbeerImg] = useState()
   const { beerid } = useParams();
@@ -44,7 +47,6 @@ function BeerDetail() {
     const fetchData = async ()=>{
       const { data : beerdetail } = await axios.get(`${BEER_DETAIL_URL}/${beerid}`)
       setbeer(beerdetail)
-      // const nowbeerDetail = beerdetail.data
 
       // 맥주별 포스트 목록
       const beer_postdetail = await axios.get(`${BEER_DETAIL_POST_URL}/${beerid}`)
@@ -68,6 +70,7 @@ function BeerDetail() {
           setIsLiked(true)    // 이 맥주 좋아요 눌렀으면 isLiked=true
         }
       }
+      setBeerlikeNum(beerdetail.likes)    // 좋아요수 처음에 가져오기
 
       // 로그 보내기
       const hashTagArr = [beerdetail.beerType.main, ...beerdetail.aromaHashTags , ...beerdetail.flavorHashTags]
@@ -110,9 +113,16 @@ function BeerDetail() {
   // 별점
   const [starrate, setStarrate] = useState()
 
+  /////// 좋아요
+  
   const likeButton = async () => {
     try{
       setIsLiked(!isLiked)
+      if (isLiked) {
+        setBeerlikeNum(beerlikeNum-1)
+      } else {
+        setBeerlikeNum(beerlikeNum+1)
+      }
 
       // 좋아요 post 보내기
       axios.post(`${BEER_LIKE_URL}/beer/${memberId}/like/${beerid}`)
@@ -127,6 +137,20 @@ function BeerDetail() {
       console.log("오류")
     }
   }
+
+  // useEffect(()=>{
+  //   const fetchData = async ()=>{
+  //     const { data : beerdetail } = await axios.get(`${BEER_DETAIL_URL}/${beerid}`)
+  //     setbeer(beerdetail)
+  //     // const nowbeerDetail = beerdetail.data
+
+  //     // 좋아요수
+  //     setLikes(beerdetail.likes)
+  //     console.log(beerdetail.likes)
+  //   }
+  //   fetchData()
+
+  // },[BEER_DETAIL_URL, isLiked])
 
   useEffect(() => {
     const spendData = async () => {
@@ -186,7 +210,7 @@ function BeerDetail() {
                         ? <BsHeartFill className="heartIcon" size="23" onClick={likeButton}></BsHeartFill>
                         : <BsHeart className="heartIcon" size="23" onClick={likeButton}></BsHeart>
                       }
-                      <div className="like_count">(5)</div>
+                      <div className="like_count">({beerlikeNum})</div>
                     </div>
                   </div>
 

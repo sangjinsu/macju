@@ -14,7 +14,7 @@ function NavBar(){
 
   const [isExpanded, setIsExpanded] = useState(false)
   const toggleBtn = document.getElementById("tglButton")
-  const toggleClick = ((e) => {
+  const toggleClick = (() => {
     setIsExpanded(!isExpanded)
   })
   
@@ -27,9 +27,12 @@ function NavBar(){
   // const [isClose, setIsClose] = useState()
 
   // useEffect(()=>{
-  //   const isClosed = store.getState().navbarReducer
+  //   const toggleBtn = document.getElementById("tglButton")
+
+  //   const closeNav = store.getState().navbarReducer
+  //   console.log(closeNav)
   //   console.log(store.getState().navbarReducer)    
-  //   if (isClosed === false) {
+  //   if (closeNav && isExpanded) {
   //     toggleBtn.click()
   //   }
   // },[])

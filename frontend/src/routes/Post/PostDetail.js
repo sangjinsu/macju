@@ -167,9 +167,9 @@ function PostDetail() {
         // 좋아한 포스트 목록
         const { data : postlikedata } = await axios.get(`${POST_LIKE_URL}/${memberId}/like/post`)
         setLikeposts(postlikedata.data)
-        console.log(postlikedata.data)
+        // console.log(postlikedata.data)
         for (let i in postlikedata.data) {
-          if (postlikedata.data[i].postId == postId) {
+          if (postlikedata.data[i].postId == Number(postId)) {
             setIsLiked(true)    // 이 맥주 좋아요 눌렀으면 isLiked=true
           }
         }

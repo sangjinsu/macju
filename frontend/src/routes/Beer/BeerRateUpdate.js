@@ -72,6 +72,12 @@ function BeerRate(props){
     // console.log(aromaArr)
   }
 
+  // 평가수정했을때 starrate 수정
+  const updateRate = async ()=>{
+    const {data:ratedata} = await axios.get(`${BEER_RATE_URL}/${beerid}/member/${memberId}`)
+    props.setStarrate(ratedata.rate)
+  }
+
   /////// 평가수정 = put 보내기
   const submitRate = ()=> {
     const newrate = {
@@ -79,7 +85,6 @@ function BeerRate(props){
       flavorHashTags : flavorIdArr,
       rate : starrate
     }
-    console.log(newrate)
     const headers = {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': "application/json; charset=UTF-8"
@@ -91,6 +96,8 @@ function BeerRate(props){
       .then((res) => {
         console.log(res)
         props.set_rateModal(false)
+        updateRate();
+        // console.log(starrate)
       })
     } else {
       alert('평가를 완료해주세요!')
@@ -98,25 +105,40 @@ function BeerRate(props){
   }
 
   // 평가했던 값들 불러오기
-  const [rateDetail, setRateDetail] = useState()
+  // const [rateDetail, setRateDetail] = useState()
   useEffect(()=>{
     const fetchData = async ()=>{
       const {data:ratedata} = await axios.get(`${BEER_RATE_URL}/${beerid}/member/${memberId}`)
-      setRateDetail(ratedata)
+      // setRateDetail(ratedata)
       props.setStarrate(ratedata.rate)
 
       ratedata.aromaHashTags.map((tag, i)=>{
-        setAromaArr((arr)=>[...arr, tag.aroma])
-        setAromaIdArr((arr)=>[...arr, tag.id])
+        if (aromaArr.indexOf(tag.aroma) === -1) {
+          setAromaArr((arr)=>[...arr, tag.aroma])
+          setAromaIdArr((arr)=>[...arr, tag.id])
+        }
       })
       ratedata.flavorHashTags.map((tag, i)=>{
-        setFlavorArr((arr)=>[...arr, tag.flavor])
-        setFlavorIdArr((arr)=>[...arr, tag.id])
+        if (flavorArr.indexOf(tag.flavor) === -1) {
+          setFlavorArr((arr)=>[...arr, tag.flavor])
+          setFlavorIdArr((arr)=>[...arr, tag.id])
+        }
       })
     }
     
     fetchData();
   }, [BEER_RATE_URL])
+
+  // useEffect(()=>{
+  //   const updateRate = async ()=>{
+  //     const {data:ratedata} = await axios.get(`${BEER_RATE_URL}/${beerid}/member/${memberId}`)
+  //     setRateDetail(ratedata)
+  //     props.setStarrate(ratedata.rate)
+  //   }
+  //   updateRate();
+  // }, [starrate])
+
+
   // console.log(rateDetail)
   // console.log(aromaArr, flavorArr)
 

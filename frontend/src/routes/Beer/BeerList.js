@@ -114,7 +114,7 @@ function BeerList(){
   
   const openClose = () => {
     dispatch({type:"navClose"})
-    console.log('click')
+    // console.log('click')
   }
   
   // 오류 : 카테고리 클릭할 때 리스트에 없던 맥주들만 fadein효과 적용되서 원래 리스트에 있던건 fadein이 안됌

@@ -30,6 +30,7 @@ const followingsReducer = (state = [], action) => {
 
 
 
+
 const userProfileReducer = (state = [], action)=>{
   if (action.type === "user"){
     return action.userdata

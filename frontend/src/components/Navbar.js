@@ -6,6 +6,7 @@ import SearchBar from './SearchBar.js'
 import { useStore } from 'react-redux';
 import { useEffect } from 'react';
 
+
 function NavBar(){
   const memberId = 1    // test용 멤버 아이디
 

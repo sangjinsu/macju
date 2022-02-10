@@ -35,24 +35,27 @@ function PostListComponent(){
     fetchData();
   //eslint-disable-next-line
   }, [newPost])
+
+  // 전체 포스트 리스트
   const fetchPostListData = async() =>{
     const data = await axios.get(POST_LIST_URL)
     setNewPost(data.data)
   }
 
+  // 맥주 디테일 - 포스트 리스트
   const fetchBeerDetailData = async() =>{
     const data =await axios.get(`${BEER_DETAIL_POST_URL}/${beerid}`)
     setNewPost(data.data)
   }
+
   useEffect(()=>{
     if (beerid) {
-      fetchBeerDetailData();
+      fetchBeerDetailData();  // 각 맥주 포스트
     } else {
-      fetchPostListData();
+      fetchPostListData();    // 전체 포스트
     }
 
   }, [POST_LIST_URL])
-
 
 
   return(

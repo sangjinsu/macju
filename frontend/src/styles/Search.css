@@ -1,0 +1,178 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap");
+
+
+
+/* fade in 효과 */
+@keyframes fadeIn {
+  from {
+     opacity: 0;
+  }
+  to {
+     opacity: 1;
+  }
+}
+.search_section .fadein {
+ opacity: 0;
+ animation: fadeIn ease-in 1;
+ animation-fill-mode: forwards;
+ animation-duration: 1s;
+}
+
+/* 전체 */
+.search_section {
+  background-color: white;
+}
+.layout_padding_search {
+  padding: 90px 0;
+}
+.search_section body {
+  font-family: "Open Sans", sans-serif;
+  color: #0c0c0c;
+  background-color: #ffffff;
+  overflow-x: hidden;
+}
+.search_section h1,
+.search_section h2 {
+  font-family: 'Dancing Script', cursive;
+}
+
+
+/* 검색결과 제목 */
+.search_section .heading_container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+.search_section .heading_container h2 {
+  position: relative;
+  margin-bottom: 0;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+.search_section .heading_container.heading_center {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+}
+
+
+/* 맥주 검색 결과 */
+.beer_title {
+  
+}
+
+/* 맥주 각각 카드 */
+.search_section .box {
+  position: relative;
+  margin-top: 25px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  color: #ffffff;
+  border-radius: 15px;
+  overflow: hidden;
+  background: linear-gradient(to bottom, #f1f2f3 25px, #222831 25px);
+}
+
+/* 맥주 이미지 */
+.search_section .box .img-box {
+  background: #f1f2f3;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 215px;
+  border-radius: 0 0 0 45px;
+  margin: -1px;
+  padding: 25px;
+}
+.search_section .box .img-box img {
+  max-width: 100%;
+  max-height: 145px;
+  -webkit-transition: all .2s;
+  transition: all .2s;
+}
+.search_section .box:hover .img-box img {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+/* 맥주 설명란 */
+.search_section .box .beerdetail-box {
+  padding: 25px;
+  height: 250px;
+  position: relative;
+}
+.search_section .beerdetail-box .options {
+  position: absolute;
+  bottom: 10px;
+}
+
+/* 맥주설명 */
+.search_section .box .beerdetail-box .beer_volume {
+  font-size: 15px;
+  /* text-align: right; */
+  color: #7a7e83;
+  margin: 10px 0;
+}
+
+
+/* 맥주이름 */
+.search_section .box .beerdetail-box h5 {
+  font-weight: 600;
+}
+.search_section .beerdetail-box .beerdetail-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* 자세히버튼 */
+.search_section .beerdetail-title .detailBtn {
+  font-size: smaller;
+  padding: 2px;
+  /* background-color: #e69c00; */
+  color: #ffffff;
+  /* border-radius: 5px */
+}
+
+/* 맥주 해시태그 */
+.search_section .beer_hashtag_all{
+  display: flex;
+}
+.search_section .beer_hashtag{
+  padding-right: 5px;
+  /* color: #FFA500	; */
+  /* color: #FFB400; */
+  color: #FFC81E;
+}
+
+
+/* 맥주 카테고리 */
+.search_section .box .beerdetail-box h6 {
+  margin-top: 10px;
+}
+.search_section .box .options_space_between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.beerCategory {
+  padding: 7px;
+  border-radius: 15px;
+  background-color: #e69c00;
+}
+
+

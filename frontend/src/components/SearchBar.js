@@ -18,7 +18,7 @@ function SearchBar(){
   }, [])
 
   return(
-    <div class="input">
+    <div className="input">
       <div className="text">
            <input type="text" placeholder="Placeholder" onChange={ setInput } />
        </div>

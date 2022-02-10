@@ -39,7 +39,6 @@ function BeerRate(props){
   const [flavorArr, setFlavorArr] = useState([])      //보여주기용
   const [flavorIdArr, setFlavorIdArr] = useState([])  //데이터전송용 아이디배열
   const addflavor = ((e)=>{
-    console.log(e)
     const nowtag = e.target.innerText.substring(1)
     const nowid = e.target.value
     if (flavorArr.indexOf(nowtag) == -1) {
@@ -104,18 +103,22 @@ function BeerRate(props){
     const fetchData = async ()=>{
       const {data:ratedata} = await axios.get(`${BEER_RATE_URL}/${beerid}/member/${memberId}`)
       setRateDetail(ratedata)
-      setAromaArr(ratedata.aromaHashTags)
-      setFlavorArr(ratedata.flavorHashTags)
       props.setStarrate(ratedata.rate)
 
-      // setAromaIdArr(ratedata.aromaHashTags.id)
-      // setFlavorIdArr(ratedata.flavorHashTags.id)
-
+      ratedata.aromaHashTags.map((tag, i)=>{
+        setAromaArr((arr)=>[...arr, tag.aroma])
+        setAromaIdArr((arr)=>[...arr, tag.id])
+      })
+      ratedata.flavorHashTags.map((tag, i)=>{
+        setFlavorArr((arr)=>[...arr, tag.flavor])
+        setFlavorIdArr((arr)=>[...arr, tag.id])
+      })
     }
-
+    
     fetchData();
   }, [BEER_RATE_URL])
-
+  // console.log(rateDetail)
+  // console.log(aromaArr, flavorArr)
 
   return(
     // <Modal isOpen={props.rateModal} onRequestClose={() => props.set_rateModal(false)} style={modal_style} ariaHideApp={false} >

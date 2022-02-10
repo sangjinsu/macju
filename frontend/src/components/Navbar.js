@@ -18,6 +18,7 @@ function NavBar(){
     setIsExpanded(!isExpanded)
   })
   
+  
   const navClick = ((e) => {
     if (isExpanded) {
      toggleBtn.click()

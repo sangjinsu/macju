@@ -12,6 +12,7 @@ const userReducer = (state = [], action) => {
   }
 }
 
+
 const followersReducer = (state = [], action) => {
   if (action.type === 'followers') {
     return action.followers

@@ -23,9 +23,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-s8qv2c!%y=_!5w1kbo)7vkjz&ed8p&=)h5jp&*wd438*x8yby3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
-ALLOWED_HOSTS = ["i6c107.p.ssafy.io"]
+ALLOWED_HOSTS = ["i6c107.p.ssafy.io", "localhost"]
+
+CORS_ORIGIN_WHITELIST = [
+    'http://127.0.0.1:3000',
+    'http://localhost:3000',
+    'http://i6c107.p.ssafy.io:3000'
+]
+
+CORS_ALLOW_METHODS = [
+    "GET",
+]
 
 
 # Application definition
@@ -39,11 +49,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'corsheaders',
 
     'recommend',
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

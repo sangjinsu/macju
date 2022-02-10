@@ -44,7 +44,7 @@ function Signup(props) {
             "Content-Type" : "application/json;charset=UTF-8"
           }
         }
-        await axios.post(USER_SIGNUP_URL)
+        await axios.post(USER_SIGNUP_URL, )
       }catch{
         console.log("회원가입 실패")
       }
@@ -73,8 +73,12 @@ function Signup(props) {
   //     )
   //   }
   // }
+  useEffect( () => { // 닉네임 수정할 때 버튼 막아놓고 시작
+    deactivateSubmitBtn(true)
+    }, [nickname]
+  )
 
-  useEffect( () => { // 닉네임 수정할 때 버튼 막아놓기
+  useEffect( () => {
     const validationNinkname = async () => {
       try{
         const { status : nicknameStatus } = await axios.get(`${VALIDATE_NICKNAME_URL}/${nickname}`)
@@ -91,14 +95,8 @@ function Signup(props) {
     }, [nickname]
   )
 
-  useEffect( () => { // 닉네임 수정할 때 버튼 막아놓기
-    deactivateSubmitBtn(true)
-    console.log(nickname)
-    }, [nickname]
-  )
   useEffect( () => { // 수정필요
-    if (true && gender && age) {
-      console.log("가능")
+    if (AvailableNick && gender && age) {
       deactivateSubmitBtn(false)
     }
     }, [AvailableNick, nickname, gender, age]

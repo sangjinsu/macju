@@ -41,8 +41,9 @@ function BeerList(){
   const ScrollBottom = () =>{
     const {scrollHeight, scrollTop, clientHeight} = document.documentElement
     if (scrollHeight - Math.round(scrollTop) <= 2*clientHeight){
-      if (JSON.stringify (tempdata.splice(0, 20)) !== JSON.stringify (nowbeerArr)) {
-        setnowbeerArr((prev)=>prev.concat(tempdata.splice(0, 20)))
+      const data = tempdata.splice(0, 20)
+      if (JSON.stringify(data) !== JSON.stringify (nowbeerArr)) {
+        setnowbeerArr((prev)=>prev.concat(data))
       }   
   }
 }
@@ -116,6 +117,7 @@ function BeerList(){
   const fetchBeerlist = async () =>{
     const data = await axios.get(`${BEER_LIST_URL}?size=500`)
     dispatch({type:"getBeerList", data:data})
+    
     setTempdata(data.data)
     setbeerdata(store.getState().beerListReducer.data)
   }
@@ -167,7 +169,6 @@ function BeerList(){
               <div className={`col-sm-6 col-md-4 col-lg-3 fadein all ${beer.beerType.main}`} key={beer.beerId}>
                 {/* <div className={}> */}
                 <div className="box">
-                {/* {console.log(beer)} */}
                   <div>
                     {/* 맥주 이미지 */}
                     <div className="img-box"> 

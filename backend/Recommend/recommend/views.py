@@ -1,3 +1,5 @@
+import json
+from tkinter.messagebox import NO
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.response import Response
@@ -29,7 +31,7 @@ aromas = aromaHashTags['aroma'].tolist()
 flavors = flavorHashTags['flavor'].tolist()
 beer_types = np.unique(beerTypes['main']).tolist()
 
-tags = aromas + flavors + beer_types
+hashtags = aromas + flavors + beer_types
 
 beer_tags = dict()
 beers = Beer.objects.all()
@@ -47,11 +49,12 @@ for beer in beers:
     for beerHasFlavorHashTag in beerHasFlavorHshTags:
         beer_tags[beer.beer_id].append(
             flavorHashTags.at[beerHasFlavorHashTag.flavor_hash_tag_id, 'flavor'])
+BEER_TAG_LENGTH = len(beer_tags.keys())
 
 
 def create_tag_df():
-    return pd.DataFrame(np.zeros(len(tags)),
-                        columns=['cnt'], index=tags)
+    return pd.DataFrame(np.zeros(len(hashtags)),
+                        columns=['cnt'], index=hashtags)
 
 
 def count_tag(df, tag):
@@ -62,12 +65,17 @@ def add_tag_score(df, tag, score):
     df.at[tag, 'total'] = df.at[tag, 'total'] + score
 
 
-def create_df_like_tag(member):
+def create_member_like_beer_list(member):
     memberLikeBeers = list(MemberLikeBeer.objects.filter(
         member=member).select_related('beer').values('beer_id').all())
 
     beer_ids = list(
         map(lambda memberLikeBeer: memberLikeBeer.get('beer_id'), memberLikeBeers))
+
+    return beer_ids
+
+
+def create_df_like_tag(beer_ids):
 
     df_tag = create_tag_df()
 
@@ -76,7 +84,10 @@ def create_df_like_tag(member):
         for tag in beer_tag:
             count_tag(df_tag, tag)
 
-    df_tag['freq'] = df_tag['cnt'] / len(beer_ids)
+    if len(beer_ids) > 0:
+        df_tag['freq'] = df_tag['cnt'] / len(beer_ids)
+    else:
+        df_tag['freq'] = 0
 
     return df_tag
 
@@ -108,6 +119,8 @@ def create_df_rate_tag(member):
     df_tag['score'] = np.where(df_tag['avg'] - total_avg >= 0,
                                df_tag['avg'] - total_avg, (df_tag['avg'] - total_avg)*LOSS_AVERSION)
 
+    # df_tag['score'] = df_tag['score'] ** 2
+
     return df_tag
 
 
@@ -124,47 +137,106 @@ def create_fond_tags(member):
     return fond_aromas + fond_flavors
 
 
+def create_df_evaluation_tag(df_like_tag, df_rate_tag, fond_tags):
+    df_evaluation_tag = pd.DataFrame()
+    df_evaluation_tag['value'] = df_like_tag['freq'] + df_rate_tag['score']
+
+    for fond_tag in fond_tags:
+        df_evaluation_tag.at[
+            fond_tag, 'value'] = np.where(df_evaluation_tag.at[fond_tag, 'value'] > 0, df_evaluation_tag.at[fond_tag, 'value'] * FOND_WEIGHT, df_evaluation_tag.at[fond_tag, 'value'])
+
+    return df_evaluation_tag
+
+
+def create_df_log_value(memberId):
+    # ES 로그 조회
+    es = Elasticsearch([{'host': 'i6c107.p.ssafy.io', 'port': '9200'}])
+    search_word = 'id:' + memberId
+
+    docs = es.search(
+        index='logstash*',
+        size=50,
+        body={
+            "query": {
+                "match_phrase": {
+                    "message": search_word
+                }
+            },
+            "sort": [
+                {
+                    "@timestamp": {
+                        "order": "desc"
+                    }
+                }
+            ]
+        })
+
+    user_logs = list(map(lambda log: json.loads(log['_source']
+                         ['message']).get('tags'), docs['hits']['hits']))
+
+    USER_LOG_LENGTH = len(user_logs)
+    df_user_logs = create_tag_df()
+    # df_user_logs['weight'] = pd.DataFrame(
+    # np.arange(len(user_logs), 0, -1) / len(user_logs))
+
+    df_log_weight = pd.DataFrame(
+        np.arange(USER_LOG_LENGTH, 0, -1) ** 2 / USER_LOG_LENGTH ** 2,  columns=['weight']).fillna(0)
+
+    df_user_logs['weight'] = 0.0
+
+    for idx in range(USER_LOG_LENGTH):
+        weight = df_log_weight.at[idx, 'weight']
+
+        for t in user_logs[idx]:
+            df_user_logs.at[t, 'cnt'] = df_user_logs.at[t, 'cnt'] + 1
+            df_user_logs.at[t, 'weight'] = df_user_logs.at[t,
+                                                           'weight'] + weight
+    df_user_logs['freq'] = df_user_logs['cnt'] / USER_LOG_LENGTH
+    df_user_logs['freq'] = df_user_logs['freq'].fillna(0)
+    df_user_logs['value'] = df_user_logs['weight'] * df_user_logs['freq']
+
+    return df_user_logs
+
+
 @api_view(['GET'])
 def recommend(request, memberId):
     # 멤버가 좋아하는 맥주 태그
     member = get_object_or_404(Member, pk=memberId)
 
-    df_like_tag = create_df_like_tag(member=member)
+    beer_ids = create_member_like_beer_list(member)
     df_rate_tag = create_df_rate_tag(member=member)
     fond_tags = create_fond_tags(member=member)
 
-    df_evaluation_tag = pd.DataFrame()
-    df_evaluation_tag['value'] = df_like_tag['freq'] + df_rate_tag['score']
-    print(df_evaluation_tag)
-    for fond_tag in fond_tags:
-        if df_evaluation_tag.at[fond_tag, 'value'] > 0:
-            df_evaluation_tag.at[
-                fond_tag, 'value'] = df_evaluation_tag.at[fond_tag, 'value'] * FOND_WEIGHT
-    print(df_evaluation_tag)
-    # print(beer.beer_type_id)
-    # beerType = BeerType.objects.filter(beer_type_id=beer.beer_type_id).all()
-    # print(beerType.first().main)
+    df_log_value = create_df_log_value(memberId)
 
-    # 태그 연산
-    # df_tag = create_tag_df()
-    # df_tag.at['무향', 'cnt'] = df_tag.at['무향', 'cnt'] + 1
-    # df_tag['freq'] = df_tag['cnt'] / 5
+    df_like_tag = create_df_like_tag(beer_ids=beer_ids)
 
-    # ES 로그 조회
-    # es = Elasticsearch([{'host': 'i6c107.p.ssafy.io', 'port': '9200'}])
-    # search_word = 'id:' + memberId
+    df_evaluation_tag = create_df_evaluation_tag(
+        df_like_tag, df_rate_tag, fond_tags)
 
-    # docs = es.search(
-    #     index='logstash*',
-    #     size=100,
-    #     body={
-    #         "query": {
-    #             "match_phrase": {
-    #                 "message": search_word
-    #             }
-    #         }
-    #     })
+    df_tag_score = pd.DataFrame()
+    df_tag_score['score'] = df_evaluation_tag['value'] * df_log_value['value']
 
-    # df = json_normalize({"id": 1, "tags": ["Ale", "씁쓸한맛"]})
-    # print(df)
-    return Response()
+    beer_scores = pd.DataFrame(0, index=np.arange(
+        1, BEER_TAG_LENGTH + 1), columns=['score'])
+
+    for idx in range(1, BEER_TAG_LENGTH + 1):
+        for tag in beer_tags.get(idx):
+            beer_scores.at[idx, 'score'] = beer_scores.at[idx,
+                                                          'score'] + df_tag_score.at[tag, 'score']
+        beer_scores.at[idx, 'score'] = beer_scores.at[idx,
+                                                      'score'] / len(beer_tags.get(idx))
+
+    if (beer_scores['score'] == 0).all():
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    beer_scores = beer_scores.drop(beer_ids)
+
+    recommend_beers = list(beer_scores.sort_values(
+        by=['score'], axis=0, ascending=False)[:4].index.values)
+
+    response = {
+        "recommend": recommend_beers
+    }
+
+    return Response(response, status=status.HTTP_200_OK)

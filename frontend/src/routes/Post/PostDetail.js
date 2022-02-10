@@ -237,7 +237,7 @@ function PostDetail() {
         setLikeposts(postlikedata.data)
 
         for (let i in postlikedata.data) {
-          if (postlikedata.data[i].postId == Number(postId)) {
+          if (postlikedata.data[i].postId === Number(postId)) {
             setIsLiked(true)    // 이 맥주 좋아요 눌렀으면 isLiked=true
           }
         }

@@ -11,6 +11,7 @@ const UserLike = () => {
   useEffect(() =>{
     const fetchData = async () =>{
     const memberbeers = await axios.get(`${USER_LIKE_URL}/${memberId}/like/beer`)
+    console.log(memberbeers)
     setLikeBeers(memberbeers.data)
     }
     if (store.getState().userLikeReducer.length === 0){

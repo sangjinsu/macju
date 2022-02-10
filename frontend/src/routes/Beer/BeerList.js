@@ -6,94 +6,46 @@ import { Link } from "react-router-dom"
 import FadeIn from 'react-fade-in';
 import axios from "axios"
 import "../../firebase_config"
-import { useDispatch } from 'react-redux';
+import { useDispatch, useStore } from 'react-redux';
+import { set } from 'lodash';
 // import { default as Fade} from 'react-fade';
 
-
-
-
 function BeerList(){
+  //url
   const BEER_LIST_URL = process.env.REACT_APP_SERVER + ':8080/v1/beer'
-  // console.log(process.env.REACT_APP_BEER_LIST_URL)
   
-  
+  //// usestate
+
   // 맥주 데이터
   const [beerdata, setbeerdata] = useState([])
-  const [showBeer, setShowBeer] = useState([])
-  // 맥주 사진 URL
+  const [tempdata, setTempdata] = useState([])
+  const [nowbeerArr, setnowbeerArr] = useState([])
+  const [categoryBeer, setCategoryBeer] = useState([])
+
 
   // 각 맥주 좋아요
   const [isLike, setisLike] = useState([])
   // 현재 활성화된 카테고리 (기본값:all)
   const [isActive, setIsActive] = useState('all')   
   //store
+  const store = useStore((state)=>state)
   const dispatch = useDispatch();
   // 카테고리에 맞는 맥주 데이터
-  const [nowbeerArr, setnowbeerArr] = useState([])
 
 
+
+
+
+  //function
   //스크롤 이벤트 시 실행할 함수
   const ScrollBottom = () =>{
     const {scrollHeight, scrollTop, clientHeight} = document.documentElement
     if (scrollHeight - Math.round(scrollTop) <= 2*clientHeight){
-      // if (showBeer !==beerdata.splice(0, 10)) {
-        setShowBeer((prev)=>prev.concat(beerdata.splice(0, 10)))
-        setnowbeerArr((prev)=>prev.concat(beerdata.splice(0, 10)))
-      // }
-      }
-    
+      if (JSON.stringify (tempdata.splice(0, 20)) !== JSON.stringify (nowbeerArr)) {
+        setnowbeerArr((prev)=>prev.concat(tempdata.splice(0, 20)))
+      }   
   }
-
-  // 카테고리 바뀔때 마다 보여주는 맥주리스트 수정
-  useEffect(()=>{
-    if (isActive !== 'all') {
-      const nowbeer = showBeer.filter(beer => {
-        return beer.beerType.main === isActive
-      })
-      
-      setnowbeerArr(nowbeer)
-    } else {
-      setnowbeerArr(showBeer)
-    }
-  },[showBeer, isActive])
-  
-  // scroll event listener 추가
-  useEffect(()=>{
-    window.addEventListener('scroll', ScrollBottom);
-    return () =>{
-      window.removeEventListener('scroll', ScrollBottom)
-    }
-  })
-  
-  //화면에서 스크롤 없이도 보여줄 초기값
-  useEffect(()=> {
-    const fetchData = async() =>{
-      const temp = await axios.get(BEER_LIST_URL)
-      setShowBeer(temp.data)
-      setnowbeerArr(temp.data)
-      console.log(temp.data)
-
-      const data = await axios.get(`${BEER_LIST_URL}?size=500`)
-      dispatch({type:"getBeerList", data:data})
-      console.log(data.data)
-      setbeerdata(data.data)
-    }
-    fetchData();
-
-    // 카테고리 기본값 all
-    // setIsActive('all')
-
-    // 좋아요 기본값 false
-    // const newLike = []
-    // for(var i=0, j=datalist.length; i<j; i++) {
-    //   newLike.push(false)
-    // }
-    // console.log(newLike)
-    // setisLike(newLike)
-  }, [BEER_LIST_URL, dispatch])
-  
-
-  
+}
   const changeLike = ((e)=>{
     // console.log(e.target.attributes.beerlikeid)
     setisLike(!isLike)
@@ -117,6 +69,72 @@ function BeerList(){
     dispatch({type:"navClose"})
     // console.log('click')
   }
+
+
+
+
+
+
+
+
+
+
+  // 카테고리 바뀔때 마다 보여주는 맥주리스트 수정
+  useEffect(()=>{
+    if (isActive === 'Ale') {
+      const nowbeer = nowbeerArr.filter(beer => {
+        return beer.beerType.main === 'Ale'
+      })
+      setCategoryBeer(nowbeer)
+    } else if (isActive === 'Lager'){
+      const nowbeer = nowbeerArr.filter(beer => {
+        return beer.beerType.main === 'Lager'
+      })
+      setCategoryBeer(nowbeer)
+    } else if (isActive === 'Radler'){
+      const nowbeer = nowbeerArr.filter(beer => {
+        return beer.beerType.main === 'Radler'
+      })
+      setCategoryBeer(nowbeer)
+    } else if (isActive === 'all') {
+      setCategoryBeer(nowbeerArr)
+    }
+    console.log('g') 
+  },[isActive, nowbeerArr])
+
+
+
+
+  // scroll event listener 추가
+  useEffect(()=>{
+    window.addEventListener('scroll', ScrollBottom);
+    return () =>{
+      window.removeEventListener('scroll', ScrollBottom)
+    }
+  })
+
+  const fetchBeerlist = async () =>{
+    const data = await axios.get(`${BEER_LIST_URL}?size=500`)
+    dispatch({type:"getBeerList", data:data})
+    setTempdata(data.data)
+    setbeerdata(store.getState().beerListReducer.data)
+  }
+
+
+
+  useEffect(()=>{
+    fetchBeerlist();
+  },[])
+
+
+
+
+  //화면에서 스크롤 없이도 보여줄 초기값
+  useEffect(()=> {
+    setnowbeerArr(beerdata.slice(0, 20))   
+  }, [beerdata])
+  
+
   
   // 오류 : 카테고리 클릭할 때 리스트에 없던 맥주들만 fadein효과 적용되서 원래 리스트에 있던건 fadein이 안됌
   // 오류 : navbar의 area-expanded 되어있을때 카테고리누르면 닫히게해야함
@@ -144,7 +162,7 @@ function BeerList(){
           <FadeIn>
           <div className="row grid">
           
-          { nowbeerArr && nowbeerArr.map((beer) =>
+          { categoryBeer && categoryBeer.map((beer) =>
             
               <div className={`col-sm-6 col-md-4 col-lg-3 fadein all ${beer.beerType.main}`} key={beer.beerId}>
                 {/* <div className={}> */}

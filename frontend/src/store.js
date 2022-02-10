@@ -120,7 +120,7 @@ const commentReducer = (state = [], action) => {
 
 const beerListReducer = (state = [], action) =>{
   if (action.type === "getBeerList") {
-    state = action.data
+    return action.data
   }
   return state
 }

@@ -2,10 +2,13 @@ import { useEffect, useState } from "react";
 import axios from "axios"
 import { Link, useHistory } from 'react-router-dom';
 import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { useHistory } from "react-router-dom";
 import "../../firebase_config"
 import '../../styles/PostCreate.css'
 import {useStore} from "react-redux"
 function PostCreate(s) {
+  const history = useHistory()
+
   const POST_CREATE_URL = process.env.REACT_APP_SERVER + ':8080/v1/post' 
   const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8080/v1/member/profile'
   const history = useHistory();
@@ -111,9 +114,7 @@ function PostCreate(s) {
         imgNames.push(uploadImages[i].firebase)
       }
       
-      
     const newpost = {
-      
       // beerId : 2,
       beerId : beerid,
       content : content,
@@ -129,9 +130,7 @@ function PostCreate(s) {
     // console.log(newpost)
 
     axios 
-    // http://13.125.157.39:8080/v1/beer/
       .post(POST_CREATE_URL, newpost, {headers})
-      // .post("http://13.125.157.39:8080/v1/post", newpost, {headers})
       .then((res) => {
         const profiledata = store.getState().profileReducer
         profiledata['grade'] = profiledata['grade'] + 10
@@ -140,6 +139,7 @@ function PostCreate(s) {
           axios.get(`${USER_UPDATE_PROFILE}/1`)
           .then((res)=>{
             history.push(`/post`)
+            // history.replace(`/beer/${beerid}`)
           })
         })
         const storage = getStorage()

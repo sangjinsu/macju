@@ -20,7 +20,6 @@ const UserPost = (s) => {
 
 
 
-
   const storage = getStorage();
   useEffect(() => {
     const fetchData = async() =>{
@@ -64,7 +63,7 @@ const UserPost = (s) => {
 
 
   return (
-    <section className="postlist_section layout_padding_postlist">
+    <section className="userpost_section layout_padding_postlist">
 
     <div className="container">
      <div className="row grid postlist_component">
@@ -77,13 +76,12 @@ const UserPost = (s) => {
               {/* 포스트 이미지 */}
               {userPostImages&&userPostImages.map((data, i)=> data.id === post.postId ? 
               
-              <div key={i} className="img-box">
-                {/* 기본이미지 하나 구해야겠네요 */}
-                <img src={data.res} alt=""></img>
-                {/* <img src={post.photo.data}></img> */}
-                
-              </div> : null
-              )
+                <div key={i} className="img-box">
+                  {/* 기본이미지 하나 구해야겠네요 */}
+                  <img src={data.res} alt=""></img>
+                  {/* <img src={post.photo.data}></img> */}
+                </div> : null
+                )
               }
           
               

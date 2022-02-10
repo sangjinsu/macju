@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
 import { useState } from "react";
-import { BsHeartFill, BsHeart } from "react-icons/bs";
 import '../../styles/BeerList.css'
 import { Link } from "react-router-dom"
 import FadeIn from 'react-fade-in';
 import axios from "axios"
 import "../../firebase_config"
 import { useDispatch, useStore } from 'react-redux';
-import { set } from 'lodash';
+// import { set } from 'lodash';
 // import { default as Fade} from 'react-fade';
 
 function BeerList(){
@@ -23,8 +22,6 @@ function BeerList(){
   const [categoryBeer, setCategoryBeer] = useState([])
 
 
-  // 각 맥주 좋아요
-  const [isLike, setisLike] = useState([])
   // 현재 활성화된 카테고리 (기본값:all)
   const [isActive, setIsActive] = useState('all')   
   //store
@@ -47,10 +44,7 @@ function BeerList(){
       }   
   }
 }
-  const changeLike = ((e)=>{
-    // console.log(e.target.attributes.beerlikeid)
-    setisLike(!isLike)
-  })
+
 
   // 클릭한 카테고리버튼 배경색 바꾸기 : 카테고리 클릭시 해당 카테고리 class에 .active 추가 
   const toggleActive = ((e) => {
@@ -70,11 +64,6 @@ function BeerList(){
     dispatch({type:"navClose"})
     // console.log('click')
   }
-
-
-
-
-
 
 
 
@@ -105,7 +94,6 @@ function BeerList(){
 
 
 
-
   // scroll event listener 추가
   useEffect(()=>{
     window.addEventListener('scroll', ScrollBottom);
@@ -123,7 +111,6 @@ function BeerList(){
   }
 
 
-
   useEffect(()=>{
     fetchBeerlist();
   },[])
@@ -139,9 +126,7 @@ function BeerList(){
 
   
   // 오류 : 카테고리 클릭할 때 리스트에 없던 맥주들만 fadein효과 적용되서 원래 리스트에 있던건 fadein이 안됌
-  // 오류 : navbar의 area-expanded 되어있을때 카테고리누르면 닫히게해야함
   return(
-    
     <div>
       <section className="beerlist_section layout_padding_beerlist">
         <div className="container">
@@ -168,7 +153,7 @@ function BeerList(){
             
               <div className={`col-sm-6 col-md-4 col-lg-3 fadein all ${beer.beerType.main}`} key={beer.beerId}>
                 {/* <div className={}> */}
-                <div className="box">
+                <div className="beerlist_box">
                   <div>
                     {/* 맥주 이미지 */}
                     <div className="img-box"> 
@@ -186,7 +171,19 @@ function BeerList(){
                       </div>
 
                       {/* 맥주 별점 */}
-                      <div className='star'>★★★★☆</div>
+                      {/* {console.log(beer.averageRate)} */}
+                      <div className="star-ratings">
+                        <div 
+                          className="star-ratings-fill space-x-2 text-lg"
+                          style={{width:`${beer.averageRate*20}%` }}
+                        >
+                          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                        </div>
+                        <div class="star-ratings-base space-x-2 text-lg">
+                          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                        </div>
+                      </div>
+
 
                       {/* 맥주 설명 */}
                       <div className='beer_content'>
@@ -215,13 +212,7 @@ function BeerList(){
                           <h6 className='beerCategory'>
                             {beer.beerType.main}
                           </h6>
-                          {/* 좋아요 버튼 */}
-                          <a>
-                            { isLike === true
-                              ? <BsHeart size="18" onClick={changeLike}></BsHeart>
-                              : <BsHeartFill size="18" onClick={changeLike}></BsHeartFill>
-                            }
-                          </a>
+                          
                         </div>
                       </div>
 

@@ -12,6 +12,21 @@ const userReducer = (state = [], action) => {
   }
 }
 
+const followersReducer = (state = [], action) => {
+  if (action.type === 'followers') {
+    return action.followers
+  } 
+  return state
+}
+
+
+const followingsReducer = (state = [], action) => {
+  if (action.type === 'followings') {
+    return action.followings
+  }
+  return state
+}
+
 
 
 
@@ -137,7 +152,10 @@ const store = createStore( combineReducers
      userPostReducer, 
      userLikeReducer,
      userReviewReducer,
-     navbarReducer
+     navbarReducer,
+     followersReducer,
+     followingsReducer
+
   } ))
 
 

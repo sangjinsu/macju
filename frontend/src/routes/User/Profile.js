@@ -15,7 +15,8 @@ const Profile = () => {
   const USER_REVIEW_URL = process.env.REACT_APP_SERVER + ':8080/v1/member'
 
   const dispatch = useDispatch();
-  const memberId = 2
+  const memberId = 3
+
 
 
 
@@ -31,8 +32,8 @@ const Profile = () => {
       dispatch({type:'post', userpost:userPost})
       dispatch({type:'like', userlike:userLike})
       dispatch({type:'review', userreview:userReview})
-
     }
+
     fetchData();
   }, [])
 

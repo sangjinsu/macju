@@ -5,35 +5,80 @@ import Followings from "components/Modals/Followings.js"
 import axios from "axios";
 import {IoIosBeer} from  "react-icons/io";
 import { Link, useParams } from "react-router-dom";
-import { useStore } from "react-redux";
+import { useDispatch, useStore } from "react-redux";
 import { Button } from "react-bootstrap";
 
 const UserProfile = () => {
-	const {userid} = useParams();
+	const userid = 1
 
   const USER_PROFILE_URL = process.env.REACT_APP_SERVER + ':8080/v1/member/profile'
-	const FOLLOW_URL = process.env.REACT_APP_SERVER + `:8080/v1/member/${2}/follow/${userid}`
-	const memberId = 1
+	// 현재 member가 user를 팔로우하는 요청
+	const FOLLOW_POST_URL = process.env.REACT_APP_SERVER + `:8080/v1/member/${2}/follow/${userid}`
+	//member == 1번이 팔로우한 사람들
+	const FOLLOW_GET_URL = process.env.REACT_APP_SERVER + `:8080/v1/member/${1}/followers`
+	//member === 1번이 팔로잉하는 사람들
+	const FOLLOWING_GET_URL = process.env.REACT_APP_SERVER + `:8080/v1/member/${1}/followings`
+
+
+
+
 	const store = useStore((state)=>state)
+	const dispatch = useDispatch();
 	// user 데이터 불러오기
  	const [user, setUser] = useState('')	// 유저 데이터
 	const [usercolor, setUsercolor] = useState("")		// 사진 색깔
-	const headers = {
-		'Content-Type': 'application/json; charset=UTF-8',
-		'Accept': "application/json; charset=UTF-8"
-	}
+	const [followButton, setFollowButton] = useState(null)
 	
-	const data = {
-		'followingMemberId':1,
-		'memberId':2
-	}
-
-	const [followButton, setFollowButton] = useState('')
 
 	const setFollow = async () =>{
-		const res = await axios.post(FOLLOW_URL)
-		setFollowButton(res.data)
+		setFollowButton(!followButton)
+		await axios.post(FOLLOW_POST_URL)		
 	}
+	
+
+
+
+
+
+	useEffect(()=>{
+		const fetchData = async () =>{
+			const res = await axios.get(FOLLOWING_GET_URL)
+			dispatch({type:'followings', followings:res.data.data})
+		}
+		fetchData();
+	}, [])
+
+
+
+
+
+
+
+
+
+	useEffect(()=>{
+		const fetchData = async () =>{
+			const followers = []
+			const res = await axios.get(FOLLOW_GET_URL)
+			if (res.data.data.length === 0) {
+				dispatch({type:'followers', followers:followers})
+				setFollowButton(false)
+				return 
+			}
+			for (let i = 0; i < res.data.data.length; i++){
+				followers.push(res.data.data[i])
+				if (res.data.data[i].memberId === 2){
+					setFollowButton(true)
+				}else {
+					setFollowButton(false)
+				}
+			}
+			dispatch({type:'followers', followers:followers})
+
+		}
+		fetchData();
+	}, [])
+	
 
 
 	useEffect(() =>{
@@ -48,6 +93,7 @@ const UserProfile = () => {
 			setUser(store.getState().userProfileReducer.data)
 			setUsercolor(store.getState().userProfileReducer.data.profileColor)
 		}
+		
 	},[USER_PROFILE_URL])
 
 
@@ -85,7 +131,7 @@ const UserProfile = () => {
 							<button className="editBtn">수정</button>
 							</Link>
 						</div>
-						<Button variant={followButton === 'follow'? "secondary":"primary"} as="input" value={followButton === 'follow' ? '언팔로우':'팔로우' } onClick={setFollow}/>
+						<Button variant={!followButton ? "primary":"secondary"}  onClick={setFollow}>{!followButton ? '팔로우':'언팔로우'}</Button>
 						<div>
 							<div className="postnum">게시글 : {14} </div>
 							<div className="follow_all">

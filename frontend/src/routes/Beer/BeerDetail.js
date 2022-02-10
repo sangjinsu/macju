@@ -27,9 +27,9 @@ function BeerDetail() {
   // 맥주 data
   const [beer, setbeer] = useState()
   // 맥주의 posts
-  const [beerpost, setbeerpost] = useState()
+  // const [beerpost, setbeerpost] = useState()
   // 평가한 맥주들
-  const [ratebeers, setRatebeers] = useState([])
+  // const [ratebeers, setRatebeers] = useState([])
   const [isRated, setIsRated] = useState(false)
 
   // 좋아한 맥주들
@@ -57,7 +57,7 @@ function BeerDetail() {
       const { data : rated_beer } = await axios.get(`${RATED_BEER_URL}/${memberId}/rates`)
       const rated = rated_beer.data
       for (let i in rated) {
-        if (rated[i].beer.beerId == beerid) {
+        if (rated[i].beer.beerId === beerid) {
           setIsRated(true)    // 이 맥주 평가했으면 isRated=true
         }
       }
@@ -66,7 +66,7 @@ function BeerDetail() {
       const { data : beerlikedata } = await axios.get(`${BEER_LIKE_URL}/${memberId}/like/beer`)
       setLikebeers(beerlikedata.data)
       for (let i in beerlikedata.data) {
-        if (beerlikedata.data[i].beerId == beerid) {
+        if (beerlikedata.data[i].beerId === beerid) {
           setIsLiked(true)    // 이 맥주 좋아요 눌렀으면 isLiked=true
         }
       }
@@ -85,7 +85,7 @@ function BeerDetail() {
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': "application/json; charset=UTF-8"
       }
-      // axios.post(BEER_DETAIL_LOG_URL, newdata, {headers})     // 주석풀면 로그에 post 보냄
+      axios.post(BEER_DETAIL_LOG_URL, newdata, {headers})     // 주석풀면 로그에 post 보냄
       // .then(()=>{
       //   console.log('로그보냄')
       // })

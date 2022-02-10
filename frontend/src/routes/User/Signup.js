@@ -4,9 +4,9 @@ import { useDispatch } from 'react-redux';
 import '../../styles/Signup.css'
 
 function Signup(props) {
-  const VALIDATE_NICKNAME_URL = process.env.REACT_APP_SERVER + ':8080/v1/member/validateninkname'
+  const VALIDATE_NICKNAME_URL = process.env.REACT_APP_SERVER + ':8080/v1/member/validatenickname'
   const USER_SIGNUP_URL = process.env.REACT_APP_SERVER + ':8080/v1/member/signup'
-  const userData = props.userData
+  const userData = props.location.userData
   const dispatch = useDispatch()
   
   const [nickname, nicknameChange] = useState("");
@@ -30,12 +30,13 @@ function Signup(props) {
   }
 
   const signupBtn = e => {
+    e.preventDefault()
     const signup = async() => {
       try{
-        const singupData = {
-          "memberId": 1, // userData.
-          "age": 1, // userData.
-          "name": "dongil", // userData.
+        const singupData = { // 액세스 토큰 나중에 넣어줘야 함
+          // "memberId": userData.member.kakaoMemberId,
+          "age": age,
+          "name": userData.member.nickName,
           "nickName": nickname
         }
         const headers = {
@@ -44,7 +45,8 @@ function Signup(props) {
             "Content-Type" : "application/json;charset=UTF-8"
           }
         }
-        await axios.post(USER_SIGNUP_URL, )
+        await axios.post(USER_SIGNUP_URL, singupData, headers)
+
       }catch{
         console.log("회원가입 실패")
       }
@@ -53,36 +55,16 @@ function Signup(props) {
     dispatch({type:"loginSucess", userData:userData})
   }
 
-  // const checkNickName = () => { //중복여부에 따른 버튼활성화
-  //   // 닉네임 중복에 대한 결과값을 Back에서 받아온다.
-  //   let resultOverlap = false
-  //   for (let nick of useNickName){
-  //     if (nickname === nick) {
-  //       resultOverlap = true
-  //     }
-  //   }
-  //   if ( resultOverlap ) {
-  //     return (
-  //       alert("중복입니다")
-  //     )
-  //   } else {
-  //     addNickName( [...useNickName, nickname] )
-  //     deactivateNickBtn(true)
-  //     return (
-  //       alert("사용가능합니다")
-  //     )
-  //   }
-  // }
   useEffect( () => { // 닉네임 수정할 때 버튼 막아놓고 시작
     deactivateSubmitBtn(true)
-    console.log('gg')
-    }, [nickname])
+    }, [nickname]
+  )
 
   useEffect( () => {
     const validationNinkname = async () => {
       try{
-        const { status : nicknameStatus } = await axios.get(`${VALIDATE_NICKNAME_URL}/${nickname}`)
-        if (nicknameStatus === 200) {
+        const { data : nicknameStatus } = await axios.get(`${VALIDATE_NICKNAME_URL}/${nickname}`)
+        if (nicknameStatus === "success") {
           setAvailable(true)
         }else {
           setAvailable(false)
@@ -180,49 +162,6 @@ function Signup(props) {
           </div>
         </div>
       </section>
-      
-      {/* <form action='./login'>
-        <h2>회원가입</h2>
-        <label>별명:</label>
-        <input
-          type="text"
-          name="nickname"
-          value={ nickname }
-          onChange={ changeNickName }
-        />
-        <button type="button" onClick={ checkNickName } disabled={ nickBtn }>중복확인</button> <br/>
-        <label>성별:</label>
-        <label>
-          <input
-            type="radio"
-            id = "men"
-            name="radioChecked"
-            value={ radioChecked }
-            onChange={ changeRadioChecked }
-          />
-          남
-        </label>
-        <label>
-          <input
-            type="radio"
-            id = "women"
-            name="radioChecked"
-            value={ radioChecked }
-            onChange={changeRadioChecked}
-          />
-          여
-        </label><br/>
-        <label>나이:</label>
-        <input
-          placeholder="나이를 입력해주세요"
-          type="text"
-          name="age"
-          value={ age }
-          onChange={ changeAge }
-        /><br/>
-        <button type="submit" disabled={ submitBtn }>완료</button>
-      </form> */}
-  
     </div>
   )
 }

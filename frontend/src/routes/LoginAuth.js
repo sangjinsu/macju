@@ -1,10 +1,11 @@
 import axios from "axios";
-import { useState } from "react";
+import { useRef } from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 function LoginAuth() {
+  const userData = useRef()
   const history = useHistory()
   const dispatch = useDispatch()
   
@@ -12,13 +13,14 @@ function LoginAuth() {
     const test = async () => {
       try{
         let code = new URL(window.location.href).searchParams.get("code")
-
+        console.log(code)
         const { data : responseData } = await axios.get(`http://i6c107.p.ssafy.io:8752/oauth/login/response?code=${code}`) // `http://http://i6c107.p.ssafy.io:8752:8752/oauth/login/response?code=${code}`
-
-        if (responseData.first_check === true ) {
-          history.replace({pathname:"/user/signup", userData:responseData})
+        userData.current = responseData
+        if (userData.current.first_check === true ) {
+          history.replace({pathname:"/user/signup", userData:userData.current})
         } else {
-          dispatch({type:"loginSucess", userData:responseData})
+          dispatch({type:"loginSucess", userData:userData.current})
+          console.log(userData.current)
           history.replace("/home")
         }
       }catch{

@@ -30,6 +30,7 @@ const followingsReducer = (state = [], action) => {
 
 
 
+
 const userProfileReducer = (state = [], action)=>{
   if (action.type === "user"){
     return action.userdata
@@ -125,6 +126,21 @@ const postCreateReducer = (state = [], action) =>{
   return state
 }
 
+
+const navbarReducer = (state=false, action) => {
+  if (action.type === "navOpen"){
+    const newState = true
+    return newState
+  } else if (action.type === "navClose"){
+    const newState = false
+    console.log(newState, 'navbar')
+    return newState
+  } 
+  else {
+    return state
+  }
+}
+
 const store = createStore( combineReducers
   ( {
     userReducer,
@@ -137,7 +153,12 @@ const store = createStore( combineReducers
      userPostReducer, 
      userLikeReducer,
      userReviewReducer,
+     navbarReducer,
      followersReducer,
      followingsReducer
+
   } ))
+
+
+
 export default store;

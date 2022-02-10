@@ -18,6 +18,7 @@ function BeerDetail() {
   const BEER_DETAIL_LOG_URL = process.env.REACT_APP_SERVER + ':8080/v1/log'
   const RANKING_BEER_URL = process.env.REACT_APP_SERVER + ':8081/beer/view'
   const RANKING_BEER_LIKE_URL = process.env.REACT_APP_SERVER + ':8081/beer/like'
+  const BEER_LIKE_URL = process.env.REACT_APP_SERVER + ':8080/v1/member'
 
 
   const memberId = 1    //test용 멤버아이디
@@ -30,6 +31,10 @@ function BeerDetail() {
   // 평가한 맥주들
   const [ratebeers, setRatebeers] = useState([])
   const [isRated, setIsRated] = useState(false)
+
+  // 좋아한 맥주들
+  const [likebeers, setLikebeers] = useState([])
+  const [isLiked, setIsLiked] = useState(false)
 
   // const [beerImg, setbeerImg] = useState()
   const { beerid } = useParams();
@@ -46,7 +51,6 @@ function BeerDetail() {
       dispatch({type:'beerDetailPost', beerdetaildata:beer_postdetail})
 
 
-
       // 평가한 맥주 목록
       const { data : rated_beer } = await axios.get(`${RATED_BEER_URL}/${memberId}/rates`)
       const rated = rated_beer.data
@@ -56,6 +60,14 @@ function BeerDetail() {
         }
       }
       
+      // 좋아한 맥주 목록
+      const { data : beerlikedata } = await axios.get(`${BEER_LIKE_URL}/${memberId}/like/beer`)
+      setLikebeers(beerlikedata.data)
+      for (let i in beerlikedata.data) {
+        if (beerlikedata.data[i].beerId == beerid) {
+          setIsLiked(true)    // 이 맥주 좋아요 눌렀으면 isLiked=true
+        }
+      }
 
       // 로그 보내기
       const hashTagArr = [beerdetail.beerType.main, ...beerdetail.aromaHashTags , ...beerdetail.flavorHashTags]
@@ -85,9 +97,9 @@ function BeerDetail() {
       // })
     }
     fetchData();
-  }, [BEER_DETAIL_POST_URL, BEER_DETAIL_URL, RATED_BEER_URL, beerid])
+  }, [BEER_DETAIL_POST_URL, BEER_DETAIL_URL, RATED_BEER_URL, BEER_LIKE_URL, beerid])
 
-  const [isLike, setisLike] = useState(false)
+  // const [isLike, setisLike] = useState(false)
   const [rateModal, set_rateModal] = useState(false)
 
  
@@ -100,7 +112,12 @@ function BeerDetail() {
 
   const likeButton = async () => {
     try{
-      setisLike(!isLike)
+      setIsLiked(!isLiked)
+
+      // 좋아요 post 보내기
+      axios.post(`${BEER_LIKE_URL}/beer/${memberId}/like/${beerid}`)
+      
+      // 랭킹 get
       const rankingBeerLikeeUrl = `${RANKING_BEER_LIKE_URL}/${beerid}/1`
       const headers = {
         'Accept': "application/json; charset=UTF-8"
@@ -165,9 +182,9 @@ function BeerDetail() {
                     {/* <h2>{beer.englishName}</h2> */}
                     <div className="heartInline">
                       {
-                        isLike === true
-                        ? <BsHeart className="heartIcon" size="23" onClick={likeButton}></BsHeart>
-                        : <BsHeartFill className="heartIcon" size="23" onClick={likeButton}></BsHeartFill>
+                        isLiked === true
+                        ? <BsHeartFill className="heartIcon" size="23" onClick={likeButton}></BsHeartFill>
+                        : <BsHeart className="heartIcon" size="23" onClick={likeButton}></BsHeart>
                       }
                       <div className="like_count">(5)</div>
                     </div>

@@ -13,7 +13,7 @@ import Home from "routes/Home";
 import PageNotFound from "components/PageNotFound";
 import ProfileEdit from "routes/User/ProfileEdit";
 import LoginAuth from "routes/LoginAuth";
-
+import Search from "routes/Search"
 
 function App() {
   return (
@@ -46,6 +46,7 @@ function App() {
             </Switch>
           </Route>
           <Route path="/oauth/login/resopnse" component={LoginAuth}/>
+          <Route path="/search" component={Search} />
           <Route path="*" component={PageNotFound} />
         </Switch>
         <Footer />

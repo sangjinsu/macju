@@ -58,7 +58,7 @@ function NavBar(){
                 {/* 수정 필요 - x 지우는거 안됌 */}
                 <div className='searchbar'>
                   <SearchBar/>
-                  <button class="btn btn-outline-light" type="submit">Search</button>
+                  <Link to='/search' class="btn btn-outline-light" onClick={navClick}>Search</Link>
                 </div>
 
 

@@ -208,7 +208,6 @@ function PostDetail() {
     } else  {
       fetchPostDetailData();
     }
-       
   }, [])
 
 

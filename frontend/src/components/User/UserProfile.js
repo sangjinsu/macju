@@ -6,7 +6,7 @@ import axios from "axios";
 import {IoIosBeer} from  "react-icons/io";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useStore } from "react-redux";
-import { Button } from "react-bootstrap";
+import { Button, ProgressBar } from "react-bootstrap";
 
 const UserProfile = () => {
 	const userid = 1
@@ -152,6 +152,7 @@ const UserProfile = () => {
 							</Followings>
 							<p className="user_intro">한줄 소개 : {user.intro}</p>
 							
+							<ProgressBar now={store.getState().profileReducer.grade/5} label={`${store.getState().profileReducer.grade/5}%`} />
 						</div>
 					</div>
 				</div>

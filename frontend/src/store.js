@@ -1,5 +1,21 @@
 import { combineReducers, createStore } from "redux"
 
+
+
+const profileReducer = (state = [], action) => {
+  const profileData = {
+    "memberId" : 1, 
+    "nickName": '임의로 바꿀거임',
+    "name": "ssafy",
+    "intro": '이것도 임의로 바꿀거임',
+    "profileColor": "Black",
+    "grade" : 120,
+  }
+  return profileData
+}
+
+
+
 const userReducer = (state = [], action) => {
   if (action.type === "loginSucess") {
     const loginState = action.userData
@@ -161,7 +177,8 @@ const store = createStore( combineReducers
      userReviewReducer,
      navbarReducer,
      followersReducer,
-     followingsReducer
+     followingsReducer,
+     profileReducer
 
   } ))
 

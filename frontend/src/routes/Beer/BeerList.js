@@ -35,10 +35,10 @@ function BeerList(){
   const ScrollBottom = () =>{
     const {scrollHeight, scrollTop, clientHeight} = document.documentElement
     if (scrollHeight - Math.round(scrollTop) <= 2*clientHeight){
-      if (showBeer !==beerdata.splice(0, 10)) {
+      // if (showBeer !==beerdata.splice(0, 10)) {
         setShowBeer((prev)=>prev.concat(beerdata.splice(0, 10)))
         setnowbeerArr((prev)=>prev.concat(beerdata.splice(0, 10)))
-      }
+      // }
       }
     
   }
@@ -70,9 +70,12 @@ function BeerList(){
       const temp = await axios.get(BEER_LIST_URL)
       setShowBeer(temp.data)
       setnowbeerArr(temp.data)
-      const data = await axios.get(`${BEER_LIST_URL}?size=210`)
+      console.log(temp.data)
+
+      const data = await axios.get(`${BEER_LIST_URL}?size=500`)
       dispatch({type:"getBeerList", data:data})
-      setbeerdata([data][0].data)
+      console.log(data.data)
+      setbeerdata(data.data)
     }
     fetchData();
 

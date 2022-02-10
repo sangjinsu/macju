@@ -24,6 +24,7 @@ function PostDetail() {
   //basic data
   const history = useHistory();
   const postId = useParams().postId;
+  console.log(postId)
   const memberId = 1 //test용 멤버아이디
 
 
@@ -65,12 +66,16 @@ function PostDetail() {
   const DeletePost = async() => {
     try{
       const postDeleteUrl = `${POST_DETAIL_URL}/${postId}`
-      const rankingPostDeleteUrl = `${RANKING_POST_DLELETE_URL}/${postId}/1`
+      const rankingPostDeleteUrl = `${RANKING_POST_DLELETE_URL}/${postId}`
 
       await axios.delete(postDeleteUrl)
       dispatch({ type : "postDelete"})
 
-      await axios.get(rankingPostDeleteUrl)
+      const headers = {
+        'Accept': "application/json; charset=UTF-8"
+      }
+
+      await axios.delete(rankingPostDeleteUrl, headers)
 
       history.push("/post")
     }catch{

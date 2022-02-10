@@ -5,6 +5,7 @@ import { BsHeartFill, BsHeart } from "react-icons/bs";
 import '../../styles/PostDetail.css'
 import CommentList from "./CommentList";
 import { useDispatch, useStore } from "react-redux";
+import { getDownloadURL, getStorage, ref } from "firebase/storage";
 // import { useHistory } from 'react-router-dom';
 
 function PostDetail() {
@@ -21,7 +22,7 @@ function PostDetail() {
   const [updateContent, setText] = useState();
   const [hashtagArr, setHashtagArr] = useState([])
   const [hashtag, setHashtag] = useState("")
-
+  const [postDetailImage, setPostDetailImage] = useState([])
   const postId = useParams().postId;
   const store = useStore((state)=>state)
   const dispatch = useDispatch();
@@ -31,6 +32,18 @@ function PostDetail() {
   const [likeposts, setLikeposts] = useState([])
   const [isLiked, setIsLiked] = useState()
   const [postlikeNum, setPostlikeNum] = useState()
+
+
+
+
+  //firebase 
+  const storage = getStorage()
+
+
+
+
+
+
 
   const UpdateContent = (e) => {
     setText(e.target.value)
@@ -131,11 +144,58 @@ function PostDetail() {
     }
   }
 
+  useEffect(()=>{
+    const postId = store.getState().postDetailReducer.postId
+    const images = store.getState().postDetailReducer.photos
+    const fetchData = async() =>{
+      const imageList = []
+      for (let i = 0; i < images.length; i++){
+        const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/imgs/${postId}/${images[i].data}`)
+        await getDownloadURL(storageRef)
+        .then((res) =>{
+          if (!postDetailImage.some((url)=>url===res)) {
+            imageList.push(res)
+          }
+        })
+      }
+      setPostDetailImage(imageList)
+    }
+
+    if (images) {
+      fetchData();
+    } else  {
+      const fetchPostDetailData = async () =>{
+        const postDetail = await axios.get(`${POST_DETAIL_URL}/${postId}`)
+        dispatch({type:"postDetailLoading", postDetail: postDetail})
+      }
+      fetchPostDetailData();
+    }
+
+
+    
+
+  }, [store.getState().postDetailReducer])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   // postDetail 불러오는 것 (리덕스에 저장)
   useEffect(()=>{
     const fetchData = async () =>{
       try{
         const responseDetail = await axios.get(`${POST_DETAIL_URL}/${postId}`)
+        
         const postDetail = responseDetail.data
   
         const hashTagArr = [postDetail.beer.beerType.main, ...postDetail.beer.aromaHashTags , ...postDetail.beer.flavorHashTags]
@@ -167,7 +227,7 @@ function PostDetail() {
         // 좋아한 포스트 목록
         const { data : postlikedata } = await axios.get(`${POST_LIKE_URL}/${memberId}/like/post`)
         setLikeposts(postlikedata.data)
-        console.log(postlikedata.data)
+
         for (let i in postlikedata.data) {
           if (postlikedata.data[i].postId == postId) {
             setIsLiked(true)    // 이 맥주 좋아요 눌렀으면 isLiked=true
@@ -213,13 +273,15 @@ function PostDetail() {
             </div>
 
             <div className="row">
-
+          {postDetailImage&& postDetailImage.map((data, i)=>
+            <div className="col-md-6 " key={i}>
+            <div className="img-box">
+              <img src={data}></img> 
+            </div>
+          </div>
+          )}
               {/* 이미지(수정필요) */}
-              <div className="col-md-6 ">
-                <div className="img-box">
-                  <img src='\img\5.0_오리지날_라거_medium_-removebg-preview.png'></img> {/* postImg */}
-                </div>
-              </div>
+            
 
               {/* 포스트 디테일 */}
               <div className="col-md-6">

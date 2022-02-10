@@ -13,8 +13,9 @@ function LoginAuth() {
     const test = async () => {
       try{
         let code = new URL(window.location.href).searchParams.get("code")
-        const { data : responseData } = await axios.get(`http://http://i6c107.p.ssafy.io:8752:8752/oauth/login/response?code=${code}`)
         console.log(code)
+        const { data : responseData } = await axios.get(`http://i6c107.p.ssafy.io:8752/oauth/login/response?code=${code}`) // `http://http://i6c107.p.ssafy.io:8752:8752/oauth/login/response?code=${code}`
+        console.log(responseData)
         setUser(responseData)
         if (userData.first_check === true ) {
           history.replace({pathname:"/user/signup", userData:userData})

@@ -45,7 +45,7 @@ function App() {
               <Route path="/profile/:userid/" component={Profile} />
             </Switch>
           </Route>
-          <Route path="/oauth/login/response" component={LoginAuth}/>
+          <Route path="/oauth/login/resopnse" component={LoginAuth}/>
           <Route path="*" component={PageNotFound} />
         </Switch>
         <Footer />

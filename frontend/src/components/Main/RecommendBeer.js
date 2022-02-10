@@ -18,8 +18,8 @@ const RecommendBeer = () => { // 변수명 수정필요
     // centerMode: true,
     // centerPadding: "60px",
     fade:true, //center랑 중복 불가능
-    autoplaySpeed: 1000,
-    speed: 1000,
+    autoplaySpeed: 5000,
+    speed: 5000,
     slidesToShow: 1,
     slidesToScroll: 1
   };

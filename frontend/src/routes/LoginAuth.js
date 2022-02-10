@@ -13,7 +13,7 @@ function LoginAuth() {
     const test = async () => {
       try{
         let code = new URL(window.location.href).searchParams.get("code")
-        const { data : responseData } = await axios.get(`http://http://i6c107.p.ssafy.io:8752:8752/oauth/login/response?code=${code}`)
+        const { data : responseData } = await axios.get(`http://i6c107.p.ssafy.io:8752:8752/oauth/login/response?code=${code}`)
         console.log(code)
         setUser(responseData)
         if (userData.first_check === true ) {

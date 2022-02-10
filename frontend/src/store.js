@@ -12,6 +12,7 @@ const userReducer = (state = [], action) => {
   }
 }
 
+
 const followersReducer = (state = [], action) => {
   if (action.type === 'followers') {
     return action.followers
@@ -134,10 +135,10 @@ const postCreateReducer = (state = [], action) =>{
 
 const navbarReducer = (state=false, action) => {
   if (action.type === "navOpen"){
-    const newState = true
+    const newState = false
     return newState
   } else if (action.type === "navClose"){
-    const newState = false
+    const newState = true
     console.log(newState, 'navbar')
     return newState
   } 

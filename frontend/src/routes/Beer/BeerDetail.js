@@ -24,12 +24,13 @@ function BeerDetail() {
   const memberId = 1    //test용 멤버아이디
 
   
+  
   // 맥주 data
   const [beer, setbeer] = useState()
   // 맥주의 posts
-  // const [beerpost, setbeerpost] = useState()
+  const [beerpost, setbeerpost] = useState()
   // 평가한 맥주들
-  // const [ratebeers, setRatebeers] = useState([])
+  const [ratebeers, setRatebeers] = useState([])
   const [isRated, setIsRated] = useState(false)
 
   // 좋아한 맥주들
@@ -41,7 +42,10 @@ function BeerDetail() {
 
   // const [beerImg, setbeerImg] = useState()
   const { beerid } = useParams();
-  
+
+  // 별점
+  const [starrate, setStarrate] = useState()
+
   const dispatch = useDispatch();
   useEffect(()=>{
     const fetchData = async ()=>{
@@ -57,7 +61,7 @@ function BeerDetail() {
       const { data : rated_beer } = await axios.get(`${RATED_BEER_URL}/${memberId}/rates`)
       const rated = rated_beer.data
       for (let i in rated) {
-        if (rated[i].beer.beerId === beerid) {
+        if (rated[i].beer.beerId === Number(beerid)) {
           setIsRated(true)    // 이 맥주 평가했으면 isRated=true
         }
       }
@@ -66,9 +70,9 @@ function BeerDetail() {
       const { data : beerlikedata } = await axios.get(`${BEER_LIKE_URL}/${memberId}/like/beer`)
       setLikebeers(beerlikedata.data)
       for (let i in beerlikedata.data) {
-        if (beerlikedata.data[i].beerId === beerid) {
+        if (beerlikedata.data[i].beerId === Number(beerid)) {
           setIsLiked(true)    // 이 맥주 좋아요 눌렀으면 isLiked=true
-        }
+        } 
       }
       setBeerlikeNum(beerdetail.likes)    // 좋아요수 처음에 가져오기
 
@@ -100,7 +104,7 @@ function BeerDetail() {
       // })
     }
     fetchData();
-  }, [BEER_DETAIL_POST_URL, BEER_DETAIL_URL, RATED_BEER_URL, BEER_LIKE_URL, beerid])
+  }, [BEER_DETAIL_POST_URL, BEER_DETAIL_URL, RATED_BEER_URL, BEER_LIKE_URL, beerid, starrate])
 
   // const [isLike, setisLike] = useState(false)
   const [rateModal, set_rateModal] = useState(false)
@@ -110,8 +114,7 @@ function BeerDetail() {
   { rateModal ? document.body.style.overflow = "hidden" : document.body.style.overflow = "unset" }
 
   //////// 맥주평가모달창
-  // 별점
-  const [starrate, setStarrate] = useState()
+
 
   /////// 좋아요
   
@@ -217,6 +220,7 @@ function BeerDetail() {
                   {/* 맥주 별점 + 평가하기버튼 */}
                   <div className="rate_spacebetween">
                     <div className='starInline'>
+                      {/* {console.log(beer.averageRate)} */}
                       <div className='star'>★★★★☆</div>
                       <div>(4)</div>
                     </div>
@@ -234,6 +238,7 @@ function BeerDetail() {
                         beerid={beerid}
                       />
                     : <BeerRate 
+                        setIsRated={setIsRated}
                         starrate={starrate}
                         setStarrate={setStarrate} 
                         rateModal={rateModal} 

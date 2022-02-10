@@ -12,6 +12,7 @@ function BeerRate(props){
   const beerid = props.beerid
   // console.log(props)
 
+
   const modal_style = {
     overlay: {
       position: 'fixed',
@@ -75,6 +76,12 @@ function BeerRate(props){
     // console.log(aromaArr)
   }
 
+  // 평가완료했을때 starrate 수정
+  const updateRate = async ()=>{
+    const {data:ratedata} = await axios.get(`${BEER_RATE_URL}/${beerid}/member/${memberId}`)
+    props.setStarrate(ratedata.rate)
+  }
+
   /////// 평가완료 = post 보내기
   const submitRate = ()=> {
     const newrate = {
@@ -93,6 +100,10 @@ function BeerRate(props){
       .then((res) => {
         console.log(res)
         props.set_rateModal(false)
+        updateRate()
+        console.log(starrate)
+        props.setIsRated(true)
+
       })
     } else {
       alert('평가를 완료해주세요!')

@@ -8,6 +8,7 @@ import { useDispatch, useStore } from "react-redux";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 // import { useHistory } from 'react-router-dom';
 
+
 function PostDetail() {
 
   //url
@@ -236,7 +237,7 @@ function PostDetail() {
         setLikeposts(postlikedata.data)
 
         for (let i in postlikedata.data) {
-          if (postlikedata.data[i].postId === postId) {
+          if (postlikedata.data[i].postId == Number(postId)) {
             setIsLiked(true)    // 이 맥주 좋아요 눌렀으면 isLiked=true
           }
         }

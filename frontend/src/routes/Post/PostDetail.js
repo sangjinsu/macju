@@ -38,9 +38,7 @@ function PostDetail() {
   const [updateContent, setText] = useState();
   const [hashtagArr, setHashtagArr] = useState([])
   const [hashtag, setHashtag] = useState("")
-  const [postDetailImage, setPostDetailImage] = useState([])
-
-  
+ 
 
   // 좋아한 맥주들
   const [likeposts, setLikeposts] = useState([])

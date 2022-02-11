@@ -11,7 +11,7 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  z-index: 10000;
+  /* z-index: 100; */
 }
 
 .navbar_area .bg-box {
@@ -67,13 +67,14 @@
   align-items: baseline;
 }
 
+/* 로고 */
 .navbar-brand {
   font-family: 'Dancing Script', cursive;
 }
 
 .navbar-brand span {
   font-weight: bold;
-  font-size: 32px;
+  font-size: 25px;
   color: #ffffff;
 }
 
@@ -137,28 +138,7 @@
   color: #ffbe33;
 }
 
-/* .user_option .cart_link {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
 
-.user_option .cart_link svg {
-  width: 17px;
-  height: auto;
-  fill: #ffffff;
-  margin-bottom: 2px;
-}
-
-.user_option .cart_link:hover svg {
-  fill: #ffbe33;
-} */
 
 .user_option .order_online {
   display: inline-block;

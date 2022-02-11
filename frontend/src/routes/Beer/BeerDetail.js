@@ -197,7 +197,7 @@ function BeerDetail() {
                         >
                           <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
                         </div>
-                        <div class="star-ratings-base space-x-2 text-lg">
+                        <div className="star-ratings-base space-x-2 text-lg">
                           <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
                         </div>
                       </div>

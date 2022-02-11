@@ -56,13 +56,47 @@ function NavBar(){
                   </span>
                 </a>
 
-                {/* 수정 필요 - x 지우는거 안됌 */}
+                
                 <div className='searchbar'>
                   <SearchBar/>
-                  <Link to='/search' className="btn btn-outline-light" onClick={navClick}>Search</Link>
+                  <Link to='/search' className="btn-outline-light" onClick={navClick}><i className="fa fa-search"></i></Link>
                 </div>
 
+                {/* 드롭다운(토글) */}
+                {/* <div className="dropdown">
+                  <button className="btn btn-dark dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown" aria-expanded="false">
+                  </button>
+                  
+                  <ul className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton1">
+                    <li>
+                      <Link className='dropdown-item' to='/home' onClick={navClick}>Home</Link>
+                    </li>
+                    <li>
+                      <Link className='dropdown-item' to='/beer' onClick={navClick}>Beer</Link>
+                    </li>
+                    <li>
+                      <Link className='dropdown-item' to='/post' onClick={navClick}>Posts</Link>
+                    </li>
+                    <div className="dropdown-divider"></div>
+                    <li>
+                      <Link to={`/profile/${memberId}/post`} className="dropdown-item user_link" onClick={navClick}>
+                        <i className="fa fa-user" aria-hidden="true"></i>
+                      </Link>
+                    </li>
+                    <li className="order_online">
+                      <Link className='dropdown-item nav_login' to='/user/login' onClick={navClick}>login</Link>
+                    </li>
+                  </ul>
+                  
+                </div> */}
 
+
+
+
+
+
+                
+                {/* 토글 버튼 */}
                 <button onClick={toggleClick} id='tglButton' className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                   <span className=""> </span>
                 </button>
@@ -83,18 +117,12 @@ function NavBar(){
                     <Link to={`/profile/${memberId}/post`} className="user_link" onClick={navClick}>
                       <i className="fa fa-user" aria-hidden="true"></i>
                     </Link>
-                    {/* <form className="form-inline">
-                      <button className="btn  my-2 my-sm-0 nav_search-btn" type="submit" onClick={navClick}>
-                        <i className="fa fa-search" aria-hidden="true"></i>
-                      </button>
-                    </form>
-                     */}
                     <div className="order_online">
                       <Link className='nav-link nav_login' to='/user/login' onClick={navClick}>login</Link>
                     </div>
                   </div>
-                  
                 </div>
+
               </nav>
             </div>
           </header>

@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import "../../styles/PostList.css"
-import FadeIn from 'react-fade-in';
 import "../../firebase_config"
 import PostListComponent from "../../components/Post/PostList"
+import FadeIn from 'react-fade-in';
+import "../../styles/PostList.css"
 
 
 function PostList() {
@@ -49,10 +49,7 @@ function PostList() {
       </div>
     </section>
     </>
-    
   )
   }
-  
-
 
 export default PostList;

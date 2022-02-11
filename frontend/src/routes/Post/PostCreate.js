@@ -1,26 +1,17 @@
-import { useState } from "react";
-import axios from "axios"
+import { useCallback, useState } from "react";
 import { Link, useHistory } from 'react-router-dom';
+import {useStore} from "react-redux"
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 import "../../firebase_config"
 import '../../styles/PostCreate.css'
-import {useStore} from "react-redux"
-
-
-
-
-
+import axios from "axios"
 
 function PostCreate(s) {
-  
-
   const POST_CREATE_URL = process.env.REACT_APP_SERVER + ':8080/v1/post' 
   const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8080/v1/member/profile'
+
   const memberid = 1  //test용 멤버아이디
   const beerid = s.location.state.beerid    // 작성하고있는 포스트의 맥주아이디
-
-
-
 
   //react-router-dom
   const history = useHistory()
@@ -34,9 +25,8 @@ function PostCreate(s) {
   const [hashtag, setHashtag] = useState("")
   const store = useStore((state)=>state)
 
-
-  /////// 사진 선택 버튼 click
-  const uploadBtn = async (event) => {
+  // 사진 선택 버튼 click
+  const uploadBtn = useCallback( async (event) => {
     const nowImages = event.target.files  // 현재 선택한 사진들
     //state에 저장
     const imgArray = [...uploadImages]
@@ -49,21 +39,15 @@ function PostCreate(s) {
     }
     const results = await Promise.all(imgArray)
     setUploadImages(results)
-  }
-  
+  }, [uploadImages])
 
-
-
-
-
-  /////// 사진 삭제 버튼 click
-  function deleteImg(e){
+  // 사진 삭제 버튼 click
+  const deleteImg = useCallback( (e) => {
     const deletedArray = [...uploadImages]
     deletedArray.splice(e.target.attributes.idx.value, 1)
     setUploadImages(deletedArray)
     console.log(deletedArray)
-  }
-
+  }, [uploadImages])
 
   const input_content = ((e)=>{
     e.preventDefault()
@@ -75,25 +59,15 @@ function PostCreate(s) {
     setHashtag(e.target.value)
   })
 
-  /////// 해시태그 추가
-  const keyup_hashtag = ((e)=>{
-    /* enter 키 코드 :13 */
-    // if (e.keyCode === 13 && e.target.value.trim() !== '') {
-    //   console.log('Enter Key 입력됨!', e.target.value)
-    //   setHashtag(e.target.value)
-    //   $HashWrapInner.innerHTML = '#' + e.target.value
-    //   $HashWrapOuter?.appendChild($HashWrapInner)
-    //   setHashtagArr((hashtagArr) => [...hashtagArr, hashtag])
-    //   setHashtag('')
-    //   // console.log(hashtag)
-    // }
-    // spacebar 방지 (입력하면 지워짐)
-    if (e.keyCode === 32 || e.keycode === 13) {
+  // 해시태그 추가
+  const keyup_hashtag = (e)=>{
+    if (e.keyCode === 32 || e.keyCode === 13) {
       e.target.value = e.target.value.replace(' ','')
+      e.target.value = e.target.value.replace('\n','')
     }
-  })
+  }
 
-  const addHashTag = ((e)=>{
+  const addHashTag = useCallback( (e)=>{
     e.preventDefault()
     /* 요소 불러오기, 만들기*/
     const $HashWrapOuter = document.querySelector('.hashtag_wrap')
@@ -114,9 +88,10 @@ function PostCreate(s) {
       setHashtagArr((hashtagArr) => [...hashtagArr, hashtag])
       setHashtag('')
     }
-  })
-  /////// post 보내기
-  const postcreateSubmit = ((e) => {
+  }, [hashtag, hashtagArr])
+
+  // post 보내기
+  const postcreateSubmit = useCallback( (e) => {
     e.preventDefault()
     if (uploadImages.length === 0 || content==='' || hashtagArr.length === 0 ) {
       alert('사진/내용을 추가해 주세요')
@@ -139,7 +114,6 @@ function PostCreate(s) {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': "application/json; charset=UTF-8"
     }
-    // console.log(newpost)
 
     axios 
       .post(POST_CREATE_URL, newpost, {headers})
@@ -164,10 +138,8 @@ function PostCreate(s) {
         })
     })
   }
-  })
+  }, [POST_CREATE_URL, USER_UPDATE_PROFILE, beerid, content, hashtagArr, history, store, uploadImages])
    
-  
-  
   return(
     <div className="postcreate">
       <section className="postcreate_section layout_padding_postcreate">
@@ -234,13 +206,11 @@ function PostCreate(s) {
                         <button type="submit" className="addHashBtn" onClick={addHashTag}>추가</button>
                       </div>
                     </div>
-                    {/* <div className="hashtag_place"></div> */}
                   </div>
 
                   {/* 작성완료 버튼 */}
                   <div>
                     <button type="submit" className="complete_btn"> 작성 완료</button>
-                    {/* <button type="submit" onClick={upLoadImg}> 작성 완료</button> */}
                   </div>
                 </form>
               </div>
@@ -249,9 +219,7 @@ function PostCreate(s) {
         </div>
       </section>
     </div>
-
   )
-
 }
 
 export default PostCreate;

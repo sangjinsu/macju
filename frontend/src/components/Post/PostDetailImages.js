@@ -57,7 +57,8 @@ function PostDetailImages(){
     } else  {
       fetchPostDetailData();
     }
-  }, [])
+    
+  }, [images])
 
   
   return(

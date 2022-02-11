@@ -2,16 +2,14 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from 'react-router-dom';
 import { BsHeartFill, BsHeart } from "react-icons/bs";
 import axios from "axios"
-// import { getDownloadURL, getStorage , ref } from "firebase/storage";
 import "../../firebase_config"
 import '../../styles/BeerDetail.css'
 import PostListComponent from "../../components/Post/PostList"
 import BeerRate from "./BeerRate.js"
 import BeerRateUpdate from "./BeerRateUpdate.js"
 import { useDispatch } from "react-redux";
-
-// import "../../styles/PostList.css"
 function BeerDetail() {
+  //url
   const BEER_DETAIL_URL = process.env.REACT_APP_SERVER + ':8080/v1/beer'
   const BEER_DETAIL_POST_URL = process.env.REACT_APP_SERVER + ':8080/v1/post/beer'
   const RATED_BEER_URL = process.env.REACT_APP_SERVER + ':8080/v1/member'
@@ -20,19 +18,21 @@ function BeerDetail() {
   const RANKING_BEER_LIKE_URL = process.env.REACT_APP_SERVER + ':8081/beer/like'
   const BEER_LIKE_URL = process.env.REACT_APP_SERVER + ':8080/v1/member'
 
-
+  //temp
   const memberId = 1    //test용 멤버아이디
 
-  
+  //react-redux
+  const dispatch = useDispatch();  
   
   // 맥주 data
   const [beer, setbeer] = useState()
   // 맥주의 posts
   const [beerpost, setbeerpost] = useState()
+
   // 평가한 맥주들
   const [ratebeers, setRatebeers] = useState([])
   const [isRated, setIsRated] = useState(false)
-
+  const [rateModal, set_rateModal] = useState(false)
   // 좋아한 맥주들
   const [likebeers, setLikebeers] = useState([])
   const [isLiked, setIsLiked] = useState(false)
@@ -40,18 +40,20 @@ function BeerDetail() {
   // const [likes, setLikes] = useState()
   const [beerlikeNum, setBeerlikeNum] = useState()
 
-  // const [beerImg, setbeerImg] = useState()
   const { beerid } = useParams();
 
   // 별점
   const [starrate, setStarrate] = useState()
 
-  const dispatch = useDispatch();
+  
+
+
+
+
   useEffect(()=>{
     const fetchData = async ()=>{
       const { data : beerdetail } = await axios.get(`${BEER_DETAIL_URL}/${beerid}`)
       setbeer(beerdetail)
-
       // 맥주별 포스트 목록
       const beer_postdetail = await axios.get(`${BEER_DETAIL_POST_URL}/${beerid}`)
       dispatch({type:'beerDetailPost', beerdetaildata:beer_postdetail})
@@ -90,24 +92,11 @@ function BeerDetail() {
         'Accept': "application/json; charset=UTF-8"
       }
       axios.post(BEER_DETAIL_LOG_URL, newdata, {headers})     // 주석풀면 로그에 post 보냄
-      // .then(()=>{
-      //   console.log('로그보냄')
-      // })
-      ////// axios.post("http://13.125.157.39:8080/v1/log", newdata, {headers})
-
-
-      // const storage = getStorage()
-      // const storageRef = ref(storage, `gs://ssafy-01-beer-image.appspot.com/${beerdetail.data.photoPath}`)
-      // getDownloadURL(storageRef)
-      // .then((url)=>{
-      //   setbeerImg(url)
-      // })
     }
     fetchData();
   }, [BEER_DETAIL_POST_URL, BEER_DETAIL_URL, RATED_BEER_URL, BEER_LIKE_URL, beerid, starrate])
 
-  // const [isLike, setisLike] = useState(false)
-  const [rateModal, set_rateModal] = useState(false)
+  
 
  
   // 모달창 켜지면 스크롤 안움직이게 함
@@ -141,20 +130,6 @@ function BeerDetail() {
     }
   }
 
-  // useEffect(()=>{
-  //   const fetchData = async ()=>{
-  //     const { data : beerdetail } = await axios.get(`${BEER_DETAIL_URL}/${beerid}`)
-  //     setbeer(beerdetail)
-  //     // const nowbeerDetail = beerdetail.data
-
-  //     // 좋아요수
-  //     setLikes(beerdetail.likes)
-  //     console.log(beerdetail.likes)
-  //   }
-  //   fetchData()
-
-  // },[BEER_DETAIL_URL, isLiked])
-
   useEffect(() => {
     const spendData = async () => {
       try{
@@ -172,17 +147,14 @@ function BeerDetail() {
 
   return (
     <div className="BeerDetail">
-      {
-        beer &&
+      {beer &&
         <div>
         <section className="beerdetail_section layout_padding_beer">
-
           <div className="container">
             {/* 목록으로 가기 버튼 */}
             <div className='backBtn'>
               <Link className='btnText' to='/beer'><i className="fas fa-angle-double-left fa-lg"></i> 목록으로</Link>
             </div>
-
             <div className="row">
               {/* 맥주 이미지 */}
               <div className="col-md-6 ">
@@ -192,17 +164,14 @@ function BeerDetail() {
                   <img src={beer.photoPath} alt=""></img>
                 </div>
               </div>
-
               {/* 맥주 디테일 */}
               <div className="col-md-6">
                 <div className="detail-box">
-                  
                   {/* 맥주 종류 */}
                   <div className="beerCategory" href="">{beer.beerType.main}</div>
                   { beer.beerType.detail !== null
                     ? <div className="beerCategory_detail" href="">{beer.beerType.detail}</div> 
                     : null }
-
                   {/* 맥주 이름 + 하트 */}
                   <div className="heading_title">
                     <h2>{beer.name}</h2>

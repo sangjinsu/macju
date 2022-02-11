@@ -14,9 +14,7 @@ const ProfileEdit = () => {
   const [editUserNickname, setEditUserNickname] = useState('')
   const [introduce, setIntroduce] =useState('')
   const [labelNickname, setLabelNickname] = useState('fail')
-  // const [currentIntroduce, setCurrentIntroduce] = useState()
-  // const [currentNickname, setCurrentNickname] = useState()
-  const history = useHistory()
+
   const headers = {
     'Content-Type': 'application/json; charset=UTF-8',
     'Accept': "application/json; charset=UTF-8"
@@ -51,13 +49,11 @@ const ProfileEdit = () => {
 }
 
   const editIntroduce = (e) =>{
-    
     setIntroduce(e.target.value)
   }
 
   const editNickname = (e)=>{
     setEditUserNickname(e.target.value)
-    
   }
 
   useEffect(()=>{

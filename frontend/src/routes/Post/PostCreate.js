@@ -1,22 +1,34 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios"
 import { Link, useHistory } from 'react-router-dom';
 import { getStorage, ref, uploadBytes } from "firebase/storage";
-import { useHistory } from "react-router-dom";
 import "../../firebase_config"
 import '../../styles/PostCreate.css'
 import {useStore} from "react-redux"
+
+
+
+
+
+
 function PostCreate(s) {
-  const history = useHistory()
+  
 
   const POST_CREATE_URL = process.env.REACT_APP_SERVER + ':8080/v1/post' 
   const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8080/v1/member/profile'
-  const history = useHistory();
   const memberid = 1  //test용 멤버아이디
   const beerid = s.location.state.beerid    // 작성하고있는 포스트의 맥주아이디
+
+
+
+
+  //react-router-dom
+  const history = useHistory()
+
   // DB upload
   const [uploadImages, setUploadImages] =useState([])
   const [content, setContent] = useState("")    
+  
   // hash(post)
   const [hashtagArr, setHashtagArr] = useState([])
   const [hashtag, setHashtag] = useState("")

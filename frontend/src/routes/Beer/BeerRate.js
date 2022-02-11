@@ -6,13 +6,32 @@ import axios from "axios";
 import {useStore} from "react-redux"
 
 function BeerRate(props){
+  //url
   const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8080/v1/member/profile'
   const BEER_RATE_URL = process.env.REACT_APP_SERVER + ':8080/v1/beer'
+
+
+  //useState
+  // 맛 해시태그 
+  const [flavorArr, setFlavorArr] = useState([])      //보여주기용
+  const [flavorIdArr, setFlavorIdArr] = useState([])  //데이터전송용 아이디배열
+  const [aromaArr, setAromaArr] = useState([])      //보여주기용
+  const [aromaIdArr, setAromaIdArr] = useState([])  //데이터전송용 아이디배열
+
+
+
+
+
+
+  //react-redux
+  const store = useStore((state)=>state)
+
+  //temp
   const memberId = 1    // test용 멤버 아이디
+
+  //props
   const starrate = props.starrate
   const beerid = props.beerid
-  const store = useStore((state)=>state)
-  // console.log(props)
 
 
   const modal_style = {
@@ -37,31 +56,24 @@ function BeerRate(props){
       WebkitOverflowScrolling: 'touch',
       borderRadius: '4px',
       outline: 'none',
-      // padding: '20px'
     }
   }
-  // 맛 해시태그 
-  const [flavorArr, setFlavorArr] = useState([])      //보여주기용
-  const [flavorIdArr, setFlavorIdArr] = useState([])  //데이터전송용 아이디배열
+
   const addflavor = ((e)=>{
-    console.log(e)
     const nowtag = e.target.innerText.substring(1)
     const nowid = e.target.value
     if (flavorArr.indexOf(nowtag) === -1) {
       setFlavorArr((flavorArr) => [...flavorArr, nowtag])
       setFlavorIdArr((flavorid) => [...flavorid, nowid])
     }
-    // console.log(aromaArr)
   })
   const deleteFlavor = (e) => {
     const nowtag = e.target.outerText.substring(1)
     setFlavorArr(flavorArr.filter((flavor) => flavor !== nowtag ))
-    // console.log(flavorArr)
   }
 
   // 향 해시태그 
-  const [aromaArr, setAromaArr] = useState([])      //보여주기용
-  const [aromaIdArr, setAromaIdArr] = useState([])  //데이터전송용 아이디배열
+
   const addAroma = ((e)=>{
     const nowtag = e.target.innerText.substring(1)
     const nowid = e.target.value
@@ -69,13 +81,11 @@ function BeerRate(props){
       setAromaArr((aromaArr) => [...aromaArr, nowtag])
       setAromaIdArr((aromaid) => [...aromaid, nowid])
     }
-    // console.log(aromaArr)
   })
   const deleteAroma = (e) => {
     const nowtag = e.target.outerText.substring(1)
     console.log(nowtag)
     setAromaArr(aromaArr.filter((aroma) => aroma !== nowtag ))
-    // console.log(aromaArr)
   }
 
   // 평가완료했을때 starrate 수정
@@ -91,19 +101,15 @@ function BeerRate(props){
       flavorHashTags : flavorIdArr,
       rate : starrate
     }
-    console.log(newrate)
     const headers = {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': "application/json; charset=UTF-8"
     }
-    console.log(aromaArr, flavorArr)
     if (aromaArr.length && flavorArr.length && starrate) {
       axios.post(`${BEER_RATE_URL}/${beerid}/member/${memberId}`, newrate, {headers}) 
-      .then((res) => {
-        console.log(res)
+      .then(() => {
         props.set_rateModal(false)
         updateRate()
-        console.log(starrate)
         props.setIsRated(true)
         
       })
@@ -111,13 +117,12 @@ function BeerRate(props){
         const profiledata = store.getState().profileReducer
         profiledata['grade'] = profiledata['grade'] + 5
         axios.put(USER_UPDATE_PROFILE, profiledata)
-        .then((res)=>{
-          console.log(res)
-          axios.get(`${USER_UPDATE_PROFILE}/1`)
-          .then((res)=>{
-            console.log(res)
+      .then((res)=>{
+        axios.get(`${USER_UPDATE_PROFILE}/1`)
+      .then((res)=>{
+        //redirect 시켜줘야함.
+        console.log('점수 올리기 성공')
       })
-      
       })
       })
     } else {
@@ -127,11 +132,9 @@ function BeerRate(props){
 
   return(
     <Modal isOpen={props.rateModal} onRequestClose={() => props.set_rateModal(false)} style={modal_style} ariaHideApp={false} >
-    {/* <Modal isOpen={props.rateModal} style={modal_style} ariaHideApp={false} > */}
     <div className="ratemodal_section">
       <h4 className="modal_heading">Beer Rate</h4>
       <StarRate setStarrate={props.setStarrate}></StarRate>
-
       <div className="row"> 
 
         {/* 맛 해시태그 선택 */}
@@ -162,10 +165,7 @@ function BeerRate(props){
               )
             }) }
           </div>
-        </div>
-      
-
-      
+        </div>   
         {/* 향 해시태그 선택 */}
         <div className="selecttag_box col-6"> 
           <h4>Aroma</h4>
@@ -205,7 +205,6 @@ function BeerRate(props){
             <option onClick={addAroma} value="29">#살구향 </option>
           </select>
           <div className="aromatag_div">
-            {/* {console.log(aromaArr)} */}
             {aromaArr && aromaArr.map((aroma, i)=>{
               return (
                 <div key={i} className="aroma_wrap_inner" onClick={deleteAroma}>#{aroma}</div>
@@ -214,7 +213,6 @@ function BeerRate(props){
           </div>
         </div>
       </div>
-
       {/* 평가완료버튼 */}
       <button className="submitRateBtn" onClick={submitRate}>완료</button>
     </div>

@@ -2,11 +2,7 @@ import { useEffect, useState } from 'react';
 import '../../styles/StarRate.css';
 
 function StarRate(props) {
-  // 부모에 있음
-  // const [starrate, setStarrate] = useState()
-  
   const onRateClick = (e) => {
-    // console.log(e.target.value)
     return props.setStarrate(Number(e.target.value))
   }
 
@@ -24,7 +20,6 @@ function StarRate(props) {
   <div className="star_container">
     <div className="feedback">
       <div className="rating">
-        {/* {console.log(props.starrate)} */}
         <input type="radio" name="rating" id="rating-5" value={5} onClick={onRateClick} />
         <label htmlFor="rating-5"></label>
 

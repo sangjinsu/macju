@@ -23,7 +23,6 @@ const UserReview = () =>{
     if (store.getState().userReviewReducer.length === 0){
       fetchData();
     } else {
-      
       setUserReviews(store.getState().userReviewReducer.data.data)
     }    
 	},[])
@@ -41,9 +40,6 @@ const UserReview = () =>{
           <th>평점</th>
         </tr>
       </thead>
-
-
-      
       <tbody>
         {userReviews&&userReviews.map((res, idx)=>
         <tr key={idx}>
@@ -53,7 +49,6 @@ const UserReview = () =>{
           <td>{res.rate}</td>
         </tr>
       )}
-
       </tbody>
     </Table>    
     </div>

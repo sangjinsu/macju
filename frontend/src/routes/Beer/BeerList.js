@@ -23,7 +23,8 @@ function BeerList(){
 
 
   // 현재 활성화된 카테고리 (기본값:all)
-  const [isActive, setIsActive] = useState('all')   
+  const [isActive, setIsActive] = useState('all')  
+
   //store
   const store = useStore((state)=>state)
   const dispatch = useDispatch();
@@ -42,8 +43,8 @@ function BeerList(){
       if (JSON.stringify(data) !== JSON.stringify (nowbeerArr)) {
         setnowbeerArr((prev)=>prev.concat(data))
       }   
+    }
   }
-}
 
 
   // 클릭한 카테고리버튼 배경색 바꾸기 : 카테고리 클릭시 해당 카테고리 class에 .active 추가 
@@ -59,12 +60,15 @@ function BeerList(){
       eachbeer[i].classList.add('displaynone')              // 없으면 displaynone 추가 (안보이게)
     }
   }
-  
   const openClose = () => {
     dispatch({type:"navClose"})
-    // console.log('click')
   }
-
+  const fetchBeerlist = async () =>{
+    const data = await axios.get(`${BEER_LIST_URL}?size=500`)
+    dispatch({type:"getBeerList", data:data})
+    setTempdata(data.data)
+    setbeerdata(store.getState().beerListReducer.data)
+  }
 
 
 
@@ -89,10 +93,7 @@ function BeerList(){
     } else if (isActive === 'all') {
       setCategoryBeer(nowbeerArr)
     }
-    console.log('g') 
   },[isActive, nowbeerArr])
-
-
 
   // scroll event listener 추가
   useEffect(()=>{
@@ -102,20 +103,9 @@ function BeerList(){
     }
   })
 
-  const fetchBeerlist = async () =>{
-    const data = await axios.get(`${BEER_LIST_URL}?size=500`)
-    dispatch({type:"getBeerList", data:data})
-    
-    setTempdata(data.data)
-    setbeerdata(store.getState().beerListReducer.data)
-  }
-
-
   useEffect(()=>{
     fetchBeerlist();
   },[])
-
-
 
 
   //화면에서 스크롤 없이도 보여줄 초기값
@@ -136,7 +126,6 @@ function BeerList(){
               Our Beer
             </h2>
           </div>
-
           {/* 맥주 카테고리 */}
           <ul className="filters_menu">            
             {/* isActive값이 beerfilter와 같을 때 .active 클래스 추가 */}
@@ -145,46 +134,36 @@ function BeerList(){
             <li className={isActive==='Lager' ? 'active' : null} beerfilter="Lager" onClick={toggleActive}>Lager</li>
             <li className={isActive==='Radler' ? 'active' : null} beerfilter="Radler" onClick={toggleActive}>Radler</li>
           </ul>
-          
           <FadeIn>
-          <div className="row grid">
-          
-          { categoryBeer && categoryBeer.map((beer) =>
-            
+            <div className="row grid">
+            { categoryBeer && categoryBeer.map((beer) =>           
               <div className={`col-sm-6 col-md-4 col-lg-3 fadein all ${beer.beerType.main}`} key={beer.beerId}>
-                {/* <div className={}> */}
                 <div className="beerlist_box">
                   <div>
                     {/* 맥주 이미지 */}
                     <div className="img-box"> 
-                    {/* 여기도 기본 이미지가 필요하네용 */}
+                      {/* 여기도 기본 이미지가 필요하네용 */}
                       <img src={beer.photoPath} alt=''></img>
                     </div>
-
                     {/* 맥주 설명란 */}
                     <div className="beerdetail-box">
-
                       {/* 맥주 이름 + 자세히 버튼 */}
                       <div className='beerdetail-title'>
                         <h5>{beer.name}</h5>
                         <Link to={`/beer/${beer.beerId}`} onClick={openClose} className='detailBtn'>자세히</Link>
                       </div>
-
                       {/* 맥주 별점 */}
-                      {/* {console.log(beer.averageRate)} */}
-                      <div className="star-ratings">
-                        <div 
-                          className="star-ratings-fill space-x-2 text-lg"
-                          style={{width:`${beer.averageRate*20}%` }}
-                        >
-                          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                        </div>
-                        <div class="star-ratings-base space-x-2 text-lg">
-                          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                        </div>
+                    <div className="star-ratings">
+                      <div 
+                        className="star-ratings-fill space-x-2 text-lg"
+                        style={{width:`${beer.averageRate*20}%` }}
+                      >
+                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
                       </div>
-
-
+                      <div class="star-ratings-base space-x-2 text-lg">
+                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                      </div>
+                    </div>
                       {/* 맥주 설명 */}
                       <div className='beer_content'>
                         {/* {beer.content.length > 15 ? beer.content.substr(0, 15) + "....": beer.content} */}
@@ -193,48 +172,34 @@ function BeerList(){
                       <div className='beer_volume'>
                         ALC : {beer.volume}%
                       </div>
-
                       {/* 맥주 해시태그 */}
                       <div className='beer_hashtag_all'>
-                        {beer.aromaHashTags.map((aroma,a) => {
-                          return <div key={a} className='beer_hashtag'>#{aroma}</div>
-                        })}
+                        {beer.aromaHashTags.map((aroma,a) => 
+                          <div className='beer_hashtag' key={a}>#{aroma}</div>
+                        )}
                       </div>
                       <div className='beer_hashtag_all'>
-                        {beer.flavorHashTags.map((flavor,f) => {
-                          return <div key={f} className='beer_hashtag'>#{flavor}</div>
-                        })}
+                        {beer.flavorHashTags.map((flavor,f) => 
+                          <div className='beer_hashtag' key={f}>#{flavor}</div>
+                        )}
                       </div>
-
                       {/* 맥주 카테고리 */}
                       <div className="options">
                         <div className='options_space_between'>
                           <h6 className='beerCategory'>
                             {beer.beerType.main}
                           </h6>
-                          
                         </div>
                       </div>
-
                     </div>
                   </div>
                 </div>
-              {/* </div> */}
               </div>
-            //  </div>
-            )}
-
-          </div>
-          
-          
+              )}
+            </div>
           </FadeIn>
-
         </div>
       </section>
-
-
-
-
     </div>
   )
 }

@@ -155,7 +155,6 @@ const navbarReducer = (state=false, action) => {
     return newState
   } else if (action.type === "navClose"){
     const newState = true
-    console.log(newState, 'navbar')
     return newState
   } 
   else {

@@ -9,10 +9,8 @@ import { useStore } from "react-redux";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import "../../styles/UserPost.css"
 
-const UserPost = (s) => {
+const UserPost = () => {
   const USER_POST_URL = process.env.REACT_APP_SERVER + ':8080/v1/post/member'
-  // const POST_LIST_URL = process.env.REACT_APP_POST_LIST_URL
-  // const memberId = s.location.state.memberId
   const store = useStore((state) => state)
   const memberId = 1
   const [userPosts, setUserPosts] = useState([])

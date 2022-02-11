@@ -70,13 +70,6 @@ const Profile = () => {
       <Route path={`/profile/${memberId}/review`}>
         <UserReview />
       </Route>
-      {/* <Route path={`/profile/${memberId}`}>
-        <Switch>
-          <Route path="/post" component={UserPost} />
-          <Route path="/like" component={UserLike} />
-          <Route path="/review" component={UserReview} />
-        </Switch>
-      </Route> */}
       
     </div>
   );

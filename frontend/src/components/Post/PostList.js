@@ -21,7 +21,8 @@ function PostListComponent(){
     const fetchData = async() =>{
       const imageList = []
       for (let i = 0; i < newPost.length; i++) {
-        const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/imgs/${newPost[i].postId}/${newPost[i].photo.data}`)
+        
+        const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/${newPost[i].photo.data}`)
         await getDownloadURL(storageRef)
         .then((res)=>{
           if (!newPostImage.some((url)=>url===res)){
@@ -54,7 +55,6 @@ function PostListComponent(){
     } else {
       fetchPostListData();    // 전체 포스트
     }
-
   }, [POST_LIST_URL])
 
 
@@ -63,14 +63,14 @@ function PostListComponent(){
     <div className="row grid postlist_component">
 
     {/* 포스트 카드 각각 */}
-      { newPost === undefined ? <div> 포스트가 없어요!! </div> : newPost.map((post) =>
+    
+      { newPost.length ===0 ? <div> 포스트가 없어요!! </div> : newPost.map((post) =>
         <div className="col-md-6 col-lg-4 fadein" key={post.postId}>
           <div className="box">
             <div className="postlist_box">
                             
               {/* 포스트 이미지 */}
               {newPostImage&&newPostImage.map((data, i)=> data.id === post.postId ? 
-              
               <div key={i} className="img-box">
                 {/* 기본이미지 하나 구해야겠네요 */}
                 <img src={data.res} alt=""></img>

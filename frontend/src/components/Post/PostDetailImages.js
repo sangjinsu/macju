@@ -23,7 +23,7 @@ function PostDetailImages(){
     const postDetail = await axios.get(`${POST_DETAIL_URL}/${postId}`)
     const imageList = [...postDetailImage]
     for (let i = 0; i < postDetail.data.photos.length; i++){
-      const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/imgs/${postId}/${postDetail.data.photos[i].data}`)
+      const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/${postDetail.data.photos[i].data}`)
       await getDownloadURL(storageRef)
       .then((res) =>{
         if (!postDetailImage.some((url)=>url===res)) {
@@ -38,7 +38,7 @@ function PostDetailImages(){
   const fetchData = async() =>{
     const imageList = [...postDetailImage]
     for (let i = 0; i < images.length; i++){
-      const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/imgs/${postId}/${images[i].data}`)
+      const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/${images[i].data}`)
       await getDownloadURL(storageRef)
       .then((res) =>{
         if (!postDetailImage.some((url)=>url===res)) {
@@ -57,8 +57,7 @@ function PostDetailImages(){
     } else  {
       fetchPostDetailData();
     }
-    
-  }, [images])
+  }, [])
 
   
   return(

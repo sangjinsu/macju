@@ -5,12 +5,11 @@ import { BsHeartFill, BsHeart } from "react-icons/bs";
 import '../../styles/PostDetail.css'
 import CommentList from "./CommentList";
 import { useDispatch, useStore } from "react-redux";
-import { getStorage } from "firebase/storage";
 import PostDetailImages from "../../components/Post/PostDetailImages"
+import { useCallback } from "react";
 
 
 function PostDetail() {
-
   //url
   const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8080/v1/member/profile'
   const POST_DETAIL_URL = process.env.REACT_APP_SERVER + ':8080/v1/post'
@@ -20,69 +19,60 @@ function PostDetail() {
   const RANKING_POST_URL = process.env.REACT_APP_SERVER + ":8081/post/view"
   const POST_LIKE_URL = process.env.REACT_APP_SERVER + ':8080/v1/member'
   
-
   //basic data
+  const memberId = 1 //test용 멤버아이디
   const history = useHistory();
   const postId = useParams().postId;
-  const memberId = 1 //test용 멤버아이디
-
 
   //redux
   const dispatch = useDispatch();
   const store = useStore((state)=>state)
-
-
-
+  
   //useState
   const [postData, setPost] = useState()
   const [updateContent, setText] = useState();
   const [hashtagArr, setHashtagArr] = useState([])
   const [hashtag, setHashtag] = useState("")
- 
-
+  
   // 좋아한 맥주들
-  const [likeposts, setLikeposts] = useState([])
+  // const [likeposts, setLikeposts] = useState([])
   const [isLiked, setIsLiked] = useState()
   const [postlikeNum, setPostlikeNum] = useState()
 
 
 
   //function
-
+  // Content 수정 (/post/:postId/update)
   const UpdateContent = (e) => {
     setText(e.target.value)
   }
+
+  // Post Delete
   const DeletePost = async() => {
     try{
       const postDeleteUrl = `${POST_DETAIL_URL}/${postId}`
       const rankingPostDeleteUrl = `${RANKING_POST_DLELETE_URL}/${postId}`
 
+      //post 삭제
       await axios.delete(postDeleteUrl)
       dispatch({ type : "postDelete"})
 
+      // ranking
       const headers = {
         'Accept': "application/json; charset=UTF-8"
       }
-
       await axios.delete(rankingPostDeleteUrl, headers)
 
+      // 포스트 삭제시 사용자 등급점수 감소
       const profiledata = store.getState().profileReducer
       profiledata['grade'] = profiledata['grade'] - 10
       axios.put(USER_UPDATE_PROFILE, profiledata)
-      .then((res)=>{
-        axios.get(`${USER_UPDATE_PROFILE}/1`)
-        .then((res)=>{
-          console.log(res)
-          
-        })
-      })
 
-
-
-
+      // 포스트 삭제 완료되면 post 리스트 페이지로 넘겨준다
       history.push("/post")
     }catch{
       console.log("오류")
+      history.push("/post")
     }
   }
 
@@ -99,7 +89,7 @@ function PostDetail() {
     }
   })
 
-
+  // HashTag 추가 (/post/:postId/update)
   const addHashTag = ((e)=>{
     e.preventDefault()
     if (hashtag.trim() !== "") {
@@ -108,6 +98,7 @@ function PostDetail() {
     }
   })
 
+  // 해시태그 삭제
   const deleteHashTag = ((e)=>{
     e.preventDefault()
     const hashContent = e.target.textContent
@@ -115,9 +106,9 @@ function PostDetail() {
     setHashtagArr(existHashList)
   })
 
+  // post 수정 (content, hashtag)
   const changePost = (async (e)=>{
     try{
-      e.preventDefault() //우선 그냥 막아놨음
       const putPostApiUrl = `${POST_DETAIL_URL}/${postId}`
       const requestUpdatePostDto  = {
         "content": updateContent,
@@ -130,7 +121,7 @@ function PostDetail() {
           "Content-Type" : "application/json;charset=UTF-8"
         }
       }
-      const putData = await axios.put(putPostApiUrl, requestUpdatePostDto, headers)
+      await axios.put(putPostApiUrl, requestUpdatePostDto, headers)
       dispatch({type:"updatePost", updateContent:updateContent, updateHashTag:hashtagArr})
       setPost(store.getState().postDetailReducer)
       history.push(`post/${postId}`)
@@ -164,65 +155,65 @@ function PostDetail() {
     }
   }
 
- 
+  // postDetail 데이터 불러오기
+  const fetchData = useCallback( async () =>{
+    try{
+      const responseDetail = await axios.get(`${POST_DETAIL_URL}/${postId}`)
+      
+      const postDetail = responseDetail.data
+
+      const hashTagArr = [postDetail.beer.beerType.main, ...postDetail.beer.aromaHashTags , ...postDetail.beer.flavorHashTags]
+      const newdata = {
+        id : 1,
+        tags : hashTagArr
+      }
+      const headers = {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': "application/json; charset=UTF-8"
+      }
+      axios.post(POST_DETAIL_LOG_URL, newdata, {headers})  
+      dispatch({type:"postDetailLoading", postDetail: postDetail}) // 추후 이미지도 추가?
+      setPost(store.getState().postDetailReducer)
+      setText(store.getState().postDetailReducer.content) // update
+      setHashtagArr(store.getState().postDetailReducer.userHashTags) // update
+
+      // 좋아한 포스트 목록
+      const { data : postlikedata } = await axios.get(`${POST_LIKE_URL}/${memberId}/like/post`)
+      // setLikeposts(postlikedata.data)
+
+      for (let i in postlikedata.data) {
+        if (postlikedata.data[i].postId === Number(postId)) {
+          setIsLiked(true)    // 이 맥주 좋아요 눌렀으면 isLiked=true
+        }
+      }
+      setPostlikeNum(postDetail.likeMembers.length)
+
+    }catch (error) {
+      console.log(error)
+    }
+  }, [POST_DETAIL_LOG_URL, POST_DETAIL_URL, POST_LIKE_URL, dispatch, postId, store])
+
   // postDetail 불러오는 것 (리덕스에 저장)
   useEffect(()=>{
-    const fetchData = async () =>{
-      try{
-        const responseDetail = await axios.get(`${POST_DETAIL_URL}/${postId}`)
-        
-        const postDetail = responseDetail.data
-  
-        const hashTagArr = [postDetail.beer.beerType.main, ...postDetail.beer.aromaHashTags , ...postDetail.beer.flavorHashTags]
-        const newdata = {
-          id : 1,
-          tags : hashTagArr
-        }
-        const headers = {
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Accept': "application/json; charset=UTF-8"
-        }
-        axios.post(POST_DETAIL_LOG_URL, newdata, {headers})  
-        dispatch({type:"postDetailLoading", postDetail: postDetail}) // 추후 이미지도 추가?
-        setPost(store.getState().postDetailReducer)
-        setText(store.getState().postDetailReducer.content) // update
-        setHashtagArr(store.getState().postDetailReducer.userHashTags) // update
-
-        // 좋아한 포스트 목록
-        const { data : postlikedata } = await axios.get(`${POST_LIKE_URL}/${memberId}/like/post`)
-        setLikeposts(postlikedata.data)
-
-        for (let i in postlikedata.data) {
-          if (postlikedata.data[i].postId === Number(postId)) {
-            setIsLiked(true)    // 이 맥주 좋아요 눌렀으면 isLiked=true
-          }
-        }
-        setPostlikeNum(postDetail.likeMembers.length)
-
-      }catch (error) {
-        console.log(error)
-      }
-    }
-
     fetchData();
-  }, [])
+  }, [fetchData])
 
+  // 랭킹
+  const spendData = useCallback( async () => {
+    try{
+      const rankingPostUrl = `${RANKING_POST_URL}/${postId}/1` //추후 memberId 수정필요
+      const headers = {
+        'Accept': "application/json; charset=UTF-8"
+      }
+      axios.get(rankingPostUrl, headers)
+    }catch{
+      console.log("오류입니다")
+    }
+  }, [RANKING_POST_URL, postId])
 
   useEffect(() => {
-    const spendData = async () => {
-      try{
-        const rankingPostUrl = `${RANKING_POST_URL}/${postId}/1` //추후 memberId 수정필요
-        const headers = {
-          'Accept': "application/json; charset=UTF-8"
-        }
-        axios.get(rankingPostUrl, headers)
-      }catch{
-        console.log("오류입니다")
-      }
-    }
     spendData()
-    
-  }, [])
+  }, [spendData])
 
   return (
     <div className="PostDetail">

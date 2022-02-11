@@ -5,8 +5,8 @@ import { BsHeartFill, BsHeart } from "react-icons/bs";
 import '../../styles/PostDetail.css'
 import CommentList from "./CommentList";
 import { useDispatch, useStore } from "react-redux";
-import { getDownloadURL, getStorage, ref } from "firebase/storage";
-// import { useHistory } from 'react-router-dom';
+import { getStorage } from "firebase/storage";
+import PostDetailImages from "../../components/Post/PostDetailImages"
 
 
 function PostDetail() {
@@ -24,7 +24,6 @@ function PostDetail() {
   //basic data
   const history = useHistory();
   const postId = useParams().postId;
-  console.log(postId)
   const memberId = 1 //test용 멤버아이디
 
 
@@ -47,14 +46,6 @@ function PostDetail() {
   const [likeposts, setLikeposts] = useState([])
   const [isLiked, setIsLiked] = useState()
   const [postlikeNum, setPostlikeNum] = useState()
-
-
-
-
-  //firebase 
-  const storage = getStorage()
-
-
 
 
 
@@ -175,47 +166,7 @@ function PostDetail() {
     }
   }
 
-  const fetchPostDetailData = async () =>{
-    const postDetail = await axios.get(`${POST_DETAIL_URL}/${postId}`)
-    const imageList = [...postDetailImage]
-    for (let i = 0; i < postDetail.data.photos.length; i++){
-      const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/imgs/${postId}/${postDetail.data.photos[i].data}`)
-      await getDownloadURL(storageRef)
-      .then((res) =>{
-        if (!postDetailImage.some((url)=>url===res)) {
-          imageList.push(res)
-        }
-      })
-    }
-    setPostDetailImage(imageList)
-  }
-
-  const images = store.getState().postDetailReducer.photos
-    const fetchData = async() =>{
-      const imageList = [...postDetailImage]
-      for (let i = 0; i < images.length; i++){
-        const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/imgs/${postId}/${images[i].data}`)
-        await getDownloadURL(storageRef)
-        .then((res) =>{
-          if (!postDetailImage.some((url)=>url===res)) {
-            imageList.push(res)
-          }
-        })
-      }
-      setPostDetailImage(imageList)
-    }
-
-  //useEffect
-
-  useEffect(()=>{
-    if (images) {
-      fetchData();
-    } else  {
-      fetchPostDetailData();
-    }
-  }, [])
-
-
+ 
   // postDetail 불러오는 것 (리덕스에 저장)
   useEffect(()=>{
     const fetchData = async () =>{
@@ -233,18 +184,7 @@ function PostDetail() {
           'Content-Type': 'application/json; charset=UTF-8',
           'Accept': "application/json; charset=UTF-8"
         }
-        axios.post(POST_DETAIL_LOG_URL, newdata, {headers})
-          // .post("http://i6c107.p.ssafy.io:8080/v1/log", newpost, {headers})
-        
-        // const storage = getStorage()
-        // const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/imgs/${postDetail.postId}/`)
-        // getDownloadURL(storageRef)
-        // .then((url)=>{
-        //   console.log(url)
-        //   setPostImg(url)
-        // })
-        // console.log(postData)
-  
+        axios.post(POST_DETAIL_LOG_URL, newdata, {headers})  
         dispatch({type:"postDetailLoading", postDetail: postDetail}) // 추후 이미지도 추가?
         setPost(store.getState().postDetailReducer)
         setText(store.getState().postDetailReducer.content) // update
@@ -299,16 +239,8 @@ function PostDetail() {
             </div>
 
             <div className="row">
-          {postDetailImage&& postDetailImage.map((data, i)=>
-            <div className="col-md-6 " key={i}>
-            <div className="img-box">
-              <img src={data} alt=''></img> 
-            </div>
-          </div>
-          )}
-              
-            
-
+            {/* 포스트 이미지 */}
+              <PostDetailImages />            
               {/* 포스트 디테일 */}
               <div className="col-md-6">
                 <div className="detail-box">

@@ -4,7 +4,8 @@ import { useEffect } from "react";
 import {Link, useParams} from "react-router-dom"
 import "../../styles/PostList.css"
 import axios from "axios";
-
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 function PostListComponent(){
   const POST_LIST_URL = process.env.REACT_APP_SERVER + ':8080/v1/post/new'

@@ -6,9 +6,8 @@ import FadeIn from 'react-fade-in';
 import axios from "axios"
 import "../../firebase_config"
 import { useDispatch, useStore } from 'react-redux';
-// import { set } from 'lodash';
-// import { default as Fade} from 'react-fade';
-
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 function BeerList(){
   //url
   const BEER_LIST_URL = process.env.REACT_APP_SERVER + ':8080/v1/beer'
@@ -136,7 +135,8 @@ function BeerList(){
           </ul>
           <FadeIn>
             <div className="row grid">
-            { categoryBeer && categoryBeer.map((beer) =>           
+            
+            { categoryBeer.length === 0 ? <Box sx={{ display: 'flex' }} style={{justifyContent:'center'}}><CircularProgress size={400}/></Box>:categoryBeer.map((beer) =>           
               <div className={`col-sm-6 col-md-4 col-lg-3 fadein all ${beer.beerType.main}`} key={beer.beerId}>
                 <div className="beerlist_box">
                   <div>

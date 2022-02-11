@@ -43,7 +43,6 @@ const ProfileEdit = () => {
       const data = await axios.get(`${USER_NICKNAME_CHECK}/${editUserNickname}`)
       //차후 동일 닉네임 요청 전처리 필요
       setLabelNickname(data.data)
-      
      
   }
 }

@@ -4,12 +4,13 @@ import Followers from "components/Modals/Followers.js"
 import Followings from "components/Modals/Followings.js"
 import axios from "axios";
 import {IoIosBeer} from  "react-icons/io";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useStore } from "react-redux";
 import { Button, ProgressBar } from "react-bootstrap";
 
 const UserProfile = () => {
 	const userid = 1
+	const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8080/v1/member/profile'
 
   const USER_PROFILE_URL = process.env.REACT_APP_SERVER + ':8080/v1/member/profile'
 	// 현재 member가 user를 팔로우하는 요청
@@ -29,7 +30,10 @@ const UserProfile = () => {
 	const [usercolor, setUsercolor] = useState("")		// 사진 색깔
 	const [followButton, setFollowButton] = useState(null)
 	
-
+	const headers = {
+    'Content-Type': 'application/json; charset=UTF-8',
+    'Accept': "application/json; charset=UTF-8"
+  }
 	const setFollow = async () =>{
 		setFollowButton(!followButton)
 		await axios.post(FOLLOW_POST_URL)		
@@ -112,7 +116,26 @@ const UserProfile = () => {
     setFollowingsModalOpen(false);
   };
 
-
+	const iconClick = () =>{
+		if (usercolor && usercolor === 'White') {
+			setUsercolor('blue')
+		} else if (usercolor && usercolor === 'blue'){
+			setUsercolor('yellow')
+		} else if (usercolor && usercolor === 'yellow'){
+			setUsercolor('green')
+		} else if (usercolor && usercolor === 'green'){
+			setUsercolor('White')
+		}
+		const userData = store.getState().profileReducer
+		userData['profileColor'] = usercolor;
+		axios.put(USER_UPDATE_PROFILE, userData, {headers})
+      .then((res)=>{
+        // history.push(`/profile/${1}/profile`)
+				console.log(res)
+        // window.location.replace(`/profile/${1}/profile`)
+      })
+    } 
+	
 
   return (
 		<div className="userprofile_container">
@@ -120,8 +143,8 @@ const UserProfile = () => {
 				<div className="user-profile ">
 					<div className="img-box">
 						{/* user.profileColor 색깔로 배경 지정 (기본흰색) */}
-						<div className={usercolor}>	
-							<IoIosBeer className="usericon"></IoIosBeer>
+						<div style={{'backgroundColor':`${usercolor}`}}>	
+							<IoIosBeer className="usericon" role={'button'} onClick={iconClick}></IoIosBeer>
 						</div>
 					</div>
 					<div id="profile-box">

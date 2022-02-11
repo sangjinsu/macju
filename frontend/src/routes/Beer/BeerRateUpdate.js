@@ -56,7 +56,7 @@ function BeerRate(props){
   const addflavor = ((e)=>{
     const nowtag = e.target.innerText.substring(1)
     const nowid = e.target.value
-    if (flavorArr.indexOf(nowtag) == -1) {
+    if (flavorArr.indexOf(nowtag) === -1) {
       setFlavorArr((flavorArr) => [...flavorArr, nowtag])
       setFlavorIdArr((flavorid) => [...flavorid, nowid])
     }
@@ -70,7 +70,7 @@ function BeerRate(props){
   const addAroma = ((e)=>{
     const nowtag = e.target.innerText.substring(1)
     const nowid = e.target.value
-    if (aromaArr.indexOf(nowtag) == -1) {
+    if (aromaArr.indexOf(nowtag) === -1) {
       setAromaArr((aromaArr) => [...aromaArr, nowtag])
       setAromaIdArr((aromaid) => [...aromaid, nowid])
     }

@@ -24,6 +24,7 @@ function PostDetail() {
   //basic data
   const history = useHistory();
   const postId = useParams().postId;
+  console.log(postId)
   const memberId = 1 //test용 멤버아이디
 
 
@@ -70,7 +71,11 @@ function PostDetail() {
       await axios.delete(postDeleteUrl)
       dispatch({ type : "postDelete"})
 
-      await axios.get(rankingPostDeleteUrl)
+      const headers = {
+        'Accept': "application/json; charset=UTF-8"
+      }
+
+      await axios.delete(rankingPostDeleteUrl, headers)
 
       const profiledata = store.getState().profileReducer
       profiledata['grade'] = profiledata['grade'] - 10

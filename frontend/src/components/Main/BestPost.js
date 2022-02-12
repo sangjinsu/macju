@@ -1,12 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./RecommendBeer.css"
 import axios from "axios";
-import { useState } from "react";
-import { getDownloadURL, getStorage, ref } from "firebase/storage";
-import { useRef } from "react";
 
 
 const BestPost = () => {
@@ -78,7 +76,7 @@ function CustomSlide(props) {
       setImgSrc(postDetail)
 
       console.log(aa)
-      const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/imgs/${aa}/${postDetail.photos[0].data}`)
+      const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/${postDetail.photos[0].data}`)
       console.log("!!!!")
       const test = await getDownloadURL(storageRef)
       setbb(test)
@@ -86,7 +84,6 @@ function CustomSlide(props) {
     }
     fetchData();
   }, [])
-
   return(
     <div {...props}>
       <img className="slideImg" src={bb} alt=""/>

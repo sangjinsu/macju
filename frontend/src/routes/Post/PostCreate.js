@@ -3,9 +3,10 @@ import { Link, useHistory } from 'react-router-dom';
 import {useStore} from "react-redux"
 import { deleteObject, getStorage, ref, uploadBytes } from "firebase/storage";
 import "../../firebase_config"
+import imageCompression from 'browser-image-compression';
 import '../../styles/PostCreate.css'
+import { v4 as uuidv4 } from 'uuid';
 import axios from "axios";
-
 
 function PostCreate(props) {
   const POST_CREATE_URL = process.env.REACT_APP_SERVER + ':8080/v1/post'
@@ -13,15 +14,9 @@ function PostCreate(props) {
   const memberid = 1  //test용 멤버아이디
   const beerid = props.location.state.beerid    // 작성하고있는 포스트의 맥주아이디
 
+  const storage = getStorage(); //firebase
+  
   const history = useHistory();
-
-
-
-  //firebase
-  const storage = getStorage();
-
-
-
 
   // DB upload
   const [browserImages, setBrowserImages] =useState([]);
@@ -32,35 +27,74 @@ function PostCreate(props) {
   const [hashtag, setHashtag] = useState("");
   const store = useStore((state)=>state);
 
-  const uploadBtn = async (event) => {
-    event.preventDefault()
-    const nowImages = event.target.files  // 현재 선택한 사진들
-    //state에 저장
-    const imgArray = [...browserImages]
-    for (let i = 0; i< nowImages.length; i++){
-      if (!browserImages.some((img)=>img.name === nowImages[i].name)){
-        const currentTime = Date.now()
-        nowImages[i]["url"] = URL.createObjectURL(nowImages[i])
-        nowImages[i]['uploadName'] = currentTime + nowImages[i].name.replace(" ", "")
-        nowImages[i]['index'] = currentTime
-        await imgArray.push(nowImages[i])
-        const nowImageName = nowImages[i].name.replace(" ", "")
-        const storageRef = ref(storage, currentTime + nowImageName)
-        await uploadBytes(storageRef, nowImages[i])
-        .then((res)=>{
-          console.log('uploaded')
-          setFirebaseImages((prev)=>[...prev, res])
-        })
-      } 
-    }
-    const results = await Promise.all(imgArray)
-    setBrowserImages(results)
-  }
+  // const uploadBtn = async (event) => {
+  //   event.preventDefault()
+  //   const nowImages = event.target.files  // 현재 선택한 사진들
+  //   //state에 저장
 
-  const deleteImg = ((event) => {
-    event.preventDefault()
+  //   const imgArray = [...browserImages] // 이미지 추가될 때
+  //   console.log(!browserImages)
+
+  //   for (let i = 0; i< nowImages.length; i++){
+  //     if (!browserImages.some((img)=>img.name === nowImages[i].name)){
+  //       const currentTime = Date.now()
+  //       nowImages[i]["url"] = URL.createObjectURL(nowImages[i])
+  //       nowImages[i]['uploadName'] = currentTime + nowImages[i].name.replace(" ", "")
+  //       nowImages[i]['index'] = currentTime
+  //       imgArray.push(nowImages[i])
+  //       const nowImageName = nowImages[i].name.replace(" ", "")
+  //       const storageRef = ref(storage, currentTime + nowImageName)
+  //       const res = await uploadBytes(storageRef, nowImages[i])
+  //       setFirebaseImages([...firebaseImages, res])
+  //     } 
+  //   }
+  //   // const results = await Promise.all(imgArray)
+  //   setBrowserImages(imgArray)
+  //   console.log(imgArray)
+  // }
+
+  // 사진 선택 버튼 click, 사진 업로드는 5개
+  const uploadBtn = useCallback( async (e) => {
+    try{
+      e.preventDefault()
+      const files = e.target.files  // 현재 선택한 사진들
+      const fileList = [...browserImages]
+
+      const options = {
+        maxSizeMB: 2,
+        maxWidthOrHeight: 400
+      }
+
+      const nowFileNames = Object.values(files).map( (nowFile) => nowFile.name )
+      const preFileNames = Object.values(files).map( (preFile) => preFile.name)
+
+      for (let i = 0; i < files.length; i++){
+        if (!(nowFileNames in preFileNames) ){
+          console.log('실행')
+          const compressedFile = await imageCompression(files[i], options)
+          const currentTime = Date.now()
+          const uniqueName = uuidv4()
+          const newName = currentTime + uniqueName
+          compressedFile["url"] = URL.createObjectURL(compressedFile)
+          compressedFile['uploadName'] = newName
+          compressedFile['index'] = currentTime
+          fileList.push(compressedFile)
+          const storageRef = ref(storage, newName)
+          const res = await uploadBytes(storageRef, compressedFile)
+          setFirebaseImages([...firebaseImages, res])
+        }
+      }
+      setBrowserImages(fileList)
+    }catch (error){
+      console.log(error)
+    }
+  }, [browserImages, firebaseImages, storage])
+
+  // 사진 삭제 버튼 click
+  const deleteImg = useCallback ((e) => { 
+    e.preventDefault()
     const deletedArray = [...browserImages]
-    const index = event.target.attributes.idx.value
+    const index = e.target.attributes.idx.value
 
     // setBrowserImages(deletedArray)
     // 
@@ -82,21 +116,29 @@ function PostCreate(props) {
       }
     }
     setBrowserImages(deletedArray)      
+  }, [browserImages, firebaseImages, storage])
+
+  // comment
+  const input_content = ((e)=>{
+    setContent(e.target.value)
   })
-  const input_content = ((event)=>{
-    setContent(event.target.value)
+
+  // hastag comment
+  const input_hashtags = ((e)=>{
+    setHashtag(e.target.value)
   })
-  const input_hashtags = ((event)=>{
-    setHashtag(event.target.value)
-  })
+
+  // 해시태그 추가, 띄어쓰기(32) Enter(13) 금지
   const keyup_hashtag = (e)=>{
     if (e.keyCode === 32 || e.keyCode === 13) {
       e.target.value = e.target.value.replace(' ','')
       e.target.value = e.target.value.replace('\n','')
     }
   }
-  const addHashTag = useCallback((event) => {
-    event.preventDefault()
+
+  // 해시태그 추가
+  const addHashTag = useCallback((e) => {
+    e.preventDefault()
     const $HashWrapOuter = document.querySelector('.hashtag_wrap')
     const $HashWrapInner = document.createElement('div')
     $HashWrapInner.className = 'hashtag_wrap_inner'
@@ -112,8 +154,9 @@ function PostCreate(props) {
       }
     }, [hashtag, hashtagArr])
   
-  const postCreateSubmit = (event) =>{
-    event.preventDefault();
+  // post 생성
+  const postCreateSubmit = useCallback( (e) =>{
+    e.preventDefault();
     if (firebaseImages.length === 0 || content==='' || hashtagArr.length === 0 ) {
       alert('사진/내용을 추가해 주세요')
       return
@@ -121,6 +164,7 @@ function PostCreate(props) {
     else {
       const imgNames = [];
       for (let i = 0; i < firebaseImages.length; i++){
+        console.log(firebaseImages[i])
         imgNames.push(firebaseImages[i].metadata.name)
       }
       const newpost = {
@@ -159,11 +203,9 @@ function PostCreate(props) {
           }) 
         }
       })
-  
-
-  
     } 
-  }
+  }, [POST_CREATE_URL, USER_UPDATE_PROFILE, beerid, content, firebaseImages, hashtagArr, history, storage, store])
+  
   return (
     <div className="postcreate">
       <section className="postcreate_section layout_padding_postcreate">

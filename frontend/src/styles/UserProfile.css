@@ -16,6 +16,21 @@
   /* background-color: orange; */
   /* border-color: black; */
 }
+
+
+.userprofile_container .user-profile .img-box .profile-image-box {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+}
+
+
+.userprofile_container .user-profile .img-box:hover .profile-image-box {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+
+
 .usericon {
   width: 90%;
   height: 90%;

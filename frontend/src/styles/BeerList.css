@@ -84,7 +84,7 @@
   padding: 7px 25px;
   cursor: pointer;
   border-radius: 25px;
-  /* font-family: 'Dancing Script', cursive; */
+  font-family: 'Secular One', sans-serif;
 }
 .beerlist_section .filters_menu li.active {
   background-color: #222831;

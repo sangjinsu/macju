@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import {useStore} from "react-redux"
 import { deleteObject, getStorage, ref, uploadBytes } from "firebase/storage";
 import "../../firebase_config"
@@ -10,14 +10,6 @@ import axios from "axios";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import Slider from "react-slick";
-
-import SlickNextArrow from "components/SlickNextArrow";
-import SlickPrevArrow from "components/SlickPrevArrow";
-
-
-
-
-
 
 function PostCreate(props) {
   const POST_CREATE_URL = process.env.REACT_APP_SERVER + ':8080/v1/post'
@@ -202,13 +194,23 @@ function PostCreate(props) {
     } 
   }, [POST_CREATE_URL, USER_UPDATE_PROFILE, beerid, content, firebaseImages, hashtagArr, history, storage, store])
   
+  // 뒤로가기 버튼 눌렀을 때 firebase에서도 삭제
+  const backPage = useCallback( () => {
+    for (let i = 0; i < firebaseImages.length; i++) {
+      const desertRef = ref(storage, firebaseImages[i].metadata.name)
+      deleteObject(desertRef)
+    }
+    history.push(`/beer/${beerid}`)
+  }, [beerid, firebaseImages, history, storage])
+
   return (
     <div className="postcreate">
       <section className="postcreate_section layout_padding_postcreate">
         <div className="container">
           {/* 맥주detail로 가기 버튼 */}
           <div className='backBtn_postcreate'>
-            <Link className='backBtn_text' to='/beer/1'><i className="fas fa-angle-double-left fa-lg"></i> back</Link>
+            <button onClick={backPage}><i className="fas fa-angle-double-left fa-lg"></i>back</button>
+            {/* <Link className='backBtn_text' to='/beer/1'><i className="fas fa-angle-double-left fa-lg"></i> back</Link> */}
           </div>
 
           {/* 포스트작성 제목 */}

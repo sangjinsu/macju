@@ -8,6 +8,9 @@ import PostListComponent from "../../components/Post/PostList"
 import BeerRate from "./BeerRate.js"
 import BeerRateUpdate from "./BeerRateUpdate.js"
 import { useDispatch } from "react-redux";
+import Chip from '@mui/material/Chip'
+
+
 function BeerDetail() {
   //url
   const BEER_DETAIL_URL = process.env.REACT_APP_SERVER + ':8080/v1/beer'
@@ -168,9 +171,11 @@ function BeerDetail() {
               <div className="col-md-6">
                 <div className="detail-box">
                   {/* 맥주 종류 */}
-                  <div className="beerCategory" href="">{beer.beerType.main}</div>
-                  { beer.beerType.detail !== null
-                    ? <div className="beerCategory_detail" href="">{beer.beerType.detail}</div> 
+                  <Chip className="maintype" label={beer.beerType.en_main} variant="outlined" />
+                  {/* <div className="beerCategory" href="">{beer.beerType.en_main}</div> */}
+                  { beer.beerType.ko_detail !== null
+                    // ? <div className="beerCategory_detail" href="">{beer.beerType.en_detail}</div> 
+                    ? <Chip className="maintype" label={beer.beerType.en_detail} variant="outlined" />
                     : null }
                   {/* 맥주 이름 + 하트 */}
                   <div className="heading_title">

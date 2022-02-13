@@ -67,11 +67,18 @@
 
 
 /* 맥주 종류 */
+.beerdetail_section .maintype {
+  color: #ae9048;
+  border-color:  #F9CF68;
+  border-width: 2px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
 .beerdetail_section .beerCategory {
   margin: 15px 0px;
   padding: 5px;
   border-radius: 10px;
-  background-color: #e69c00;
+  background-color: #F9CF68;
   display: inline-block;
   color: white;
 }
@@ -79,8 +86,9 @@
   margin: 15px 0px;
   padding: 5px;
   border-radius: 10px;
-  background-color: #e69c00;
+  background-color: #F9CF68;
   display: inline-block;
+  color: white;
 }
 
 
@@ -113,7 +121,7 @@
 /* 맥주별점 */
 .beerdetail_section .star-ratings {
   /* color: #aaa9a9;  */
-  /* color: white;  */
+  color: #F9CF68; 
   position: relative;
   unicode-bidi: bidi-override;
   width: max-content;
@@ -121,7 +129,7 @@
   -webkit-text-stroke-width: 0.5px;
   /* -webkit-text-stroke-color: #fffbca; */
   /* -webkit-text-stroke-color: #2b2a29; */
-  font-size: larger;
+  font-size: 25px;
 }
 .beerdetail_section .star-ratings-fill {
   /* color: #fff58c; */
@@ -133,13 +141,13 @@
   left: 0;
   overflow: hidden;
   -webkit-text-fill-color: gold;
-  font-size: larger;
+  font-size: 25px;
 
 }
 .beerdetail_section .star-ratings-base {
   z-index: 0;
   padding: 0;
-  font-size: larger;
+  font-size: 25px;
   font-weight: bold;
 }
 
@@ -161,7 +169,7 @@
   font-size: smaller;
   display: inline-block;
   padding: 7px;
-  background-color: #e69c00;
+  background-color: #F9CF68;
   color: #ffffff;
   border-radius: 45px;
   border: none;
@@ -184,7 +192,8 @@
   font-size: 1.4em;
   padding-left: 0.1rem;
   padding-right: 0.6rem;
-  color: #FFC81E;
+  /* color: #FFC81E; */
+  color: #F9CF68
 
 }
 
@@ -205,7 +214,7 @@
   margin: 20px 0; 
   padding: 5px;
   border-radius: 45px;
-  background-color: #e69c00;
+  background-color: #F9CF68;
   display: inline-block;
 }
 .postlist_section .newPostBtn .btnText {

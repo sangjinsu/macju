@@ -1,9 +1,9 @@
 .comment_section {
-  background: #222831;
-  color: #ffffff;
+  background: #fffaea;
+  color: #0c0c0c;
 }
-.comment_section .layout_padding_comment {
-  padding: 10px 0;
+.layout_padding_comment {
+  padding-bottom: 90px;
 }
 
 .comment_section h1,

@@ -80,11 +80,7 @@ function PostCreate(props) {
           compressedFile['index'] = currentTime
           fileList.push(compressedFile)
           const storageRef = ref(storage, newName)
-          await uploadBytes(storageRef, compressedFile)
-          .then((res)=>{
-            console.log(res)
-            setFirebaseImages((prev)=>[...prev, res])
-          })
+          const res = await uploadBytes(storageRef, compressedFile)
         }
       }
       setBrowserImages(fileList)

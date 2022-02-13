@@ -33,7 +33,6 @@ function BeerList(){
 
 
 
-
   //function
   //스크롤 이벤트 시 실행할 함수
   const ScrollBottom = () =>{
@@ -77,17 +76,17 @@ function BeerList(){
   useEffect(()=>{
     if (isActive === 'Ale') {
       const nowbeer = nowbeerArr.filter(beer => {
-        return beer.beerType.main === 'Ale'
+        return beer.beerType.en_main === 'Ale'
       })
       setCategoryBeer(nowbeer)
     } else if (isActive === 'Lager'){
       const nowbeer = nowbeerArr.filter(beer => {
-        return beer.beerType.main === 'Lager'
+        return beer.beerType.en_main === 'Lager'
       })
       setCategoryBeer(nowbeer)
     } else if (isActive === 'Radler'){
       const nowbeer = nowbeerArr.filter(beer => {
-        return beer.beerType.main === 'Radler'
+        return beer.beerType.en_main === 'Radler'
       })
       setCategoryBeer(nowbeer)
     } else if (isActive === 'all') {
@@ -139,7 +138,7 @@ function BeerList(){
             
             { categoryBeer.length === 0 ? <Box sx={{ display: 'flex' }} style={{justifyContent:'center', marginTop:100}}><CircularProgress size={200}/></Box>
             : categoryBeer.map((beer) =>           
-              <div className={`col-sm-6 col-md-4 col-lg-3 fadein all ${beer.beerType.main}`} key={beer.beerId}>
+              <div className={`col-sm-6 col-md-4 col-lg-3 fadein all ${beer.beerType.en_main}`} key={beer.beerId}>
                 <div className="beerlist_box">
                   <div>
                     {/* 맥주 이미지 */}
@@ -189,7 +188,7 @@ function BeerList(){
                       <div className="options">
                         <div className='options_space_between'>
                           <h6 className='beerCategory'>
-                            {beer.beerType.main}
+                            {beer.beerType.en_main}
                           </h6>
                         </div>
                       </div>

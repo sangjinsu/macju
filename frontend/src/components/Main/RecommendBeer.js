@@ -30,7 +30,6 @@ const RecommendBeer = () => { // 변수명 수정필요
       const headers = {
         'Accept': "application/json; charset=UTF-8"
       }
-      console.log("111")
       const { data: recommendBeer} = await axios.get(RECOMMEND_BEER, headers)
       setBeer(recommendBeer.recommend)
     }

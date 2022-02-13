@@ -55,7 +55,7 @@ function Signup(props) {
           "Content-Type" : "application/json;charset=UTF-8"
         }
       }
-      const test = await axios.post(USER_SIGNUP_URL, singupData, headers)
+      await axios.post(USER_SIGNUP_URL, singupData, headers)
       //가입 실패시에도 저장됨.
     }catch{
       // 회원가입 실패시 알람 + 로그인 페이지 다시 이동

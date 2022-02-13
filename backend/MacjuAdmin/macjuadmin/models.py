@@ -1,4 +1,3 @@
-$ python manage.py inspectdb 
 # This is an auto-generated Django model module.
 # You'll have to do the following manually to clean this up:
 #   * Rearrange models' order
@@ -293,7 +292,7 @@ class Post(models.Model):
     post_id = models.BigAutoField(primary_key=True)
     content = models.CharField(max_length=2200)
     created_at = models.DateTimeField(blank=True, null=True)
-    is_deleted = models.TextField(blank=True, null=True)  # This field type is a guess.
+    is_deleted = models.BooleanField(blank=True, null=True)  # This field type is a guess.
     updated_at = models.DateTimeField(blank=True, null=True)
     beer = models.ForeignKey(Beer, models.DO_NOTHING, blank=True, null=True)
     member = models.ForeignKey(Member, models.DO_NOTHING, blank=True, null=True)
@@ -326,7 +325,7 @@ class RateHasFlavorHashTag(models.Model):
 class UserHashtag(models.Model):
     user_hashtag_id = models.BigAutoField(primary_key=True)
     content = models.CharField(max_length=255, blank=True, null=True)
-    is_deleted = models.TextField()  # This field type is a guess.
+    is_deleted = models.BooleanField(blank=True, null=True)  # This field type is a guess.
     updated_at = models.DateTimeField(blank=True, null=True)
     post = models.ForeignKey(Post, models.DO_NOTHING, blank=True, null=True)
 

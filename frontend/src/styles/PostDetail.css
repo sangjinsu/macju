@@ -2,7 +2,8 @@
 .PostDetail body {
   font-family: "Open Sans", sans-serif;
   color: #0c0c0c;
-  background-color: #ffffff;
+  background-color: #fffaea;
+  /* background-color: #ffffff; */
   overflow-x: hidden;
 }
 
@@ -18,8 +19,8 @@
 }
 
 .postdetail_section {
-  background: #222831;
-  color: #ffffff;
+  background-color: #fffaea;
+  color: black;
 }
 
 .postdetail_section .row {

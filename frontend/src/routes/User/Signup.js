@@ -108,14 +108,14 @@ function Signup(props) {
         <div className="container">
           {/* Signup 제목 */}
           <div className="signup_heading_container">
-            <h2>
+            <div className='signup_heading'>
               Signup
-            </h2>
+            </div>
           </div>
 
           {/* 회원가입 입력창 */}
           <div className="row">
-            <div className="col-md-6">
+            <div className="col-sm-6 offset-sm-3">
               <div className="form_container">
                 <form action="./login">
 
@@ -159,8 +159,8 @@ function Signup(props) {
                   </div>
 
                   {/* 회원가입 완료 버튼 */}
-                  <div className="btn_box">
-                    <button disabled={submitBtn} onClick={signupBtn}>
+                  <div className='btn_box'>
+                    <button className='delbtn' disabled={submitBtn} onClick={signupBtn}>
                       SignUp Now
                     </button>
                   </div>
@@ -170,11 +170,11 @@ function Signup(props) {
             </div>
 
             {/* 추후 추가될 것 (이미지?) */}
-            <div className="col-md-6">
+            {/* <div className="col-md-6">
               <div className="map_container ">
                 <div id="signupImg">image띄우는 곳</div>
               </div>
-            </div>
+            </div> */}
 
           </div>
         </div>

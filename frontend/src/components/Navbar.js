@@ -58,8 +58,8 @@ function NavBar(){
 
                 
                 <div className='searchbar'>
+                  <Link to='/search' className="searchicon " onClick={navClick}><i className="fa fa-search"></i></Link>
                   <SearchBar/>
-                  <Link to='/search' className="btn-outline-light" onClick={navClick}><i className="fa fa-search"></i></Link>
                 </div>
 
                 {/* 드롭다운(토글) */}

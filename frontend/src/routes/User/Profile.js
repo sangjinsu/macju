@@ -38,7 +38,7 @@ const Profile = () => {
   }, [])
 
   return (
-    <div>
+    <div className="bg_color">
       <UserProfile />
       
       <div className="link_btn_all">

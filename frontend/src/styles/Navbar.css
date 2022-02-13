@@ -62,6 +62,10 @@
   padding-left: 25px;
 }
 
+.searchicon {
+  background-color: white;
+}
+
 .searchbar {
   display: flex;
   align-items: baseline;

@@ -1,10 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap");
 
 /* 맥주 디테일 전체 */
-.beerdetail_section body {
+.beerdetail_section {
   font-family: "Open Sans", sans-serif;
-  color: #0c0c0c;
-  background-color: #ffffff;
   /* overflow-x: hidden; */
 }
 .layout_padding_beer {
@@ -12,10 +10,8 @@
   padding-bottom: 90px;
 }
 .beerdetail_section {
-  /* background: #222831;
-  color: #ffffff; */
   color: #0c0c0c;
-  background-color: #ffffff;
+  background-color: #fffaea;
 }
 .beerdetail_section .row {
   -webkit-box-align: center;

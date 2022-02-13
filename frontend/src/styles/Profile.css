@@ -1,3 +1,8 @@
+.bg_color {
+  background-color: #fffaea;
+
+}
+
 .link_btn_all {
   padding: 10px;
   display: flex;
@@ -5,6 +10,7 @@
   align-items: center;
   /* list-style-type: none; */
   margin: 45px 0;
+  /* background-color: #fffaea; */
 }
 
 .link_btn {

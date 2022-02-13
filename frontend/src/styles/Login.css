@@ -3,11 +3,16 @@
   margin-top: 80px;
   font-size: 3rem;
   font-weight: bold;
-  text-align: center;
 }
 
 .loginBtn {
   margin-top: 50px;
   margin-bottom: 150px;
-  margin-left: 40%;
+}
+
+.login_section {
+  background-color: #fffaea;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

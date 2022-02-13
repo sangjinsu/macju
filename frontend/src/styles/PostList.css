@@ -2,6 +2,11 @@
   padding: 90px 0;
 }
 
+.postlist_section {
+  background-color: #fffaea;
+
+}
+
 /* 제목 */
 .postlist_section h1,
 .postlist_section h2 {

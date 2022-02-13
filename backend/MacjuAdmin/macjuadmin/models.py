@@ -51,7 +51,7 @@ class AuthUser(models.Model):
     last_login = models.DateTimeField(blank=True, null=True)
     is_superuser = models.IntegerField()
     username = models.CharField(unique=True, max_length=150)
-    first_name = models.CharField(max_length=30)
+    first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
     email = models.CharField(max_length=254)
     is_staff = models.IntegerField()
@@ -110,7 +110,7 @@ class BeerHasAromaHashTag(models.Model):
 class BeerHasFlavorHashTag(models.Model):
     beer_has_flavor_hash_tag_id = models.BigIntegerField(primary_key=True)
     beer = models.ForeignKey(Beer, models.DO_NOTHING, blank=True, null=True)
-    flavor_hash_tag = models.ForeignKey('FlavorHashTag', models.DO_NOTHING, blank=True, null=True)
+    flavor_hash_tag = models.ForeignKey('FlavorHashTag', models.DO_NOTHING, blank=True, null=True)     
 
     class Meta:
         managed = False
@@ -119,8 +119,10 @@ class BeerHasFlavorHashTag(models.Model):
 
 class BeerType(models.Model):
     beer_type_id = models.BigIntegerField(primary_key=True)
-    detail = models.CharField(max_length=255, blank=True, null=True)
-    main = models.CharField(max_length=255)
+    en_detail = models.CharField(max_length=255, blank=True, null=True)
+    en_main = models.CharField(max_length=255)
+    ko_detail = models.CharField(max_length=255, blank=True, null=True)
+    ko_main = models.CharField(max_length=255)
 
     class Meta:
         managed = False
@@ -145,7 +147,7 @@ class DjangoAdminLog(models.Model):
     object_repr = models.CharField(max_length=200)
     action_flag = models.PositiveSmallIntegerField()
     change_message = models.TextField()
-    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING, blank=True, null=True)
+    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING, blank=True, null=True)    
     user = models.ForeignKey(AuthUser, models.DO_NOTHING)
 
     class Meta:
@@ -237,7 +239,7 @@ class MemberFondAromaHashTag(models.Model):
 
 class MemberFondFlavorHashTag(models.Model):
     member_fond_flavor_hash_tag_id = models.BigIntegerField(primary_key=True)
-    flavor_hash_tag = models.ForeignKey(FlavorHashTag, models.DO_NOTHING, blank=True, null=True)
+    flavor_hash_tag = models.ForeignKey(FlavorHashTag, models.DO_NOTHING, blank=True, null=True)       
     member = models.ForeignKey(Member, models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
@@ -290,6 +292,7 @@ class Post(models.Model):
     post_id = models.BigAutoField(primary_key=True)
     content = models.CharField(max_length=2200)
     created_at = models.DateTimeField(blank=True, null=True)
+    is_deleted = models.BooleanField(blank=True, null=True)  # This field type is a guess.
     updated_at = models.DateTimeField(blank=True, null=True)
     beer = models.ForeignKey(Beer, models.DO_NOTHING, blank=True, null=True)
     member = models.ForeignKey(Member, models.DO_NOTHING, blank=True, null=True)
@@ -302,7 +305,7 @@ class Post(models.Model):
 class RateHasAromaHashTag(models.Model):
     rate_has_aroma_hash_tag_id = models.BigAutoField(primary_key=True)
     aroma_hash_tag = models.ForeignKey(AromaHashTag, models.DO_NOTHING, blank=True, null=True)
-    member_rate_beer = models.ForeignKey(MemberRateBeer, models.DO_NOTHING, blank=True, null=True)
+    member_rate_beer = models.ForeignKey(MemberRateBeer, models.DO_NOTHING, blank=True, null=True)     
 
     class Meta:
         managed = False
@@ -311,8 +314,8 @@ class RateHasAromaHashTag(models.Model):
 
 class RateHasFlavorHashTag(models.Model):
     rate_has_flavor_hash_tag_id = models.BigAutoField(primary_key=True)
-    flavor_hash_tag = models.ForeignKey(FlavorHashTag, models.DO_NOTHING, blank=True, null=True)
-    member_rate_beer = models.ForeignKey(MemberRateBeer, models.DO_NOTHING, blank=True, null=True)
+    flavor_hash_tag = models.ForeignKey(FlavorHashTag, models.DO_NOTHING, blank=True, null=True)       
+    member_rate_beer = models.ForeignKey(MemberRateBeer, models.DO_NOTHING, blank=True, null=True)     
 
     class Meta:
         managed = False
@@ -322,6 +325,8 @@ class RateHasFlavorHashTag(models.Model):
 class UserHashtag(models.Model):
     user_hashtag_id = models.BigAutoField(primary_key=True)
     content = models.CharField(max_length=255, blank=True, null=True)
+    is_deleted = models.BooleanField(blank=True, null=True)  # This field type is a guess.
+    updated_at = models.DateTimeField(blank=True, null=True)
     post = models.ForeignKey(Post, models.DO_NOTHING, blank=True, null=True)
 
     class Meta:

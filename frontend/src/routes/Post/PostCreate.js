@@ -46,27 +46,6 @@ function PostCreate(props) {
     slidesToShow: 1,
     slidesToScroll: 1,
     adaptiveHeight: true,
-    appendDots: dots => (
-      <div
-
-      >
-        <ul style={{ margin: "0px" }}> {dots} </ul>
-      </div>
-    ),
-    customPaging: i => (
-      <div
-        style={{
-          width: "30px",
-          color: "black",
-          borderRadius: "10px",
-          border: "1px #ddd solid"
-        }}
-      >
-        {i + 1}
-      </div>
-    ),
-    nextArrow: <SlickNextArrow />,
-    prevArrow: <SlickPrevArrow />
   };
   
   // 사진 선택 버튼 click, 사진 업로드는 5개

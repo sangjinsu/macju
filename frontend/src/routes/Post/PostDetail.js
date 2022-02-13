@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import axios from "axios"
 import { useParams, Link, Route, Switch, useHistory } from 'react-router-dom';
 import { BsHeartFill, BsHeart } from "react-icons/bs";
@@ -6,7 +6,7 @@ import '../../styles/PostDetail.css'
 import CommentList from "./CommentList";
 import { useDispatch, useStore } from "react-redux";
 import PostDetailImages from "../../components/Post/PostDetailImages"
-import { useCallback } from "react";
+import { deleteObject, getStorage, ref } from "firebase/storage";
 
 
 function PostDetail() {
@@ -23,6 +23,7 @@ function PostDetail() {
   const memberId = 1 //test용 멤버아이디
   const history = useHistory();
   const postId = useParams().postId;
+  const storage = getStorage(); //firebase
 
   //redux
   const dispatch = useDispatch();
@@ -53,9 +54,16 @@ function PostDetail() {
       const postDeleteUrl = `${POST_DETAIL_URL}/${postId}`
       const rankingPostDeleteUrl = `${RANKING_POST_DLELETE_URL}/${postId}`
 
-      //post 삭제
+      // DB post 삭제
       await axios.delete(postDeleteUrl)
       dispatch({ type : "postDelete"})
+
+      // firebase image 삭제
+      const imgUrl = postData.photos.map((photo)=> photo.data)
+      for (let i = 0; i<imgUrl.length; i++) {
+        const deleteStorage = ref(storage, imgUrl[i])
+        await deleteObject(deleteStorage)
+      }
 
       // ranking
       const headers = {

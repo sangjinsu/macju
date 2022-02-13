@@ -16,6 +16,7 @@ public interface MemberService {
     public int vaildateMemberNickName(String nickName);
     public int signUp(Member member);
     public Member findByMemberId(Long memberId);
+    public Member findByKakaoId(Long kakaoId);
     public Beer findByBeerId(Long beerId);
     public Post findByPostId(Long postId);
     public int updateProfile(Member member);

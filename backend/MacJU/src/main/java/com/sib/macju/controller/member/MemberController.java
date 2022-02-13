@@ -8,7 +8,9 @@ import com.sib.macju.dto.member.MemberVO;
 import com.sib.macju.dto.post.PostVO;
 import com.sib.macju.service.member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,16 +47,26 @@ public class MemberController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<String> signUp(@RequestBody Member member){
-
+    public ResponseEntity<Map<String, Object>> signUp(@RequestBody Member member){
         System.out.println(member);
-
+        Map<String,Object> resultMap = new HashMap<>();
+        HttpStatus status = HttpStatus.UNAUTHORIZED;
+        HttpHeaders headers = new HttpHeaders();
         int result = 0;
         result = memberService.signUp(member);
         if(result == 1){
-            return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+            status = HttpStatus.OK;
+            Member resultMember = memberService.findByKakaoId(member.getKakaoId());
+            resultMap.put("memberId", resultMember.getMemberId());
+            resultMap.put("kakaoId", resultMember.getKakaoId());
+            resultMap.put("result",SUCCESS);
+            headers.set("memberId",resultMember.getMemberId()+"");
+            headers.set("kakaoId",resultMember.getKakaoId()+"");
+        }else{
+            status = HttpStatus.BAD_REQUEST;
+            resultMap.put("result", FAIL);
         }
-        return new ResponseEntity<>(FAIL,HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(resultMap,headers,status);
         //여기로 넘어갈 일이 없다고 봄
         //save 명령을 쓰니깐 원래 있으면 업데이트가 일어날 것
 
@@ -77,17 +89,18 @@ public class MemberController {
         Map<String, Object> result = new HashMap<>();
         HttpStatus status = HttpStatus.ACCEPTED;
 
-
+        System.out.println(member.toString());
         if(member != null) {
             result.put("memberId", member.getMemberId());
+            result.put("kakaoId", member.getKakaoId());
             result.put("age", member.getAge());
             result.put("grade", member.getGrade());
             result.put("name", member.getName());
             result.put("nickName", member.getNickName());
             result.put("profileColor", member.getProfileColor());
             result.put("status", member.getStatus());
-            result.put("followings", fetchFollowings(memberId));
-            result.put("followers", fetchFollowers(memberId));
+            result.put("followings", fetchFollowings(memberId).getBody().get("data"));
+            result.put("followers", fetchFollowers(memberId).getBody().get("data"));
             result.put("intro",member.getIntro());
             result.put("result",SUCCESS);
             status = HttpStatus.OK;

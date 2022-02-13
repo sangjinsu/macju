@@ -73,6 +73,12 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
+    public Member findByKakaoId(Long kakaoId) {
+        Member member = memberRepository.findByKakaoId(kakaoId);
+        return member;
+    }
+
+    @Override
     public Beer findByBeerId(Long beerId) {
         Optional<Beer> beer = beerRepository.findById(beerId);
         return beer.get();

@@ -1,8 +1,7 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef, useState, useCallback } from "react"
 import { useDispatch, useStore } from 'react-redux';
 import axios from 'axios';
 import "../../styles/CommentList.css"
-import { useCallback } from "react";
 
 function CommentList(props) {
   const postId = props.postId; // PostDetail 에서 postId값을 props로 받기
@@ -24,7 +23,7 @@ function CommentList(props) {
   }
 
   // Comment 추가 버튼 누를시 동작
-  const addComment = async (e) => {
+  const addComment = useCallback (async (e) => {
     e.preventDefault()
     if (inputComment) {
       try{
@@ -55,23 +54,15 @@ function CommentList(props) {
         const profiledata = store.getState().profileReducer
         profiledata['grade'] = profiledata['grade'] + 3
         axios.put(USER_UPDATE_PROFILE, profiledata)
-        // .then((res)=>{
-        //   console.log(res)
-        //   axios.get(`${USER_UPDATE_PROFILE}/1`)
-        //   .then((res)=>{
-        //     console.log(res)
-            
-        //   })
-        // })
       }
       catch{
         console.log("오류")
       }
     }
-  }
+  }, [USER_UPDATE_PROFILE, commentApiUrl, dispatch, inputComment, store])
 
   // 삭제 버튼 누를시 동작
-  const deleteComment = async (e) => {
+  const deleteComment = useCallback( async (e) => {
     try{
       const commentId = e.target.attributes.commentid.value
       const deleteApiUrl = `${COMMENT_LIST_URL}/${postId}/comment/${commentId}`
@@ -84,19 +75,11 @@ function CommentList(props) {
       const profiledata = store.getState().profileReducer
       profiledata['grade'] = profiledata['grade'] - 3
       axios.put(USER_UPDATE_PROFILE, profiledata)
-      // .then((res)=>{
-      //   axios.get(`${USER_UPDATE_PROFILE}/1`)
-      //   console.log("aaaaa")
-      //   .then((res)=>{
-      //     console.log(res)
-      // console.log("22222")
-      //   })
-      // })
     }
     catch{
       console.log("오류")
     }
-  }
+  }, [COMMENT_LIST_URL, USER_UPDATE_PROFILE, dispatch, postId, store])
   
   // Comment 데이터 불러오기
   const fetchData = useCallback( async () =>{
@@ -146,7 +129,7 @@ function CommentList(props) {
                   comments.map( (comment, i) => {
                     return(
                       <div className="commentList" key={i}>
-                        <div> { comment.content } </div>
+                        <div>{comment.nickname} : { comment.content } </div>
                         <button className="deletebtn" type="button" commentid={comment.commentId} onClick={ deleteComment }>삭제</button>
                       </div>
                     );

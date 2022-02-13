@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.macju.auth.domain.Member;
 import com.macju.auth.dto.LoginResult;
+import com.macju.auth.dto.SignUpInfo;
 import com.macju.auth.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -102,25 +103,56 @@ public class AuthService {
         loginResult.getMember().setAccessToken(encodingToken);//반환해줄 토큰에는 인코딩한 토큰으로 바꿔주기
 //        boolean flag = isIn(member.getKakaoMemberId());
 //        System.out.println(flag);
-        loginResult.setFirstCheck(!memberRepository.existsById(member.getKakaoMemberId()));
+//        loginResult.setFirstCheck(!memberRepository.existsById(member.getKakaoId()));
         //TODO checkUser를 통해 레디스에 값이 있으면(반환이 true) false를 넣어서 처음 들어오는 사용자가 아님을 표시
-        System.out.println(loginResult.toString());
-        save(member, access_Token, refresh_Token);
-        System.out.println(loginResult.toString());
+        if(!memberRepository.existsById(member.getKakaoId())){
+            loginResult.setFirstCheck(true);
+            loginResult.setMember(member);
+            loginResult.getMember().setAccessToken(encodingToken);//반환해줄 토큰에는 인코딩한 토큰으로 바꿔주기
+        }else{
+            loginResult.setFirstCheck(false);
+            member.setMemberId(memberRepository.findById(member.getKakaoId()).get().getMemberId());
+            loginResult.setMember(member);
+            loginResult.getMember().setAccessToken(encodingToken);
+        }
+//        save(member, access_Token, refresh_Token);
         return loginResult;
     }
 
-    public void save(Member member,String access_token ,String refresh_token){
-        Member copy = new Member();
-        copy.setAccessToken(access_token);
-        copy.setRefreshToken(refresh_token);
-        copy.setKakaoMemberId(member.getKakaoMemberId());
-        copy.setNickName(member.getNickName());
-        copy.setEmail(member.getEmail());
-        System.out.println(copy.getAccessToken());
-        memberRepository.save(copy);
+    public boolean signUp(SignUpInfo signUpInfo){
+        Member member = null;
+        try {
+            member = checkUser(signUpInfo.getAccessToken());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        member.setMemberId(signUpInfo.getMemberId());
+
+        memberRepository.save(member);
+
+        if(memberRepository.existsById(member.getKakaoId())){
+            return true;
+        }else{
+            return false;
+        }
+
 
     }
+
+//    public void save(Member member,String access_token ,String refresh_token){
+//        Member copy = new Member();
+//        copy.setAccessToken(access_token);
+//        copy.setRefreshToken(refresh_token);
+//        copy.setKakaoId(member.getKakaoId());
+//        copy.setKakaoId(member.getMemberId());
+//        copy.setNickName(member.getNickName());
+//        copy.setEmail(member.getEmail());
+//        System.out.println(copy.getAccessToken());
+//        memberRepository.save(copy);
+//
+//    }
 
     public Member checkUser(String accessToken) throws IOException{
         //accessToken을 받아 카카오에 사용자 정보를 불러옴
@@ -157,7 +189,7 @@ public class AuthService {
         String nickName = element.getAsJsonObject().get("properties").getAsJsonObject().get("nickname").getAsString();
         String email = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("email").getAsString();
         System.out.println(nickName+"                "+email);
-        member.setKakaoMemberId(id+"");
+        member.setKakaoId(id+"");
         member.setAccessToken(accessToken);
         member.setEmail(email);
         member.setNickName(nickName);
@@ -170,7 +202,7 @@ public class AuthService {
         return member;
     }
 
-    public boolean isIn(String kakaoMemberId){
+    public boolean isIn(String kakaoId){
 
         //대충 레디스에서 id로 찾는 내용
         //레디스에서 id가 있으면 true;
@@ -183,7 +215,9 @@ public class AuthService {
 //        }
 
 //        return memberRepository.findById(kakaoMemberId).equals(null) ? false : true;
-        return memberRepository.existsById(kakaoMemberId);//로 축약함.
+        Member member = memberRepository.findById(kakaoId).get();
+        System.out.println("isIn KakaoId ===> "+member.toString());
+        return memberRepository.existsById(kakaoId);//로 축약함.
     }
 
 

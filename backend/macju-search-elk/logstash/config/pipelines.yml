@@ -1,0 +1,31 @@
+# This file is where you define your pipelines. You can define multiple.
+# For more information on multiple pipelines, see the documentation:
+#   https://www.elastic.co/guide/en/logstash/current/multiple-pipelines.html
+
+- pipeline.id: fetch-userhashtag-pipeline
+  path.config: "/usr/share/logstash/pipeline/fetch-userhashtag.conf"
+
+- pipeline.id: fetch-aromahashtag-pipeline
+  path.config: "/usr/share/logstash/pipeline/fetch-aromahashtag.conf"
+
+- pipeline.id: fetch-flavorhashtag-pipeline
+  path.config: "/usr/share/logstash/pipeline/fetch-flavorhashtag.conf"
+
+- pipeline.id: fetch-beer-pipeline
+  path.config: "/usr/share/logstash/pipeline/fetch-beer.conf"
+
+- pipeline.id: fetch-beerhasflavorhashtag-pipeline
+  path.config: "/usr/share/logstash/pipeline/fetch-beerhasflavorhashtag.conf"
+
+- pipeline.id: fetch-beerhasaromahashtag-pipeline
+  path.config: "/usr/share/logstash/pipeline/fetch-beerhasaromahashtag.conf"
+
+- pipeline.id: fetch-post-pipeline
+  path.config: "/usr/share/logstash/pipeline/fetch-post.conf"
+
+- pipeline.id: update-userhashtag-pipeline
+  path.config: "/usr/share/logstash/pipeline/update-userhashtag.conf"
+
+- pipeline.id: update-post-pipeline
+  path.config: "/usr/share/logstash/pipeline/update-post.conf"
+

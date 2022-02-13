@@ -97,7 +97,8 @@ public class PostService {
         if (post.isEmpty()) {
             throw new IllegalStateException();
         }
-        postRepository.delete(post.get());
+//        postRepository.delete(post.get());
+        post.get().deletePost();
     }
 
     public List<Post> fetchPostsByBeerId(Long beerId) {

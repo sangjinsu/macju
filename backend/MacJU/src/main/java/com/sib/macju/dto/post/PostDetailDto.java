@@ -1,7 +1,8 @@
 package com.sib.macju.dto.post;
 
 import com.sib.macju.domain.beer.Beer;
-import com.sib.macju.domain.beer.BeerMainType;
+import com.sib.macju.domain.beer.BeerENMainType;
+import com.sib.macju.domain.beer.BeerKOMainType;
 import com.sib.macju.domain.member.Member;
 import com.sib.macju.domain.post.Post;
 import lombok.Data;
@@ -32,14 +33,16 @@ public class PostDetailDto implements Serializable {
 
         @Data
         public static class BeerTypeDto implements Serializable {
-            private final BeerMainType main;
-            private final String detail;
+            private final BeerKOMainType ko_main;
+            private final BeerENMainType en_main;
+            private final String ko_detail;
+            private final String en_detail;
         }
 
         public BeerDto(Beer beer) {
             beerId = beer.getBeerId();
             name = beer.getName();
-            beerType = new BeerTypeDto(beer.getBeerType().getMain(), beer.getBeerType().getDetail());
+            beerType = new BeerTypeDto(beer.getBeerType().getKo_main(),beer.getBeerType().getEn_main(), beer.getBeerType().getKo_detail(), beer.getBeerType().getEn_detail());
             aromaHashTags = beer.getBeerHasAromaHashTags()
                     .stream()
                     .map(beerHasAromaHashTag ->

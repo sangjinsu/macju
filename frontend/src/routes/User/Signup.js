@@ -39,7 +39,8 @@ function Signup(props) {
     try{
       if (age < 20) {
         alert("미성년자는 가입 할 수 없습니다")
-        history.replace("/home")
+    
+        // history.replace("/home")
       } 
 
       const singupData = { // 액세스 토큰 나중에 넣어줘야 함
@@ -55,12 +56,11 @@ function Signup(props) {
         }
       }
       const test = await axios.post(USER_SIGNUP_URL, singupData, headers)
-      console.log(test)
-
+      //가입 실패시에도 저장됨.
     }catch{
       // 회원가입 실패시 알람 + 로그인 페이지 다시 이동
       alert("회원가입 실패")
-      history.replace("/login")
+      // history.replace("/login")
     }
     dispatch({type:"loginSucess", userData:userData})
     history.push("/home")

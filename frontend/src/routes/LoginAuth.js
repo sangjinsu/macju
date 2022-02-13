@@ -14,7 +14,6 @@ function LoginAuth() {
   const requestAuth = useCallback (async () => {
     try{
       const code = new URL(window.location.href).searchParams.get("code")
-
       const { data : responseData } = await axios.get(`http://i6c107.p.ssafy.io:8752/oauth/login/response?code=${code}`)
       userData.current = responseData
       if (userData.current.first_check === true ) {
@@ -24,8 +23,9 @@ function LoginAuth() {
         console.log(userData.current)
         history.replace("/home")
       }
-    }catch{
-      history.replace("/user/login")
+    }catch(err){
+      console.log(err)
+      // history.replace("/user/login")
     }
   }, [dispatch, history])
 

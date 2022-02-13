@@ -7,6 +7,8 @@ import imageCompression from 'browser-image-compression';
 import '../../styles/PostCreate.css'
 import { v4 as uuidv4 } from 'uuid';
 import axios from "axios";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 function PostCreate(props) {
   const POST_CREATE_URL = process.env.REACT_APP_SERVER + ':8080/v1/post'
@@ -17,7 +19,6 @@ function PostCreate(props) {
   const storage = getStorage(); //firebase
   
   const history = useHistory();
-
   // DB upload
   const [browserImages, setBrowserImages] =useState([]);
   const [firebaseImages, setFirebaseImages] = useState([]) 
@@ -52,9 +53,11 @@ function PostCreate(props) {
   //   setBrowserImages(imgArray)
   //   console.log(imgArray)
   // }
-
+  
   // 사진 선택 버튼 click, 사진 업로드는 5개
   const uploadBtn = useCallback( async (e) => {
+    const spinner = document.getElementById('spinner')
+    spinner.removeAttribute('hidden')
     try{
       e.preventDefault()
       const files = e.target.files  // 현재 선택한 사진들
@@ -70,7 +73,7 @@ function PostCreate(props) {
 
       for (let i = 0; i < files.length; i++){
         if (!(nowFileNames in preFileNames) ){
-          console.log('실행')
+          
           const compressedFile = await imageCompression(files[i], options)
           const currentTime = Date.now()
           const uniqueName = uuidv4()
@@ -81,6 +84,7 @@ function PostCreate(props) {
           fileList.push(compressedFile)
           const storageRef = ref(storage, newName)
           const res = await uploadBytes(storageRef, compressedFile)
+          setFirebaseImages((prev)=>[...prev, res])
         }
       }
       setBrowserImages(fileList)
@@ -179,8 +183,7 @@ function PostCreate(props) {
         'Accept': "application/json; charset=UTF-8"
       }
       axios.post(POST_CREATE_URL, newpost, headers)
-      .then((res)=>{
-        console.log(res)
+      .then(()=>{
         const profiledata = store.getState().profileReducer
         profiledata['grade'] = profiledata['grade'] + 10
         axios.put(USER_UPDATE_PROFILE, profiledata)
@@ -229,9 +232,9 @@ function PostCreate(props) {
                   </div>
 
                   {/* 사진 띄우는곳 */}
-                  {/* 로딩스피너 필수일듯 */}
+                  
                   <div>
-                    { browserImages&&browserImages.map((img)=>(
+                    { browserImages.length === 0 ? <Box hidden id="spinner" sx={{ display: 'flex' }} style={{justifyContent:'center', marginTop:100, marginBottom:100}}><CircularProgress size={200}/></Box>:browserImages.map((img)=>(
                       <div className='image_container' key={img.index}>
                         <img alt="sample" src={img.url} className="postimage"/>
                         <div className="deleteImgBtn" role={'button'} onClick={deleteImg} idx={img.index}>X</div>

@@ -72,15 +72,10 @@ function CustomSlide(props) {
   useEffect( () => {
     const fetchData = async ()=>{
       const { data : postDetail } = await axios.get(`${BEER_DETAIL_URL}`)
-      console.log(postDetail.photos[0])
       setImgSrc(postDetail)
-
-      console.log(aa)
       const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/${postDetail.photos[0].data}`)
-      console.log("!!!!")
       const test = await getDownloadURL(storageRef)
       setbb(test)
-      console.log(bb.current)
     }
     fetchData();
   }, [])

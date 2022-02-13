@@ -1,25 +1,52 @@
 import { getDownloadURL, getStorage , ref } from "firebase/storage";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useStore } from "react-redux";
 import { useParams } from "react-router-dom"
 import axios from "axios"
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 function PostDetailImages(){
   const POST_DETAIL_URL = process.env.REACT_APP_SERVER + ':8080/v1/post'
   
-
-
+  const settings = {
+    dots: true,
+    infinite: true,
+    autoplay: true,
+    fade:true,
+    autoplaySpeed: 5000,
+    speed: 5000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+    className: "col-md-6"
+  };
 
   const [postDetailImage, setPostDetailImage] = useState([])
 
-
   const postId = useParams().postId;
-
 
   const store = useStore((state)=>state)
   const storage = getStorage()
-  const fetchPostDetailData = async () =>{
+  
+  const images = store.getState().postDetailReducer.photos
+
+  const fetchData = useCallback( async() =>{
+    const imageList = [...postDetailImage]
+    for (let i = 0; i < images.length; i++){
+      const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/${images[i].data}`)
+      await getDownloadURL(storageRef)
+      .then((res) =>{
+        if (!postDetailImage.some((url)=>url===res)) {
+          imageList.push(res)
+        }
+      })
+    }
+    setPostDetailImage(imageList)
+  }, [images, postDetailImage, storage])
+
+  const fetchPostDetailData = useCallback ( async () =>{
     const postDetail = await axios.get(`${POST_DETAIL_URL}/${postId}`)
     const imageList = [...postDetailImage]
     for (let i = 0; i < postDetail.data.photos.length; i++){
@@ -32,47 +59,26 @@ function PostDetailImages(){
       })
     }
     setPostDetailImage(imageList)
-  }
-
-  const images = store.getState().postDetailReducer.photos
-  const fetchData = async() =>{
-    const imageList = [...postDetailImage]
-    for (let i = 0; i < images.length; i++){
-      const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/${images[i].data}`)
-      await getDownloadURL(storageRef)
-      .then((res) =>{
-        if (!postDetailImage.some((url)=>url===res)) {
-          imageList.push(res)
-        }
-      })
-    }
-    setPostDetailImage(imageList)
-  }
+  }, [POST_DETAIL_URL, postDetailImage, postId, storage])
 
   //useEffect
-
   useEffect(()=>{
     if (images) {
       fetchData();
     } else  {
       fetchPostDetailData();
     }
-  }, [])
+  }, [fetchData, fetchPostDetailData, images])
 
-  
   return(
     <>
-    {postDetailImage&& postDetailImage.map((data, i)=>
-            <div className="col-md-6 " key={i}>
-            <div className="img-box">
-              <img src={data} alt=''></img> 
-            </div>
-            </div>
-          )}
+    <Slider {...settings}>
+      {postDetailImage&& postDetailImage.map((data, i)=>
+        <img src={data} key={i} alt=''></img> 
+      )}
+    </Slider>
     </>
   )
 }
-
-
 
 export default PostDetailImages;

@@ -1,5 +1,4 @@
 import json
-from tkinter.messagebox import NO
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.response import Response
@@ -19,7 +18,7 @@ aromaHashTags = pd.DataFrame.from_records(
 flavorHashTags = pd.DataFrame.from_records(
     FlavorHashTag.objects.all().values('flavor'))
 beerTypes = pd.DataFrame.from_records(
-    BeerType.objects.all().values('main'))
+    BeerType.objects.all().values('en_main'))
 
 
 # 인덱스 1부터
@@ -29,7 +28,7 @@ beerTypes.index = beerTypes.index + 1
 
 aromas = aromaHashTags['aroma'].tolist()
 flavors = flavorHashTags['flavor'].tolist()
-beer_types = np.unique(beerTypes['main']).tolist()
+beer_types = np.unique(beerTypes['en_main']).tolist()
 
 hashtags = aromas + flavors + beer_types
 
@@ -38,7 +37,7 @@ beers = Beer.objects.all()
 
 for beer in beers:
     beer_tags.setdefault(beer.beer_id, [])
-    beer_tags[beer.beer_id].append(beerTypes.at[beer.beer_type_id, 'main'])
+    beer_tags[beer.beer_id].append(beerTypes.at[beer.beer_type_id, 'en_main'])
 
     beerHasAromaHashTags = BeerHasAromaHashTag.objects.filter(beer=beer).all()
     beerHasFlavorHshTags = BeerHasFlavorHashTag.objects.filter(beer=beer).all()
@@ -202,7 +201,6 @@ def create_df_log_value(memberId):
 def recommend(request, memberId):
     # 멤버가 좋아하는 맥주 태그
     member = get_object_or_404(Member, pk=memberId)
-
     beer_ids = create_member_like_beer_list(member)
     df_rate_tag = create_df_rate_tag(member=member)
     fond_tags = create_fond_tags(member=member)
@@ -215,7 +213,7 @@ def recommend(request, memberId):
         df_like_tag, df_rate_tag, fond_tags)
 
     df_tag_score = pd.DataFrame()
-    df_tag_score['score'] = df_evaluation_tag['value'] * df_log_value['value']
+    df_tag_score['score'] = df_evaluation_tag['value'] + df_log_value['value']
 
     beer_scores = pd.DataFrame(0, index=np.arange(
         1, BEER_TAG_LENGTH + 1), columns=['score'])

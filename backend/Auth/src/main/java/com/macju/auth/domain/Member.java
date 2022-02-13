@@ -15,7 +15,9 @@ import java.io.Serializable;
 public class Member{
 
     @Id
-    private String kakaoMemberId;
+    private String kakaoId;
+
+    private String memberId;
 
     private String accessToken;
 

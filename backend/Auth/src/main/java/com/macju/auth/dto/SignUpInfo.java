@@ -5,14 +5,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class TokenInfo {
+@NoArgsConstructor
+public class SignUpInfo {
 
     private String kakaoId;
-
+    private String memberId;
     private String accessToken;
-
-//    private String checkResult;//fail, success
 
 }

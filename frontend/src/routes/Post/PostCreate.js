@@ -42,9 +42,11 @@ function PostCreate(props) {
   
   // 사진 선택 버튼 click, 사진 업로드는 5개
   const uploadBtn = useCallback( async (e) => {
-    const spinner = document.getElementById('spinner')
-    spinner.removeAttribute('hidden')
     try{
+      if (browserImages.length === 0){
+        const spinner = document.getElementById('spinner')
+        spinner.removeAttribute('hidden')
+      }
       e.preventDefault()
       const files = e.target.files  // 현재 선택한 사진들
       const fileList = [...browserImages]
@@ -59,6 +61,7 @@ function PostCreate(props) {
 
       for (let i = 0; i < files.length; i++){
         if (!(nowFileNames in preFileNames) ){
+          console.log("1111")
           
           const compressedFile = await imageCompression(files[i], options)
           const currentTime = Date.now()

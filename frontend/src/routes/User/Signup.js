@@ -39,8 +39,8 @@ function Signup(props) {
     try{
       if (age < 20) {
         alert("미성년자는 가입 할 수 없습니다")
-    
-        // history.replace("/home")
+        history.replace("/home")
+        return // histroy로 home 넘어가면 DB update랑 store 막아놓기
       } 
 
       const singupData = { // 액세스 토큰 나중에 넣어줘야 함

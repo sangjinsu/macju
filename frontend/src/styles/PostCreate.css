@@ -52,6 +52,7 @@
 }
 .postcreate_section .image_container .postimage {
   width: 50%;
+  height: 50%;
   margin-left: 25%;
 }
 .postcreate_section .image_container .deleteImgBtn {

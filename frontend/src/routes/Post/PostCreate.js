@@ -9,6 +9,15 @@ import { v4 as uuidv4 } from 'uuid';
 import axios from "axios";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import Slider from "react-slick";
+
+import SlickNextArrow from "components/SlickNextArrow";
+import SlickPrevArrow from "components/SlickPrevArrow";
+
+
+
+
+
 
 function PostCreate(props) {
   const POST_CREATE_URL = process.env.REACT_APP_SERVER + ':8080/v1/post'
@@ -28,31 +37,37 @@ function PostCreate(props) {
   const [hashtag, setHashtag] = useState("");
   const store = useStore((state)=>state);
 
-  // const uploadBtn = async (event) => {
-  //   event.preventDefault()
-  //   const nowImages = event.target.files  // 현재 선택한 사진들
-  //   //state에 저장
-  //   const imgArray = [...browserImages]
-  //   for (let i = 0; i< nowImages.length; i++){
-  //     if (!browserImages.some((img)=>img.name === nowImages[i].name)){
-  //       const currentTime = Date.now()
-  //       nowImages[i]["url"] = URL.createObjectURL(nowImages[i])
-  //       nowImages[i]['uploadName'] = currentTime + nowImages[i].name.replace(" ", "")
-  //       nowImages[i]['index'] = currentTime
-  //       await imgArray.push(nowImages[i])
-  //       const nowImageName = nowImages[i].name.replace(" ", "")
-  //       const storageRef = ref(storage, currentTime + nowImageName)
-  //       await uploadBytes(storageRef, nowImages[i])
-  //       .then((res)=>{
-  //         console.log('uploaded')
-  //         setFirebaseImages((prev)=>[...prev, res])
-  //       })
-  //     } 
-  //   }
-  //   const results = await Promise.all(imgArray)
-  //   setBrowserImages(imgArray)
-  //   console.log(imgArray)
-  // }
+
+  //carousel setting
+  const carouselSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    adaptiveHeight: true,
+    appendDots: dots => (
+      <div
+
+      >
+        <ul style={{ margin: "0px" }}> {dots} </ul>
+      </div>
+    ),
+    customPaging: i => (
+      <div
+        style={{
+          width: "30px",
+          color: "black",
+          borderRadius: "10px",
+          border: "1px #ddd solid"
+        }}
+      >
+        {i + 1}
+      </div>
+    ),
+    nextArrow: <SlickNextArrow />,
+    prevArrow: <SlickPrevArrow />
+  };
   
   // 사진 선택 버튼 click, 사진 업로드는 5개
   const uploadBtn = useCallback( async (e) => {
@@ -232,8 +247,8 @@ function PostCreate(props) {
                   </div>
 
                   {/* 사진 띄우는곳 */}
-                  
                   <div>
+                  <Slider {...carouselSettings}>
                     { browserImages.length === 0 ? <Box hidden id="spinner" sx={{ display: 'flex' }} style={{justifyContent:'center', marginTop:100, marginBottom:100}}><CircularProgress size={200}/></Box>:browserImages.map((img)=>(
                       <div className='image_container' key={img.index}>
                         <img alt="sample" src={img.url} className="postimage"/>
@@ -241,6 +256,7 @@ function PostCreate(props) {
                       </div>
                     ))}
                    
+                  </Slider>
                   </div>
                   <div className='input_postcreate'>
                     <textarea 

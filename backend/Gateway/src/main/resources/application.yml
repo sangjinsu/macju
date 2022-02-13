@@ -1,0 +1,62 @@
+server:
+  port: 8472
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: member-validate-service
+          uri: http://localhost:8080
+          predicates:
+            - Path=/v1/member/validatenickname/**
+        - id: member-sign-service
+          uri: http://localhost:8080
+          predicates:
+            - Path=/v1/member/signup
+          filters:
+            - name: MemberFilter
+              args:
+                baseMessage: Spring Cloud Gateway GlobaFilter
+                preLogger: true
+                postLogger: true
+        - id: member-service
+          uri: http://localhost:8080
+          predicates:
+            - Path=/v1/member/{memberId},/v1/member/profile/{memberId},/v1/member/profile/color/{memberId},/v1/member/profile,/v1/member/{memberId}/like/beer,/v1/member/beer/{memberId}/like/{beerId},/v1/member/{memberId}/like/post,/v1/member/{memberId}/rates,/v1/member/post/{memberId}/like/{postId},/v1/member/{memberId}/follow/{followingMemberId},/v1/member/{memberId}/followings,/v1/member/{memberId}/followers
+          filters:
+            - name: AuthFilter
+              args:
+                baseMessage: Member Service
+                preLogger: true
+                postLogger: true
+        - id: beer-service
+          uri: http://localhost:8080
+          predicates:
+            - Path=/v1/beer/**
+          filters:
+            - name: AuthFilter
+              args:
+                baseMessage: Beer Service
+                preLogger: true
+                postLogger: true
+        - id: post-service
+          uri: http://localhost:8080
+          predicates:
+            - Path=/v1/post/**
+          filters:
+            - name: AuthFilter
+              args:
+                baseMessage: Post Service
+                preLogger: true
+                postLogger: true
+        - id: recommend-service
+          uri: http://localhost:8000
+          predicates:
+            - Path=/v1/recommend/{memberId}
+          filters:
+            - name: AuthFilter
+              args:
+                baseMessage: Recommend Service
+                preLogger: true
+                postLogger: true
+

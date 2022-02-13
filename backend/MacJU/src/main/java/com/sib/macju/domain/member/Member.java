@@ -20,6 +20,9 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long memberId;
 
+    @Column(name = "kakao_id", unique = true, nullable = false)
+    private Long kakaoId;
+
     @Column(
             name = "nick_name",
             length = 10,
@@ -45,7 +48,7 @@ public class Member {
     @Column(name = "profile_color")
     private ProfileColor profileColor = ProfileColor.White;
 
-    @ColumnDefault("0")
+    @ColumnDefault("1")
     private int grade;
 
     @OneToMany(mappedBy = "following")

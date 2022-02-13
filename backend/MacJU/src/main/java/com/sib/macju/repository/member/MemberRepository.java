@@ -16,5 +16,6 @@ import java.util.Optional;
 public interface MemberRepository extends JpaRepository<Member, Long> {
     Member findByNickName(@Param("nickName") String nickName);
     Member findByMemberId(@Param("memberId") Long memberId);
+    Member findByKakaoId(@Param("kakaoId") Long kakaoId);
 }
 

@@ -1,55 +1,41 @@
 package controllers
 
 import (
+	"Search/queries"
 	"Search/utils/loaddotenv"
 	"Search/utils/searchtag"
-	"bytes"
-	"encoding/json"
 	"fmt"
 	"github.com/gofiber/fiber/v2"
-	"log"
 )
 
 var searchTag = searchtag.New().Addresses(loaddotenv.LoadDotEnv("EC2_SERVER")).Build()
+var searchQueries = queries.SearchQueries{}
 
-func Search(c *fiber.Ctx) error {
+func SearchBeerName(c *fiber.Ctx) error {
 	tag := c.Query("query")
 
-	var buf bytes.Buffer
-	query := map[string]interface{}{
-		"query": map[string]interface{}{
-			"match_phrase": map[string]interface{}{
-				"message": "id:" + tag,
-			},
-		},
+	r := searchTag.Query(searchQueries.BeerName(tag), "post")
+	hits := r["hits"].(map[string]interface{})["hits"].([]interface{})
+
+	type data struct {
+		BeerID  float64 `json:"beer_id"`
+		PostCnt int     `json:"post_cnt"`
 	}
 
-	if err := json.NewEncoder(&buf).Encode(query); err != nil {
-		log.Fatalf("Error encoding query: %s", err)
-	}
+	datas := map[string]*data{}
 
-	type Data struct {
-		ID   int      `json:"id"`
-		Tags []string `json:"tags"`
-	}
-
-	var datas []Data
-
-	r := searchTag.Query(buf)
-	for _, hit := range r["hits"].(map[string]interface{})["hits"].([]interface{}) {
-
-		message := hit.(map[string]interface{})["_source"].(map[string]interface{})["message"].(string)
-		fmt.Println(message)
-		var data Data
-		err := json.Unmarshal([]byte(message), &data) // JSON DECODING
-
-		// EXCEPTION
-		if err != nil {
-			fmt.Println("Failed to json.Unmarshal", err)
+	for _, hit := range hits {
+		source := hit.(map[string]interface{})["_source"].(map[string]interface{})
+		beerName := source["beer_name"].(string)
+		beerId := source["beer_id"].(float64)
+		s, ok := datas[beerName]
+		fmt.Println(ok)
+		if ok {
+			s.PostCnt += 1
+		} else {
+			datas[beerName] = &data{BeerID: beerId, PostCnt: 1}
 		}
-		log.Println(data)
-		datas = append(datas, data)
+		fmt.Println(datas)
 	}
-
 	return c.JSON(datas)
 }

@@ -9,7 +9,7 @@ import (
 )
 
 type SearchTag interface {
-	Query(buf bytes.Buffer) map[string]interface{}
+	Query(buf bytes.Buffer, index string) map[string]interface{}
 }
 
 type searchTag struct {
@@ -17,13 +17,13 @@ type searchTag struct {
 	addresses []string
 }
 
-func (st *searchTag) Query(buf bytes.Buffer) map[string]interface{} {
+func (st *searchTag) Query(buf bytes.Buffer, index string) map[string]interface{} {
 
 	var r map[string]interface{}
 
 	res, err := st.es.Search(
 		st.es.Search.WithContext(context.Background()),
-		//es.Search.WithIndex("test"),
+		st.es.Search.WithIndex(index),
 		st.es.Search.WithBody(&buf),
 		st.es.Search.WithTrackTotalHits(true),
 		st.es.Search.WithPretty(),

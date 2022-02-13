@@ -38,6 +38,10 @@ public class UserHashTag {
         this.is_deleted = false;
     }
 
+    public void deleteUserhashtag(){
+        this.is_deleted = true;
+    }
+
 
     public void setPost(Post post) {
         this.post = post;

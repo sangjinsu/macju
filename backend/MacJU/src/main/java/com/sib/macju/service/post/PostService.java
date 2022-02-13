@@ -78,7 +78,10 @@ public class PostService {
         Post post = foundPost.get();
         post.setContent(content);
 
-        post.getUserHashTags().clear();
+//        post.getUserHashTags().clear();
+        for (UserHashTag userhashtag: post.getUserHashTags()) {
+            userhashtag.deleteUserhashtag();
+        }
 
         saveUserHashTags(userHashTagList, post);
     }
@@ -99,6 +102,10 @@ public class PostService {
         }
 //        postRepository.delete(post.get());
         post.get().deletePost();
+
+        for (UserHashTag userhashtag: post.get().getUserHashTags()){
+            userhashtag.deleteUserhashtag();
+        }
     }
 
     public List<Post> fetchPostsByBeerId(Long beerId) {

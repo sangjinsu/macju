@@ -31,24 +31,24 @@ function PostCreate(props) {
   //   event.preventDefault()
   //   const nowImages = event.target.files  // 현재 선택한 사진들
   //   //state에 저장
-
-  //   const imgArray = [...browserImages] // 이미지 추가될 때
-  //   console.log(!browserImages)
-
+  //   const imgArray = [...browserImages]
   //   for (let i = 0; i< nowImages.length; i++){
   //     if (!browserImages.some((img)=>img.name === nowImages[i].name)){
   //       const currentTime = Date.now()
   //       nowImages[i]["url"] = URL.createObjectURL(nowImages[i])
   //       nowImages[i]['uploadName'] = currentTime + nowImages[i].name.replace(" ", "")
   //       nowImages[i]['index'] = currentTime
-  //       imgArray.push(nowImages[i])
+  //       await imgArray.push(nowImages[i])
   //       const nowImageName = nowImages[i].name.replace(" ", "")
   //       const storageRef = ref(storage, currentTime + nowImageName)
-  //       const res = await uploadBytes(storageRef, nowImages[i])
-  //       setFirebaseImages([...firebaseImages, res])
+  //       await uploadBytes(storageRef, nowImages[i])
+  //       .then((res)=>{
+  //         console.log('uploaded')
+  //         setFirebaseImages((prev)=>[...prev, res])
+  //       })
   //     } 
   //   }
-  //   // const results = await Promise.all(imgArray)
+  //   const results = await Promise.all(imgArray)
   //   setBrowserImages(imgArray)
   //   console.log(imgArray)
   // }
@@ -80,15 +80,18 @@ function PostCreate(props) {
           compressedFile['index'] = currentTime
           fileList.push(compressedFile)
           const storageRef = ref(storage, newName)
-          const res = await uploadBytes(storageRef, compressedFile)
-          setFirebaseImages([...firebaseImages, res])
+          await uploadBytes(storageRef, compressedFile)
+          .then((res)=>{
+            console.log(res)
+            setFirebaseImages((prev)=>[...prev, res])
+          })
         }
       }
       setBrowserImages(fileList)
     }catch (error){
       console.log(error)
     }
-  }, [browserImages, firebaseImages, storage])
+  }, [browserImages, storage])
 
   // 사진 삭제 버튼 click
   const deleteImg = useCallback ((e) => { 

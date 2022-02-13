@@ -1,4 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap");
+.Signup {
+  background-color: #fffaea;
+}
 .Signup body {
   font-family: "Open Sans", sans-serif;
   color: #0c0c0c;

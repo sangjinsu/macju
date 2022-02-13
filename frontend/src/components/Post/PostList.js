@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import {Link, useParams} from "react-router-dom"
 import "../../styles/PostList.css"
 import axios from "axios";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 
 function PostListComponent(){
@@ -68,18 +70,18 @@ function PostListComponent(){
         <div className="col-md-6 col-lg-4 fadein" key={post.postId}>
           <div className="box">
             <div className="postlist_box">
-                            
+            <div className="img-box">
               {/* 포스트 이미지 */}
-              {newPostImage&&newPostImage.map((data, i)=> data.id === post.postId ? 
-              <div key={i} className="img-box">
+              {newPostImage.length === 0 ? <Box sx={{ display: 'flex' }} style={{justifyContent:'center', margin:'auto'}}><CircularProgress size={100}/></Box>:newPostImage.map((data, i)=> data.id === post.postId ? 
+              <div key={i} className="img-box box">
                 {/* 기본이미지 하나 구해야겠네요 */}
-                <img src={data.res} alt=""></img>
+                <img src={data.res} alt="" style={{maxHeight:210, maxWidth:350 }}></img>
                 {/* <img src={post.photo.data}></img> */}
                 
               </div> : null
               )
               }
-          
+              </div>
               
               
               {/* 포스트 카드 내용 */}

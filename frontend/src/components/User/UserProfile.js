@@ -143,8 +143,9 @@ const UserProfile = () => {
 				<div className="user-profile ">
 					<div className="img-box">
 						{/* user.profileColor 색깔로 배경 지정 (기본흰색) */}
-						<div style={{'backgroundColor':`${usercolor}`}}>	
+						<div className="profile-image-box" style={{'backgroundColor':`${usercolor}`}}>	
 							<IoIosBeer className="usericon" role={'button'} onClick={iconClick}></IoIosBeer>
+							{/* 등급별로 아이콘을 나눈 다음에 진행 로그인 이후 */}
 						</div>
 					</div>
 					<div id="profile-box">

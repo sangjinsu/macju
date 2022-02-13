@@ -48,6 +48,9 @@ public class Post {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    @Column(name = "is_deleted")
+    private boolean is_deleted;
+
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     List<Comment> comments = new ArrayList<>();
 
@@ -75,7 +78,15 @@ public class Post {
         this.content = content;
     }
 
-    // 생성 메서드
+    public void setIs_deleted(){
+        this.is_deleted =false;
+    }
+
+    public void deletePost(){
+        this.is_deleted = true;
+    }
+
+        // 생성 메서드
     public static Post createPost(Beer beer,
                                   Member member,
                                   String content
@@ -84,6 +95,7 @@ public class Post {
         post.setBeer(beer);
         post.setMember(member);
         post.setContent(content);
+        post.setIs_deleted();
 
         return post;
     }

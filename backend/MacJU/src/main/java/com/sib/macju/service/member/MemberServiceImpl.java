@@ -117,7 +117,7 @@ public class MemberServiceImpl implements MemberService{
         int size = data.size();
         for(int i=0; i<size; i++){
             Beer beer = data.get(i).getBeer();
-            result.add(new BeerVO(beer.getBeerId(), beer.getBeerType().getMain().toString(), beer.getName(), beer.getEnglishName(), beer.getContent(), beer.getVolume(), beer.getPhotoPath()));
+            result.add(new BeerVO(beer.getBeerId(), beer.getBeerType().getKo_main().toString(), beer.getName(), beer.getEnglishName(), beer.getContent(), beer.getVolume(), beer.getPhotoPath()));
         }
 
         return result;
@@ -161,7 +161,7 @@ public class MemberServiceImpl implements MemberService{
             //BeerDTO 시작
             BeerVO beer = new BeerVO();
             beer.setBeerId(post.getBeer().getBeerId());
-            beer.setBeerType(post.getBeer().getBeerType().getMain().toString());
+            beer.setBeerType(post.getBeer().getBeerType().getKo_main().toString());
             beer.setBeerName(post.getBeer().getName());
             beer.setEnglishName(post.getBeer().getEnglishName());
             beer.setContent(post.getBeer().getContent());

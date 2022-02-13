@@ -1,7 +1,5 @@
 package com.sib.macju.domain.beer;
 
-import lombok.ToString;
-
-public enum BeerMainType {
+public enum BeerENMainType {
     Ale, Lager, Bock, Radler
 }

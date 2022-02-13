@@ -27,4 +27,9 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     @Query("select post from Post post where post.member.memberId = :memberId order by post.updatedAt desc")
     List<Post> findByMemberId(@Param("memberId") Long memberId);
+
+    @Query("select post from Post post where post.is_deleted = true ")
+    List<Post> findByIs_deleted();
+
+
 }

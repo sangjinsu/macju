@@ -6,10 +6,10 @@ COPY go.mod ./
 COPY go.sum ./
 RUN go mod download
 
-COPY *.go ./
+COPY ./ ./
 
-RUN go build -o /es-tutorial
+RUN go build -o /macju-search-server
 
 EXPOSE 8082
 
-CMD [ "/es-tutorial" ]
+CMD [ "/macju-search-server" ]

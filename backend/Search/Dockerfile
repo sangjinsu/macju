@@ -8,8 +8,8 @@ RUN go mod download
 
 COPY *.go ./
 
-RUN go build -o /es-tutorial
+RUN go build -o /macju-search-server
 
 EXPOSE 8082
 
-CMD [ "/es-tutorial" ]
+CMD [ "/macju-search-server" ]

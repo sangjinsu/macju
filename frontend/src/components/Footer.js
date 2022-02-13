@@ -8,6 +8,38 @@ function Footer(){
   <footer className="footer_section">
     <div className="container">
       <div className="row">
+        
+        <div className="col-md-4 footer-col">
+          <div className="footer_detail">
+            <a href="https://edu.ssafy.com/comm/login/SecurityLoginForm.do" className="footer-logo">
+              MacJU
+            </a>
+            <p>
+              SSAFY 1st Project
+            </p>
+            <p>상진수, 장정훈, 최수한 </p>
+            <p>김현송, 김동일, 김소희 </p>
+            {/* <div className="footer_social">
+              <a href="https://edu.ssafy.com/comm/login/SecurityLoginForm.do">
+                <i className="fa fa-facebook" aria-hidden="true"></i>
+              </a>
+              <a href="https://edu.ssafy.com/comm/login/SecurityLoginForm.do">
+                <i className="fa fa-twitter" aria-hidden="true"></i>
+              </a>
+              <a href="https://edu.ssafy.com/comm/login/SecurityLoginForm.do">
+                <i className="fa fa-linkedin" aria-hidden="true"></i>
+              </a>
+              <a href="https://edu.ssafy.com/comm/login/SecurityLoginForm.do">
+                <i className="fa fa-instagram" aria-hidden="true"></i>
+              </a>
+              <a href="https://edu.ssafy.com/comm/login/SecurityLoginForm.do">
+                <i className="fa fa-pinterest" aria-hidden="true"></i>
+              </a>
+            </div> */}
+          </div>
+        </div>
+
+
         <div className="col-md-4 footer-col">
           <div className="footer_contact">
             <h4>
@@ -29,40 +61,15 @@ function Footer(){
               <a href="https://edu.ssafy.com/comm/login/SecurityLoginForm.do">
                 <i className="fa fa-envelope" aria-hidden="true"></i>
                 <span>
-                  demo@gmail.com
+                  sopee9814@gmail.com
                 </span>
               </a>
             </div>
           </div>
         </div>
-        <div className="col-md-4 footer-col">
-          <div className="footer_detail">
-            <a href="https://edu.ssafy.com/comm/login/SecurityLoginForm.do" className="footer-logo">
-              Feane
-            </a>
-            <p>
-              Necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with
-            </p>
-            <div className="footer_social">
-              <a href="https://edu.ssafy.com/comm/login/SecurityLoginForm.do">
-                <i className="fa fa-facebook" aria-hidden="true"></i>
-              </a>
-              <a href="https://edu.ssafy.com/comm/login/SecurityLoginForm.do">
-                <i className="fa fa-twitter" aria-hidden="true"></i>
-              </a>
-              <a href="https://edu.ssafy.com/comm/login/SecurityLoginForm.do">
-                <i className="fa fa-linkedin" aria-hidden="true"></i>
-              </a>
-              <a href="https://edu.ssafy.com/comm/login/SecurityLoginForm.do">
-                <i className="fa fa-instagram" aria-hidden="true"></i>
-              </a>
-              <a href="https://edu.ssafy.com/comm/login/SecurityLoginForm.do">
-                <i className="fa fa-pinterest" aria-hidden="true"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-4 footer-col">
+
+
+        {/* <div className="col-md-4 footer-col">
           <h4>
             Opening Hours
           </h4>
@@ -70,15 +77,13 @@ function Footer(){
             Everyday
           </p>
           <p>
-            10.00 Am -10.00 Pm
+            00.00 Am -12.00 Pm
           </p>
-        </div>
+        </div> */}
       </div>
       <div className="footer-info">
         <p>
-          &copy; <span id="displayYear"></span> All Rights Reserved By
-          <a href="https://html.design/"> Free Html Templates</a><br></br>
-          &copy; <span id="displayYear"></span> Distributed By
+          &copy; <span id="displayYear"></span> Distributed By MacJU
           {/* <a href="https://themewagon.com/" target="_blank"> MacJU</a> */}
         </p>
       </div>

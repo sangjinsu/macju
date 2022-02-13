@@ -5,7 +5,7 @@
 .Signup body {
   font-family: "Open Sans", sans-serif;
   color: #0c0c0c;
-  background-color: #ffffff;
+  background-color: #fffaea;
   overflow-x: hidden;
 }
 
@@ -13,33 +13,18 @@
   padding: 90px 0;
 }
 
-.Signup h1,
-.Signup h2 {
-  font-family: 'Dancing Script', cursive;
-}
-
 
 /* Signup 제목 */
 .signup_section .signup_heading_container {
   margin-bottom: 40px;
 }
-.signup_heading_container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-}
-.signup_heading_container h2 {
-  position: relative;
+.Signup .signup_heading {
+  /* font-family: 'Oswald ', cursive; */
+  font-family: 'Dancing Script', cursive;
   margin-bottom: 0;
   font-size: 2.5rem;
   font-weight: bold;
+  text-align: center;
 }
 
 
@@ -74,23 +59,30 @@
   font-size: 16px;
 }
 
+.text_center {
+  text-align: center;
+}
+
 
 /* 완료 버튼 */
+/* .signup_section .btn_box {
+  display: flex;
+  justify-content: center;
+} */
 .signup_section .form_container button {
   margin-top: 15px;
   border: none;
   text-transform: uppercase;
   display: inline-block;
   padding: 10px 55px;
-  background-color: #ffbe33;
+  background-color: #F9CF68;
   color: #ffffff;
   border-radius: 45px;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
-  border: none;
 }
 .signup_section .form_container button:hover {
-  background-color: #e69c00;
+  background-color: #F9CF68;
 }
 
 

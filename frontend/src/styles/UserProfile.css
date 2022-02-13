@@ -1,6 +1,7 @@
 /* 전체 */
 .user-profile {
-  background-color: rgb(240, 240, 240);
+  background-color: #fffaea;
+  /* background-color: rgb(240, 240, 240); */
   /* margin: 20px; */
   display: flex;
   align-items: center;

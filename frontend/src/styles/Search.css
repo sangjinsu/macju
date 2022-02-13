@@ -19,16 +19,13 @@
 }
 
 /* 전체 */
-.search_section {
-  background-color: white;
-}
 .layout_padding_search {
   padding: 90px 0;
 }
-.search_section body {
+.search_section {
   font-family: "Open Sans", sans-serif;
   color: #0c0c0c;
-  background-color: #ffffff;
+  background-color: #fffaea;
   overflow-x: hidden;
 }
 .search_section h1,

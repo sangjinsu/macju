@@ -47,6 +47,7 @@ function Search(props){
     // console.log(beerKosearch.data, beerEnsearch.data, aromasearch.data, flavorsearch.data, typesearch.data, usersearch.data)
     // 맥주이름 검색
     beerKosearch.data&&beerKosearch.data.map(beerKo => {
+      {console.log(beerKo.beer_id)}
       setBeerIdArr_name((id)=> [...id, beerKo.beer_id])
     })
     beerEnsearch.data&&beerEnsearch.data.map(beerEn => {

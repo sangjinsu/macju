@@ -15,8 +15,8 @@ function SearchBar(){
   const location = useLocation();
   const history = useHistory();
   const [searchInput, setSearchInput] = useState('');
-
   const [searchAll , setSearchAll] = useState([])
+  
   
   
   const setInput = async (e) => {
@@ -44,7 +44,6 @@ function SearchBar(){
     const typesearch = await axios.get(`${SEARCH_URL}/v1/search/type?query=${searchInput}`)
     const usersearch = await axios.get(`${SEARCH_URL}/v1/search/user?query=${searchInput}`)
     setSearchAll([beerKosearch, beerEnsearch, aromasearch, flavorsearch, typesearch,usersearch])
-    
   }
 
   useEffect( () => {

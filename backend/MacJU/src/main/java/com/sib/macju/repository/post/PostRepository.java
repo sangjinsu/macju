@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 
 // Post 생성, (단일, 다수) 조회, content 수정, updated_at 시간 수정, 삭제
@@ -15,21 +16,22 @@ import java.util.List;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
     @Query(
-            "select post from Post post join fetch post.beer where post.beer.beerId = :beerId"
+            "select post from Post post join fetch post.beer where post.beer.beerId = :beerId and post.is_deleted = false"
     )
     List<Post> findByBeerId(@Param("beerId") Long beerId);
 
-    @Query("select post from Post post join fetch post.beer join fetch post.member where post.beer.beerId = :beerId order by post.updatedAt desc ")
+    @Query("select post from Post post join fetch post.beer join fetch post.member where post.beer.beerId = :beerId and post.is_deleted = false order by post.updatedAt desc ")
     List<Post> findAllByBeer_BeerId(@Param("beerId") Long beerId);
 
-    @Query("select post from Post post join fetch post.member join fetch post.beer order by post.updatedAt desc ")
+    @Query("select post from Post post join fetch post.member join fetch post.beer where post.is_deleted = false order by post.updatedAt desc ")
     List<Post> findAllWithDetails(Pageable pageable);
 
     @Query("select post from Post post where post.member.memberId = :memberId order by post.updatedAt desc")
     List<Post> findByMemberId(@Param("memberId") Long memberId);
 
-    @Query("select post from Post post where post.is_deleted = true ")
+    @Query("select post from Post post where post.postId = :postId and post.is_deleted = true")
+    Optional<Post> findByPostIdAndIs_deletedIsFalse(@Param("postId") Long postId);
+
+    @Query("select post from Post post where post.is_deleted = true")
     List<Post> findByIs_deleted();
-
-
 }

@@ -1,7 +1,7 @@
 .input {
   --background: #fff;
   --border-default: #D0D0DF;
-  --border-active: #3D6DF9;
+  --border-active: #ae9048;
   --shadow-default: rgba(32, 32, 72, 0.12);
   --shadow-active: rgba(61, 109, 249, 0.25);
   --text-color: #818190;
@@ -10,8 +10,8 @@
   --close: #818190;
   --close-light: #BABAC9;
   --close-background: #F1F1FA;
-  width: 80%;
-  height: 35px;
+  /* width: 90%; */
+  height: 40px;
   max-width: 160px;
   display: flex;
   align-items: center;
@@ -37,6 +37,15 @@
   --clear-long-array: 8.5px;
   --clear-long-offset: 24px;
 }
+
+.searchicon {
+  background: none;
+  /* background-color: white; */
+  border: none;
+  color: #ae9048;
+}
+
+
 .input.clearing, .input:focus-within {
   --border-width: 1.5px;
   --border: var(--border-active);
@@ -58,7 +67,7 @@
   display: block;
   width: 100%;
   margin: 0;
-  padding: 12px 16px;
+  padding: 12px 4px;
   font-family: inherit;
   font-size: 13px;
   font-weight: 500;

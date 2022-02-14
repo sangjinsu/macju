@@ -50,7 +50,7 @@ function NavBar(){
           <header className="navbar_section">
             <div className="container">
               <nav className="navbar navbar-expand-xs custom_nav-container ">
-                <a className="navbar-brand" href="/home">
+                <a className="navbar-macju" href="/home">
                   <span>
                     MacJU
                   </span>
@@ -58,7 +58,7 @@ function NavBar(){
 
                 
                 <div className='searchbar'>
-                  <Link to='/search' className="searchicon " onClick={navClick}><i className="fa fa-search"></i></Link>
+                  {/* <Link to='/search' className="searchicon" onClick={navClick}><i className="fa fa-search"></i></Link> */}
                   <SearchBar/>
                 </div>
 
@@ -101,6 +101,7 @@ function NavBar(){
                   <span className=""> </span>
                 </button>
 
+                {/* expand 됬을때 나타남 */}
                 <div className="collapse navbar-collapse" id="navbarSupportedContent" >
                   <ul className="navbar-nav mx-auto" >
                     <li className="nav-item">
@@ -118,7 +119,7 @@ function NavBar(){
                       <i className="fa fa-user" aria-hidden="true"></i>
                     </Link>
                     <div className="order_online">
-                      <Link className='nav-link nav_login' to='/user/login' onClick={navClick}>login</Link>
+                      <Link className='nav-link nav_login' to='/user/login' style={{ color: 'black' }} onClick={navClick}>login</Link>
                     </div>
                   </div>
                 </div>

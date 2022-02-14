@@ -5,6 +5,8 @@ import '../styles/Responsive.css'
 
 function Footer(){
   return(
+    <>
+    <hr className="hr_bg" />
   <footer className="footer_section">
     <div className="container">
       <div className="row">
@@ -14,9 +16,9 @@ function Footer(){
             <h2 className="footer-logo">
               Our Service
             </h2>
-            <p>Community</p>
-            <p>Recommend Beer</p>
-            <p>Beer Info</p>
+            <span>Community</span> <br />
+            <span>Recommend Beer</span> <br />
+            <span>Beer Info</span> <br />
           </div>
         </div>
 
@@ -34,7 +36,10 @@ function Footer(){
                 </span>
               </a>
               <span>
-                오전9시 ~ 오후 6시 (주말 및 공휴일 휴무)
+                9 A.M. ~ 6 P.M.
+              </span>
+              <span>
+                (Closed on weekends and holidays)
               </span>
             </div>
           </div>
@@ -45,11 +50,10 @@ function Footer(){
           <h2 className="footer-logo">
             MacJU
           </h2>
-          <p>
-            SSAFY 1st Project
-          </p>
-          <p>상진수, 장정훈, 최수한 </p>
-          <p>김현송, 김동일, 김소희 </p>
+          <p>SSAFY 1st Project</p>
+          <span>Jinsu Sang, Jeonghoon Jang</span> <br />
+          <span>Soohan Choi, Dongil Kim</span> <br />
+          <span>Hyunsong Kim, Sohee Kim </span> <br />
         </div>
       </div>
       <div className="footer-info">
@@ -60,6 +64,7 @@ function Footer(){
       </div>
     </div>
   </footer>
+  </>
 
   )
 }

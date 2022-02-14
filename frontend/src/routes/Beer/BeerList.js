@@ -8,6 +8,7 @@ import "../../firebase_config"
 import { useDispatch, useStore } from 'react-redux';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import Chip from '@mui/material/Chip'
 
 function BeerList(){
   //url
@@ -186,11 +187,10 @@ function BeerList(){
                       </div>
                       {/* 맥주 카테고리 */}
                       <div className="options">
-                        <div className='options_space_between'>
+                        {/* <Chip label={beer.beerType.en_main} /> */}
                           <h6 className='beerCategory'>
                             {beer.beerType.en_main}
                           </h6>
-                        </div>
                       </div>
                     </div>
                   </div>

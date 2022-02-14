@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import './SearchBar.css'
 import axios from "axios"
@@ -12,12 +12,12 @@ const { to, set } = gsap
 
 function SearchBar(){
   const SEARCH_URL = process.env.REACT_APP_SERVER + ':8082'
-
+  const location = useLocation();
   const history = useHistory();
-  const [searchInput, setSearchInput] = useState();
+  const [searchInput, setSearchInput] = useState('');
   const [searchResult, setSearchResult] = useState([]);
 
-
+  
   const setInput = async (e) => {
     setSearchInput(e.target.value);
     const beerKosearch = await axios.get(`${SEARCH_URL}/v1/search/name?query=${e.target.value}`)
@@ -181,12 +181,18 @@ function SearchBar(){
   }, [])
 
 
+  useEffect(()=>{
+    setSearchInput('')
+    setSearchResult([])
+  }, [location])
+  
+
   return(
     <>
     <form className="input" onSubmit={SearchSubmit}>
       <button type="submit" className="searchicon"><i className="fa fa-search"></i></button>
       <div className="text" id="dropdown">
-        <input id="input" type="text" placeholder="검색..." onChange={setInput} autoComplete={"off"}/>
+        <input id="input" type="text" placeholder="검색..." onChange={setInput} autoComplete={"off"} value={searchInput}/>
         
       </div>
       <div>

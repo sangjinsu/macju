@@ -6,12 +6,13 @@ import SearchBar from './SearchBar.js'
 
 import { useEffect } from 'react';
 import { useStore } from 'react-redux';
+import Search from 'routes/Search';
 
 
 function NavBar(){
   const memberId = 1    // test용 멤버 아이디
 
-
+  
   const [isExpanded, setIsExpanded] = useState(false)
   const toggleBtn = document.getElementById("tglButton")
   const toggleClick = (() => {

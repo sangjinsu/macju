@@ -11,10 +11,10 @@ import (
 )
 
 const (
-	KO_MAIN   string = "ko_main"
-	KO_DETAIL string = "ko_detail"
-	EN_MAIN   string = "en_main"
-	EN_DETAIL string = "en_detail"
+	KoMain   string = "ko_main"
+	KoDetail string = "ko_detail"
+	EnMain   string = "en_main"
+	EnDetail string = "en_detail"
 )
 
 var wg sync.WaitGroup
@@ -26,8 +26,9 @@ type userHashTagResponse struct {
 }
 
 type beerNameResponse struct {
-	BeerID float64   `json:"beer_id"`
-	Posts  []float64 `json:"posts"`
+	BeerID   float64   `json:"beer_id"`
+	BeerName string    `json:"beer_name"`
+	Posts    []float64 `json:"posts"`
 }
 
 type hashTagResponse struct {
@@ -39,37 +40,70 @@ type typeResponse struct {
 }
 
 func SearchBeerName(c *fiber.Ctx) error {
-	tag := c.Query("query")
 	lang := c.Query("lang")
 
-	responses := map[string]*beerNameResponse{}
+	switch lang {
+	case "ko":
+		return SearchKoBeerName(c)
+	case "en":
+		return SearchEnBeerName(c)
+	default:
+		return SearchKoBeerName(c)
+	}
+}
+
+func SearchKoBeerName(c *fiber.Ctx) error {
+	tag := c.Query("query")
 
 	var r map[string]interface{}
-	nameType := "beer_name"
-	if lang == "ko" || lang == "" {
-		r = searchTag.Query(searchQueries.BeerKoName(tag), "post")
-	} else if lang == "en" {
-		r = searchTag.Query(searchQueries.BeerEnName(tag), "post")
-		nameType = "english_name"
-	}
 
+	r = searchTag.Query(searchQueries.BeerKoName(tag), "beer")
 	hits := r["hits"].(map[string]interface{})["hits"].([]interface{})
+
+	responses := []*beerNameResponse{}
 
 	for _, hit := range hits {
 		source := hit.(map[string]interface{})["_source"].(map[string]interface{})
-		beerName := source[nameType].(string)
+		beerName := source["beer_name"].(string)
 		beerId := source["beer_id"].(float64)
-		postId := source["post_id"].(float64)
-		if s, ok := responses[beerName]; ok {
-			s.Posts = append(s.Posts, postId)
-		} else {
-			responses[beerName] = &beerNameResponse{
-				BeerID: beerId,
-				Posts:  []float64{postId},
-			}
-		}
+		response := createBeerNameResponse(beerId, beerName, r)
+		responses = append(responses, response)
 	}
+
 	return c.JSON(responses)
+}
+
+func SearchEnBeerName(c *fiber.Ctx) error {
+	tag := c.Query("query")
+
+	var r map[string]interface{}
+
+	r = searchTag.Query(searchQueries.BeerEnName(tag), "beer")
+	hits := r["hits"].(map[string]interface{})["hits"].([]interface{})
+
+	responses := []*beerNameResponse{}
+
+	for _, hit := range hits {
+		source := hit.(map[string]interface{})["_source"].(map[string]interface{})
+		beerName := source["english_name"].(string)
+		beerId := source["beer_id"].(float64)
+		response := createBeerNameResponse(beerId, beerName, r)
+		responses = append(responses, response)
+	}
+
+	return c.JSON(responses)
+}
+
+func createBeerNameResponse(beerId float64, beerName string, r map[string]interface{}) *beerNameResponse {
+	response := &beerNameResponse{BeerID: beerId, BeerName: beerName, Posts: []float64{}}
+	r = searchTag.Query(searchQueries.PostByBeerId(beerId), "post")
+	beerNameHits := r["hits"].(map[string]interface{})["hits"].([]interface{})
+	for _, beerNameHit := range beerNameHits {
+		beerNameSource := beerNameHit.(map[string]interface{})["_source"].(map[string]interface{})
+		postId := beerNameSource["post_id"].(float64)
+		response.Posts = append(response.Posts, postId)
+	}
+	return response
 }
 
 func SearchBeerType(c *fiber.Ctx) error {
@@ -78,10 +112,10 @@ func SearchBeerType(c *fiber.Ctx) error {
 	responseChan := make(chan map[string]*typeResponse)
 
 	wg.Add(4)
-	go searchBeer(responseChan, tag, KO_MAIN)
-	go searchBeer(responseChan, tag, KO_DETAIL)
-	go searchBeer(responseChan, tag, EN_MAIN)
-	go searchBeer(responseChan, tag, EN_DETAIL)
+	go searchBeer(responseChan, tag, KoMain)
+	go searchBeer(responseChan, tag, KoDetail)
+	go searchBeer(responseChan, tag, EnMain)
+	go searchBeer(responseChan, tag, EnDetail)
 
 	go func() {
 		wg.Wait()
@@ -102,13 +136,13 @@ func searchBeer(responseChan chan map[string]*typeResponse, tag string, queryTyp
 
 	var query bytes.Buffer
 	switch queryType {
-	case KO_MAIN:
+	case KoMain:
 		query = searchQueries.BeerKoMainType(tag)
-	case KO_DETAIL:
+	case KoDetail:
 		query = searchQueries.BeerKoDetailType(tag)
-	case EN_MAIN:
+	case EnMain:
 		query = searchQueries.BeerEnMainType(tag)
-	case EN_DETAIL:
+	case EnDetail:
 		query = searchQueries.BeerEnDetailType(tag)
 	}
 

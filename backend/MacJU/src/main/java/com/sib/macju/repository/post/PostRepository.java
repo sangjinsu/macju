@@ -1,8 +1,10 @@
 package com.sib.macju.repository.post;
 
+import com.sib.macju.domain.hashtag.UserHashTag;
 import com.sib.macju.domain.post.Post;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -32,6 +34,11 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("select post from Post post where post.postId = :postId and post.is_deleted = true")
     Optional<Post> findByPostIdAndIs_deletedIsFalse(@Param("postId") Long postId);
 
-    @Query("select post from Post post where post.is_deleted = true")
+    @Query("select p from Post p where p.is_deleted = true")
     List<Post> findByIs_deleted();
+
+    @Modifying
+    @Query("delete from Post where is_deleted = true")
+    int deleteAllByIs_deletedIsTrue();
+
 }

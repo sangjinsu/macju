@@ -1,0 +1,62 @@
+package com.sib.macju.scheduler;
+
+import com.google.gson.JsonObject;
+import com.sib.macju.domain.hashtag.UserHashTag;
+import com.sib.macju.domain.post.Post;
+import com.sib.macju.repository.hashtag.UserHashTagRepository;
+import com.sib.macju.repository.post.PostRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.HashMap;
+import java.util.Map;
+
+@Component
+@RequiredArgsConstructor
+public class Clearance {
+
+    private final PostRepository postRepository;
+    private final UserHashTagRepository userHashTagRepository;
+
+    @Autowired
+    private RestTemplateBuilder restTemplateBuilder;
+
+//    @Scheduled(cron = "0 0 7 * * *", zone = "Asia/Seoul")
+    @Transactional
+    @Scheduled(cron = "0 11 17 * * *", zone = "Asia/Seoul")
+    public int deletePost() {
+        return postRepository.deleteAllByIs_deletedIsTrue();
+    }
+
+    //    @Scheduled(cron = "0 0 7 * * *", zone = "Asia/Seoul")
+    @Transactional
+    @Scheduled(cron = "0 11 17 * * *", zone = "Asia/Seoul")
+    public int deleteUserHashTag() {
+        return userHashTagRepository.deleteAllByIs_deletedIsTrue();
+    }
+
+    //    @Scheduled(cron = "0 0 7 * * *", zone = "Asia/Seoul")
+    @Scheduled(cron = "0 54 16 * * *", zone = "Asia/Seoul")
+    public void deleteESPost() {
+        String json = "{\"query\":{\"match\":{\"is_deleted\":true}}}";
+        String url = "http://i6c107.p.ssafy.io:9201/post/_delete_by_query";
+        restTemplateBuilder.build().postForLocation(url,json);
+
+
+    }
+
+    //    @Scheduled(cron = "0 0 7 * * *", zone = "Asia/Seoul")
+
+    @Scheduled(cron = "0 54 16 * * *", zone = "Asia/Seoul")
+    public void deleteESUserHashTag() {
+        String json = "{\"query\":{\"match\":{\"is_deleted\":true}}}";
+        String url = "http://i6c107.p.ssafy.io:9201/userhashtag/_delete_by_query";
+        restTemplateBuilder.build().postForLocation(url, json);
+
+    }
+}

@@ -5,40 +5,33 @@ import com.sib.macju.service.clear.ClearService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Component
 @RequiredArgsConstructor
-@CrossOrigin("*")
-@RequestMapping("clear")
 public class ClearController {
 
     ClearService clearService;
 
-    @DeleteMapping("/post")
-    @Scheduled(cron = "0 0 7 * * *", zone = "Asia/Seoul")
+    @Scheduled(cron = "0 26 11 * * *", zone = "Asia/Seoul")
     public void deletePost() {
         clearService.deletePost();
     }
 
-    @DeleteMapping("/userhashtag")
-    @Scheduled(cron = "0 0 7 * * *", zone = "Asia/Seoul")
-    public void deleteUserhashtag() {
+    @Scheduled(cron = "0 26 11 * * *", zone = "Asia/Seoul")
+    public void deleteUserHashTag() {
         clearService.deleteUserhashtag();
     }
 
 
-    @DeleteMapping("/es/post")
-    @Scheduled(cron = "0 0 7 * * *", zone = "Asia/Seoul")
+    @Scheduled(cron = "0 10 11 * * *", zone = "Asia/Seoul")
     public void deleteESPost() {
         clearService.deleteESPost();
     }
 
-    @DeleteMapping("/es/userhashtag")
-    @Scheduled(cron = "0 0 7 * * *", zone = "Asia/Seoul")
-    public void deleteESUserhashtag() {
+    @Scheduled(cron = "0 10 11 * * *", zone = "Asia/Seoul")
+    public void deleteESUserHashTag() {
         clearService.deleteESUserhashtag();
     }
-
-
 }

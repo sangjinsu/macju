@@ -86,7 +86,7 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public Post findByPostId(Long postId) {
-        Optional<Post> post = postRepository.findById(postId);
+        Optional<Post> post = postRepository.findByPostIdAndIs_deletedIsFalse(postId);
         return post.get();
     }
 

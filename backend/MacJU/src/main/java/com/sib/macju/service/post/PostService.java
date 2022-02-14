@@ -79,7 +79,7 @@ public class PostService {
         post.setContent(content);
 
 //        post.getUserHashTags().clear();
-        for (UserHashTag userhashtag: post.getUserHashTags()) {
+        for (UserHashTag userhashtag : post.getUserHashTags()) {
             userhashtag.deleteUserhashtag();
         }
 
@@ -103,7 +103,7 @@ public class PostService {
 //        postRepository.delete(post.get());
         post.get().deletePost();
 
-        for (UserHashTag userhashtag: post.get().getUserHashTags()){
+        for (UserHashTag userhashtag : post.get().getUserHashTags()) {
             userhashtag.deleteUserhashtag();
         }
     }
@@ -114,7 +114,7 @@ public class PostService {
 
 
     public Post fetchPost(Long postId) {
-        Optional<Post> foundPost = postRepository.findById(postId);
+        Optional<Post> foundPost = postRepository.findByPostIdAndIs_deletedIsFalse(postId);
         if (foundPost.isEmpty()) {
             throw new IllegalStateException();
         }

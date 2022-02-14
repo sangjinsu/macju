@@ -3,15 +3,22 @@ import { useHistory } from 'react-router-dom';
 import { gsap } from "gsap/dist/gsap";
 import './SearchBar.css'
 import axios from "axios"
+import { useDispatch } from "react-redux";
+import { ListGroup } from "react-bootstrap";
+
 
 function SearchBar(){
   const SEARCH_URL = process.env.REACT_APP_SERVER + ':8082'
 
   const history = useHistory();
-
   const [searchInput, setSearchInput] = useState();
-  const setInput = (e) => {
+  const [searchResult, setSearchResult] = useState([]);
+
+
+  const setInput = async (e) => {
     setSearchInput(e.target.value);
+    const beerKosearch = await axios.get(`${SEARCH_URL}/v1/search/name?query=${e.target.value}`)
+    setSearchResult(beerKosearch.data)
   }
   
   const eraseInput = (e) => {
@@ -39,15 +46,25 @@ function SearchBar(){
   //   if (searchInput) {fetchSearchResult()}
   // }, [searchInput])  
 
+
+
+
+
   useEffect( () => {
     EraseEffect()
   }, [])
 
+
   return(
+    <>
     <form className="input" onSubmit={SearchSubmit}>
       <button type="submit" className="searchicon"><i className="fa fa-search"></i></button>
-      <div className="text">
-        <input type="text" placeholder="검색..." onChange={ setInput } />
+      <div className="text" id="dropdown">
+        <input id="input" type="text" placeholder="검색..." onChange={setInput} autocomplete={"off"}/>
+        
+      </div>
+      <div>
+     
       </div>
         <button className="clear" onClick={ eraseInput } >
           <svg viewBox="0 0 24 24">
@@ -59,6 +76,13 @@ function SearchBar(){
        </button>
        
     </form>
+    <ListGroup style={{position:'relative'}}>
+      {searchResult.length === 0 ? null : searchResult.map((result, i) =>
+      <ListGroup.Item key={i}> {result.beer_name}</ListGroup.Item> 
+      ) }
+      
+    </ListGroup>
+    </>
   )
 }
 

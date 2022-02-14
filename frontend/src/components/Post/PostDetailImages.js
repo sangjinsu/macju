@@ -6,6 +6,8 @@ import axios from "axios"
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 function PostDetailImages(){
   const POST_DETAIL_URL = process.env.REACT_APP_SERVER + ':8080/v1/post'
@@ -73,7 +75,7 @@ function PostDetailImages(){
   return(
     <>
     <Slider {...settings}>
-      {postDetailImage&& postDetailImage.map((data, i)=>
+      {postDetailImage.length === 0 ? <Box sx={{ display: 'flex' }} style={{justifyContent:'center', marginLeft:200 , marginTop:100}}><CircularProgress size={100}/></Box> : postDetailImage.map((data, i)=>
         <img src={data} key={i} alt=''></img> 
       )}
     </Slider>

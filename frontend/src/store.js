@@ -19,6 +19,7 @@ const profileReducer = (state = [], action) => {
 const userReducer = (state = [], action) => {
   if (action.type === "loginSucess") {
     const loginState = action.userData
+    console.log(loginState)
     return loginState
   }else if (action.type === "logout") {
     const logoutState = {}
@@ -162,6 +163,8 @@ const navbarReducer = (state=false, action) => {
   }
 }
 
+
+
 const store = createStore( combineReducers
   ( {
     userReducer,
@@ -177,8 +180,8 @@ const store = createStore( combineReducers
      navbarReducer,
      followersReducer,
      followingsReducer,
-     profileReducer
-
+     profileReducer,
+  
   } ))
 
 

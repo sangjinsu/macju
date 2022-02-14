@@ -6,7 +6,7 @@ import { Route } from 'react-router';
 import { Link } from "react-router-dom"
 import '../../styles/Profile.css'
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useStore } from "react-redux";
 import axios from "axios";
 const Profile = () => {
   const USER_PROFILE_URL = process.env.REACT_APP_SERVER + ':8080/v1/member/profile'
@@ -16,10 +16,12 @@ const Profile = () => {
 
   const dispatch = useDispatch();
   const memberId = 3
+  const store = useStore((state)=>state)
 
 
-
-
+  useEffect(()=>{
+    console.log(store.getState().userReducer)
+  }, [])
 
 
   useEffect(()=>{

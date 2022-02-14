@@ -4,6 +4,9 @@ import '../styles/Responsive.css'
 import { Link } from "react-router-dom"
 import SearchBar from './SearchBar.js'
 
+import { useEffect } from 'react';
+import { useStore } from 'react-redux';
+
 
 function NavBar(){
   const memberId = 1    // test용 멤버 아이디
@@ -23,6 +26,12 @@ function NavBar(){
     }
   })
   
+
+
+
+
+
+
   // const [isClose, setIsClose] = useState()
 
   // useEffect(()=>{
@@ -41,7 +50,7 @@ function NavBar(){
 
   
   return(
-    <div className='zindex'>
+    
       <div className='navbar_page'>
         <div className="navbar_area">
           <div className="bg-box">
@@ -57,9 +66,10 @@ function NavBar(){
                 </a>
 
                 
-                <div className='searchbar'>
+                <div className='searchbar' style={{flexDirection: 'column'}}>
                   {/* <Link to='/search' className="searchicon" onClick={navClick}><i className="fa fa-search"></i></Link> */}
                   <SearchBar/>
+                 
                 </div>
 
                 {/* 드롭다운(토글) */}
@@ -129,6 +139,6 @@ function NavBar(){
           </header>
         </div>
       </div>
-    </div>)
+    )
 }
 export default NavBar;

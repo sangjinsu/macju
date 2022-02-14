@@ -8,13 +8,13 @@ import com.sib.macju.repository.post.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.HashMap;
-import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
@@ -26,37 +26,42 @@ public class Clearance {
     @Autowired
     private RestTemplateBuilder restTemplateBuilder;
 
-//    @Scheduled(cron = "0 0 7 * * *", zone = "Asia/Seoul")
     @Transactional
-    @Scheduled(cron = "0 11 17 * * *", zone = "Asia/Seoul")
+    @Scheduled(cron = "0 0 7 * * *", zone = "Asia/Seoul")
     public int deletePost() {
         return postRepository.deleteAllByIs_deletedIsTrue();
     }
 
-    //    @Scheduled(cron = "0 0 7 * * *", zone = "Asia/Seoul")
     @Transactional
-    @Scheduled(cron = "0 11 17 * * *", zone = "Asia/Seoul")
+    @Scheduled(cron = "0 0 7 * * *", zone = "Asia/Seoul")
     public int deleteUserHashTag() {
         return userHashTagRepository.deleteAllByIs_deletedIsTrue();
     }
 
-    //    @Scheduled(cron = "0 0 7 * * *", zone = "Asia/Seoul")
-    @Scheduled(cron = "0 54 16 * * *", zone = "Asia/Seoul")
+    @Scheduled(cron = "0 0 7 * * *", zone = "Asia/Seoul")
     public void deleteESPost() {
         String json = "{\"query\":{\"match\":{\"is_deleted\":true}}}";
         String url = "http://i6c107.p.ssafy.io:9201/post/_delete_by_query";
-        restTemplateBuilder.build().postForLocation(url,json);
 
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
+        HttpEntity<String> request = new HttpEntity<>(json, headers);
+
+        restTemplateBuilder.build().postForLocation(url, request);
     }
 
-    //    @Scheduled(cron = "0 0 7 * * *", zone = "Asia/Seoul")
-
-    @Scheduled(cron = "0 54 16 * * *", zone = "Asia/Seoul")
+    @Scheduled(cron = "0 0 7 * * *", zone = "Asia/Seoul")
     public void deleteESUserHashTag() {
         String json = "{\"query\":{\"match\":{\"is_deleted\":true}}}";
         String url = "http://i6c107.p.ssafy.io:9201/userhashtag/_delete_by_query";
-        restTemplateBuilder.build().postForLocation(url, json);
 
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<String> request = new HttpEntity<>(json, headers);
+
+        restTemplateBuilder.build().postForLocation(url, request);
     }
+
 }

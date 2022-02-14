@@ -60,7 +60,7 @@ function SearchBar(){
     <form className="input" onSubmit={SearchSubmit}>
       <button type="submit" className="searchicon"><i className="fa fa-search"></i></button>
       <div className="text" id="dropdown">
-        <input id="input" type="text" placeholder="검색..." onChange={setInput} autocomplete={"off"}/>
+        <input id="input" type="text" placeholder="검색..." onChange={setInput} autoComplete={"off"}/>
         
       </div>
       <div>

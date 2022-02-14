@@ -82,7 +82,7 @@ function BeerDetail() {
       setBeerlikeNum(beerdetail.likes)    // 좋아요수 처음에 가져오기
 
       // 로그 보내기
-      const hashTagArr = [beerdetail.beerType.main, ...beerdetail.aromaHashTags , ...beerdetail.flavorHashTags]
+      const hashTagArr = [beerdetail.beerType.en_main, ...beerdetail.aromaHashTags , ...beerdetail.flavorHashTags]
       // console.log(hashTagArr)
       const newdata = {
         id : 3,
@@ -95,6 +95,7 @@ function BeerDetail() {
         'Accept': "application/json; charset=UTF-8"
       }
       axios.post(BEER_DETAIL_LOG_URL, newdata, {headers})     // 주석풀면 로그에 post 보냄
+      .then()
     }
     fetchData();
   }, [BEER_DETAIL_POST_URL, BEER_DETAIL_URL, RATED_BEER_URL, BEER_LIKE_URL, beerid, starrate])

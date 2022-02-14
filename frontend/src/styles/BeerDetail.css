@@ -59,8 +59,9 @@
   z-index: 0;
 }
 .beerdetail_section .img-box img {
-  width: 100%;
-  max-width: 445px;
+  /* width: 100%; */
+  /* max-width: 445px; */
+  max-height: 350px;
   position: relative;
   z-index: 2;
 }

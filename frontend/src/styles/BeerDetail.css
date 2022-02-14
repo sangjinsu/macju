@@ -190,11 +190,11 @@
 
 /* 맥주 해시태그 */
 .beerdetail_section .hashtag {
-  font-size: 1.4em;
+  font-size: 1.3em;
   padding-left: 0.1rem;
   padding-right: 0.6rem;
   /* color: #FFC81E; */
-  color: #F9CF68
+  color: #bd8f1b
 
 }
 
@@ -223,3 +223,6 @@
   text-decoration: none;
 }
 
+.postlist_section .postlist_component {
+  padding-bottom: 80px;
+}

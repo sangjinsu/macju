@@ -104,13 +104,13 @@
   color: black;
   overflow: hidden;
   /* background: linear-gradient(to bottom, #fce6b2 25px, #222831 25px); */
-  background: linear-gradient(to bottom, #fce6b2 25px, #ffffff 25px);
+  background: linear-gradient(to bottom, #ffffff 25px);
 }
 
 
 /* 맥주 이미지 */
 .beerlist_section .beerlist_box .img-box {
-  background: #fce6b2  ;
+  background: #f9d068a1  ;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -120,8 +120,8 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  height: 215px;
-  border-radius: 0 0 0 45px;
+  height: 180px;
+  /* border-radius: 0 0 0 45px; */
   margin: -1px;
   padding: 25px;
 }

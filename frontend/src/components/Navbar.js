@@ -63,7 +63,7 @@ function NavBar(){
                 </div>
 
                 {/* 드롭다운(토글) */}
-                {/* <div className="dropdown">
+                <div className="dropdown">
                   <button className="btn btn-dark dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown" aria-expanded="false">
                   </button>
                   
@@ -88,7 +88,7 @@ function NavBar(){
                     </li>
                   </ul>
                   
-                </div> */}
+                </div>
 
 
 
@@ -97,11 +97,10 @@ function NavBar(){
 
                 
                 {/* 토글 버튼 */}
-                <button onClick={toggleClick} id='tglButton' className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                {/* <button onClick={toggleClick} id='tglButton' className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                   <span className=""> </span>
                 </button>
 
-                {/* expand 됬을때 나타남 */}
                 <div className="collapse navbar-collapse" id="navbarSupportedContent" >
                   <ul className="navbar-nav mx-auto" >
                     <li className="nav-item">
@@ -122,7 +121,7 @@ function NavBar(){
                       <Link className='nav-link nav_login' to='/user/login' style={{ color: 'black' }} onClick={navClick}>login</Link>
                     </div>
                   </div>
-                </div>
+                </div> */}
 
               </nav>
             </div>

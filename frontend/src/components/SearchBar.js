@@ -1,36 +1,64 @@
 import React, { useEffect, useState } from "react";
-
+import { useHistory } from 'react-router-dom';
 import { gsap } from "gsap/dist/gsap";
 import './SearchBar.css'
+import axios from "axios"
 
 function SearchBar(){
+  const SEARCH_URL = process.env.REACT_APP_SERVER + ':8082'
+
+  const history = useHistory();
+
   const [searchInput, setSearchInput] = useState();
   const setInput = (e) => {
     setSearchInput(e.target.value);
   }
   
-  const eraseInput = () => {
+  const eraseInput = (e) => {
+    e.preventDefault()
     setSearchInput("");
   }
+
+  const SearchSubmit = ((e)=> {
+    e.preventDefault()
+    console.log(searchInput)
+    history.replace({pathname:"/search", searchInput:searchInput})
+    // history.push(`/search?${searchInput}`)
+  })
+  // const fetchSearchResult = async () =>{
+  //   const beerKosearch = await axios.get(`${SEARCH_URL}/v1/search/name?query=${searchInput}&lang=ko`)
+  //   // const beerEnsearch = await axios.get(`${SEARCH_URL}/v1/search/name?query=${searchInput}&lang=en`)
+  //   // const aromasearch = await axios.get(`${SEARCH_URL}/v1/search/aroma?query=${searchInput}`)
+  //   // const flavorsearch = await axios.get(`${SEARCH_URL}/v1/search/flavor?query=${searchInput}`)
+  //   // const typesearch = await axios.get(`${SEARCH_URL}/v1/search/type?query=${searchInput}`)
+  //   // const usersearch = await axios.get(`${SEARCH_URL}/v1/search/user?query=${searchInput}`)
+  //   console.log(beerKosearch)
+  // }
+
+  // useEffect( () => {
+  //   if (searchInput) {fetchSearchResult()}
+  // }, [searchInput])  
 
   useEffect( () => {
     EraseEffect()
   }, [])
 
   return(
-    <div className="input">
+    <form className="input" onSubmit={SearchSubmit}>
+      <button type="submit" className="searchicon"><i className="fa fa-search"></i></button>
       <div className="text">
-           <input type="text" placeholder="Placeholder" onChange={ setInput } />
-       </div>
-       <button className="clear" onClick={ eraseInput } >
-           <svg viewBox="0 0 24 24">
-               <path className="line" d="M2 2L22 22" />
-               <path className="long" d="M9 15L20 4" />
-               <path className="arrow" d="M13 11V7" />
-              <path className="arrow" d="M17 11H13" />
+        <input type="text" placeholder="검색..." onChange={ setInput } />
+      </div>
+        <button className="clear" onClick={ eraseInput } >
+          <svg viewBox="0 0 24 24">
+            <path className="line" d="M2 2L22 22" />
+            <path className="long" d="M9 15L20 4" />
+            <path className="arrow" d="M13 11V7" />
+            <path className="arrow" d="M17 11H13" />
           </svg>
        </button>
-    </div>
+       
+    </form>
   )
 }
 

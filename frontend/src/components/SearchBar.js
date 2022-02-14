@@ -15,14 +15,14 @@ function SearchBar(){
   const location = useLocation();
   const history = useHistory();
   const [searchInput, setSearchInput] = useState('');
-  const [searchResult, setSearchResult] = useState([]);
 
+  const [searchAll , setSearchAll] = useState([])
   
   
   const setInput = async (e) => {
     setSearchInput(e.target.value);
-    const beerKosearch = await axios.get(`${SEARCH_URL}/v1/search/name?query=${e.target.value}`)
-    setSearchResult(beerKosearch.data)
+    
+
   }
   
   const eraseInput = (e) => {
@@ -32,23 +32,23 @@ function SearchBar(){
 
   const SearchSubmit = ((e)=> {
     e.preventDefault()
-    console.log(searchInput)
     history.replace({pathname:"/search", searchInput:searchInput})
     // history.push(`/search?${searchInput}`)
   })
-  // const fetchSearchResult = async () =>{
-  //   const beerKosearch = await axios.get(`${SEARCH_URL}/v1/search/name?query=${searchInput}&lang=ko`)
-  //   // const beerEnsearch = await axios.get(`${SEARCH_URL}/v1/search/name?query=${searchInput}&lang=en`)
-  //   // const aromasearch = await axios.get(`${SEARCH_URL}/v1/search/aroma?query=${searchInput}`)
-  //   // const flavorsearch = await axios.get(`${SEARCH_URL}/v1/search/flavor?query=${searchInput}`)
-  //   // const typesearch = await axios.get(`${SEARCH_URL}/v1/search/type?query=${searchInput}`)
-  //   // const usersearch = await axios.get(`${SEARCH_URL}/v1/search/user?query=${searchInput}`)
-  //   console.log(beerKosearch)
-  // }
+  const fetchSearchResult = async () =>{
+    const beerKosearch = await axios.get(`${SEARCH_URL}/v1/search/name?query=${searchInput}&lang=ko`)
+    const beerEnsearch = await axios.get(`${SEARCH_URL}/v1/search/name?query=${searchInput}&lang=en`)
+    const aromasearch = await axios.get(`${SEARCH_URL}/v1/search/aroma?query=${searchInput}`)
+    const flavorsearch = await axios.get(`${SEARCH_URL}/v1/search/flavor?query=${searchInput}`)
+    const typesearch = await axios.get(`${SEARCH_URL}/v1/search/type?query=${searchInput}`)
+    const usersearch = await axios.get(`${SEARCH_URL}/v1/search/user?query=${searchInput}`)
+    setSearchAll([beerKosearch, beerEnsearch, aromasearch, flavorsearch, typesearch,usersearch])
+    
+  }
 
-  // useEffect( () => {
-  //   if (searchInput) {fetchSearchResult()}
-  // }, [searchInput])  
+  useEffect( () => {
+    if (searchInput) {fetchSearchResult()}
+  }, [searchInput])  
 
   function EraseEffect() {
   
@@ -89,7 +89,7 @@ function SearchBar(){
       }, 250))
   
       clear.addEventListener('click', e => {
-        setSearchResult([])
+        setSearchAll([])
         classList.add('clearing')
         set(elem, {
           '--clear-swipe-left': (input.offsetWidth - 16) * -1 + 'px'
@@ -184,7 +184,7 @@ function SearchBar(){
 
   useEffect(()=>{
     setSearchInput('')
-    setSearchResult([])
+    setSearchAll([])
   }, [location])
   
 
@@ -194,7 +194,6 @@ function SearchBar(){
       <button type="submit" className="searchicon"><i className="fa fa-search"></i></button>
       <div className="text" id="dropdown">
         <input id="input" type="text" placeholder="검색..." onChange={setInput} autoComplete={"off"} value={searchInput}/>
-        
       </div>
       <div>
      
@@ -209,7 +208,7 @@ function SearchBar(){
        </button>
        
     </form>
-    <SearchResult data={searchResult}/>
+    <SearchResult data={searchAll}/>
     </>
   )
 }

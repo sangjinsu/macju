@@ -59,13 +59,14 @@ function NavBar(){
           </div>
           <header className="navbar_section">
             <div className="container">
-              <nav className="navbar navbar-expand-xs custom_nav-container ">
+              {/* <nav className="navbar navbar-expand-xs custom_nav-container "> */}
+              <nav className="navbar custom_nav-container ">
                 <div >
-                <a className="navbar-macju" href="/home">
-                  <span>
-                    MacJU
-                  </span>
-                </a>
+                  <a className="navbar-macju" href="/home">
+                    <span>
+                      MacJU
+                    </span>
+                  </a>
                 </div>
                 
                 <div className='searchbar' style={{flexDirection: 'column'}}>
@@ -76,7 +77,7 @@ function NavBar(){
 
                 {/* 드롭다운(토글) */}
                 <div className="dropdown">
-                  <button className="btn btn-dark dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown" aria-expanded="false">
+                  <button className="btn dropdown-toggle dropdownBtn" id="dropdownMenuButton1" data-toggle="dropdown" aria-expanded="false">
                   </button>
                   
                   <ul className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton1">

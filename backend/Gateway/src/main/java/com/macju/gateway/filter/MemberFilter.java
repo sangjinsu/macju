@@ -59,7 +59,7 @@ public class MemberFilter extends AbstractGatewayFilterFactory<MemberFilter.Conf
                                     "\"accessToken\" : \"" + token+ "\""+
                             "}";
                     logger.info(json);
-                    String status = httpPostBodyConnection("http://localhost:8752/oauth/signup",json);
+                    String status = httpPostBodyConnection("http://i6c107.p.ssafy.io:8752/oauth/signup",json);
                     if(!status.equals(HttpStatus.OK)){
                         response.setStatusCode(HttpStatus.BAD_REQUEST);
                     }

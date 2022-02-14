@@ -12,7 +12,8 @@ import Profile from "routes/User/Profile";
 import Home from "routes/Home";
 import PageNotFound from "components/PageNotFound";
 import ProfileEdit from "routes/User/ProfileEdit";
-import LoginAuth from "routes/LoginAuth";
+import LoginAuth from "routes/Auth/LoginAuth";
+import PageAuth from "./hoc/auth";
 import Search from "routes/Search"
 
 function App() {
@@ -24,29 +25,29 @@ function App() {
           <Route path="/home" component={Home} />
           <Route path="/post">
             <Switch>
-              <Route path="/post/new" component={PostCreate} />
-              <Route path="/post/:postId" component={PostDetail} />
-              <Route path="/post" component={PostList} />
+              <Route path="/post/new" component={PageAuth(PostCreate, true)} />
+              <Route path="/post/:postId" component={PageAuth(PostDetail, true)} />
+              <Route path="/post" component={PageAuth(PostList, true)} />
             </Switch>
           </Route>
           <Route path="/beer">
             <Switch>
-              <Route path="/beer/:beerid" component={BeerDetail} />
-              <Route path="/beer" component={BeerList} />
+              <Route path="/beer/:beerid" component={PageAuth(BeerDetail, true)} />
+              <Route path="/beer" component={PageAuth(BeerList, true)} />
             </Switch>
           </Route>
           <Route path="/user">
-            <Route path="/user/login" component={Login} />
-            <Route path="/user/signup" component={Signup} />
+            <Route path="/user/login" component={PageAuth(Login, false)} />
+            <Route path="/user/signup" component={PageAuth(Signup, false)} />
           </Route>
           <Route path="/profile">
             <Switch>
-              <Route path="/profile/:userid/edit" component={ProfileEdit} />
-              <Route path="/profile/:userid/" component={Profile} />
+              <Route path="/profile/:userid/edit" component={PageAuth(ProfileEdit, true)} />
+              <Route path="/profile/:userid/" component={PageAuth(Profile, true)} />
             </Switch>
           </Route>
-          <Route path="/oauth/login/resopnse" component={LoginAuth}/>
-          <Route path="/search" component={Search} />
+          <Route path="/oauth/login/resopnse" component={PageAuth(LoginAuth, true)}/>
+          <Route path="/search" component={PageAuth(Search, true)} />
           <Route path="*" component={PageNotFound} />
         </Switch>
         <Footer />

@@ -30,7 +30,7 @@ import java.net.URL;
 @Component
 public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> {
     private static final Logger logger = LogManager.getLogger(AuthFilter.class);
-    private static final String reqURL = "http://localhost:8752/oauth/access/check";
+    private static final String reqURL = "http://i6c107.p.ssafy.io:8752/oauth/access/check";
     public AuthFilter() {
         super(Config.class);
     }

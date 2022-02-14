@@ -6,11 +6,11 @@ spring:
     gateway:
       routes:
         - id: member-validate-service
-          uri: http://localhost:8080
+          uri: http://i6c107.p.ssafy.io:8080
           predicates:
             - Path=/v1/member/validatenickname/**
         - id: member-sign-service
-          uri: http://localhost:8080
+          uri: http://i6c107.p.ssafy.io:8080
           predicates:
             - Path=/v1/member/signup
           filters:
@@ -20,7 +20,7 @@ spring:
                 preLogger: true
                 postLogger: true
         - id: member-service
-          uri: http://localhost:8080
+          uri: http://i6c107.p.ssafy.io:8080
           predicates:
             - Path=/v1/member/{memberId},/v1/member/profile/{memberId},/v1/member/profile/color/{memberId},/v1/member/profile,/v1/member/{memberId}/like/beer,/v1/member/beer/{memberId}/like/{beerId},/v1/member/{memberId}/like/post,/v1/member/{memberId}/rates,/v1/member/post/{memberId}/like/{postId},/v1/member/{memberId}/follow/{followingMemberId},/v1/member/{memberId}/followings,/v1/member/{memberId}/followers
           filters:
@@ -30,7 +30,7 @@ spring:
                 preLogger: true
                 postLogger: true
         - id: beer-service
-          uri: http://localhost:8080
+          uri: http://i6c107.p.ssafy.io:8080
           predicates:
             - Path=/v1/beer/**
           filters:
@@ -40,7 +40,7 @@ spring:
                 preLogger: true
                 postLogger: true
         - id: post-service
-          uri: http://localhost:8080
+          uri: http://i6c107.p.ssafy.io:8080
           predicates:
             - Path=/v1/post/**
           filters:
@@ -50,7 +50,7 @@ spring:
                 preLogger: true
                 postLogger: true
         - id: recommend-service
-          uri: http://localhost:8000
+          uri: http://i6c107.p.ssafy.io:8000
           predicates:
             - Path=/v1/recommend/{memberId}
           filters:
@@ -59,4 +59,23 @@ spring:
                 baseMessage: Recommend Service
                 preLogger: true
                 postLogger: true
-
+        - id: search-service
+          uri: http://i6c107.p.ssafy.io:8082
+          predicates:
+            - Path=/v1/search/**
+          filters:
+            - name: AuthFilter
+              args:
+                baseMessage: Search Service
+                preLogger: true
+                postLogger: true
+        - id: ranking-service
+          uri: http://i6c107.p.ssafy.io:8081
+          predicates:
+            - Path=/beer/**,/post/**
+          filters:
+            - name: AuthFilter
+              args:
+                baseMessage: Ranking Service
+                preLogger: true
+                postLogger: true

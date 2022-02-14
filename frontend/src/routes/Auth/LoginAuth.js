@@ -1,9 +1,9 @@
 import axios from "axios";
-import { useRef } from "react";
-import { useCallback } from "react";
-import { useEffect } from "react";
+import { useRef, useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function LoginAuth() {
   const userData = useRef()
@@ -20,12 +20,11 @@ function LoginAuth() {
         history.replace({pathname:"/user/signup", userData:userData.current})
       } else {
         dispatch({type:"loginSucess", userData:userData.current})
-        console.log(userData.current)
         history.replace("/home")
       }
     }catch(err){
       console.log(err)
-      // history.replace("/user/login")
+      history.replace("/user/login")
     }
   }, [dispatch, history])
 
@@ -35,7 +34,9 @@ function LoginAuth() {
 
   return(
     <>
-      <p>Spining 띄울 거!</p>
+      <Box hidden id="spinner" sx={{ display: 'flex' }} style={{justifyContent:'center', marginTop:100, marginBottom:100}}>
+        <CircularProgress size={200}/>
+      </Box>
     </>
   )
 }

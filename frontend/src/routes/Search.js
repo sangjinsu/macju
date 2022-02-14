@@ -16,7 +16,7 @@ function Search(props){
   // 검색한 값
   const searchInput = props.location.searchInput
 
-  // 각 검색 결과
+  // 각 검색 결과d
   const [beerEndata, setBeerEndata] = useState([])
   const [beerKodata, setBeerKodata] = useState([])
   const [aromadata, setAromadata] = useState()

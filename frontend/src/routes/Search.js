@@ -25,25 +25,72 @@ function Search(props){
   const [userdata, setUserdata] = useState()
 
   // 전체 맥주 검색 결과 리스트
-  const [beerArr, setBeerArr] = useState([])
+  const [beerIdArr, setBeerIdArr] = useState([])
 
 
   // 검색 결과 GET 요청하기
   const fetchSearchResult = async () =>{
     const beerKosearch = await axios.get(`${SEARCH_URL}/v1/search/name?query=${searchInput}`)
-    // const beerEnsearch = await axios.get(`${SEARCH_URL}/v1/search/name?query=${searchInput}&lang=en`)
-    // const aromasearch = await axios.get(`${SEARCH_URL}/v1/search/aroma?query=${searchInput}`)
-    // const flavorsearch = await axios.get(`${SEARCH_URL}/v1/search/flavor?query=${searchInput}`)
-    // const typesearch = await axios.get(`${SEARCH_URL}/v1/search/type?query=${searchInput}`)
-    // const usersearch = await axios.get(`${SEARCH_URL}/v1/search/user?query=${searchInput}`)
-    setBeerKodata(beerKosearch)
-    // setBeerEndata(beerEnsearch)
-    // setAromadata(aromasearch)
-    // setFlavordata(flavorsearch)
-    // setTypedata(typesearch)
-    // setUserdata(usersearch)
+    const beerEnsearch = await axios.get(`${SEARCH_URL}/v1/search/name?query=${searchInput}&lang=en`)
+    const aromasearch = await axios.get(`${SEARCH_URL}/v1/search/aroma?query=${searchInput}`)
+    const flavorsearch = await axios.get(`${SEARCH_URL}/v1/search/flavor?query=${searchInput}`)
+    const typesearch = await axios.get(`${SEARCH_URL}/v1/search/type?query=${searchInput}`)
+    const usersearch = await axios.get(`${SEARCH_URL}/v1/search/user?query=${searchInput}`)
+    setBeerKodata(beerKosearch.data)
+    setBeerEndata(beerEnsearch.data)
+    setAromadata(aromasearch.data)
+    setFlavordata(flavorsearch.data)
+    setTypedata(typesearch.data)
+    setUserdata(usersearch.data)
 
-    console.log(beerKosearch)
+    // console.log(beerKosearch.data, beerEnsearch.data, aromasearch.data, flavorsearch.data, typesearch.data, usersearch.data)
+  
+    beerKosearch.data&&beerKosearch.data.map(beerKo => {
+      setBeerIdArr((id)=> [...id, beerKo.beer_id])
+    })
+    beerEnsearch.data&&beerEnsearch.data.map(beerEn => {
+      setBeerIdArr((id)=> [...id, beerEn.beer_id])
+    })
+    if (Object.keys(aromasearch.data).length !== 0) {
+      const aromaName = Object.keys(aromasearch.data)[0]  // 홉향
+      const aromaIdArr = aromasearch.data[aromaName].beers  // [2,18,...]
+      aromaIdArr.map(aromaid=>{
+        if (beerIdArr.indexOf(aromaid) === -1) {
+          setBeerIdArr((beerid) => [...beerid, aromaid])
+        }
+      })
+    }
+    if (Object.keys(flavorsearch.data).length !== 0) {
+      const flavorName = Object.keys(flavorsearch.data)[0]  // 단맛
+      const flavorIdArr = flavorsearch.data[flavorName].beers  // [2,18,...]
+      flavorIdArr.map(flavorid=>{
+        if (beerIdArr.indexOf(flavorid) === -1) {
+          setBeerIdArr((beerid) => [...beerid, flavorid])
+        }
+      })
+    }
+    typesearch.data.map((typedata)=>{
+      console.log(typedata)
+      if (Object.keys(typedata).length !== 0) {
+        const typeNameArr = Object.keys(typedata)  // 골든 에일
+        // console.log(typeNameArr)
+        typeNameArr.map(typename=>{
+          console.log(typename)
+        })
+        // const typeIdArr = typedata.data[typeName].beers  // [2,18,...]
+        // flavorIdArr.map(flavorid=>{
+        //   if (beerIdArr.indexOf(flavorid) === -1) {
+        //     setBeerIdArr((beerid) => [...beerid, flavorid])
+        //   }
+        // })
+      }
+    })
+    // typesearch.data&&typesearch.data.map(type => {
+    //   setBeerIdArr(beerIdArr.filter((id)=> id!== type.beer_id))
+    // })
+    // usersearch.data&&usersearch.data.map(user => {
+    //   setBeerIdArr(beerIdArr.filter((id)=> id!== user.beer_id))
+    // })
   }
 
   // 검색값 바뀔 때마다 검색 GET 요청 보내기
@@ -94,7 +141,7 @@ function Search(props){
   // }, [postdata])
 
   return(
-    <></>
+    <>{console.log(beerIdArr)}</>
     // <div className="search_section layout_padding_search">
     //   <div className="container">
     //     {/* 맥주 리스트 제목 */}

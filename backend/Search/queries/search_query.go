@@ -20,21 +20,10 @@ func encodeQuery(query map[string]interface{}) bytes.Buffer {
 
 func (sq *SearchQueries) BeerKoName(name string) bytes.Buffer {
 	query := map[string]interface{}{
-		"_source": []string{"post_id", "beer_id", "beer_name"},
+		"_source": []string{"beer_id", "beer_name"},
 		"query": map[string]interface{}{
-			"bool": map[string]interface{}{
-				"must": []map[string]interface{}{
-					{
-						"match": map[string]interface{}{
-							"is_deleted": false,
-						},
-					},
-					{
-						"match_phrase_prefix": map[string]interface{}{
-							"beer_name": name,
-						},
-					},
-				},
+			"match_phrase_prefix": map[string]interface{}{
+				"beer_name": name,
 			},
 		},
 	}
@@ -46,7 +35,22 @@ func (sq *SearchQueries) BeerKoName(name string) bytes.Buffer {
 
 func (sq *SearchQueries) BeerEnName(name string) bytes.Buffer {
 	query := map[string]interface{}{
-		"_source": []string{"post_id", "beer_id", "english_name"},
+		"_source": []string{"beer_id", "english_name"},
+		"query": map[string]interface{}{
+			"match_phrase_prefix": map[string]interface{}{
+				"english_name": name,
+			},
+		},
+	}
+
+	buf := encodeQuery(query)
+
+	return buf
+}
+
+func (sq *SearchQueries) PostByBeerId(beerId float64) bytes.Buffer {
+	query := map[string]interface{}{
+		"_source": []string{"post_id"},
 		"query": map[string]interface{}{
 			"bool": map[string]interface{}{
 				"must": []map[string]interface{}{
@@ -56,8 +60,8 @@ func (sq *SearchQueries) BeerEnName(name string) bytes.Buffer {
 						},
 					},
 					{
-						"match_phrase_prefix": map[string]interface{}{
-							"english_name": name,
+						"match": map[string]interface{}{
+							"beer_id": beerId,
 						},
 					},
 				},

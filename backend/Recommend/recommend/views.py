@@ -206,9 +206,7 @@ def recommend(request, memberId):
     fond_tags = create_fond_tags(member=member)
 
     df_log_value = create_df_log_value(memberId)
-
     df_like_tag = create_df_like_tag(beer_ids=beer_ids)
-
     df_evaluation_tag = create_df_evaluation_tag(
         df_like_tag, df_rate_tag, fond_tags)
 

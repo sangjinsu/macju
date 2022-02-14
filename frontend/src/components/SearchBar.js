@@ -18,6 +18,7 @@ function SearchBar(){
   const [searchResult, setSearchResult] = useState([]);
 
   
+  
   const setInput = async (e) => {
     setSearchInput(e.target.value);
     const beerKosearch = await axios.get(`${SEARCH_URL}/v1/search/name?query=${e.target.value}`)

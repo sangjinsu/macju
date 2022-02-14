@@ -89,17 +89,51 @@
   margin: 0px;
 }
 
+/* 전체 */
 .custom_nav-container {
   padding: 0;
 }
 
-.custom_nav-container .navbar-nav {
-  display: flex;
-  align-items: center;
-  
-
+.navbar .dropdown .dropdownBtn{
+  background-color: #F9CF68;
+  border-color: #fce7b3;
+  border-width: 2px;
+  border-radius: 10px;
+  color: white;
+  box-shadow: 0 0 0 0.01rem #fce7b3;
 }
 
+.dropdown.show .dropdownBtn:focus,
+.dropdownBtn:focus {
+  box-shadow: 0 0 0 0.10rem #fce7b3;
+}
+
+.custom_nav-container .dropdown-toggle::after {
+  top: 10px;
+}
+
+.custom_nav-container .dropdown-toggle[aria-expanded="true"] {
+  -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+}
+
+.custom_nav-container .dropdown-toggle[aria-expanded="true"]::before, 
+.custom_nav-container .dropdown-toggle[aria-expanded="true"]::after {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+  top: 0;
+}
+
+
+
+
+
+
+
+
+
+
+/* 여기서부터 다 토글 부분 */
 .custom_nav-container .navbar-nav .nav-item .nav-link {
   padding: 5px 20px;
   /* color: #ffffff; */
@@ -154,8 +188,6 @@
   color: rgb(172, 158, 113);
 }
 
-
-
 .user_option .order_online {
   display: inline-block;
   padding: auto;
@@ -167,7 +199,6 @@
   transition: all 0.3s;
   border: none;
 }
-
 
 .custom_nav-container .navbar-toggler {
   outline: none;

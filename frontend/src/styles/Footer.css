@@ -1,8 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap");
 
+.hr_bg {
+  margin: 0;
+}
+
 .footer_section {
-  background-color: #222831;
-  color: #ffffff;
+  background-color: #fffaea;
+  color: black;
   padding: 75px 0 40px 0;
   text-align: center;
 }
@@ -16,10 +20,6 @@
   font-weight: 600;
   margin-bottom: 20px;
   font-family: 'Dancing Script', cursive;
-}
-
-.footer_section p {
-  color: #dbdbdb;
 }
 
 .footer_section .footer-col {
@@ -38,7 +38,8 @@
 
 .footer_section .footer_contact .contact_link_box a {
   margin: 5px 0;
-  color: #ffffff;
+  color: black;
+  text-decoration: none;
 }
 
 .footer_section .footer_contact .contact_link_box a i {
@@ -54,7 +55,7 @@
   font-weight: bold;
   font-size: 38px;
   line-height: 1;
-  color: #ffffff;
+  /* color: #ffffff; */
 }
 
 .footer_section .footer_social {
@@ -98,7 +99,7 @@
 }
 
 .footer_section .footer-info p {
-  color: #ffffff;
+  color: black;
   margin: 0;
 }
 

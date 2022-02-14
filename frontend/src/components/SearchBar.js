@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, useLocation } from 'react-router-dom';
 
-import './SearchBar.css'
+import '../styles/SearchBar.css'
 import axios from "axios"
 import { useDispatch } from "react-redux";
 import { ListGroup } from "react-bootstrap";
@@ -32,6 +32,7 @@ function SearchBar(){
 
   const SearchSubmit = ((e)=> {
     e.preventDefault()
+    console.log('검색할 값 :', searchInput)
     history.replace({pathname:"/search", searchInput:searchInput})
     // history.push(`/search?${searchInput}`)
   })

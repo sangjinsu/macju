@@ -59,12 +59,13 @@ function NavBar(){
           <header className="navbar_section">
             <div className="container">
               <nav className="navbar navbar-expand-xs custom_nav-container ">
+                <div >
                 <a className="navbar-macju" href="/home">
                   <span>
                     MacJU
                   </span>
                 </a>
-
+                </div>
                 
                 <div className='searchbar' style={{flexDirection: 'column'}}>
                   {/* <Link to='/search' className="searchicon" onClick={navClick}><i className="fa fa-search"></i></Link> */}

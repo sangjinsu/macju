@@ -9,8 +9,8 @@ import "../../styles/ProfileEdit.css"
 
 const ProfileEdit = () => {
 
-  const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8080/v1/member/profile'
-  const USER_NICKNAME_CHECK = process.env.REACT_APP_SERVER +  ':8080/v1/member/validatenickname'
+  const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8888/v1/member/profile'
+  const USER_NICKNAME_CHECK = process.env.REACT_APP_SERVER +  ':8888/v1/member/validatenickname'
   const [editUserNickname, setEditUserNickname] = useState('')
   const [introduce, setIntroduce] =useState('')
   const [labelNickname, setLabelNickname] = useState('fail')

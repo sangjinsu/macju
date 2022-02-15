@@ -13,13 +13,13 @@ import Chip from '@mui/material/Chip'
 
 function BeerDetail() {
   //url
-  const BEER_DETAIL_URL = process.env.REACT_APP_SERVER + ':8080/v1/beer'
-  const BEER_DETAIL_POST_URL = process.env.REACT_APP_SERVER + ':8080/v1/post/beer'
-  const RATED_BEER_URL = process.env.REACT_APP_SERVER + ':8080/v1/member'
-  const BEER_DETAIL_LOG_URL = process.env.REACT_APP_SERVER + ':8080/v1/log'
-  const RANKING_BEER_URL = process.env.REACT_APP_SERVER + ':8081/beer/view'
-  const RANKING_BEER_LIKE_URL = process.env.REACT_APP_SERVER + ':8081/beer/like'
-  const BEER_LIKE_URL = process.env.REACT_APP_SERVER + ':8080/v1/member'
+  const BEER_DETAIL_URL = process.env.REACT_APP_SERVER + ':8888/v1/beer'
+  const BEER_DETAIL_POST_URL = process.env.REACT_APP_SERVER + ':8888/v1/post/beer'
+  const RATED_BEER_URL = process.env.REACT_APP_SERVER + ':8888/v1/member'
+  const BEER_DETAIL_LOG_URL = process.env.REACT_APP_SERVER + ':8888/v1/log'
+  const RANKING_BEER_URL = process.env.REACT_APP_SERVER + ':8888/beer/view'
+  const RANKING_BEER_LIKE_URL = process.env.REACT_APP_SERVER + ':8888/beer/like'
+  const BEER_LIKE_URL = process.env.REACT_APP_SERVER + ':8888/v1/member'
 
   //temp
   const memberId = 1    //test용 멤버아이디

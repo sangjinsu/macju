@@ -18,6 +18,7 @@ function Signup(props) {
   const [AvailableNick, setAvailable] = useState()
   const [submitBtn, deactivateSubmitBtn] = useState(true)
   
+  
   // nickname 변경
   const changeNickName = e => {
     nicknameChange(e.target.value);
@@ -51,6 +52,7 @@ function Signup(props) {
         // "gender" : gender
       }
       
+
       const headers = {
         headers: {
           "AccessToken":userData.AccessToken,
@@ -81,6 +83,7 @@ function Signup(props) {
 
   const validationNinkname = useCallback( async () => {
     try{
+      console.log(userData.AccessToken)
       const { data : nicknameStatus } = await axios.get(`${VALIDATE_NICKNAME_URL}/${nickname}`)
       
       if (nicknameStatus === "success") {

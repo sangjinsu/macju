@@ -21,7 +21,7 @@ const RecommendBeer = () => { // 변수명 수정필요
   };
 
   const getRecommend = async () => {
-    const RECOMMEND_BEER = process.env.REACT_APP_SERVER + ':8000/v1/recommend/3' // memberId 추후 수정
+    const RECOMMEND_BEER = process.env.REACT_APP_SERVER + ':8888/v1/recommend/3' // memberId 추후 수정
     const headers = {
       'Accept': "application/json; charset=UTF-8"
     }
@@ -50,7 +50,7 @@ const RecommendBeer = () => { // 변수명 수정필요
 
 
 function CustomSlide(props) {
-  const BEER_DETAIL_URL = process.env.REACT_APP_SERVER + ':8080/v1/beer'
+  const BEER_DETAIL_URL = process.env.REACT_APP_SERVER + ':8888/v1/beer'
   const [imgSrc, setImgSrc] = useState()
 
   const imgData = useCallback( async ()=>{

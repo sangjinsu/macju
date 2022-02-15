@@ -11,7 +11,7 @@ const Followings = (props) => {
   const { open, close, header } = props;
 
 
-  const FOLLOWINGS_URL = process.env.REACT_APP_SERVER + `:8080/v1/member/${1}/followings`
+  const FOLLOWINGS_URL = process.env.REACT_APP_SERVER + `:8888/v1/member/${1}/followings`
 
   const store = useStore((state) => state)
   const [followings, setFollowings] = useState();

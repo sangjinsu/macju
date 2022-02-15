@@ -5,7 +5,6 @@ import (
 	"Search/utils/loaddotenv"
 	"Search/utils/searchtag"
 	"bytes"
-	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"sync"
 )
@@ -124,7 +123,6 @@ func SearchBeerType(c *fiber.Ctx) error {
 
 	var responses []map[string]*typeResponse
 	for response := range responseChan {
-		fmt.Println(response)
 		responses = append(responses, response)
 	}
 

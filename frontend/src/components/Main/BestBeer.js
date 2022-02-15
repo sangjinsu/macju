@@ -3,10 +3,12 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axios from "axios";
+import axiosInstance from "CustomAxios";
 
 
 const BestBeer = () => {
   const [rankingBeerList, setRanking] = useState()
+  
 
   const settings = {
     dots: true,
@@ -22,11 +24,9 @@ const BestBeer = () => {
   };
 
   const PopBeer = async () => {
-    const RANKING_POPBEER = process.env.REACT_APP_SERVER + ':8081/beer/popbeer'
-    const headers = {
-      'Accept': "application/json; charset=UTF-8"
-    }
-    const { data : rankingBeer } = await axios.get(RANKING_POPBEER, headers)
+    const RANKING_POPBEER = process.env.REACT_APP_SERVER + ':8888/beer/popbeer'
+
+    const { data : rankingBeer } = await axiosInstance.get(RANKING_POPBEER)
     const rankingBeerId = rankingBeer.map( (beer) => beer.beerId )
     setRanking(rankingBeerId)
   }

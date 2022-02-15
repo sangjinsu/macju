@@ -44,11 +44,6 @@ public class Member {
     @Column(nullable = false)
     private int age;
 
-    @Setter
-    @Enumerated(EnumType.STRING)
-    @Column(name = "profile_color")
-    private ProfileColor profileColor = ProfileColor.White;
-
     @ColumnDefault("1")
     private int grade;
 
@@ -60,4 +55,10 @@ public class Member {
 
     @OneToMany(mappedBy = "member")
     private List<Post> posts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", orphanRemoval = true)
+    private List<MemberFondAromaHashTag> memberFondAromaHashTags = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", orphanRemoval = true)
+    private List<MemberFondFlavorHashTag> memberFondFlavorHashTags = new ArrayList<>();
 }

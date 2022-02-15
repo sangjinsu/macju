@@ -1,6 +1,5 @@
 package com.sib.macju.dto.member;
 
-import com.sib.macju.domain.member.ProfileColor;
 import com.sib.macju.domain.member.Status;
 import lombok.*;
 
@@ -26,8 +25,5 @@ public class MemberDto {
 
     private int grade;
 
-    private ProfileColor profileColor;
-
     private Status status;
-
 }

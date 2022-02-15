@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("v1/post")
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://host.docker.internal:8080/**", allowedHeaders = "*")
 public class CommentController {
 
     @NonNull

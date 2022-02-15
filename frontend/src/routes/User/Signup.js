@@ -3,9 +3,10 @@ import React, { useEffect, useState, useCallback } from 'react'
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import '../../styles/Signup.css'
+import axiosInstance from 'CustomAxios'
 
 function Signup(props) {
-  const VALIDATE_NICKNAME_URL = process.env.REACT_APP_SERVER + ':8080/v1/member/validatenickname'
+  const VALIDATE_NICKNAME_URL = process.env.REACT_APP_SERVER + ':8888/v1/member/validatenickname'
   const USER_SIGNUP_URL = process.env.REACT_APP_SERVER + ":8888/v1/member/signup"
   const userData = props.location.userData
   
@@ -58,7 +59,7 @@ function Signup(props) {
         }
       }
       console.log(headers)
-      const {data : singupResponse} = await axios.post(USER_SIGNUP_URL, singupData, headers)
+      const {data : singupResponse} = await axiosInstance.post(USER_SIGNUP_URL, singupData, headers)
       console.log('ttt')
       userData.memberId = singupResponse.memberId
       dispatch({type:"loginSucess", userData:userData})
@@ -80,7 +81,7 @@ function Signup(props) {
 
   const validationNinkname = useCallback( async () => {
     try{
-      const { data : nicknameStatus } = await axios.get(`${VALIDATE_NICKNAME_URL}/${nickname}`)
+      const { data : nicknameStatus } = await axiosInstance.get(`${VALIDATE_NICKNAME_URL}/${nickname}`)
       
       if (nicknameStatus === "success") {
         setAvailable(true)

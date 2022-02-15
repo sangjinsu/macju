@@ -28,22 +28,26 @@ function App() {
               <Route path="/post/new" component={PageAuth(PostCreate, true)} />
               <Route path="/post/:postId" component={PageAuth(PostDetail, true)} />
               <Route path="/post" component={PageAuth(PostList, true)} />
+              <Route path="*" component={PageNotFound} />
             </Switch>
           </Route>
           <Route path="/beer">
             <Switch>
               <Route path="/beer/:beerid" component={PageAuth(BeerDetail, true)} />
               <Route path="/beer" component={PageAuth(BeerList, true)} />
+              <Route path="*" component={PageNotFound} />
             </Switch>
           </Route>
           <Route path="/user">
             <Route path="/user/login" component={PageAuth(Login, false)} />
             <Route path="/user/signup" component={PageAuth(Signup, false)} />
+            <Route path="*" component={PageNotFound} />
           </Route>
           <Route path="/profile">
             <Switch>
               <Route path="/profile/:userid/edit" component={PageAuth(ProfileEdit, true)} />
               <Route path="/profile/:userid/" component={PageAuth(Profile, true)} />
+              <Route path="*" component={PageNotFound} />
             </Switch>
           </Route>
           <Route path="/oauth/login/resopnse" component={PageAuth(LoginAuth, true)}/>

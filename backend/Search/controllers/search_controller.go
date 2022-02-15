@@ -169,12 +169,17 @@ func searchBeer(responseChan chan map[string]*typeResponse, tag string, queryTyp
 }
 
 func SearchUserHashTag(c *fiber.Ctx) error {
+
+	responses := map[string]*userHashTagResponse{}
+
+	if ok := searchTag.ExistsIndex("userhashtag"); !ok {
+		return c.JSON(responses)
+	}
+
 	tag := c.Query("query")
 
 	r := searchTag.Query(searchQueries.UserHashTag(tag), "userhashtag")
 	hits := r["hits"].(map[string]interface{})["hits"].([]interface{})
-
-	responses := map[string]*userHashTagResponse{}
 
 	for _, hit := range hits {
 		source := hit.(map[string]interface{})["_source"].(map[string]interface{})

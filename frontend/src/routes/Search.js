@@ -1,62 +1,62 @@
 import { getDownloadURL, getStorage , ref } from "firebase/storage";
+import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom"
 import axios from "axios"
 import "../styles/Search.css"
 
 function Search(props){
-  // const BEER_LIST_URL = process.env.REACT_APP_SERVER + ':8080/v1/beer'
-  // const POST_LIST_URL = process.env.REACT_APP_SERVER + ':8080/v1/post/new'
-  // const [beerdata, setBeerdata] = useState([])
-  // const [postdata, setPostdata] = useState([])
 
-  const SEARCH_URL = process.env.REACT_APP_SERVER + ':8082'
-  const BEER_URL = process.env.REACT_APP_SERVER + ':8080/v1/beer'
+  // 검색한 결과 - 클릭했을때 state로 값 가져옴
+  const location = useLocation();
+  const searchresult = location.state
+  // console.log(searchresult)
 
-  // 검색한 값
-  const searchInput = props.location.searchInput
+
 
   // 각 검색 결과
-  // const [beerEndata, setBeerEndata] = useState([])
-  // const [beerKodata, setBeerKodata] = useState([])
-  // const [aromadata, setAromadata] = useState()
-  // const [flavordata, setFlavordata] = useState()
-  // const [typedata, setTypedata] = useState()
-  // const [userdata, setUserdata] = useState()
+  const [beerEndata, setBeerEndata] = useState([])
+  const [beerKodata, setBeerKodata] = useState([])
+  const [aromadata, setAromadata] = useState()
+  const [flavordata, setFlavordata] = useState()
+  const [typedata_all, setTypedata] = useState()
+  const [userdata, setUserdata] = useState()
+
+
+  // 검색한 값 - 엔터했을때 props로 값 가져옴
+  const searchInput = props.location.searchInput
+  const searchAll = props.location.searchAll
+  useEffect(()=>{
+    if (searchAll) {
+      setBeerKodata(searchAll[0].data)
+      setBeerEndata(searchAll[1].data)
+      setAromadata(searchAll[2].data)
+      setFlavordata(searchAll[3].data)
+      setTypedata(searchAll[4].data)
+      setUserdata(searchAll[5].data)
+    }
+  },[searchAll])
+  
 
   // 전체 맥주 검색 결과 리스트
-  const [beerIdArr_name, setBeerIdArr_name] = useState([])
-  const [beerIdArr_others, setBeerIdArr_others] = useState([])
- const [postdata] = useState([])
+  const [beerIdArr_name, setBeerIdArr_name] = useState([])    // 맥주이름 결과
+  const [beerIdArr_others, setBeerIdArr_others] = useState([])  // 나머지
+  const [postdata] = useState([])
 
-  // 검색 결과 GET 요청하기
+  // 검색 결과 
   const fetchSearchResult = async () =>{
-    const beerKosearch = await axios.get(`${SEARCH_URL}/v1/search/name?query=${searchInput}`)
-    const beerEnsearch = await axios.get(`${SEARCH_URL}/v1/search/name?query=${searchInput}&lang=en`)
-    const aromasearch = await axios.get(`${SEARCH_URL}/v1/search/aroma?query=${searchInput}`)
-    const flavorsearch = await axios.get(`${SEARCH_URL}/v1/search/flavor?query=${searchInput}`)
-    const typesearch = await axios.get(`${SEARCH_URL}/v1/search/type?query=${searchInput}`)
-    const usersearch = await axios.get(`${SEARCH_URL}/v1/search/user?query=${searchInput}`)
-    // setBeerKodata(beerKosearch.data)
-    // setBeerEndata(beerEnsearch.data)
-    // setAromadata(aromasearch.data)
-    // setFlavordata(flavorsearch.data)
-    // setTypedata(typesearch.data)
-    // setUserdata(usersearch.data)
-
-    // console.log(beerKosearch.data, beerEnsearch.data, aromasearch.data, flavorsearch.data, typesearch.data, usersearch.data)
     // 맥주이름 검색
-    beerKosearch.data&&beerKosearch.data.map(beerKo => {
-      {console.log(beerKo.beer_id)}
+    beerKodata&&beerKodata.map(beerKo => {
       setBeerIdArr_name((id)=> [...id, beerKo.beer_id])
     })
-    beerEnsearch.data&&beerEnsearch.data.map(beerEn => {
+    beerEndata&&beerEndata.map(beerEn => {
       setBeerIdArr_name((id)=> [...id, beerEn.beer_id])
     })
     // 맥주 향 검색
-    if (Object.keys(aromasearch.data).length !== 0) {
-      const aromaName = Object.keys(aromasearch.data)[0]  // 홉향
-      const aromaIdArr = aromasearch.data[aromaName].beers  // [2,18,...]
+    console.log(aromadata)
+    if (Object.keys(aromadata).length !== 0) {
+      const aromaName = Object.keys(aromadata)[0]  // 홉향
+      const aromaIdArr = aromadata[aromaName].beers  // [2,18,...]
       aromaIdArr.map(aromaid=>{
         if (beerIdArr_others.indexOf(aromaid) === -1) {
           setBeerIdArr_others((beerid) => [...beerid, aromaid])
@@ -64,9 +64,9 @@ function Search(props){
       })
     }
     // 맥주 맛 검색
-    if (Object.keys(flavorsearch.data).length !== 0) {
-      const flavorName = Object.keys(flavorsearch.data)[0]  // 단맛
-      const flavorIdArr = flavorsearch.data[flavorName].beers  // [2,18,...]
+    if (Object.keys(flavordata).length !== 0) {
+      const flavorName = Object.keys(flavordata)[0]  // 단맛
+      const flavorIdArr = flavordata[flavorName].beers  // [2,18,...]
       flavorIdArr.map(flavorid=>{
         if (beerIdArr_others.indexOf(flavorid) === -1) {
           setBeerIdArr_others((beerid) => [...beerid, flavorid])
@@ -74,7 +74,7 @@ function Search(props){
       })
     }
     // 맥주 종류 검색
-    typesearch.data.map((typedata)=>{
+    typedata_all.map((typedata)=>{
       if (Object.keys(typedata).length !== 0) {
         const typeNameArr = Object.keys(typedata)  // 골든 에일
         typeNameArr.map(typename=>{
@@ -88,10 +88,10 @@ function Search(props){
       }
     })
     // 유저해시태그 검색 - 데이터 생기면 테스트,보완 필요함
-    if (Object.keys(usersearch.data).length !== 0) {
-      const userNameArr = Object.keys(usersearch.data)       // #asdf
+    if (Object.keys(userdata).length !== 0) {
+      const userNameArr = Object.keys(userdata)       // #asdf
       userNameArr.map(userName=>{
-        const userIdArr = usersearch.data[userName].beers   // [2,18,...]
+        const userIdArr = userdata[userName].beers   // [2,18,...]
         userIdArr.map(userid=>{
           if (beerIdArr_others.indexOf(userid) === -1) {
             setBeerIdArr_others((beerid) => [...beerid, userid])
@@ -104,21 +104,21 @@ function Search(props){
   // 검색값 바뀔 때마다 검색 GET 요청 보내기
   useEffect( () => {
     if (searchInput) {fetchSearchResult()}
-  }, [searchInput])  
+  }, [searchAll])  
   
 
   const [beerArr, setBeerArr] = useState([])
   // 검색 결과 => 맥주 아이디로 맥주 정보 불러오기
   useEffect( () => {
     console.log('맥주이름 결과', beerIdArr_name)
-    const tmpArr = [...beerArr]
-    beerIdArr_name.map(async(beerid, i)=>{
-      if (beerArr.indexOf(beerid) === -1) {
-        const eachbeerdata = await axios.get(`${BEER_URL}/${beerid}`)
-        tmpArr.push(eachbeerdata.data)
-      }
-    })
-    setBeerArr(tmpArr)
+    // const tmpArr = [...beerArr]
+    // beerIdArr_name.map(async(beerid, i)=>{
+    //   if (beerArr.indexOf(beerid) === -1) {
+    //     const eachbeerdata = await axios.get(`${BEER_URL}/${beerid}`)
+    //     tmpArr.push(eachbeerdata.data)
+    //   }
+    // })
+    // setBeerArr(tmpArr)
     // console.log(tmpArr)
     // console.log(beerArr)
   },[searchInput, beerIdArr_name])
@@ -134,7 +134,7 @@ function Search(props){
     // setBeerArr(tmpArr)
   },[searchInput, beerIdArr_others])
 
-console.log(beerArr)
+// console.log(beerArr)
 
 
 
@@ -171,13 +171,14 @@ console.log(beerArr)
         {/* 맥주 리스트 제목 */}
         <div className="heading_container heading_center">
           <h2>Result</h2>
+
         </div>
         <h2 className="beer_title">Beer</h2>
         <div className="search_beer row">
           { beerArr && beerArr.map((beer, i)=>{
             return (
               <div className='col-sm-6 col-md-4 col-lg-3 fadein all' key={beer.beerId}>
-                {console.log(beer)}
+                {/* {console.log(beer)} */}
                 <Link to={`/beer/${beer.beerId}`} style={{ textDecoration: 'none', color: 'white' }} className='detailBtn'>
                   <div className="beerlist_box">
                     <div>

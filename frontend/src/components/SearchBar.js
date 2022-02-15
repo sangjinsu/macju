@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, useLocation } from 'react-router-dom';
-
 import '../styles/SearchBar.css'
 import axios from "axios"
-import { useDispatch } from "react-redux";
-import { ListGroup } from "react-bootstrap";
+// import { useDispatch } from "react-redux";
+// import { ListGroup } from "react-bootstrap";
 import {Delay, GetPoint, GetPath} from './searchBarFunc'
 import { gsap } from "gsap/dist/gsap";
 import SearchResult from "./SearchResult";
@@ -14,15 +13,12 @@ function SearchBar(){
   const SEARCH_URL = process.env.REACT_APP_SERVER + ':8082'
   const location = useLocation();
   const history = useHistory();
-  const [searchInput, setSearchInput] = useState('');
-  const [searchAll , setSearchAll] = useState([])
-  
+  const [searchInput, setSearchInput] = useState('');   // 검색할 단어
+  const [searchAll , setSearchAll] = useState([])   // 모든 검색 결과
   
   
   const setInput = async (e) => {
     setSearchInput(e.target.value);
-    
-
   }
   
   const eraseInput = (e) => {
@@ -30,12 +26,16 @@ function SearchBar(){
     setSearchInput("");
   }
 
+  // enter or click 했을때
   const SearchSubmit = ((e)=> {
     e.preventDefault()
     console.log('검색할 값 :', searchInput)
-    history.replace({pathname:"/search", searchInput:searchInput})
+    history.replace({pathname:`/search/${searchInput}`, searchInput:searchInput, searchAll:searchAll})
     // history.push(`/search?${searchInput}`)
   })
+
+  
+  // 검색결과 get 요청
   const fetchSearchResult = async () =>{
     const beerKosearch = await axios.get(`${SEARCH_URL}/v1/search/name?query=${searchInput}&lang=ko`)
     const beerEnsearch = await axios.get(`${SEARCH_URL}/v1/search/name?query=${searchInput}&lang=en`)
@@ -175,8 +175,6 @@ function SearchBar(){
     })
   }
 
-
-
   useEffect( () => {
     EraseEffect()
   }, [])
@@ -190,14 +188,15 @@ function SearchBar(){
 
   return(
     <>
-    <form className="input" onSubmit={SearchSubmit}>
-      <button type="submit" className="searchicon"><i className="fa fa-search"></i></button>
-      <div className="text" id="dropdown">
-        <input id="input" type="text" placeholder="검색..." onChange={setInput} autoComplete={"off"} value={searchInput}/>
-      </div>
-      <div>
-     
-      </div>
+      <form className="input" onSubmit={SearchSubmit}>
+
+        {/* 검색창 */}
+        <button type="submit" className="searchicon"><i className="fa fa-search"></i></button>
+        <div className="text" id="dropdown">
+          <input id="input" type="text" placeholder="검색..." onChange={setInput} autoComplete={"off"} value={searchInput}/>
+        </div>
+        
+        {/* 지우기 버튼 */}
         <button className="clear" onClick={ eraseInput } >
           <svg viewBox="0 0 24 24">
             <path className="line" d="M2 2L22 22" />
@@ -205,10 +204,12 @@ function SearchBar(){
             <path className="arrow" d="M13 11V7" />
             <path className="arrow" d="M17 11H13" />
           </svg>
-       </button>
-       
-    </form>
-    <SearchResult data={searchAll}/>
+        </button>
+        
+      </form>
+
+      <SearchResult data={searchAll}/>
+
     </>
   )
 }

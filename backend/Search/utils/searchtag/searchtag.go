@@ -10,6 +10,7 @@ import (
 
 type SearchTag interface {
 	Query(buf bytes.Buffer, index string) map[string]interface{}
+	ExistsIndex(index string) bool
 }
 
 type searchTag struct {
@@ -52,6 +53,32 @@ func (st *searchTag) Query(buf bytes.Buffer, index string) map[string]interface{
 	}
 
 	return r
+}
+
+func (st *searchTag) ExistsIndex(index string) bool {
+	indices := st.es.Cat.Indices
+	response, _ := indices(
+		indices.WithV(true),
+		indices.WithS("index"),
+		indices.WithFormat("json"),
+	)
+	var results []map[string]interface{}
+	err := json.NewDecoder(response.Body).Decode(&results)
+	if err != nil {
+		log.Fatalf("request indeces is failed")
+	}
+
+	searchESIndices := make([]string, len(results))
+	for i, result := range results {
+		searchESIndices[i] = result["index"].(string)
+	}
+
+	for _, searchESIndex := range searchESIndices {
+		if searchESIndex == index {
+			return true
+		}
+	}
+	return false
 }
 
 type SearchTagBuilder interface {

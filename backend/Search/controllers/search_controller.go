@@ -39,6 +39,7 @@ type typeResponse struct {
 }
 
 func SearchBeerName(c *fiber.Ctx) error {
+
 	lang := c.Query("lang")
 
 	switch lang {
@@ -95,6 +96,11 @@ func SearchEnBeerName(c *fiber.Ctx) error {
 
 func createBeerNameResponse(beerId float64, beerName string, r map[string]interface{}) *beerNameResponse {
 	response := &beerNameResponse{BeerID: beerId, BeerName: beerName, Posts: []float64{}}
+
+	if ok := searchTag.ExistsIndex("post"); !ok {
+		return response
+	}
+
 	r = searchTag.Query(searchQueries.PostByBeerId(beerId), "post")
 	beerNameHits := r["hits"].(map[string]interface{})["hits"].([]interface{})
 	for _, beerNameHit := range beerNameHits {

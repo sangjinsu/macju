@@ -26,9 +26,9 @@ function App() {
           <Route exact path="/home" component={PageAuth(Home, true)} />
           <Route path="/post">
             <Switch>
-              <Route exact path="/post/new" component={PageAuth(PostCreate, true)} />
-              <Route exact path="/post/:postId" component={PageAuth(PostDetail, true)} />
-              <Route exact path="/post" component={PageAuth(PostList, true)} />
+              <Route exact path="/post/new" component={PostCreate} />
+              <Route exact path="/post/:postId" component={PostDetail} />
+              <Route exact path="/post" component={PostList} />
               <Route path="*" component={PageNotFound} />
             </Switch>
           </Route>
@@ -41,8 +41,8 @@ function App() {
           </Route>
           <Route path="/user">
             <Switch>
-              <Route exact path="/user/login" component={PageAuth(Login, false)} />
-              <Route exact path="/user/signup" component={PageAuth(Signup, false)} />
+              <Route exact path="/user/login" component={Login} />
+              <Route exact path="/user/signup" component={Signup} />
               <Route path="*" component={PageNotFound} />
             </Switch>
           </Route>

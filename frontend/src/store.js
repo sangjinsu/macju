@@ -1,5 +1,9 @@
 import { combineReducers, createStore } from "redux"
 
+import storage from 'redux-persist/lib/storage';
+import { persistStore, persistReducer } from 'redux-persist'
+
+
 
 
 const profileReducer = (state = [], action) => {
@@ -170,9 +174,7 @@ const navbarReducer = (state=false, action) => {
   }
 }
 
-
-
-const store = createStore( combineReducers
+const rootReducer = combineReducers
   ( {
     userReducer,
      postDetailReducer,
@@ -189,8 +191,14 @@ const store = createStore( combineReducers
      followingsReducer,
      profileReducer,
   
-  } ))
+  } )
 
 
+const persistConfig = {
+  key: 'root',
+  storage,
+}
 
-export default store;
+const persistedReducer = persistReducer(persistConfig, rootReducer)
+
+export default persistedReducer

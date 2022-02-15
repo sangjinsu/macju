@@ -15,14 +15,11 @@ const Profile = () => {
   const USER_REVIEW_URL = process.env.REACT_APP_SERVER + ':8080/v1/member'
 
   const dispatch = useDispatch();
-  const memberId = 3
   const store = useStore((state)=>state)
+  const memberId = store.getState().userReducer.memberId
 
 
-  useEffect(()=>{
-    console.log(store.getState().userReducer)
-    console.log('gg')
-  }, [])
+
 
 
   useEffect(()=>{

@@ -57,15 +57,17 @@ function Signup(props) {
           "Content-Type":"application/json;charset=UTF-8"
         }
       }
- 
+      console.log(headers)
       const {data : singupResponse} = await axios.post(USER_SIGNUP_URL, singupData, headers)
+      console.log('ttt')
       userData.memberId = singupResponse.memberId
       dispatch({type:"loginSucess", userData:userData})
       history.push("/home")
-    }catch{
+    }catch(err){
       // 회원가입 실패시 알람 + 로그인 페이지 다시 이동
+      console.log(err)
       alert("회원가입 실패")
-      history.replace("/user/login")
+      // history.replace("/user/login")
     }
   }, [age, userData, nickname, USER_SIGNUP_URL, dispatch, history])
 
@@ -149,7 +151,7 @@ function Signup(props) {
                   {/* 성별 입력 */}
                   <div>
                     <select className="form-control nice-select wide" name="choice" onChange={selectValue}>
-                      <option value="" disabled selected>
+                      <option value="" disabled value>
                         성별
                       </option>
                       <option value="man">

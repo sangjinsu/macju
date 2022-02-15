@@ -15,15 +15,15 @@ const UserProfile = () => {
 	const userid = userNum.userid
 	
 	
-	const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8080/v1/member/profile'
-	const USER_POST = process.env.REACT_APP_SERVER + `:8000/v1/post/member/${userid}`
-  const USER_PROFILE_URL = process.env.REACT_APP_SERVER + `:8080/v1/member/profile/${userid}`
+	const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8888/v1/member/profile'
+	const USER_POST = process.env.REACT_APP_SERVER + `:8888/v1/post/member/${userid}`
+  const USER_PROFILE_URL = process.env.REACT_APP_SERVER + `:8888/v1/member/profile/${userid}`
 	// 현재 member가 user를 팔로우하는 요청
-	const FOLLOW_POST_URL = process.env.REACT_APP_SERVER + `:8080/v1/member/${store.getState().userReducer.memberId}/follow/${userid}`
+	const FOLLOW_POST_URL = process.env.REACT_APP_SERVER + `:8888/v1/member/${store.getState().userReducer.memberId}/follow/${userid}`
 	//member == 1번이 팔로우한 사람들
-	const FOLLOW_GET_URL = process.env.REACT_APP_SERVER + `:8080/v1/member/${store.getState().userReducer.memberId}/followers`
+	const FOLLOW_GET_URL = process.env.REACT_APP_SERVER + `:8888/v1/member/${store.getState().userReducer.memberId}/followers`
 	//member === 1번이 팔로잉하는 사람들
-	const FOLLOWING_GET_URL = process.env.REACT_APP_SERVER + `:8080/v1/member/${store.getState().userReducer.memberId}/followings`
+	const FOLLOWING_GET_URL = process.env.REACT_APP_SERVER + `:8888/v1/member/${store.getState().userReducer.memberId}/followings`
 
 
 
@@ -55,19 +55,6 @@ const UserProfile = () => {
 		}
 		fetchData();
 	}, [])
-
-
-
-
-
-	// useEffect(()=>{
-	// 	const fetchData = async () =>{
-	// 		const res = await axios.get(USER_POST)
-	// 		console.log(res.data)
-	// 	}
-	// 	fetchData()
-	// }, [])
-
 
 	useEffect(()=>{
 		const fetchData = async () =>{
@@ -125,26 +112,6 @@ const UserProfile = () => {
   const followingsCloseModal = () => {
     setFollowingsModalOpen(false);
   };
-
-	// const iconClick = () =>{
-	// 	if (usercolor && usercolor === 'White') {
-	// 		setUsercolor('blue')
-	// 	} else if (usercolor && usercolor === 'blue'){
-	// 		setUsercolor('yellow')
-	// 	} else if (usercolor && usercolor === 'yellow'){
-	// 		setUsercolor('green')
-	// 	} else if (usercolor && usercolor === 'green'){
-	// 		setUsercolor('White')
-	// 	}
-	// 	const userData = store.getState().userReducer
-	// 	userData['profileColor'] = usercolor;
-	// 	axios.put(USER_UPDATE_PROFILE, userData, {headers})
-  //     .then((res)=>{
-  //       // history.push(`/profile/${1}/profile`)
-	// 			console.log(res)
-  //       // window.location.replace(`/profile/${1}/profile`)
-  //     })
-  //   } 
 	
 
   return (
@@ -152,10 +119,10 @@ const UserProfile = () => {
 			{user && 
 				<div className="user-profile ">
 					<div className="img-box">
-						{/* user.profileColor 색깔로 배경 지정 (기본흰색) */}
+
 						<div className="profile-image-box">
 							<UserIcon className="usericon" role={'button'} grade={user.grade} />	
-							{/* <IoIosBeer className="usericon" role={'button'} onClick={iconClick}></IoIosBeer> */}
+
 							
 						</div>
 					</div>

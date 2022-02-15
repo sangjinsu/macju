@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { useHistory } from 'react-router-dom';
-import {useStore} from "react-redux"
+import {useSelector, useStore} from "react-redux"
 import { deleteObject, getStorage, ref, uploadBytes } from "firebase/storage";
 import "../../firebase_config"
 import imageCompression from 'browser-image-compression';
@@ -13,9 +13,11 @@ import Slider from "react-slick";
 import axiosInstance from "CustomAxios";
 
 function PostCreate(props) {
-  const POST_CREATE_URL = process.env.REACT_APP_SERVER + ':8080/v1/post'
-  const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8080/v1/member/profile'
-  const memberid = 62  //test용 멤버아이디
+  const POST_CREATE_URL = process.env.REACT_APP_SERVER + ':8888/v1/post'
+  const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8888/v1/member/profile'
+
+  const userData = useSelector(state => state.userReducer)
+  const memberid = userData.memberId
   const beerid = props.location.state.beerid    // 작성하고있는 포스트의 맥주아이디
 
   const storage = getStorage(); //firebase

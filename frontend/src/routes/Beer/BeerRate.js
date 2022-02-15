@@ -8,8 +8,8 @@ import axiosInstance from "CustomAxios";
 
 function BeerRate(props){
   //url
-  const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8080/v1/member/profile'
-  const BEER_RATE_URL = process.env.REACT_APP_SERVER + ':8080/v1/beer'
+  const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8888/v1/member/profile'
+  const BEER_RATE_URL = process.env.REACT_APP_SERVER + ':8888/v1/beer'
 
 
   //useState

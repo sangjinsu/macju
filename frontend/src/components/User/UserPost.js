@@ -11,7 +11,7 @@ import "../../styles/UserPost.css"
 import axiosInstance from "CustomAxios";
 
 const UserPost = () => {
-  const USER_POST_URL = process.env.REACT_APP_SERVER + ':8080/v1/post/member'
+  const USER_POST_URL = process.env.REACT_APP_SERVER + ':8888/v1/post/member'
   const store = useStore((state) => state)
   const userNum = useParams()
   const memberId = userNum.userid

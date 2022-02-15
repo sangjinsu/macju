@@ -5,7 +5,7 @@ import { useStore } from "react-redux";
 import {useParams} from "react-router-dom"
 import axiosInstance from "CustomAxios";
 const UserReview = () =>{
-  const USER_REVIEW_URL = process.env.REACT_APP_SERVER + ':8080/v1/member'
+  const USER_REVIEW_URL = process.env.REACT_APP_SERVER + ':8888/v1/member'
   const userNum = useParams()
   const memberId = userNum.userid
   const [userReviews, setUserReviews] = useState([])

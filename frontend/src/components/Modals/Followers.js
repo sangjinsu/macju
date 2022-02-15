@@ -11,7 +11,7 @@ const Followers = (props) => {
 
   const memberNum = useParams();
   const memberId = memberNum.userid
-  const FOLLOWERS_URL = process.env.REACT_APP_SERVER + `:8080/v1/member/${memberId}/followers`
+  const FOLLOWERS_URL = process.env.REACT_APP_SERVER + `:8888/v1/member/${memberId}/followers`
   
   const store = useStore((state) => state)
   const [followers, setFollowers] = useState();

@@ -9,8 +9,8 @@ import Box from '@mui/material/Box';
 
 
 function PostListComponent(){
-  const POST_LIST_URL = process.env.REACT_APP_SERVER + ':8080/v1/post/new'
-  const BEER_DETAIL_POST_URL = process.env.REACT_APP_SERVER + ':8080/v1/post/beer'
+  const POST_LIST_URL = process.env.REACT_APP_SERVER + ':8888/v1/post/new'
+  const BEER_DETAIL_POST_URL = process.env.REACT_APP_SERVER + ':8888/v1/post/beer'
   const [newPost, setNewPost] = useState([])
   const [newPostImage, setNewPostImage] = useState([])
   const storage = getStorage()

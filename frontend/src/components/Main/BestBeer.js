@@ -25,8 +25,14 @@ const BestBeer = () => {
 
   const PopBeer = async () => {
     const RANKING_POPBEER = process.env.REACT_APP_SERVER + ':8888/beer/popbeer'
-
-    const { data : rankingBeer } = await axiosInstance.get(RANKING_POPBEER)
+    const headers = {
+      headers:{
+        AccessToken:window.localStorage.getItem("AccessToken"),
+        "Accept":"application/json;charset=UTF-8",
+        "Content-Type":"application/json;charset=UTF-8"
+      }
+    }
+    const { data : rankingBeer } = await axiosInstance.get(RANKING_POPBEER, headers)
     const rankingBeerId = rankingBeer.map( (beer) => beer.beerId )
     setRanking(rankingBeerId)
   }

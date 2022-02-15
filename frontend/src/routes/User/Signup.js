@@ -5,17 +5,10 @@ import { useHistory } from 'react-router-dom';
 import '../../styles/Signup.css'
 import axiosInstance from 'CustomAxios'
 
-<<<<<<< HEAD
-function Signup() {
-  const VALIDATE_NICKNAME_URL = process.env.REACT_APP_SERVER + ':8472/v1/member/validatenickname'
-  const USER_SIGNUP_URL = process.env.REACT_APP_SERVER + ":8472/v1/member/signup"
-  
-=======
 function Signup(props) {
   const VALIDATE_NICKNAME_URL = process.env.REACT_APP_SERVER + ':8888/v1/member/validatenickname'
   const USER_SIGNUP_URL = process.env.REACT_APP_SERVER + ":8888/v1/member/signup"
   const userData = props.location.userData
->>>>>>> a16b2c9c1f750b072cff6ffc47be13259cbd7054
   
   const dispatch = useDispatch()
   const history = useHistory()
@@ -25,10 +18,6 @@ function Signup(props) {
   const [AvailableNick, setAvailable] = useState()
   const [submitBtn, deactivateSubmitBtn] = useState(true)
   
-  
-  const userKaKaoId = store.getState().kakaoIdReducer
-  const userData = store.getState().userReducer
-  const headers = store.getState().headerReducer
   
   // nickname 변경
   const changeNickName = e => {
@@ -55,6 +44,16 @@ function Signup(props) {
         "nickName":nickname,
         "age":age,
         "name":"Myname"
+        // "gender" : gender
+      }
+      
+
+      const headers = {
+        headers: {
+          "AccessToken":userData.AccessToken,
+          "Accept":"application/json;charset=UTF-8",
+          "Content-Type":"application/json;charset=UTF-8"
+        }
       }
       const res = await axios.post(USER_SIGNUP_URL, singupData, {headers})
       userData.memberId = res.memberId
@@ -76,7 +75,8 @@ function Signup(props) {
 
   const validationNinkname = useCallback( async () => {
     try{
-      const { data : nicknameStatus } = await axiosInstance.get(`${VALIDATE_NICKNAME_URL}/${nickname}`)
+      console.log(userData.AccessToken)
+      const { data : nicknameStatus } = await axios.get(`${VALIDATE_NICKNAME_URL}/${nickname}`)
       
       if (nicknameStatus === "success") {
         setAvailable(true)

@@ -10,7 +10,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 
 function PostDetailImages(){
-  const POST_DETAIL_URL = process.env.REACT_APP_SERVER + ':8080/v1/post'
+  const POST_DETAIL_URL = process.env.REACT_APP_SERVER + ':8888/v1/post'
   
   const settings = {
     dots: true,

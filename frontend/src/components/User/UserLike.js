@@ -5,7 +5,7 @@ import '../../styles/UserLike.css'
 import {useStore} from "react-redux"
 import axiosInstance from "CustomAxios";
 const UserLike = () => {
-  const USER_LIKE_URL = process.env.REACT_APP_SERVER + ':8080/v1/member'
+  const USER_LIKE_URL = process.env.REACT_APP_SERVER + ':8888/v1/member'
   const [memberId, setMemberId] = useState(null)
   const [likebeers, setLikeBeers] = useState([])
   const store = useStore((state) => state);

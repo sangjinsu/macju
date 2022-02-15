@@ -10,6 +10,7 @@ import SearchResult from "./SearchResult";
 import axiosInstance from 'CustomAxios'
 const { to, set } = gsap
 
+
 function SearchBar(){
   const SEARCH_URL = process.env.REACT_APP_SERVER + ':8888'
   const location = useLocation();

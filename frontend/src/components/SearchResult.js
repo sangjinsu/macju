@@ -8,6 +8,7 @@ import { useEffect } from "react";
 
 
 
+
 const SearchResult = (props) =>{  
   const searchResult = props.data
   return (  

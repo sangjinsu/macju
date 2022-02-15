@@ -21,6 +21,7 @@ const Profile = () => {
 
   useEffect(()=>{
     console.log(store.getState().userReducer)
+    console.log('gg')
   }, [])
 
 
@@ -41,8 +42,7 @@ const Profile = () => {
 
   return (
     <div className="bg_color">
-      <UserProfile />
-      
+      <UserProfile />  
       <div className="link_btn_all">
         <div className="link_btn">
           <Link className="profile_link" to={{

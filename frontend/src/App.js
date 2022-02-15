@@ -48,7 +48,7 @@ function App() {
           <Route path="/profile">
             <Switch>
               <Route exact path="/profile/:userid/edit" component={PageAuth(ProfileEdit, true)} />
-              <Route exact path="/profile/:userid/" component={PageAuth(Profile, true)} />
+              <Route exact path="/profile/:userid/post" component={PageAuth(Profile, true)} />
               <Route path="*" component={PageNotFound} />
             </Switch>
           </Route>

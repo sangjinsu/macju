@@ -4,8 +4,7 @@
 #
 http.host: "0.0.0.0"
 # xpack.monitoring.elasticsearch.hosts: [ "http://elasticsearch:9201" ]
-# xpack.monitoring.elasticsearch.hosts: [ "http://i6c107.p.ssafy.io:9201" ]
-xpack.monitoring.elasticsearch.hosts: [ "http://host.docker.internal:9201" ]
+xpack.monitoring.elasticsearch.hosts: [ "http://i6c107.p.ssafy.io:9201" ]
 log.level: info
 
 config.reload.automatic: true

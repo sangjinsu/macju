@@ -37,17 +37,27 @@ function SearchBar(){
     // history.push(`/search?${searchInput}`)
   })
   const fetchSearchResult = async () =>{
-    const beerKosearch = await axios.get(`${SEARCH_URL}/v1/search/name?query=${searchInput}&lang=ko`)
-    const beerEnsearch = await axios.get(`${SEARCH_URL}/v1/search/name?query=${searchInput}&lang=en`)
-    const aromasearch = await axios.get(`${SEARCH_URL}/v1/search/aroma?query=${searchInput}`)
-    const flavorsearch = await axios.get(`${SEARCH_URL}/v1/search/flavor?query=${searchInput}`)
-    const typesearch = await axios.get(`${SEARCH_URL}/v1/search/type?query=${searchInput}`)
-    const usersearch = await axios.get(`${SEARCH_URL}/v1/search/user?query=${searchInput}`)
-    setSearchAll([beerKosearch, beerEnsearch, aromasearch, flavorsearch, typesearch,usersearch])
+    setSearchAll([])
+    const beerKosearch = axios.get(`${SEARCH_URL}/v1/search/name?query=${searchInput}&lang=ko`)
+    const beerEnsearch = axios.get(`${SEARCH_URL}/v1/search/name?query=${searchInput}&lang=en`)
+    const aromasearch = axios.get(`${SEARCH_URL}/v1/search/aroma?query=${searchInput}`)
+    const flavorsearch = axios.get(`${SEARCH_URL}/v1/search/flavor?query=${searchInput}`)
+    const typesearch = axios.get(`${SEARCH_URL}/v1/search/type?query=${searchInput}`)
+    const usersearch = axios.get(`${SEARCH_URL}/v1/search/user?query=${searchInput}`)
+    Promise.allSettled([beerKosearch, beerEnsearch, aromasearch, flavorsearch, typesearch,usersearch])
+    .then((results)=>
+    results.map((result, i) => {
+      if (result.status === 'fulfilled') {
+        setSearchAll((prev)=>[...prev, result.value]) 
+      }
+    })
+    )
+     
   }
 
   useEffect( () => {
     if (searchInput) {fetchSearchResult()}
+
   }, [searchInput])  
 
   function EraseEffect() {

@@ -26,6 +26,7 @@ const SearchResult = (props) =>{
     {
       (()=>{
         if (searchResult.length === 0) return null
+        if (!searchResult[1]) return null
         if (searchResult[1].length !== 0) return searchResult[1].data.map((result, i) =>
         <Link to={{pathname:`/search/${result.beer_name}`,
                   state: searchResult[1].data
@@ -39,7 +40,7 @@ const SearchResult = (props) =>{
       (()=>{
 
         if (searchResult.length === 0) return null
-        
+        if (!searchResult[2]) return null
         if (!_.isEmpty(searchResult[2].data)) return (
           <Link to= {{pathname: `/search/${Object.keys(searchResult[2].data)[0]}`,
                   state: searchResult[2].data[Object.keys(searchResult[2].data)[0]].beers
@@ -55,7 +56,7 @@ const SearchResult = (props) =>{
       (()=>{
 
         if (searchResult.length === 0) return null
-        
+        if (!searchResult[3]) return null
         if (!_.isEmpty(searchResult[3].data)) return (
           <Link to= {{pathname: `/search/${Object.keys(searchResult[3].data)[0]}`,
                   state: searchResult[3].data[Object.keys(searchResult[3].data)[0]].beers
@@ -68,6 +69,7 @@ const SearchResult = (props) =>{
     }
     {(()=>{
         if (searchResult.length === 0) return null
+        if (!searchResult[4]) return null
         searchResult[4].data.map((result, i)=> _.isEmpty(result) ? null : 
         <Link to={{ pathname: `/search/${result}`,
                     state: searchResult[4].data

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import '../styles/Navbar.css'
 import '../styles/Responsive.css'
-import { Link } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 import SearchBar from './SearchBar.js'
 
 import { useEffect } from 'react';
-import { useStore } from 'react-redux';
+import { useDispatch, useStore } from 'react-redux';
 import Search from 'routes/Search';
 
 
@@ -14,6 +14,8 @@ function NavBar(){
   
 
   const store = useStore((state) => state)
+  const dispatch = useDispatch()
+  const history = useHistory()
   const [isExpanded, setIsExpanded] = useState(false)
   const toggleBtn = document.getElementById("tglButton")
   const toggleClick = (() => {
@@ -28,7 +30,12 @@ function NavBar(){
     }
   })
 
-
+  const logOut = () => {
+    localStorage.removeItem("AccessToken");
+    dispatch({type:"logout"})
+    alert("로그아웃 되었습니다!!")
+    history.push("/home")
+  }
 
 
   
@@ -101,6 +108,9 @@ function NavBar(){
                     </li>
                     <li className="order_online">
                       <Link className='dropdown-item nav_login' to='/user/login' onClick={navClick}>login</Link>
+                    </li>
+                    <li className="order_online">
+                      <div className='dropdown-item nav_login' onClick={logOut}>Logout</div>
                     </li>
                   </ul>
                   

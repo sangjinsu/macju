@@ -16,6 +16,7 @@ import LoginAuth from "routes/Auth/LoginAuth";
 import PageAuth from "./hoc/auth";
 import Search from "routes/Search"
 
+
 function App() {
   return (
     <div>
@@ -53,7 +54,8 @@ function App() {
             </Switch>
           </Route>
           <Route exact path="/oauth/login/resopnse" component={PageAuth(LoginAuth, false)}/>
-          <Route exact path="/search" component={PageAuth(Search, false)} />
+          <Route path="/search" component={PageAuth(Search, false)} />
+
           <Route path="*" component={PageNotFound} />
         </Switch>
         <Footer />

@@ -8,45 +8,8 @@ import { useEffect } from "react";
 
 
 
-const SearchResult = (props) =>{
-  
-  const [beerNameForAroma, setBeerNameForAroma] = useState([])
-  const [beerNameForFlavor, setBeerNameForFlavor] = useState([])
-  
+const SearchResult = (props) =>{  
   const searchResult = props.data
-
-  const BEER_URL = process.env.REACT_APP_SERVER + ':8080/v1/beer'
-  const beernameA = async ()=>{
-    setBeerNameForAroma([])
-    if (searchResult.length !== 0){
-      if (!_.isEmpty(searchResult[2].data)){
-        searchResult[2].data[Object.keys(searchResult[2].data)[0]].beers.map(async (result) =>{
-          const beer = await axios.get(`${BEER_URL}/${result}`)
-          setBeerNameForAroma((prev)=>[...prev, beer.data.name])        
-        })
-      } 
-    } 
-  }
-  const beernameF = async ()=>{
-    setBeerNameForFlavor([])
-    const beerName = []
-    if (searchResult.length !== 0){
-      if (!_.isEmpty(searchResult[3].data)){
-        searchResult[3].data[Object.keys(searchResult[3].data)[0]].beers.map(async (result) =>{
-          const beer = await axios.get(`${BEER_URL}/${result}`)
-          setBeerNameForFlavor((prev)=>[...prev, beer.data.name])
-          
-        })
-    }
-    
-  }
-  
-    
-  }
-  useEffect(()=>{
-    beernameA();
-    beernameF();
-  }, [searchResult])
   return (  
     <ListGroup style={{marginTop:40 ,position:'fixed', zIndex:12000}}>   
     {
@@ -72,29 +35,34 @@ const SearchResult = (props) =>{
         )       
       })()
     }
-  
     {
       (()=>{
+
         if (searchResult.length === 0) return null
-        if (!_.isEmpty(searchResult[2].data)) return searchResult[2].data[Object.keys(searchResult[2].data)[0]].beers.map((result, i) =>
-        <Link to= {{pathname: `/search/${beerNameForAroma[i]}`,
+        
+        if (!_.isEmpty(searchResult[2].data)) return (
+          <Link to= {{pathname: `/search/${Object.keys(searchResult[2].data)[0]}`,
                   state: searchResult[2].data[Object.keys(searchResult[2].data)[0]].beers
                   }}           
-        >
-          <ListGroup.Item key={i}>{beerNameForAroma[i]}({Object.keys(searchResult[2].data)[0]})</ListGroup.Item> </Link>
-        )       
+           >
+          <ListGroup.Item >{Object.keys(searchResult[2].data)[0]}({Object.keys(searchResult[2].data)[0].length}개)</ListGroup.Item>
+          </Link>
+        )
       })()
     }
     {
       (()=>{
+
         if (searchResult.length === 0) return null
-        if (!_.isEmpty(searchResult[3].data)) return searchResult[3].data[Object.keys(searchResult[3].data)[0]].beers.map((result, i) =>
-        <Link to= {{pathname: `/search/${beerNameForFlavor[i]}`,
+        
+        if (!_.isEmpty(searchResult[3].data)) return (
+          <Link to= {{pathname: `/search/${Object.keys(searchResult[3].data)[0]}`,
                   state: searchResult[3].data[Object.keys(searchResult[3].data)[0]].beers
                   }}           
-        >
-          <ListGroup.Item key={i}>{beerNameForFlavor[i]}({Object.keys(searchResult[3].data)[0]})</ListGroup.Item> </Link>
-        )       
+           >
+          <ListGroup.Item >{Object.keys(searchResult[3].data)[0]}({Object.keys(searchResult[3].data)[0].length}개)</ListGroup.Item>
+          </Link>
+        )
       })()
     }
     {(()=>{

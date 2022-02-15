@@ -7,17 +7,14 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+
 @RequiredArgsConstructor
-@CrossOrigin("*")
-@RequestMapping("clear")
 @Component
 public class ClearController {
 
     @Autowired
     ClearService clearService;
 
-    @GetMapping("")
     @Scheduled(cron = "0 0 7 * * *", zone = "Asia/Seoul")
     public void clear() {
         clearService.flushALl();

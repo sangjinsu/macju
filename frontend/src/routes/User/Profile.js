@@ -3,7 +3,7 @@ import UserPost from "../../components/User/UserPost.js";
 import UserLike from "../../components/User/UserLike.js";
 import UserReview from "../../components/User/UserReview.js";
 import { Route } from 'react-router';
-import { Link } from "react-router-dom"
+import { Link,useParams } from "react-router-dom"
 import '../../styles/Profile.css'
 import { useEffect } from "react";
 import { useDispatch, useStore } from "react-redux";
@@ -16,7 +16,12 @@ const Profile = () => {
 
   const dispatch = useDispatch();
   const store = useStore((state)=>state)
-  const memberId = store.getState().userReducer.memberId
+  // const memberId = store.getState().userReducer.memberId
+  const userNum = useParams()
+  
+  const memberId = userNum.userid
+  
+  
 
 
 
@@ -39,6 +44,7 @@ const Profile = () => {
 
   return (
     <div className="bg_color">
+
       <UserProfile />  
       <div className="link_btn_all">
         <div className="link_btn">

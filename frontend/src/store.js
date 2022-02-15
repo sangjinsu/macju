@@ -1,45 +1,34 @@
-import { combineReducers, createStore } from "redux"
+import { combineReducers } from "redux"
 
 import storage from 'redux-persist/lib/storage';
-import { persistStore, persistReducer } from 'redux-persist'
+import { persistReducer } from 'redux-persist'
 
+const headers = {
+    "Accept":"application/json;charset=UTF-8",
+    "Content-Type":"application/json;charset=UTF-8"
+}
 
-
-
-const profileReducer = (state = [], action) => {
-  const profileData = {
-    "memberId" : 1, 
-    "nickName": '임의로 바꿀거임',
-    "name": "ssafy",
-    "intro": '이것도 임의로 바꿀거임',
-    "profileColor": "Black",
-    "grade" : 120,
+const headerReducer = (state = [], action) =>{
+  if (action.type === "header"){
+    headers["AccessToken"] = action.AccessToken
+    return headers
   }
-  return profileData
+  return headers
 }
 
-
-const notLoginUser = {
-  "AccessToken":"",
-  "first_check":"",
-  "kakaoId":"",
-  "memberid":null,
-  "result":""
-}
-
-const userReducer = (state = notLoginUser, action) => {
-  if (action.type === "loginSucess") {
-    const loginState = action.userData
-    console.log(loginState)
-    return loginState
-  }else if (action.type === "logout") {
-    const logoutState = {}
-    return logoutState
-  }else{
-    return state
+const userReducer = (state=[], action) => {
+  if (action.type === "loginSuccess"){
+    return action.userdata
   }
+  return state
 }
 
+const kakaoIdReducer = (state = -1, action) => {
+  if (action.type === "kakaoId") {
+    return action.userKaKaoId
+  } 
+  return state
+}
 
 const followersReducer = (state = [], action) => {
   if (action.type === 'followers') {
@@ -62,7 +51,8 @@ const followingsReducer = (state = [], action) => {
 
 const userProfileReducer = (state = [], action)=>{
   if (action.type === "user"){
-    return action.userdata
+    console.log(action)
+    return action.userdata.data
   }
   return state
 }
@@ -177,6 +167,7 @@ const navbarReducer = (state=false, action) => {
 const rootReducer = combineReducers
   ( {
     userReducer,
+    kakaoIdReducer,
      postDetailReducer,
      commentReducer,
      beerListReducer, 
@@ -189,7 +180,7 @@ const rootReducer = combineReducers
      navbarReducer,
      followersReducer,
      followingsReducer,
-     profileReducer,
+     headerReducer,
   
   } )
 

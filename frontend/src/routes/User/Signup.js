@@ -1,30 +1,30 @@
 import axios from 'axios';
 import React, { useEffect, useState, useCallback } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useStore } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import '../../styles/Signup.css'
 
-function Signup(props) {
+function Signup() {
   const VALIDATE_NICKNAME_URL = process.env.REACT_APP_SERVER + ':8472/v1/member/validatenickname'
   const USER_SIGNUP_URL = process.env.REACT_APP_SERVER + ":8472/v1/member/signup"
-  const userData = props.location.userData
+  
   
   const dispatch = useDispatch()
   const history = useHistory()
+  const store = useStore((state)=>state)
   const [nickname, nicknameChange] = useState("");
   const [age, ageChange] = useState("");
-  const [gender, setGender] = useState("");
   const [AvailableNick, setAvailable] = useState()
   const [submitBtn, deactivateSubmitBtn] = useState(true)
+  
+  
+  const userKaKaoId = store.getState().kakaoIdReducer
+  const userData = store.getState().userReducer
+  const headers = store.getState().headerReducer
   
   // nickname 변경
   const changeNickName = e => {
     nicknameChange(e.target.value);
-  }
-
-  // gender 변경
-  const selectValue = e => {
-    setGender(e.target.value); 
   }
 
   // 나이 변경
@@ -43,33 +43,21 @@ function Signup(props) {
       } 
 
       const singupData = {
-        "kakaoId":userData.kakaoId,
+        "kakaoId":Number(userKaKaoId),
         "nickName":nickname,
         "age":age,
         "name":"Myname"
-        // "gender" : gender
       }
-      
-      const headers = {
-        headers: {
-          "AccessToken":userData.AccessToken,
-          "Accept":"application/json;charset=UTF-8",
-          "Content-Type":"application/json;charset=UTF-8"
-        }
-      }
-      console.log(headers)
-      const {data : singupResponse} = await axios.post(USER_SIGNUP_URL, singupData, headers)
-      console.log('ttt')
-      userData.memberId = singupResponse.memberId
+      const res = await axios.post(USER_SIGNUP_URL, singupData, {headers})
+      userData.memberId = res.memberId
       dispatch({type:"loginSucess", userData:userData})
       history.push("/home")
     }catch(err){
       // 회원가입 실패시 알람 + 로그인 페이지 다시 이동
       console.log(err)
-      alert("회원가입 실패")
       // history.replace("/user/login")
     }
-  }, [age, userData, nickname, USER_SIGNUP_URL, dispatch, history])
+  }, [age, nickname, USER_SIGNUP_URL, dispatch, history])
 
   // 닉네임 수정할 때 버튼 막아놓고 시작
   useEffect( () => { 
@@ -101,14 +89,20 @@ function Signup(props) {
   )
 
   useEffect( () => {
-    if (AvailableNick && gender && age) {
+    if (AvailableNick && age) {
       deactivateSubmitBtn(false)
     }
-    }, [AvailableNick, nickname, gender, age]
+    }, [AvailableNick, nickname, age]
   )
-
+  useEffect(()=>{
+    if (userKaKaoId === -1){
+      history.push("/user/login")
+    }
+  }, [userKaKaoId])
   return(
+    
     <div className="Signup">
+      
       <section className="signup_section layout_padding_signup">
         <div className="container">
           {/* Signup 제목 */}
@@ -146,21 +140,6 @@ function Signup(props) {
                       value={ age }
                       onChange={ changeAge }
                     />
-                  </div>
-
-                  {/* 성별 입력 */}
-                  <div>
-                    <select className="form-control nice-select wide" name="choice" onChange={selectValue}>
-                      <option value="" disabled value>
-                        성별
-                      </option>
-                      <option value="man">
-                        남자
-                      </option>
-                      <option value="woman">
-                        여자
-                      </option>
-                    </select>
                   </div>
 
                   {/* 회원가입 완료 버튼 */}

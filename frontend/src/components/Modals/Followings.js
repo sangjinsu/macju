@@ -2,16 +2,17 @@ import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link,useParams } from "react-router-dom";
 import "../../styles/Modal.css"
 import {useStore} from 'react-redux'
 
 const Followings = (props) => {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close, header } = props;
+  const memberNum = useParams();
+  const memberId = memberNum.userid
 
-
-  const FOLLOWINGS_URL = process.env.REACT_APP_SERVER + `:8080/v1/member/${1}/followings`
+  const FOLLOWINGS_URL = process.env.REACT_APP_SERVER + `:8080/v1/member/${memberId}/followings`
 
   const store = useStore((state) => state)
   const [followings, setFollowings] = useState();

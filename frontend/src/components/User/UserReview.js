@@ -2,10 +2,12 @@ import { Table } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useStore } from "react-redux";
+import {useParams} from "react-router-dom"
 
 const UserReview = () =>{
   const USER_REVIEW_URL = process.env.REACT_APP_SERVER + ':8080/v1/member'
-  const memberId = 1
+  const userNum = useParams()
+  const memberId = userNum.userid
   const [userReviews, setUserReviews] = useState([])
   const store = useStore((state)=>state)
 
@@ -23,7 +25,7 @@ const UserReview = () =>{
     if (store.getState().userReviewReducer.length === 0){
       fetchData();
     } else {
-      setUserReviews(store.getState().userReviewReducer.data.data)
+      setUserReviews(store.getState().userReducer.data)
     }    
 	},[])
 

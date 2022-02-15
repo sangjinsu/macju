@@ -18,6 +18,7 @@ function PostList() {
 
   return (
     <>
+    
     <section className="postlist_section layout_padding_postlist">
       <div className="container">
 

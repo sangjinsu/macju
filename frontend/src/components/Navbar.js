@@ -15,6 +15,7 @@ function NavBar(){
 
   const store = useStore((state) => state)
   const [isExpanded, setIsExpanded] = useState(false)
+
   const toggleBtn = document.getElementById("tglButton")
   const toggleClick = (() => {
     setIsExpanded(!isExpanded)
@@ -23,12 +24,11 @@ function NavBar(){
   
   
   const navClick = ((e) => {
+    
     if (isExpanded) {
      toggleBtn.click()
     }
   })
-
-
 
 
   
@@ -95,7 +95,7 @@ function NavBar(){
                     </li>
                     <div className="dropdown-divider"></div>
                     <li>
-                      <Link to={`profile/${store.getState().userReducer.memberId}/post`} className="dropdown-item user_link" onClick={navClick}>
+                      <Link to={`/profile/${store.getState().userReducer.memberId}/post`} className="dropdown-item user_link" onClick={navClick}>
                         <i className="fa fa-user" aria-hidden="true"></i>
                       </Link>
                     </li>

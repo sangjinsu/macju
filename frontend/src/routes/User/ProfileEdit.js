@@ -2,7 +2,8 @@ import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Button } from "react-bootstrap";
-import { Link, Redirect, Route, useHistory } from "react-router-dom";
+import { useStore } from "react-redux";
+import { Link, Redirect, Route, useHistory, useParams } from "react-router-dom";
 import "../../styles/ProfileEdit.css"
 
 
@@ -14,6 +15,12 @@ const ProfileEdit = () => {
   const [editUserNickname, setEditUserNickname] = useState('')
   const [introduce, setIntroduce] =useState('')
   const [labelNickname, setLabelNickname] = useState('fail')
+  const store = useStore((state)=>state)
+
+  const history = useHistory()
+
+  const userNum = useParams()
+  const memberId = userNum.userid
 
   const headers = {
     'Content-Type': 'application/json; charset=UTF-8',
@@ -69,7 +76,13 @@ const ProfileEdit = () => {
   useEffect(()=>{
     nickNameCheck();
   }, [editUserNickname, nickNameCheck])
-  
+  useEffect(()=>{
+    console.log(memberId)
+    console.log(store.getState().userReducer.memberId)
+    if (memberId !== store.getState().userReducer.memberId){
+      history.push('/user/login')
+    }
+  }, [])
 
 
 

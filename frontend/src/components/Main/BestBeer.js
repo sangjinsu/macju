@@ -37,7 +37,7 @@ const BestBeer = () => {
 
   return(
     <div className="SlickTest">
-      <h3 className="bestbeer" align="center">Best Beer</h3>
+      {/* <h3 className="bestbeer" align="center">Best Beer</h3>
       <Slider {...settings}>
         {
           rankingBeerList&&rankingBeerList.map((beerid, i) => 
@@ -67,7 +67,7 @@ function CustomSlide(props) {
         <h3>곰표맥주</h3>
         <br></br>
         <span>조회 수 : ??</span>
-      </div>
+      </div> */}
     </div>
   )
 }

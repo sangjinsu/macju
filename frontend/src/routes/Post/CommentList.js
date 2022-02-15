@@ -1,13 +1,16 @@
 import React, { useEffect, useRef, useState, useCallback } from "react"
-import { useDispatch, useStore } from 'react-redux';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 import axios from 'axios';
 import "../../styles/CommentList.css"
 
 function CommentList(props) {
   const postId = props.postId; // PostDetail 에서 postId값을 props로 받기
 
-  const COMMENT_LIST_URL = process.env.REACT_APP_SERVER + ':8080/v1/post'
-  const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8080/v1/member/profile'
+  const userData = useSelector(state => state.userReducer)
+  const memberId = userData.memberId
+
+  const COMMENT_LIST_URL = process.env.REACT_APP_SERVER + ':8888/v1/post'
+  const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8888/v1/member/profile'
   const commentApiUrl = `${COMMENT_LIST_URL}/${postId}/comment` // 조회, 추가 때 사용
 
   const dispatchComment = useRef();
@@ -29,7 +32,7 @@ function CommentList(props) {
       try{
         const postData = {
           "content": inputComment,
-          "memberId": 1
+          "memberId": memberId
         }
         const headers = {
           headers: {
@@ -43,8 +46,8 @@ function CommentList(props) {
         dispatchComment.current = {
           "commentId": newCommentId.current,
           "content": inputComment,
-          "memberId": 1, // 수정 필요
-          "ninkname": "kimdongiln" // 수정필요
+          "memberId": memberId, // 수정 필요
+          "nickname": memberId.nickname // 수정필요
         }
         dispatch({ type : "addComment", inputComment : dispatchComment.current })
         setcomments(store.getState().commentReducer)

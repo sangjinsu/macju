@@ -4,7 +4,7 @@ import { useState } from "react";
 import '../../styles/UserLike.css'
 import {useStore} from "react-redux"
 const UserLike = () => {
-  const USER_LIKE_URL = process.env.REACT_APP_SERVER + ':8080/v1/member'
+  const USER_LIKE_URL = process.env.REACT_APP_SERVER + ':8888/v1/member'
   const memberId = 1
   const [likebeers, setLikeBeers] = useState([])
   const store = useStore((state) => state);

@@ -6,7 +6,7 @@ import axios from "axios";
 
 function BeerRate(props){
   //url
-  const BEER_RATE_URL = process.env.REACT_APP_SERVER + ':8080/v1/beer'
+  const BEER_RATE_URL = process.env.REACT_APP_SERVER + ':8888/v1/beer'
 
 
 

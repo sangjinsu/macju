@@ -10,15 +10,15 @@ import { Button, ProgressBar } from "react-bootstrap";
 
 const UserProfile = () => {
 	const userid = 1
-	const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8080/v1/member/profile'
+	const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8888/v1/member/profile'
 
-  const USER_PROFILE_URL = process.env.REACT_APP_SERVER + ':8080/v1/member/profile'
+  const USER_PROFILE_URL = process.env.REACT_APP_SERVER + ':8888/v1/member/profile'
 	// 현재 member가 user를 팔로우하는 요청
-	const FOLLOW_POST_URL = process.env.REACT_APP_SERVER + `:8080/v1/member/${2}/follow/${userid}`
+	const FOLLOW_POST_URL = process.env.REACT_APP_SERVER + `:8888/v1/member/${2}/follow/${userid}`
 	//member == 1번이 팔로우한 사람들
-	const FOLLOW_GET_URL = process.env.REACT_APP_SERVER + `:8080/v1/member/${1}/followers`
+	const FOLLOW_GET_URL = process.env.REACT_APP_SERVER + `:8888/v1/member/${1}/followers`
 	//member === 1번이 팔로잉하는 사람들
-	const FOLLOWING_GET_URL = process.env.REACT_APP_SERVER + `:8080/v1/member/${1}/followings`
+	const FOLLOWING_GET_URL = process.env.REACT_APP_SERVER + `:8888/v1/member/${1}/followings`
 
 
 

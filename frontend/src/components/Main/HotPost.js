@@ -27,7 +27,7 @@ const HotPost = () => {
   useEffect( () => {
     const hotPost = async () => {
       try{
-        const RANKING_HOTPOST = process.env.REACT_APP_SERVER + ':8081/post/hotpost'
+        const RANKING_HOTPOST = process.env.REACT_APP_SERVER + ':8888/post/hotpost'
         const headers = {
           'Accept': "application/json; charset=UTF-8"
         }
@@ -58,7 +58,7 @@ const HotPost = () => {
 
 
 function CustomSlide(props) {
-  const BEER_DETAIL_URL = process.env.REACT_APP_SERVER + `:8080/v1/post/${props.postid}`
+  const BEER_DETAIL_URL = process.env.REACT_APP_SERVER + `:8888/v1/post/${props.postid}`
   const storage = getStorage()
   const [imgSrc, setImgSrc] = useState()
 

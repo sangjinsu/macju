@@ -9,10 +9,10 @@ import { useEffect } from "react";
 import { useDispatch, useStore } from "react-redux";
 import axios from "axios";
 const Profile = () => {
-  const USER_PROFILE_URL = process.env.REACT_APP_SERVER + ':8080/v1/member/profile'
-  const USER_POST_URL = process.env.REACT_APP_SERVER + ':8080/v1/post/member'
-  const USER_LIKE_URL = process.env.REACT_APP_SERVER + ':8080/v1/member'
-  const USER_REVIEW_URL = process.env.REACT_APP_SERVER + ':8080/v1/member'
+  const USER_PROFILE_URL = process.env.REACT_APP_SERVER + ':8888/v1/member/profile'
+  const USER_POST_URL = process.env.REACT_APP_SERVER + ':8888/v1/post/member'
+  const USER_LIKE_URL = process.env.REACT_APP_SERVER + ':8888/v1/member'
+  const USER_REVIEW_URL = process.env.REACT_APP_SERVER + ':8888/v1/member'
 
   const dispatch = useDispatch();
   const store = useStore((state)=>state)

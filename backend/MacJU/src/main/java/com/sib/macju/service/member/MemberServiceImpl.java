@@ -6,7 +6,7 @@ import com.sib.macju.domain.post.Post;
 import com.sib.macju.dto.beer.BeerDto;
 import com.sib.macju.dto.beer.BeerVO;
 import com.sib.macju.dto.beer.RateVO;
-import com.sib.macju.dto.member.MemberVO;
+import com.sib.macju.dto.member.MemberDto;
 import com.sib.macju.dto.post.PostVO;
 import com.sib.macju.repository.beer.BeerRepository;
 import com.sib.macju.repository.beer.MemberRateBeerRepository;
@@ -56,8 +56,13 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public int signUp(Member member) {
+    public int signUp(MemberDto memberDto) {
         Member result = null;
+        Member member = new Member();
+        member.setKakaoId(memberDto.getKakaoId());
+        member.setName(memberDto.getName());
+        member.setNickName(memberDto.getNickName());
+        member.setAge(memberDto.getAge());
         result = memberRepository.save(member);
         if(result == null){
             return 0;
@@ -91,10 +96,27 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public int updateProfile(Member member) {
+    public int updateProfile(MemberDto memberDto) {
+        Member member = memberRepository.findByMemberId(memberDto.getMemberId());
+        member.setProfileColor(memberDto.getProfileColor());
+        member.setName(memberDto.getName());
+        member.setIntro(memberDto.getIntro());
+        member.setAge(memberDto.getAge());
+        member.setNickName(memberDto.getNickName());
+        Member result = memberRepository.save(member);
+        if(result == null){
+            return 0;
+        }
+        return 1;
+    }
+
+    @Override
+    public int withdraw(Long memberId){
+        Member member = memberRepository.findByMemberId(memberId);
+        member.setStatus(Status.Deactivate);
         Member result = null;
         result = memberRepository.save(member);
-        if(result == null){
+        if(result.equals(null)){
             return 0;
         }
         return 1;
@@ -175,7 +197,7 @@ public class MemberServiceImpl implements MemberService{
             beer.setPhotoPath(post.getBeer().getPhotoPath());
             //BeerDTO 끝
             //MemberDTO 시작
-            MemberVO member = new MemberVO();
+            MemberDto member = new MemberDto();
             member.setMemberId(post.getMember().getMemberId());
             member.setNickName(post.getMember().getNickName());
             member.setName(post.getMember().getName());
@@ -235,16 +257,16 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public List<MemberVO> fetchFollowings(Long memberId) {
+    public List<MemberDto> fetchFollowings(Long memberId) {
 
         Member member = findByMemberId(memberId);
         List<Follow> data = member.getFollowers();
-        List<MemberVO> result = new ArrayList<>();
+        List<MemberDto> result = new ArrayList<>();
         int size = data.size();
         for(int i=0; i<size; i++){
             Member following = data.get(i).getFollowing();
             following.toString();
-            MemberVO memberDTO = new MemberVO();
+            MemberDto memberDTO = new MemberDto();
             memberDTO.setMemberId(following.getMemberId());
             memberDTO.setGrade(following.getGrade());
             memberDTO.setAge(following.getAge());
@@ -256,16 +278,16 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public List<MemberVO> fetchFollowers(Long memberId) {
+    public List<MemberDto> fetchFollowers(Long memberId) {
 
         Member member = findByMemberId(memberId);
         List<Follow> data = member.getFollowings();
-        List<MemberVO> result = new ArrayList<>();
+        List<MemberDto> result = new ArrayList<>();
         int size = data.size();
         for(int i=0; i<size; i++){
             Member follower = data.get(i).getFollower();
             follower.toString();
-            MemberVO memberDTO = new MemberVO();
+            MemberDto memberDTO = new MemberDto();
             memberDTO.setMemberId(follower.getMemberId());
             memberDTO.setGrade(follower.getGrade());
             memberDTO.setAge(follower.getAge());

@@ -4,13 +4,12 @@ import com.sib.macju.domain.member.Member;
 import com.sib.macju.domain.member.Status;
 import com.sib.macju.dto.beer.BeerVO;
 import com.sib.macju.dto.beer.RateVO;
-import com.sib.macju.dto.member.MemberVO;
+import com.sib.macju.dto.member.MemberDto;
 import com.sib.macju.dto.post.PostVO;
 import com.sib.macju.service.member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,7 +46,7 @@ public class MemberController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<Map<String, Object>> signUp(@RequestBody Member member){
+    public ResponseEntity<Map<String, Object>> signUp(@RequestBody MemberDto member){
         System.out.println(member);
         Map<String,Object> resultMap = new HashMap<>();
         HttpStatus status = HttpStatus.UNAUTHORIZED;
@@ -74,9 +73,7 @@ public class MemberController {
 
     @DeleteMapping("/{memberId}")
     public ResponseEntity<String> withdraw(@PathVariable Long memberId){
-        Member member = memberService.findByMemberId(memberId);
-        member.setStatus(Status.Deactivate);
-        int result = memberService.updateProfile(member);
+        int result = memberService.withdraw(memberId);
         if(result == 0){
             return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
         }
@@ -130,7 +127,7 @@ public class MemberController {
     }
 
     @PutMapping("/profile")
-    public ResponseEntity<String> updateProfile(@RequestBody Member member){
+    public ResponseEntity<String> updateProfile(@RequestBody MemberDto member){
         int result = memberService.updateProfile(member);
 
         if(result == 1){
@@ -242,7 +239,7 @@ public class MemberController {
         Map<String, Object> result = new HashMap<>();
         HttpStatus status = HttpStatus.ACCEPTED;
 
-        List<MemberVO> data = memberService.fetchFollowings(memberId);
+        List<MemberDto> data = memberService.fetchFollowings(memberId);
         if(data != null){
             result.put("result", SUCCESS);
             result.put("data", data);
@@ -260,7 +257,7 @@ public class MemberController {
         Map<String, Object> result = new HashMap<>();
         HttpStatus status = HttpStatus.ACCEPTED;
 
-        List<MemberVO> data = memberService.fetchFollowers(memberId);
+        List<MemberDto> data = memberService.fetchFollowers(memberId);
         if(data != null){
             result.put("result", SUCCESS);
             result.put("data", data);

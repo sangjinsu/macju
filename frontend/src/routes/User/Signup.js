@@ -1,13 +1,12 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
-import { useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react'
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import '../../styles/Signup.css'
 
 function Signup(props) {
-  const VALIDATE_NICKNAME_URL = process.env.REACT_APP_SERVER + ':8080/v1/member/validatenickname'
-  const USER_SIGNUP_URL = process.env.REACT_APP_SERVER + ':8080/v1/member/signup'
+  const VALIDATE_NICKNAME_URL = process.env.REACT_APP_SERVER + ':8472/v1/member/validatenickname'
+  const USER_SIGNUP_URL = process.env.REACT_APP_SERVER + ":8472/v1/member/signup"
   const userData = props.location.userData
   
   const dispatch = useDispatch()
@@ -33,9 +32,9 @@ function Signup(props) {
     ageChange(e.target.value);
   }
 
-
   // 회원가입 버튼 누를시 동작
-  const signupBtn = useCallback( async () => {
+  const signupBtn = useCallback( async (e) => {
+    e.preventDefault()
     try{
       if (age < 20) {
         alert("미성년자는 가입 할 수 없습니다")
@@ -43,27 +42,31 @@ function Signup(props) {
         return // histroy로 home 넘어가면 DB update랑 store 막아놓기
       } 
 
-      const singupData = { // 액세스 토큰 나중에 넣어줘야 함
-        // "memberId": userData.member.kakaoMemberId,
-        "age": age,
-        "name": userData.member.nickName,
-        "nickName": nickname
+      const singupData = {
+        "kakaoId":userData.kakaoId,
+        "nickName":nickname,
+        "age":age,
+        "name":"Myname"
+        // "gender" : gender
       }
+      
       const headers = {
         headers: {
-          "Accept" : "application/json;charset=UTF-8",
-          "Content-Type" : "application/json;charset=UTF-8"
+          "AccessToken":userData.AccessToken,
+          "Accept":"application/json;charset=UTF-8",
+          "Content-Type":"application/json;charset=UTF-8"
         }
       }
-      await axios.post(USER_SIGNUP_URL, singupData, headers)
-      //가입 실패시에도 저장됨.
+ 
+      const singupResponse = await axios.post(USER_SIGNUP_URL, singupData, headers)
+      userData.memberId = singupResponse.memberId
+      dispatch({type:"loginSucess", userData:userData})
+      history.push("/home")
     }catch{
       // 회원가입 실패시 알람 + 로그인 페이지 다시 이동
       alert("회원가입 실패")
-      // history.replace("/login")
+      history.replace("/user/login")
     }
-    dispatch({type:"loginSucess", userData:userData})
-    history.push("/home")
   }, [age, userData, nickname, USER_SIGNUP_URL, dispatch, history])
 
   // 닉네임 수정할 때 버튼 막아놓고 시작
@@ -75,7 +78,7 @@ function Signup(props) {
   const validationNinkname = useCallback( async () => {
     try{
       const { data : nicknameStatus } = await axios.get(`${VALIDATE_NICKNAME_URL}/${nickname}`)
-      console.log(nicknameStatus)
+      
       if (nicknameStatus === "success") {
         setAvailable(true)
       }else {
@@ -95,7 +98,7 @@ function Signup(props) {
     }, [nickname, validationNinkname]
   )
 
-  useEffect( () => { // 수정필요
+  useEffect( () => {
     if (AvailableNick && gender && age) {
       deactivateSubmitBtn(false)
     }
@@ -117,7 +120,7 @@ function Signup(props) {
           <div className="row">
             <div className="col-sm-6 offset-sm-3">
               <div className="form_container">
-                <form action="./login">
+                <form>
 
                   {/* 별명 입력 */}
                   <div>

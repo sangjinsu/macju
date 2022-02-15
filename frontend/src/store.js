@@ -15,8 +15,15 @@ const profileReducer = (state = [], action) => {
 }
 
 
+const notLoginUser = {
+  "AccessToken":"",
+  "first_check":"",
+  "kakaoId":"",
+  "memberid":null,
+  "result":""
+}
 
-const userReducer = (state = [], action) => {
+const userReducer = (state = notLoginUser, action) => {
   if (action.type === "loginSucess") {
     const loginState = action.userData
     console.log(loginState)

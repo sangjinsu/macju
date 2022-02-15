@@ -31,6 +31,7 @@ const userReducer = (state = notLoginUser, action) => {
   if (action.type === "loginSucess") {
     const loginState = action.userData
     window.localStorage.setItem("AccessToken", loginState.AccessToken) // 불러오기 window.localStorage.getItem("AccessToken")
+    window.localStorage.setItem("memberId", action.userData.memberId)
     return loginState
   }else if (action.type === "logout") {
     const logoutState = {}

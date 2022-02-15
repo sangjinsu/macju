@@ -14,7 +14,7 @@ import Slider from "react-slick";
 function PostCreate(props) {
   const POST_CREATE_URL = process.env.REACT_APP_SERVER + ':8080/v1/post'
   const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8080/v1/member/profile'
-  const memberid = 1  //test용 멤버아이디
+  const memberid = 62  //test용 멤버아이디
   const beerid = props.location.state.beerid    // 작성하고있는 포스트의 맥주아이디
 
   const storage = getStorage(); //firebase

@@ -8,7 +8,7 @@ import "../../firebase_config"
 import { useDispatch, useStore } from 'react-redux';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
-import Chip from '@mui/material/Chip'
+// import Chip from '@mui/material/Chip'
 
 function BeerList(){
   //url

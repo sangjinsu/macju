@@ -4,36 +4,41 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom"
 import axios from "axios"
 import "../styles/Search.css"
+// import Pagination from '.SearchPagination';
+import axiosInstance from 'CustomAxios'
 
 function Search(props){
-  const BEER_URL = process.env.REACT_APP_SERVER + ':8080/v1/beer'
+  const BEER_URL = process.env.REACT_APP_SERVER + ':8888/v1/beer'
 
-  const [isMore, setIsMore] = useState(false)
-
+  const [isMoreClick, setIsMoreClick] = useState(false)
+  const [isMoreName, setIsMoreName] = useState(false)
+  const [isMoreTag, setIsMoreTag] = useState(false)
 
 
   // 검색한 결과 - 클릭했을때 state로 값 가져옴
   const location = useLocation();
   const searchresult = location.state   // id 배열 형식
-  // console.log(searchresult)
+  console.log(searchresult)
 
   const [beerArr, setBeerArr] = useState([])
   const [beerAllArr, setBeerAllArr] = useState([])
   useEffect(()=>{
       // console.log(searchAll)
-    console.log('클릭 결과', beerIdArr_name)
+    console.log('클릭 결과', searchresult)
     const fetchbeerdata = async () => {
     if (searchresult.length) {
       // 개수가 10개보다 많으면 10개로 자르고 isMore=true
       if (searchresult.length > 10) {
-        setIsMore(true)
-        const eachbeerdata = await axios.get(`${BEER_URL}?size=500`)
+        setIsMoreClick(true)
+        const eachbeerdata = await axiosInstance.get(`${BEER_URL}?size=500`)
         eachbeerdata.data.map((eachbeer) => {
+          // 1~10개까지
           searchresult.slice(0,10).map((id)=>{
             if (eachbeer.beerId === id) {
               setBeerArr((name)=>[...name, eachbeer])
             }
           })
+          // 10개 이상부터
           searchresult.slice(10).map((id)=>{
             if (eachbeer.beerId === id) {
               setBeerAllArr((name)=>[...name, eachbeer])
@@ -41,7 +46,7 @@ function Search(props){
           })
       })
       } else {
-        const eachbeerdata = await axios.get(`${BEER_URL}?size=500`)
+        const eachbeerdata = await axiosInstance.get(`${BEER_URL}?size=500`)
         eachbeerdata.data.map((eachbeer) => {
           searchresult.map((id)=>{
             if (eachbeer.beerId === id) {
@@ -87,7 +92,6 @@ function Search(props){
   // 전체 맥주 검색 결과 리스트
   const [beerIdArr_name, setBeerIdArr_name] = useState([])    // 맥주이름 결과
   const [beerIdArr_others, setBeerIdArr_others] = useState([])  // 나머지
-  const [postdata] = useState([])
 
   // 검색 결과 
   const fetchSearchResult = async () =>{
@@ -171,11 +175,11 @@ function Search(props){
     const fetchbeerdata1 = async () => {
       if (beerIdArr_name.length) {
         // 개수가 10개보다 많으면 10개로 자르고 isMore=true
-        if (searchresult.length > 10) {
-          setIsMore(true)
-          const eachbeerdata = await axios.get(`${BEER_URL}?size=500`)
+        if (beerIdArr_name.length > 10) {
+          setIsMoreName(true)
+          const eachbeerdata = await axiosInstance.get(`${BEER_URL}?size=500`)
           eachbeerdata.data.map((eachbeer) => {
-            // 10개까지만 
+            // 1~10개까지만 
             beerIdArr_name.slice(0,10).map((id)=>{
               if (eachbeer.beerId === id) {
                 setBeerNameArr((name)=>[...name, eachbeer])
@@ -189,7 +193,7 @@ function Search(props){
             })
         })
         } else {
-          const eachbeerdata = await axios.get(`${BEER_URL}?size=500`)
+          const eachbeerdata = await axiosInstance.get(`${BEER_URL}?size=500`)
           eachbeerdata.data.map((eachbeer) => {
             beerIdArr_name.map((id)=>{
               if (eachbeer.beerId === id) {
@@ -208,11 +212,11 @@ function Search(props){
     const fetchbeerdata2 = async () => {
       if (beerIdArr_others.length) {
         // 개수가 10개보다 많으면 10개로 자르고 isMore=true
-        if (searchresult.length > 10) {
-          setIsMore(true)
-          const eachbeerdata = await axios.get(`${BEER_URL}?size=500`)
+        if (beerIdArr_others.length > 10) {
+          setIsMoreTag(true)
+          const eachbeerdata = await axiosInstance.get(`${BEER_URL}?size=500`)
           eachbeerdata.data.map((eachbeer) => {
-            // 10개까지만 
+            // 1~10개까지만 
             beerIdArr_others.slice(0,10).map((id)=>{
               if (eachbeer.beerId === id) {
                 setBeerTagArr((name)=>[...name, eachbeer])
@@ -226,7 +230,7 @@ function Search(props){
             })
         })
         } else {
-          const eachbeerdata = await axios.get(`${BEER_URL}?size=500`)
+          const eachbeerdata = await axiosInstance.get(`${BEER_URL}?size=500`)
           eachbeerdata.data.map((eachbeer) => {
             beerIdArr_others.map((id)=>{
               if (eachbeer.beerId === id) {
@@ -240,22 +244,50 @@ function Search(props){
     fetchbeerdata2();
   },[beerIdArr_others, aromadata, flavordata, typedata_all, userdata])
 
-// console.log(beerArr)
+  // console.log(beerArr)
 
-// 새로고침하면 배열 리셋
-useEffect(()=>{
-  setBeerIdArr_name([])
-  setBeerIdArr_others([])
-  setBeerNameArr([])
-  setBeerTagArr([])
-}, [location])
+  // 새로고침하면 배열 리셋
+  useEffect(()=>{
+    setBeerIdArr_name([])
+    setBeerIdArr_others([])
+    setBeerNameArr([])
+    setBeerTagArr([])
+  }, [location])
 
-// 더보기 클릭하면 배열 모두 보여줌
-const clickMore = () => {
-  setBeerArr(beerAllArr)
-  setBeerNameArr(beerNameAllArr)
-  setBeerTagArr(beerTagAllArr)
-}
+  // 더보기 클릭하면 배열 모두 보여줌
+  const clickMoreName = () => {
+    setBeerNameArr(beerNameAllArr)
+  }
+  const clickMoreTag = () => {
+    setBeerTagArr(beerTagAllArr)
+  }
+  const clickMoreClick = () => {
+    setBeerArr(beerAllArr)
+  }
+
+  // const [posts, setPosts] = useState([]);
+  // const [loading, setLoading] = useState(false);
+  // const [currentPage, setCurrentPage] = useState(1); //현재 페이지
+  // const [postPerPage] = useState(15); //페이지당 포스트 개수
+
+  // useEffect(() => {
+  //   const fetchPosts = async () => {
+  //     setLoading(true);
+  //     const res = await axios.get('https://jsonplaceholder.typicode.com/posts')
+  //     setPosts(res.data);
+  //     setLoading(false);
+  //   }
+
+  //   fetchPosts();
+  // }, []);
+
+  // //현재 페이지 가져오기
+  // const indexOfLastPost = currentPage * postPerPage; //1*10 = 10번 포스트
+  // const indexOfFirstPost = indexOfLastPost - postPerPage; //10-10 = 0번 포스트
+  // const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost); //0~10번까지 포스트
+
+  // //클릭 이벤트-페이지 바꾸기
+  // const paginate = pageNum => setCurrentPage(pageNum);
 
   return(
     <div className="search_section layout_padding_search">
@@ -330,6 +362,9 @@ const clickMore = () => {
                               <h6 className='beerCategory'>
                                 {beer.beerType.en_main}
                               </h6>
+                              <h6 className='beerCategory'>
+                                {beer.beerType.en_detail}
+                              </h6>
                             </div>
                           </div>
 
@@ -343,7 +378,11 @@ const clickMore = () => {
             </div>
           }
         </div>
-
+        { isMoreName &&   // 더보기 버튼
+          <div>
+            <div className="moreBtn btn " onClick={clickMoreName} >More...</div>
+          </div>
+        }
 
         {/* 태그로 검색했을 때 */}
         <div className="search_beer">
@@ -406,8 +445,11 @@ const clickMore = () => {
                           {/* 맥주 카테고리 */}
                           <div className="options">
                             <div className='options_space_between'>
-                              <h6 className='beerCategory'>
+                            <h6 className='beerCategory'>
                                 {beer.beerType.en_main}
+                              </h6>
+                              <h6 className='beerCategory'>
+                                {beer.beerType.en_detail}
                               </h6>
                             </div>
                           </div>
@@ -422,7 +464,11 @@ const clickMore = () => {
             </div>
           }
         </div>
-
+        { isMoreTag &&   // 더보기 버튼
+          <div>
+            <div className="moreBtn btn " onClick={clickMoreTag} >More...</div>
+          </div>
+        }
 
         {/* 클릭해서 검색했을 때 */}
         <div className="search_beer">
@@ -488,6 +534,9 @@ const clickMore = () => {
                               <h6 className='beerCategory'>
                                 {beer.beerType.en_main}
                               </h6>
+                              <h6 className='beerCategory'>
+                                {beer.beerType.en_detail}
+                              </h6>
                             </div>
                           </div>
 
@@ -501,11 +550,9 @@ const clickMore = () => {
             </div>
           }
         </div>
-
-        {/* 더보기 버튼 - 링크수정필요 */}
-        {isMore &&
+        { isMoreClick &&   // 더보기 버튼
           <div>
-            <div className="moreBtn" onClick={clickMore} >More...</div>
+            <div className="moreBtn btn " onClick={clickMoreClick} >More...</div>
           </div>
         }
       </div>

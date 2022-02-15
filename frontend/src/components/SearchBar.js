@@ -7,10 +7,11 @@ import axios from "axios"
 import {Delay, GetPoint, GetPath} from './searchBarFunc'
 import { gsap } from "gsap/dist/gsap";
 import SearchResult from "./SearchResult";
+import axiosInstance from 'CustomAxios'
 const { to, set } = gsap
 
 function SearchBar(){
-  const SEARCH_URL = process.env.REACT_APP_SERVER + ':8082'
+  const SEARCH_URL = process.env.REACT_APP_SERVER + ':8888'
   const location = useLocation();
   const history = useHistory();
   const [searchInput, setSearchInput] = useState('');   // 검색할 단어
@@ -38,12 +39,12 @@ function SearchBar(){
   // 검색결과 get 요청
   const fetchSearchResult = async () =>{
     setSearchAll([])
-    const beerKosearch = axios.get(`${SEARCH_URL}/v1/search/name?query=${searchInput}&lang=ko`)
-    const beerEnsearch = axios.get(`${SEARCH_URL}/v1/search/name?query=${searchInput}&lang=en`)
-    const aromasearch = axios.get(`${SEARCH_URL}/v1/search/aroma?query=${searchInput}`)
-    const flavorsearch = axios.get(`${SEARCH_URL}/v1/search/flavor?query=${searchInput}`)
-    const typesearch = axios.get(`${SEARCH_URL}/v1/search/type?query=${searchInput}`)
-    const usersearch = axios.get(`${SEARCH_URL}/v1/search/user?query=${searchInput}`)
+    const beerKosearch = axiosInstance.get(`${SEARCH_URL}/v1/search/name?query=${searchInput}&lang=ko`)
+    const beerEnsearch = axiosInstance.get(`${SEARCH_URL}/v1/search/name?query=${searchInput}&lang=en`)
+    const aromasearch = axiosInstance.get(`${SEARCH_URL}/v1/search/aroma?query=${searchInput}`)
+    const flavorsearch = axiosInstance.get(`${SEARCH_URL}/v1/search/flavor?query=${searchInput}`)
+    const typesearch = axiosInstance.get(`${SEARCH_URL}/v1/search/type?query=${searchInput}`)
+    const usersearch = axiosInstance.get(`${SEARCH_URL}/v1/search/user?query=${searchInput}`)
     Promise.allSettled([beerKosearch, beerEnsearch, aromasearch, flavorsearch, typesearch,usersearch])
     .then((results)=>
     results.map((result, i) => {

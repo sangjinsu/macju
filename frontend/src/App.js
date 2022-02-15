@@ -22,36 +22,38 @@ function App() {
       <Router>
         <Navbar />
         <Switch>
-          <Route path="/home" component={Home} />
+          <Route exact path="/home" component={Home} />
           <Route path="/post">
             <Switch>
-              <Route path="/post/new" component={PageAuth(PostCreate, true)} />
-              <Route path="/post/:postId" component={PageAuth(PostDetail, true)} />
-              <Route path="/post" component={PageAuth(PostList, true)} />
+              <Route exact path="/post/new" component={PageAuth(PostCreate, true)} />
+              <Route exact path="/post/:postId" component={PageAuth(PostDetail, true)} />
+              <Route exact path="/post" component={PageAuth(PostList, true)} />
               <Route path="*" component={PageNotFound} />
             </Switch>
           </Route>
           <Route path="/beer">
             <Switch>
-              <Route path="/beer/:beerid" component={PageAuth(BeerDetail, true)} />
-              <Route path="/beer" component={PageAuth(BeerList, true)} />
+              <Route exact path="/beer/:beerid" component={PageAuth(BeerDetail, true)} />
+              <Route exact path="/beer" component={PageAuth(BeerList, true)} />
               <Route path="*" component={PageNotFound} />
             </Switch>
           </Route>
           <Route path="/user">
-            <Route path="/user/login" component={PageAuth(Login, false)} />
-            <Route path="/user/signup" component={PageAuth(Signup, false)} />
-            <Route path="*" component={PageNotFound} />
-          </Route>
-          <Route path="/profile">
             <Switch>
-              <Route path="/profile/:userid/edit" component={PageAuth(ProfileEdit, true)} />
-              <Route path="/profile/:userid/" component={PageAuth(Profile, true)} />
+              <Route exact path="/user/login" component={PageAuth(Login, false)} />
+              <Route exact path="/user/signup" component={PageAuth(Signup, false)} />
               <Route path="*" component={PageNotFound} />
             </Switch>
           </Route>
-          <Route path="/oauth/login/resopnse" component={PageAuth(LoginAuth, true)}/>
-          <Route path="/search" component={PageAuth(Search, true)} />
+          <Route path="/profile">
+            <Switch>
+              <Route exact path="/profile/:userid/edit" component={PageAuth(ProfileEdit, true)} />
+              <Route exact path="/profile/:userid/" component={PageAuth(Profile, true)} />
+              <Route path="*" component={PageNotFound} />
+            </Switch>
+          </Route>
+          <Route exact path="/oauth/login/resopnse" component={PageAuth(LoginAuth, true)}/>
+          <Route exact path="/search" component={PageAuth(Search, true)} />
           <Route path="*" component={PageNotFound} />
         </Switch>
         <Footer />

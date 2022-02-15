@@ -3,6 +3,7 @@ import React, { useEffect, useState, useCallback } from 'react'
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import '../../styles/Signup.css'
+import axiosInstance from 'CustomAxios'
 
 function Signup(props) {
   const VALIDATE_NICKNAME_URL = process.env.REACT_APP_SERVER + ':8888/v1/member/validatenickname'
@@ -60,7 +61,7 @@ function Signup(props) {
         }
       }
       console.log(headers)
-      const {data : singupResponse} = await axios.post(USER_SIGNUP_URL, singupData, headers)
+      const {data : singupResponse} = await axiosInstance.post(USER_SIGNUP_URL, singupData, headers)
       console.log('ttt')
       userData.memberId = singupResponse.memberId
       dispatch({type:"loginSucess", userData:userData})

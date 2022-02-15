@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/v1/member")
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://host.docker.internal:8888/**", allowedHeaders = "*")
 public class MemberController {
 
     private static final String SUCCESS = "success";

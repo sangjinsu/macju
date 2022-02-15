@@ -15,13 +15,11 @@ const Profile = () => {
   const USER_REVIEW_URL = process.env.REACT_APP_SERVER + ':8080/v1/member'
 
   const dispatch = useDispatch();
-  const memberId = 3
   const store = useStore((state)=>state)
+  const memberId = store.getState().userReducer.memberId
 
 
-  useEffect(()=>{
-    console.log(store.getState().userReducer)
-  }, [])
+
 
 
   useEffect(()=>{
@@ -41,8 +39,7 @@ const Profile = () => {
 
   return (
     <div className="bg_color">
-      <UserProfile />
-      
+      <UserProfile />  
       <div className="link_btn_all">
         <div className="link_btn">
           <Link className="profile_link" to={{

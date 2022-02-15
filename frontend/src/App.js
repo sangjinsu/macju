@@ -33,8 +33,8 @@ function App() {
           </Route>
           <Route path="/beer">
             <Switch>
-              <Route exact path="/beer/:beerid" component={PageAuth(BeerDetail, true)} />
-              <Route exact path="/beer" component={PageAuth(BeerList, true)} />
+              <Route exact path="/beer/:beerid" component={PageAuth(BeerDetail, false)} />
+              <Route exact path="/beer" component={PageAuth(BeerList, false)} />
               <Route path="*" component={PageNotFound} />
             </Switch>
           </Route>
@@ -47,13 +47,14 @@ function App() {
           </Route>
           <Route path="/profile">
             <Switch>
-              <Route exact path="/profile/:userid/edit" component={PageAuth(ProfileEdit, true)} />
-              <Route exact path="/profile/:userid/" component={PageAuth(Profile, true)} />
+              <Route exact path="/profile/:userid/edit" component={PageAuth(ProfileEdit, false)} />
+              <Route exact path="/profile/:userid/post" component={PageAuth(Profile, false)} />
               <Route path="*" component={PageNotFound} />
             </Switch>
           </Route>
-          <Route exact path="/oauth/login/resopnse" component={PageAuth(LoginAuth, true)}/>
-          <Route path="/search" component={Search} />
+          <Route exact path="/oauth/login/resopnse" component={PageAuth(LoginAuth, false)}/>
+          <Route path="/search" component={PageAuth(Search, false)} />
+
           <Route path="*" component={PageNotFound} />
         </Switch>
         <Footer />

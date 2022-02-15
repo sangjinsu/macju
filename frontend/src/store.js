@@ -1,5 +1,9 @@
 import { combineReducers, createStore } from "redux"
 
+import storage from 'redux-persist/lib/storage';
+import { persistStore, persistReducer } from 'redux-persist'
+
+
 
 
 const profileReducer = (state = [], action) => {
@@ -26,7 +30,8 @@ const notLoginUser = {
 const userReducer = (state = notLoginUser, action) => {
   if (action.type === "loginSucess") {
     const loginState = action.userData
-    console.log(loginState)
+    window.localStorage.setItem("AccessToken", loginState.AccessToken) // 불러오기 window.localStorage.getItem("AccessToken")
+    window.localStorage.setItem("memberId", action.userData.memberId)
     return loginState
   }else if (action.type === "logout") {
     const logoutState = {}
@@ -170,9 +175,7 @@ const navbarReducer = (state=false, action) => {
   }
 }
 
-
-
-const store = createStore( combineReducers
+const rootReducer = combineReducers
   ( {
     userReducer,
      postDetailReducer,
@@ -189,8 +192,14 @@ const store = createStore( combineReducers
      followingsReducer,
      profileReducer,
   
-  } ))
+  } )
 
 
+const persistConfig = {
+  key: 'root',
+  storage,
+}
 
-export default store;
+const persistedReducer = persistReducer(persistConfig, rootReducer)
+
+export default persistedReducer

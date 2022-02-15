@@ -153,6 +153,10 @@ function PostCreate(props) {
       alert('사진/내용을 추가해 주세요')
       return
     }
+    else if (memberid === null) {
+      alert('로그인 후 이용해주세요')
+      return
+    }
     else {
       const imgNames = [];
       for (let i = 0; i < firebaseImages.length; i++){
@@ -165,7 +169,7 @@ function PostCreate(props) {
         memberId : memberid,
         paths : imgNames,
         userHashTags : hashtagArr,
-        // memberId : memberId,
+        
       }
       const headers = {
         'Content-Type': 'application/json; charset=UTF-8',

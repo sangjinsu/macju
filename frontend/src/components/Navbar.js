@@ -10,9 +10,10 @@ import Search from 'routes/Search';
 
 
 function NavBar(){
-  const memberId = 1    // test용 멤버 아이디
-
+      // test용 멤버 아이디
   
+
+  const store = useStore((state) => state)
   const [isExpanded, setIsExpanded] = useState(false)
   const toggleBtn = document.getElementById("tglButton")
   const toggleClick = (() => {
@@ -26,10 +27,11 @@ function NavBar(){
      toggleBtn.click()
     }
   })
+
+
+
+
   
-
-
-
 
 
 
@@ -46,13 +48,14 @@ function NavBar(){
   //   }
   // },[])
   
-  
+ 
   
 
   
   return(
     
       <div className='navbar_page'>
+        
         <div className="navbar_area">
           <div className="bg-box">
             {/* <img src="img/hero-bg.jpg" alt=""></img> */}
@@ -92,7 +95,7 @@ function NavBar(){
                     </li>
                     <div className="dropdown-divider"></div>
                     <li>
-                      <Link to={`/profile/${memberId}/post`} className="dropdown-item user_link" onClick={navClick}>
+                      <Link to={`profile/${store.getState().userReducer.memberId}/post`} className="dropdown-item user_link" onClick={navClick}>
                         <i className="fa fa-user" aria-hidden="true"></i>
                       </Link>
                     </li>

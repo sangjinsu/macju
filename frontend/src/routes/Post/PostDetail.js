@@ -20,7 +20,7 @@ function PostDetail() {
   const POST_LIKE_URL = process.env.REACT_APP_SERVER + ':8080/v1/member'
   
   //basic data
-  const memberId = 1 //test용 멤버아이디
+  
   const history = useHistory();
   const postId = useParams().postId;
   const storage = getStorage(); //firebase
@@ -41,7 +41,8 @@ function PostDetail() {
   const [postlikeNum, setPostlikeNum] = useState()
 
 
-
+  const memberId = store.getState().userReducer.memberId
+  console.log(memberId)
   //function
   // Content 수정 (/post/:postId/update)
   const UpdateContent = (e) => {

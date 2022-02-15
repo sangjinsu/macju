@@ -4,7 +4,7 @@ import axios from "axios";
 import { useStore } from "react-redux";
 
 const UserReview = () =>{
-  const USER_REVIEW_URL = process.env.REACT_APP_SERVER + ':8080/v1/member'
+  const USER_REVIEW_URL = process.env.REACT_APP_SERVER + ':8888/v1/member'
   const memberId = 1
   const [userReviews, setUserReviews] = useState([])
   const store = useStore((state)=>state)

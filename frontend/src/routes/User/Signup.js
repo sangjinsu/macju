@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import '../../styles/Signup.css'
 
 function Signup(props) {
-  const VALIDATE_NICKNAME_URL = process.env.REACT_APP_SERVER + ':8080/v1/member/validatenickname'
+  const VALIDATE_NICKNAME_URL = process.env.REACT_APP_SERVER + ':8888/v1/member/validatenickname'
   const USER_SIGNUP_URL = process.env.REACT_APP_SERVER + ":8888/v1/member/signup"
   const userData = props.location.userData
   
@@ -16,6 +16,7 @@ function Signup(props) {
   const [gender, setGender] = useState("");
   const [AvailableNick, setAvailable] = useState()
   const [submitBtn, deactivateSubmitBtn] = useState(true)
+  
   
   // nickname 변경
   const changeNickName = e => {
@@ -50,6 +51,7 @@ function Signup(props) {
         // "gender" : gender
       }
       
+
       const headers = {
         headers: {
           "AccessToken":userData.AccessToken,
@@ -80,7 +82,16 @@ function Signup(props) {
 
   const validationNinkname = useCallback( async () => {
     try{
-      const { data : nicknameStatus } = await axios.get(`${VALIDATE_NICKNAME_URL}/${nickname}`)
+      
+      const headers = {
+        headers: {
+          "AccessToken":userData.AccessToken,
+          "Accept":"application/json;charset=UTF-8",
+          "Content-Type":"application/json;charset=UTF-8"
+        }
+      }
+      console.log(userData.AccessToken)
+      const { data : nicknameStatus } = await axios.get(`${VALIDATE_NICKNAME_URL}/${nickname}`, headers)
       
       if (nicknameStatus === "success") {
         setAvailable(true)

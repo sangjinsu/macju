@@ -12,7 +12,7 @@ import Chip from '@mui/material/Chip'
 
 function BeerList(){
   //url
-  const BEER_LIST_URL = process.env.REACT_APP_SERVER + ':8080/v1/beer'
+  const BEER_LIST_URL = process.env.REACT_APP_SERVER + ':8888/v1/beer'
   
   //// usestate
 

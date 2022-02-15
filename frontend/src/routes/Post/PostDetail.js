@@ -4,20 +4,20 @@ import { useParams, Link, Route, Switch, useHistory } from 'react-router-dom';
 import { BsHeartFill, BsHeart } from "react-icons/bs";
 import '../../styles/PostDetail.css'
 import CommentList from "./CommentList";
-import { useDispatch, useStore } from "react-redux";
+import { useDispatch, useSelector, useStore } from "react-redux";
 import PostDetailImages from "../../components/Post/PostDetailImages"
 import { deleteObject, getStorage, ref } from "firebase/storage";
 
 
 function PostDetail() {
   //url
-  const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8080/v1/member/profile'
-  const POST_DETAIL_URL = process.env.REACT_APP_SERVER + ':8080/v1/post'
-  const POST_DETAIL_LOG_URL = process.env.REACT_APP_SERVER + ':8080/v1/log'
-  const RANKING_POST_DLELETE_URL = process.env.REACT_APP_SERVER + ":8081/post"
-  const RANKING_POST_LIKE_URL = process.env.REACT_APP_SERVER + ":8081/post/like"
-  const RANKING_POST_URL = process.env.REACT_APP_SERVER + ":8081/post/view"
-  const POST_LIKE_URL = process.env.REACT_APP_SERVER + ':8080/v1/member'
+  const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8888/v1/member/profile'
+  const POST_DETAIL_URL = process.env.REACT_APP_SERVER + ':8888/v1/post'
+  const POST_DETAIL_LOG_URL = process.env.REACT_APP_SERVER + ':8888/v1/log'
+  const RANKING_POST_DLELETE_URL = process.env.REACT_APP_SERVER + ":8888/post"
+  const RANKING_POST_LIKE_URL = process.env.REACT_APP_SERVER + ":8888/post/like"
+  const RANKING_POST_URL = process.env.REACT_APP_SERVER + ":8888/post/view"
+  const POST_LIKE_URL = process.env.REACT_APP_SERVER + ':8888/v1/member'
   
   //basic data
   
@@ -41,8 +41,10 @@ function PostDetail() {
   const [postlikeNum, setPostlikeNum] = useState()
 
 
-  const memberId = store.getState().userReducer.memberId
-  console.log(memberId)
+
+  const userData = useSelector(state => state.userReducer)
+  const memberId = userData.memberId
+
   //function
   // Content 수정 (/post/:postId/update)
   const UpdateContent = (e) => {

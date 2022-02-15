@@ -21,7 +21,8 @@ function LoginAuth() {
         history.replace({pathname:"/user/signup", userData:userData.current})
       } else {
         dispatch({type:"loginSucess", userData:userData.current})
-        dispatch({type:'header', AccessToken:userData.current.AccessToken})
+        window.localStorage.setItem("AccessToken", userData.current.AccessToken)
+        // dispatch({type:'header', AccessToken:userData.current.AccessToken}) header custom 
         history.replace("/home")
       }
     }catch(err){

@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://host.docker.internal:8888/**", allowedHeaders = "*")
+@CrossOrigin(origins = "http://host.docker.internalq:8888/**", allowedHeaders = "*")
 @RequestMapping("beer")
 public class BeerController {
 

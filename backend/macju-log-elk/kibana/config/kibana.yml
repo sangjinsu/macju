@@ -4,10 +4,9 @@
 #
 server.name: kibana
 server.host: 0.0.0.0
-# elasticsearch.hosts: [ "http://elasticsearch:9201" ]
-# elasticsearch.hosts: [ "http://i6c107.p.ssafy.io:9201" ]
-elasticsearch.hosts: [ "http://host.docker.internal:9201" ]
-
+#elasticsearch.hosts: [ "http://elasticsearch:9200" ]
+elasticsearch.hosts: [ "http://i6c107.p.ssafy.io:9200" ]
+# elasticsearch.hosts: ["http://13.125.157.39:9200"]
 monitoring.ui.container.elasticsearch.enabled: true
 
 ## X-Pack security credentials

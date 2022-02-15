@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("v1/post")
 @RequiredArgsConstructor
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://host.docker.internal:8080/**", allowedHeaders = "*")
 public class PostController {
 
     private final PostService postService;

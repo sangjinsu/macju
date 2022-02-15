@@ -10,6 +10,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @ToString
 @Table(name = "member")
 @NoArgsConstructor//(access = AccessLevel.PROTECTED)

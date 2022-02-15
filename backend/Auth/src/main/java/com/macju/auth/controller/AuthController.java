@@ -15,7 +15,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/oauth")
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://i6c107.p.ssafy.io:8888/**", allowedHeaders = "*")
 public class AuthController {
 
     private static final String SUCCESS = "success";

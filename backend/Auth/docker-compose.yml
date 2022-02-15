@@ -4,7 +4,7 @@ services:
     image: redis
     container_name: macju-auth-redis-server
     ports:
-      - "6379:6379"
+      - "6381:6379"
 
   macju-auth-server:
     image: 'sangjs39/macju-auth-server'

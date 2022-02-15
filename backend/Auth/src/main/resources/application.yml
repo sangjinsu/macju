@@ -5,4 +5,4 @@ spring:
     type: redis
   redis:
     host: "i6c107.p.ssafy.io"
-    port: 6379
+    port: 6381

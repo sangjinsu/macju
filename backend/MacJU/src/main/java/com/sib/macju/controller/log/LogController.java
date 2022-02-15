@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("v1/log")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://host.docker.internal:8080/**", allowedHeaders = "*")
+@CrossOrigin(origins = "http://host.docker.internal:8888/**", allowedHeaders = "*")
 @Slf4j
 public class LogController {
 

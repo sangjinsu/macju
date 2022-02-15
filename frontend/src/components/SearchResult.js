@@ -76,14 +76,15 @@ const SearchResult = (props) =>{
         if (searchResult.length === 0) return null
         if (!searchResult[4]) return null
         searchResult[4].data.map((result, i)=> _.isEmpty(result) ? null : 
-          <Link to={{ pathname: `/search/${result}`,
-                      state: result[Object.keys(result)].beers }}
-          >
-            <ListGroup.Item>{Object.keys(result)}({result[Object.keys(result)].beers.length}개)</ListGroup.Item>
-            {console.log(result[Object.keys(result)].beers)}
-          </Link>
-        ) 
-      })()
+          // <Link to={{ pathname: `/search/${result}`,
+          //             state: result[Object.keys(result)].beers }}
+          // >
+          //   <ListGroup.Item>{Object.keys(result)}({result[Object.keys(result)].beers.length}개)</ListGroup.Item>
+          //   {console.log(result[Object.keys(result)].beers)}
+          // </Link>
+            null
+          ) 
+      })
     }
     {/* userdata */}
     {/* {

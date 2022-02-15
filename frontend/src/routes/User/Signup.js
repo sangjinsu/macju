@@ -81,7 +81,7 @@ function Signup(props) {
 
   const validationNinkname = useCallback( async () => {
     try{
-      const { data : nicknameStatus } = await axiosInstance.get(`${VALIDATE_NICKNAME_URL}/${nickname}`)
+      const { data : nicknameStatus } = await axios.get(`${VALIDATE_NICKNAME_URL}/${nickname}`)
       
       if (nicknameStatus === "success") {
         setAvailable(true)

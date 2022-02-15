@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Pagination = ({postPerPage, totalPosts, paginate}) => {
+const SearchPagination = ({postPerPage, totalPosts, paginate}) => {
   const pageNumbers = [];
   
   for (let i=1; i<=Math.ceil(totalPosts / postPerPage); i ++) {
@@ -18,4 +18,4 @@ const Pagination = ({postPerPage, totalPosts, paginate}) => {
     );
   };
   
-  export default Pagination;
+  export default SearchPagination;

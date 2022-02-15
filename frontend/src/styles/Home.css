@@ -9,7 +9,6 @@
   overflow-x: hidden;
 }
 
-
 .slick-dots {
   bottom: 20px;
   /* margin-top: 200px; */
@@ -53,6 +52,13 @@
 .hero {
   padding: 10rem 0;
 } */
+
+.slick-slide img {
+  display: inline-block;
+}
+.slideDiv {
+  display: inline-block;
+}
 
 @-webkit-keyframes fade{from{bottom:0px;opacity:1;visibility:visible}to{bottom:110%}}
         @keyframes fade{from{bottom:0px;opacity:1;visibility:visible}to{bottom:110%}}

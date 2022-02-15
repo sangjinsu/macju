@@ -4,6 +4,24 @@ server:
 spring:
   cloud:
     gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:3000","http://i6c107.p.ssafy.io:3000"
+            allowedHeaders:
+              - x-requested-with
+              - authorization
+              - content-type
+              - credential
+              - X-AUTH-TOKEN
+              - X-CSRF-TOKEN
+              - AccessToken
+            allowedMethods:
+              - POST
+              - GET
+              - PUT
+              - OPTIONS
+              - DELETE
       routes:
         - id: member-validate-service
           uri: http://i6c107.p.ssafy.io:8080
@@ -79,3 +97,7 @@ spring:
                 baseMessage: Ranking Service
                 preLogger: true
                 postLogger: true
+        - id: auth-service
+          uri: http://ic6107.p.ssafy.io:8752
+          predicates:
+            - Path=/oauth/login/response

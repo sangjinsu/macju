@@ -10,11 +10,12 @@ import axios from "axios";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import Slider from "react-slick";
+import axiosInstance from "CustomAxios";
 
 function PostCreate(props) {
   const POST_CREATE_URL = process.env.REACT_APP_SERVER + ':8080/v1/post'
   const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8080/v1/member/profile'
-  const memberid = 1  //test용 멤버아이디
+  const memberid = 62  //test용 멤버아이디
   const beerid = props.location.state.beerid    // 작성하고있는 포스트의 맥주아이디
 
   const storage = getStorage(); //firebase
@@ -175,11 +176,11 @@ function PostCreate(props) {
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': "application/json; charset=UTF-8"
       }
-      axios.post(POST_CREATE_URL, newpost, headers)
+      axiosInstance.post(POST_CREATE_URL, newpost, headers)
       .then(()=>{
         const profiledata = store.getState().profileReducer
         profiledata['grade'] = profiledata['grade'] + 10
-        axios.put(USER_UPDATE_PROFILE, profiledata)
+        axiosInstance.put(USER_UPDATE_PROFILE, profiledata)
         .then(()=>{
           history.push(`/post`)
           // history.replace(`/beer/${beerid}`)

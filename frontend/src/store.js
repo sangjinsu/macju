@@ -19,10 +19,13 @@ const headerReducer = (state = [], action) =>{
 const userReducer = (state=[], action) => {
   if (action.type === "loginSuccess"){
     return action.userdata
+  } else if (action.type === "logout") {
+    const logoutState = {}
+    return logoutState
   }
   return state
 }
-
+  
 const kakaoIdReducer = (state = -1, action) => {
   if (action.type === "kakaoId") {
     return action.userKaKaoId

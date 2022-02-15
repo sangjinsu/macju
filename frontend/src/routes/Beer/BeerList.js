@@ -8,7 +8,8 @@ import "../../firebase_config"
 import { useDispatch, useStore } from 'react-redux';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
-import Chip from '@mui/material/Chip'
+import axiosInstance from "CustomAxios";
+// import Chip from '@mui/material/Chip'
 
 function BeerList(){
   //url
@@ -64,7 +65,7 @@ function BeerList(){
   //   dispatch({type:"navClose"})
   // }
   const fetchBeerlist = async () =>{
-    const data = await axios.get(`${BEER_LIST_URL}?size=500`)
+    const data = await axiosInstance.get(`${BEER_LIST_URL}?size=500`)
     dispatch({type:"getBeerList", data:data})
     setTempdata(data.data)
     setbeerdata(store.getState().beerListReducer.data)

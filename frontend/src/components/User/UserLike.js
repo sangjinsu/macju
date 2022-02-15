@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import '../../styles/UserLike.css'
 import {useStore} from "react-redux"
+import axiosInstance from "CustomAxios";
 const UserLike = () => {
   const USER_LIKE_URL = process.env.REACT_APP_SERVER + ':8080/v1/member'
   const [memberId, setMemberId] = useState(null)
@@ -10,7 +11,7 @@ const UserLike = () => {
   const store = useStore((state) => state);
   useEffect(() =>{
     const fetchData = async () =>{
-    const memberbeers = await axios.get(`${USER_LIKE_URL}/${memberId}/like/beer`)
+    const memberbeers = await axiosInstance.get(`${USER_LIKE_URL}/${memberId}/like/beer`)
     setLikeBeers(memberbeers.data)
     }
     if (store.getState().userLikeReducer.length === 0){

@@ -3,11 +3,19 @@ import React, { useEffect, useState, useCallback } from 'react'
 import { useDispatch, useStore } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import '../../styles/Signup.css'
+import axiosInstance from 'CustomAxios'
 
+<<<<<<< HEAD
 function Signup() {
   const VALIDATE_NICKNAME_URL = process.env.REACT_APP_SERVER + ':8472/v1/member/validatenickname'
   const USER_SIGNUP_URL = process.env.REACT_APP_SERVER + ":8472/v1/member/signup"
   
+=======
+function Signup(props) {
+  const VALIDATE_NICKNAME_URL = process.env.REACT_APP_SERVER + ':8888/v1/member/validatenickname'
+  const USER_SIGNUP_URL = process.env.REACT_APP_SERVER + ":8888/v1/member/signup"
+  const userData = props.location.userData
+>>>>>>> a16b2c9c1f750b072cff6ffc47be13259cbd7054
   
   const dispatch = useDispatch()
   const history = useHistory()
@@ -51,6 +59,7 @@ function Signup() {
       const res = await axios.post(USER_SIGNUP_URL, singupData, {headers})
       userData.memberId = res.memberId
       dispatch({type:"loginSucess", userData:userData})
+      window.localStorage.setItem("AccessToken", userData.AccessToken)
       history.push("/home")
     }catch(err){
       // 회원가입 실패시 알람 + 로그인 페이지 다시 이동
@@ -67,7 +76,7 @@ function Signup() {
 
   const validationNinkname = useCallback( async () => {
     try{
-      const { data : nicknameStatus } = await axios.get(`${VALIDATE_NICKNAME_URL}/${nickname}`)
+      const { data : nicknameStatus } = await axiosInstance.get(`${VALIDATE_NICKNAME_URL}/${nickname}`)
       
       if (nicknameStatus === "success") {
         setAvailable(true)

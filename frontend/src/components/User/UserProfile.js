@@ -7,6 +7,7 @@ import { Link, useParams } from "react-router-dom";
 import { useDispatch, useStore } from "react-redux";
 import { Button, ProgressBar } from "react-bootstrap";
 import UserIcon from "./UserIcon";
+import axiosInstance from "CustomAxios";
 const UserProfile = () => {
 	const store = useStore((state)=>state)
 	const dispatch = useDispatch();
@@ -36,10 +37,10 @@ const UserProfile = () => {
 	// const [usercolor, setUsercolor] = useState("")		// 사진 색깔
 	const [followButton, setFollowButton] = useState(null)
 	
-	const headers = store.getState().headerReducer
+	
 	const setFollow = async () =>{
 		setFollowButton(!followButton)
-		await axios.post(FOLLOW_POST_URL)		
+		await axiosInstance.post(FOLLOW_POST_URL)		
 	}
 	
 
@@ -49,7 +50,7 @@ const UserProfile = () => {
 
 	useEffect(()=>{
 		const fetchData = async () =>{
-			const res = await axios.get(FOLLOWING_GET_URL)
+			const res = await axiosInstance.get(FOLLOWING_GET_URL)
 			dispatch({type:'followings', followings:res.data.data})
 		}
 		fetchData();
@@ -71,7 +72,7 @@ const UserProfile = () => {
 	useEffect(()=>{
 		const fetchData = async () =>{
 			const followers = []
-			const res = await axios.get(FOLLOW_GET_URL)
+			const res = await axiosInstance.get(FOLLOW_GET_URL)
 			if (res.data.data.length === 0) {
 				dispatch({type:'followers', followers:followers})
 				setFollowButton(false)
@@ -96,7 +97,7 @@ const UserProfile = () => {
 	useEffect(() =>{
 		
 		const fetchData = async () => {
-			const profiledata = await axios.get(`${USER_PROFILE_URL}`)
+			const profiledata = await axiosInstance.get(`${USER_PROFILE_URL}`)
 			setUser(profiledata)
 			// setUsercolor(profiledata.profileColor)	
 		}

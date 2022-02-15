@@ -7,7 +7,7 @@ import '../../styles/BeerDetail.css'
 import PostListComponent from "../../components/Post/PostList"
 import BeerRate from "./BeerRate.js"
 import BeerRateUpdate from "./BeerRateUpdate.js"
-import { useDispatch, useStore } from "react-redux";
+import { useDispatch } from "react-redux";
 import Chip from '@mui/material/Chip'
 
 
@@ -21,8 +21,9 @@ function BeerDetail() {
   const RANKING_BEER_LIKE_URL = process.env.REACT_APP_SERVER + ':8081/beer/like'
   const BEER_LIKE_URL = process.env.REACT_APP_SERVER + ':8080/v1/member'
 
-  
-  const store = useStore((state)=>state)
+  //temp
+  const memberId = 1    //test용 멤버아이디
+
   //react-redux
   const dispatch = useDispatch();  
   
@@ -47,20 +48,7 @@ function BeerDetail() {
   // 별점
   const [starrate, setStarrate] = useState()
 
-
-
-
-  const memberId = store.getState().userReducer.memberId
   
-  //로그인 확인
-  function CheckLogin() {
-    if (memberId) {
-      return '/post/new'
-    } else {
-      alert('로그인 후 이용하세요')
-      return 'user/login'
-    }
-  }
 
 
 
@@ -97,15 +85,14 @@ function BeerDetail() {
       const hashTagArr = [beerdetail.beerType.en_main, ...beerdetail.aromaHashTags , ...beerdetail.flavorHashTags]
       // console.log(hashTagArr)
       const newdata = {
-        id : 3,
+        id : 1,
         tags : hashTagArr
       }
       // console.log(newdata)
 
       const headers = {
         'Content-Type': 'application/json; charset=UTF-8',
-        'Accept': "application/json; charset=UTF-8",
-        'AccessToken': store.getState().userReducer.AccessToken
+        'Accept': "application/json; charset=UTF-8"
       }
       axios.post(BEER_DETAIL_LOG_URL, newdata, {headers})     // 주석풀면 로그에 post 보냄
       .then()
@@ -287,7 +274,7 @@ function BeerDetail() {
                 <Link 
                   className='btnText' 
                   to={{
-                    pathname: CheckLogin(),
+                    pathname: '/post/new',
                     state: {beerid: beer.beerId},
                   }}
                 >포스팅하기</Link>

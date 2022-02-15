@@ -8,6 +8,7 @@ import { Link,useParams } from "react-router-dom";
 import { useStore } from "react-redux";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import "../../styles/UserPost.css"
+import axiosInstance from "CustomAxios";
 
 const UserPost = () => {
   const USER_POST_URL = process.env.REACT_APP_SERVER + ':8080/v1/post/member'
@@ -19,7 +20,7 @@ const UserPost = () => {
   const storage = getStorage();
   useEffect(() => {
     const fetchData = async() =>{
-      const memberPosts = await axios.get(`${USER_POST_URL}/${memberId}`)
+      const memberPosts = await axiosInstance.get(`${USER_POST_URL}/${memberId}`)
       setUserPosts(memberPosts.data)
     }
     if (store.getState().userPostReducer.length === 0){

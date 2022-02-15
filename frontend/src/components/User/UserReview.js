@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useStore } from "react-redux";
 import {useParams} from "react-router-dom"
-
+import axiosInstance from "CustomAxios";
 const UserReview = () =>{
   const USER_REVIEW_URL = process.env.REACT_APP_SERVER + ':8080/v1/member'
   const userNum = useParams()
@@ -12,7 +12,7 @@ const UserReview = () =>{
   const store = useStore((state)=>state)
 
   const fetchData = async() =>{
-    const data = await axios.get(`${USER_REVIEW_URL}/${memberId}/rates`)
+    const data = await axiosInstance.get(`${USER_REVIEW_URL}/${memberId}/rates`)
     
     setUserReviews(data.data.data)
   }

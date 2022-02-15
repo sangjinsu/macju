@@ -7,7 +7,7 @@ spring:
       globalcors:
         corsConfigurations:
           '[/**]':
-            allowedOrigins: "http://localhost:3000","http://i6c107.p.ssafy.io:3000"
+            allowedOrigins: http://localhost:3000, http://i6c107.p.ssafy.io:3000
             allowedHeaders:
               - x-requested-with
               - authorization

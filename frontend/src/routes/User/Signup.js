@@ -58,7 +58,7 @@ function Signup(props) {
         }
       }
  
-      const singupResponse = await axios.post(USER_SIGNUP_URL, singupData, headers)
+      const {data : singupResponse} = await axios.post(USER_SIGNUP_URL, singupData, headers)
       userData.memberId = singupResponse.memberId
       dispatch({type:"loginSucess", userData:userData})
       history.push("/home")

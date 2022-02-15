@@ -16,6 +16,7 @@ import LoginAuth from "routes/Auth/LoginAuth";
 import PageAuth from "./hoc/auth";
 import Search from "routes/Search"
 
+
 function App() {
   return (
     <div>

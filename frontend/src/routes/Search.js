@@ -11,6 +11,7 @@ function Search(props){
   const [isMore, setIsMore] = useState(false)
 
 
+
   // 검색한 결과 - 클릭했을때 state로 값 가져옴
   const location = useLocation();
   const searchresult = location.state   // id 배열 형식

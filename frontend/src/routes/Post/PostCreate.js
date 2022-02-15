@@ -212,7 +212,7 @@ function PostCreate(props) {
         <div className="container">
           {/* 맥주detail로 가기 버튼 */}
           <div className='backBtn_postcreate'>
-            <button onClick={backPage}><i className="fas fa-angle-double-left fa-lg"></i>back</button>
+            <button className='backBtn_text' onClick={backPage}><i className="fas fa-angle-double-left fa-lg"></i> back</button>
             {/* <Link className='backBtn_text' to='/beer/1'><i className="fas fa-angle-double-left fa-lg"></i> back</Link> */}
           </div>
 
@@ -225,10 +225,7 @@ function PostCreate(props) {
               {/* 입력 폼 container */}
               <div className="form_container">
                 <form action={`/beer/${beerid}`} onSubmit={postCreateSubmit}>
-                  {/* 사진 선택하기 */}
-                  <div>
-                    <input type="file" multiple accept="image/*" onChange={uploadBtn} />
-                  </div>
+                  
 
                   {/* 사진 띄우는곳 */}
                   <div>
@@ -239,9 +236,16 @@ function PostCreate(props) {
                         <div className="deleteImgBtn" role={'button'} onClick={deleteImg} idx={img.index}>X</div>
                       </div>
                     ))}
-                   
                   </Slider>
                   </div>
+
+                  {/* 사진 선택하기 */}
+                  <div>
+                    <label className="input_file_btn" htmlFor="input_file"><i className="fas fa-images"></i></label>
+                    <input id="input_file" type="file" multiple accept="image/*" onChange={uploadBtn} style={{display:"none"}}/>
+                  </div>
+
+                  {/* 내용 입력창 input */}
                   <div className='input_postcreate'>
                     <textarea 
                       value={content}
@@ -271,13 +275,12 @@ function PostCreate(props) {
                       </div>
                     </div>
                   </div>
-                  <hr/>
 
                  
 
                   {/* 작성완료 버튼 */}
-                  <div>
-                    <button type="submit" className="complete_btn"> 작성 완료</button>
+                  <div className="row">
+                    <button type="submit" className="complete_btn col-4 offset-4"> 작성 완료</button>
                   </div>
                 </form>
               </div>

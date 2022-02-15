@@ -172,26 +172,36 @@ function BeerList(){
                           {/* {beer.content.length > 15 ? beer.content.substr(0, 15) + "....": beer.content} */}
                           {/* {beer.content.length > 15 } */}
                         </div>
-                        <div className='beer_volume'>
+                        {/* <div className='beer_volume'>
                           ALC : {beer.volume}%
-                        </div>
+                        </div> */}
                         {/* 맥주 해시태그 */}
                         <div className='beer_hashtag_all'>
-                          {beer.aromaHashTags.map((aroma,a) => 
-                            <div className='beer_hashtag' key={a}>#{aroma}</div>
-                          )}
+                          { beer.aromaHashTags.length > 2 
+                            ? beer.aromaHashTags.slice(0,2).map((aroma,a) => 
+                              <div className='beer_hashtag' key={a}>#{aroma}</div>
+                              )
+                            : beer.aromaHashTags.map((aroma,a) => 
+                              <div className='beer_hashtag' key={a}>#{aroma}</div>
+                              )
+                          }
                         </div>
                         <div className='beer_hashtag_all'>
-                          {beer.flavorHashTags.map((flavor,f) => 
-                            <div className='beer_hashtag' key={f}>#{flavor}</div>
-                          )}
+                          { beer.flavorHashTags.length > 2 
+                            ? beer.flavorHashTags.slice(0,2).map((flavor,f) => 
+                              <div className='beer_hashtag' key={f}>#{flavor}</div>
+                              )
+                            : beer.flavorHashTags.map((flavor,f) => 
+                              <div className='beer_hashtag' key={f}>#{flavor}</div>
+                              )
+                          }
                         </div>
                         {/* 맥주 카테고리 */}
                         <div className="options">
                           {/* <Chip label={beer.beerType.en_main} /> */}
-                            <h6 className='beerCategory'>
+                            <div className='beerCategory'>
                               {beer.beerType.en_main}
-                            </h6>
+                            </div>
                         </div>
                       </div>
                     </div>

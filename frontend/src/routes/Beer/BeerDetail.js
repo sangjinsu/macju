@@ -22,7 +22,7 @@ function BeerDetail() {
   const BEER_LIKE_URL = process.env.REACT_APP_SERVER + ':8080/v1/member'
 
   //temp
-  const memberId = 1    //test용 멤버아이디
+  const memberId = 3    //test용 멤버아이디
 
   //react-redux
   const dispatch = useDispatch();  

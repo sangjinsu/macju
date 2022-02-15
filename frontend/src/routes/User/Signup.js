@@ -63,6 +63,7 @@ function Signup(props) {
       console.log('ttt')
       userData.memberId = singupResponse.memberId
       dispatch({type:"loginSucess", userData:userData})
+      window.localStorage.setItem("AccessToken", userData.AccessToken)
       history.push("/home")
     }catch(err){
       // 회원가입 실패시 알람 + 로그인 페이지 다시 이동

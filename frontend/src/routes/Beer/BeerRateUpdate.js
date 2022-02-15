@@ -18,7 +18,7 @@ function BeerRate(props){
   const [aromaArr, setAromaArr] = useState([])      //보여주기용
   const [aromaIdArr, setAromaIdArr] = useState([])  //데이터전송용 아이디배열
   //temp
-  const memberId = 1    // test용 멤버 아이디
+  const memberId = 3    // test용 멤버 아이디
 
   //props
   const starrate = props.starrate

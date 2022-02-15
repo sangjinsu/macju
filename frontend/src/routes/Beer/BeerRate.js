@@ -27,7 +27,7 @@ function BeerRate(props){
   const store = useStore((state)=>state)
 
   //temp
-  const memberId = 1    // test용 멤버 아이디
+  const memberId = 3    // test용 멤버 아이디
 
   //props
   const starrate = props.starrate

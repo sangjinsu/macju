@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap");
-.postcreate body {
+.postcreate {
   font-family: "Open Sans", sans-serif;
   color: #0c0c0c;
-  background-color: #ffffff;
+  background-color: #fffaea;;
   overflow-x: hidden;
 }
 
@@ -27,6 +27,8 @@
 .backBtn_text {
   color: black;
   text-decoration: none;
+  border: none;
+  background-color: #fffaea;
 }
 
 
@@ -40,6 +42,15 @@
   font-size: 2.5rem;
   font-weight: bold;
   text-align: center;
+}
+
+/* 사진 업로드 버튼 */
+.input_file_btn {
+  padding: 6px 15px;
+  background-color:#F9CF68;;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
 }
 
 /* 포스트 업로드할 이미지 */
@@ -142,16 +153,18 @@
 .postcreate_section .form_container .complete_btn {
   margin-top: 15px;
   text-transform: uppercase;
-  display: inline-block;
-  padding: 10px 55px;
-  background-color: #ffbe33;
+  /* display: inline-block; */
+  padding: 7px 0;
+  background-color: #F9CF68;;
   color: #ffffff;
   border-radius: 45px;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   border: none;
-  margin-left: 25%;
 }
+
+.postcreate_section .input_file_btn:hover,
+.postcreate_section .addHashBtn:hover,
 .postcreate_section .form_container .complete_btn:hover {
-  background-color: #e69c00;
+  background-color: #ffdf90;
 }

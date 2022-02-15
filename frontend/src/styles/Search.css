@@ -71,17 +71,20 @@
 .search_section .beerlist_box {
   position: relative;
   margin-top: 25px;
-  background-color: #ffffff;
-  border-radius: 10px;
-  color: #ffffff;
   border-radius: 15px;
+  border-color: #F9CF68;
+  border-width: 2px;
+  border-style: solid;
+  /* color: #ffffff; */
+  color: black;
   overflow: hidden;
-  background: linear-gradient(to bottom, #fce6b2 25px, #222831 25px);
+  /* background: linear-gradient(to bottom, #fce6b2 25px, #222831 25px); */
+  background: linear-gradient(to bottom, #ffffff 25px);
 }
 
 /* 맥주 이미지 */
 .search_section .beerlist_box .img-box {
-  background: #fce6b2;
+  background: #f9d068a1;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -91,8 +94,8 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  height: 215px;
-  border-radius: 0 0 0 45px;
+  height: 180px;
+  /* border-radius: 0 0 0 45px; */
   margin: -1px;
   padding: 25px;
 }
@@ -194,8 +197,8 @@
   justify-content: space-between;
   align-items: center;
 }
-.beerCategory {
-  padding: 7px;
+.search_section .beerCategory {
+  padding: 5px 6px;
   border-radius: 15px;
   background-color: #F9CF68;
 }

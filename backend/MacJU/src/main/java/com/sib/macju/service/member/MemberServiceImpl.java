@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -102,15 +103,17 @@ public class MemberServiceImpl implements MemberService {
         member.setNickName(requestUpdateMemberDto.getNickName());
 
         member.getMemberFondAromaHashTags().clear();
-        member.getMemberFondAromaHashTags().clear();
-
+        member.getMemberFondFlavorHashTags().clear();
+        System.out.println("여기까진 들어오니?");
         List<MemberFondAromaHashTag> memberFondAromaHashTags = requestUpdateMemberDto.getAromas().stream().map(
                 aroma -> {
                     Optional<AromaHashTag> aromaHashTag = aromaHashTagRepository.findById(aroma);
                     return MemberFondAromaHashTag.createMemberFondAromaHashTag(aromaHashTag.get(), member);
                 }
         ).collect(Collectors.toList());
-
+        for(int i=0; i<memberFondAromaHashTags.size(); i++){
+            System.out.println(memberFondAromaHashTags.get(i).getMemberFondAromaHashTagId()+"    "+memberFondAromaHashTags.get(i).getAromaHashTag().getAromaHashTagId());
+        }
         List<MemberFondFlavorHashTag> memberFondFlavorHashTags = requestUpdateMemberDto.getFlavors().stream().map(flavor -> {
             Optional<FlavorHashTag> flavorHashTag = flavorHashTagRepository.findById(flavor);
             return MemberFondFlavorHashTag.createMemberFondFlavorHashTag(flavorHashTag.get(), member);
@@ -118,11 +121,16 @@ public class MemberServiceImpl implements MemberService {
 
         member.setMemberFondAromaHashTags(memberFondAromaHashTags);
         member.setMemberFondFlavorHashTags(memberFondFlavorHashTags);
-
+        memberFondAromaHashTagRepository.saveAll(memberFondAromaHashTags);
+        memberFondFlavorHashTagRepository.saveAll(memberFondFlavorHashTags);
+        System.out.println("여기까진 들어오니?2222");
         Member result = memberRepository.save(member);
-        if (result == null) {
+        System.out.println("저장을 못 하니"+result.toString());
+        if (result.equals(null)) {
+            System.out.println("return은 하니?");
             return 0;
         }
+        System.out.println("return은 하니?");
         return 1;
     }
 

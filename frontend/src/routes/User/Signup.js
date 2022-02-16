@@ -9,6 +9,7 @@ function Signup(props) {
   const VALIDATE_NICKNAME_URL = process.env.REACT_APP_SERVER + ':8888/v1/member/validatenickname'
   const USER_SIGNUP_URL = process.env.REACT_APP_SERVER + ":8888/v1/member/signup"
   const userData = props.location.userData
+  
   const dispatch = useDispatch()
   const history = useHistory()
   const [nickname, nicknameChange] = useState("");
@@ -17,7 +18,7 @@ function Signup(props) {
   const [AvailableNick, setAvailable] = useState()
   const [submitBtn, deactivateSubmitBtn] = useState(true)
   
-
+  
   // nickname 변경
   const changeNickName = e => {
     nicknameChange(e.target.value);
@@ -59,10 +60,11 @@ function Signup(props) {
           "Content-Type":"application/json;charset=UTF-8"
         }
       }
-
+      console.log(headers)
       const {data : singupResponse} = await axios.post(USER_SIGNUP_URL, singupData, headers)
+      console.log('ttt')
       userData.memberId = singupResponse.memberId
-      dispatch({type:"loginSucess", userData:userData})
+      dispatch({type:"loginSuccess", userData:userData})
       window.localStorage.setItem("AccessToken", userData.AccessToken)
       history.push("/home")
     }catch(err){
@@ -81,6 +83,7 @@ function Signup(props) {
 
   const validationNinkname = useCallback( async () => {
     try{
+      console.log(userData.AccessToken)
       const { data : nicknameStatus } = await axios.get(`${VALIDATE_NICKNAME_URL}/${nickname}`)
       
       if (nicknameStatus === "success") {

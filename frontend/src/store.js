@@ -18,7 +18,7 @@ const headerReducer = (state = [], action) =>{
 
 const userReducer = (state=[], action) => {
   if (action.type === "loginSuccess"){
-    return action.userdata
+    return action.userData
   } else if (action.type === "logout") {
     const logoutState = {}
     return logoutState

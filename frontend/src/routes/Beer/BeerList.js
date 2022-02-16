@@ -32,7 +32,13 @@ function BeerList(){
   const dispatch = useDispatch();
   // 카테고리에 맞는 맥주 데이터
 
-
+  const headers = {
+    headers: {
+      "AccessToken":window.localStorage.getItem("AccessToken"),
+      "Accept":"application/json;charset=UTF-8",
+      "Content-Type":"application/json;charset=UTF-8"
+    }
+  }
 
 
   //function

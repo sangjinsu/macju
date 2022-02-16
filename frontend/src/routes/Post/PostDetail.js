@@ -227,7 +227,7 @@ function PostDetail() {
                   <div className="postdetail_heading">
 
                     <div className="postdetail_likecomment">
-                      {/* 좋아요 하트 (수정필요) */}
+                      {/* 좋아요 하트 */}
                       <div className="heartInline">
                         {
                           isLiked === true
@@ -240,8 +240,8 @@ function PostDetail() {
                     </div>
 
                     {/* 맥주이름 버튼 */}
-                    <Link to={`/beer/${postData.beer.beerId}`}>
-                      <Chip className="maintype" href="" label={postData.beer.name} variant="outlined" />
+                    <Link to={`/beer/${postData.beer.beerId}`} style={{ textDecoration: 'none' }}>
+                      <Chip className="maintype" label={postData.beer.name} variant="outlined" />
                       {/* <div className="beerName" href="">{postData.beer.name}</div> */}
                     </Link>
                     
@@ -296,19 +296,23 @@ function PostDetail() {
                       {/* 포스트 내용 */}
                       <p>{ postData.content }</p>
 
-                      {/* 작성날짜 */}
-                      <div className="userdetail">
-                      <Link to={`/profile/${postData.member.memberId}/post`}><div><i className="fas fa-user fa-2x"></i> { postData.member.nickName } </div></Link>
-                        
-                        {/* <div>작성날짜 : { postData.created_at }</div> */}
+                      <div className="postdetail_spacebetween">
+                        {/* 작성날짜 */}
+                        <div className="userdetail">
+                          <Link to={`/profile/${postData.member.memberId}/post`} style={{ textDecoration: 'none', color: 'black' }}>
+                            <div><i className="fas fa-user fa-lg"></i> { postData.member.nickName } </div>
+                          </Link>
+                          <div className="date">작성 날짜 : {postData.updatedAt[0]}.{postData.updatedAt[1]}.{postData.updatedAt[2]}</div>
+                        </div>
+
+                        <div className="update_delete_icon">
+                          {/* 수정 아이콘 */}
+                          <Link to={`/post/${postId}/update`}><i className="far fa-edit fa-2x"></i></Link>
+                          {/* 삭제 아이콘 */}
+                          <i className="fas fa-trash fa-2x trash-icon" onClick={DeletePost}></i>
+                        </div>
                       </div>
 
-                      {/* 본인 일때만 수정, 삭제 가능하게 해야함 */}
-                      <Link to={`/post/${postId}/update`}><i className="far fa-edit fa-2x"></i></Link>
-                      <i className="fas fa-trash fa-2x trash-icon" onClick={DeletePost}></i>
-
-                      {/* <div className="updateBtn">수정하기</div> */}
-                      {/* <div className="deleteBtn">수정하기</div> */}
                     </Route>
                   </Switch>
 

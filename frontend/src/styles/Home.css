@@ -24,13 +24,13 @@
 .best_beer_img {
   /* margin: 0 auto; */
   margin-bottom: 10px;
-  height: 400px;
+  max-height: 300px;
 }
 
 .hot_post_img{
   /* margin: 0 auto; */
   margin-bottom: 10px;
-  height: 200px;
+  max-height: 200px;
 }
 
 #bubbles {

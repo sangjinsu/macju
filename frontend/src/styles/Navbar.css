@@ -67,8 +67,6 @@
   padding-left: 25px;
 }
 
-
-
 .searchbar {
   display: flex;
   align-items: baseline;
@@ -82,8 +80,8 @@
 }
 
 .navbar-macju span {
-  font-weight: bold;
-  font-size: 27px;
+  font-weight: 900;
+  font-size: 20px;
   /* color: #ffffff; */
   color: black;
   margin: 0px;

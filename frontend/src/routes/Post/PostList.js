@@ -11,10 +11,10 @@ function PostList() {
   const [opt, setOpt] = useState("recent")
   
   // const store = useStore()
-  const onSelect = (event) => {
-    dispatch({type:event.target.value})
-    setOpt(event.target.value)
-  }
+  // const onSelect = (event) => {
+  //   dispatch({type:event.target.value})
+  //   setOpt(event.target.value)
+  // }
 
   return (
     <>
@@ -26,22 +26,6 @@ function PostList() {
         <div className="postlist_header heading_center">
           <h2>Our Post</h2>  
         </div>  
-        <div>
-          <select onChange={onSelect} style={{"width":200, "height":35}}>
-            <option className='disable'>
-              정렬 순서를 선택하세요
-            </option>
-            <option>
-              recent
-            </option>
-            <option>
-              popular
-            </option>
-          </select>
-        </div>
-        <div className='postlist_order'>
-          {opt === "popular" ? <div>인기순 게시글</div> : <div> 최신순 게시글</div>}
-        </div>
 
         {/* 포스트 카드들 */}
         <FadeIn>

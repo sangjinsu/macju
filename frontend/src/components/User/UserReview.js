@@ -31,39 +31,41 @@ const UserReview = (props) =>{
 
 
   return (
-    <div className="row grid" style={{justifyContent:'center'}}>
-
-    {userReviews.length === 0 ?<>
-            <UserIcon grade={50}/>
-
-            <div id="text" style={{marginTop:50 ,textAlign:'center'}}>아직 평가 한 맥주가 없습니다.</div>
-            </> : 
     <div className="container">
-    <Table striped bordered hover>
-      {/* 각 테이블별로 맥주 detail page 링크 달기. */}
-     
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>맥주 이름</th>
-          <th>AVG</th>
-          <th>평점</th>
-        </tr>
-      </thead>
-      <tbody>
-        {userReviews&&userReviews.map((res, idx)=>
-        <tr key={idx}>
-          <td>{idx + 1}</td>
-          <td>{res.beer.name}</td>
-          <td>{res.beer.averageRate}</td>
-          <td>{res.rate}</td>
-        </tr>
-      )}
-      </tbody>
-     
-    </Table>    
+      <div className="row grid review_box" style={{justifyContent:'center', paddingBottom:'40px'}}>
+        <h1 className="font">Reviews</h1>
+        {userReviews.length === 0 ?<>
+                <UserIcon grade={50}/>
+
+                <div id="text" style={{marginTop:50 ,textAlign:'center'}}>아직 평가 한 맥주가 없습니다.</div>
+                </> : 
+        <div className="container">
+        <Table striped bordered hover>
+          {/* 각 테이블별로 맥주 detail page 링크 달기. */}
+        
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>맥주 이름</th>
+              <th>AVG</th>
+              <th>평점</th>
+            </tr>
+          </thead>
+          <tbody>
+            {userReviews&&userReviews.map((res, idx)=>
+            <tr key={idx}>
+              <td>{idx + 1}</td>
+              <td>{res.beer.name}</td>
+              <td>{res.beer.averageRate}</td>
+              <td>{res.rate}</td>
+            </tr>
+          )}
+          </tbody>
+        
+        </Table>    
+        </div>
+      }
     </div>
-  }
   </div>
   )
 }

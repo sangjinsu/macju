@@ -32,10 +32,9 @@
 /* 목록으로 버튼 */
 .postdetail_section .backBtn {
   margin-bottom: 30px;
-  color: #ffffff;
 }
 .postdetail_section .backBtn .btnText {
-  color: #ffffff;
+  color: #000000;
   text-decoration: none;
 }
 
@@ -51,13 +50,16 @@
           justify-content: center;
 }
 
-.detail-box{
-  height: 300px;
+.postdetail_section .detail-box{
+  /* height: 300px; */
+  width: auto;
+  margin-top: 40px;
 }
 
 /* 이미지 크기 */
 img {
-  height: 300px;
+  /* height: 300px; */
+  width: auto;
 }
 /* .postdetail_section .img-box img {
   height: 200px;
@@ -69,19 +71,21 @@ img {
 
 /* 포스트 좋아요,댓글, 맥주이름 */
 .postdetail_heading {
+  margin-top: 20px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
-/* 맥주이름 버튼 */
-.postdetail_section .beerName {
-  margin: 10px 0px;
-  padding: 5px 10px;
-  border-radius: 10px;
-  background-color: #e69c00;
-  display: inline-block;
+/* 맥주이름 chip */
+.postdetail_section .maintype {
+  text-decoration: none;
+  color: #ae9048;
+  border-color:  #F9CF68;
+  border-width: 2px;
+  font-weight: bold;
 }
-.postdetail_section .beerName:hover {
+.postdetail_section .maintype:hover {
   cursor: pointer;
 }
 
@@ -109,30 +113,29 @@ img {
   font-size: 25px;
 }
 
-/* tag */
-.postdetail_section .maintype {
-  color: #ae9048;
-  border-color:  #F9CF68;
-  border-width: 2px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
 
 /* 해시태그 */
 .postdetail_hashtag {
-  margin-bottom: 10px;
+  margin: 10px;
+  display: flex;
+  flex-wrap: wrap;
 }
-.postdetail_hashtag span {
+.postdetail_hashtag .postTag {
   padding-right: 8px;
-  font-size: 25px;
+  font-size: 20px;
+  
 }
 
 /* 작성자, 작성날짜 */
-.userdetail {
+.postdetail_section .userdetail {
   color: grey;
   margin: 5px 0;
 }
-.post-trash{
+.postdetail_section .userdetail .date {
+  margin: 10px 0 0 0;
+  font-size: smaller;
+}
+.postdetail_section .post-trash{
   border-color: #0c0c0c;
   border-style: solid;
   border-width: 3px;
@@ -140,16 +143,22 @@ img {
   padding: 1px
 }
 
-.fa-edit{
+.postdetail_section .fa-edit{
   color:#F9CF68
 }
 
-.fa-trash{
+.postdetail_section .fa-trash{
   color:red;
 }
 
+.postdetail_section .postdetail_spacebetween {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
 /* 수정, 삭제 버튼 */
-.postdetail_section .detail-box .updateBtn {
+/* .postdetail_section .detail-box .updateBtn {
   display: inline-block;
   padding: 5px 15px;
   background-color: #ffbe33;
@@ -175,4 +184,4 @@ img {
 .postdetail_section .detail-box .deleteBtn:hover {
   background-color: #e69c00;
   cursor: pointer;
-}
+} */

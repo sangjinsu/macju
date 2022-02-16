@@ -64,9 +64,10 @@ const UserPost = (props) => {
     <section className="userpost_section layout_padding_postlist">
 
     <div className="container">
-     <div className="row grid postlist_component">
+      <h1 className="font">Posts</h1>
+      <div className="row grid postlist_component">
     {console.log(userPosts)}
-      { userPosts.length === 0 ? <div> 포스트가 없어요!! </div> : userPosts.map((post) =>
+      { userPosts.length === 0 ? <div className="noPost"> 포스트를 작성해주세요~! </div> : userPosts.map((post) =>
         <div className="col-md-6 col-lg-4 fadein" key={post.postId}>
           <div className="box">
             <div className="postlist_box">

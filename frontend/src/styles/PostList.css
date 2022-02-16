@@ -1,4 +1,4 @@
-.layout_padding_postlist {
+.postlist_section.layout_padding_postlist {
   padding: 90px 0;
 }
 
@@ -13,10 +13,6 @@
 }
 
 .postlist_section .postlist_header {
-  
-
-
-
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -69,18 +65,21 @@
 .postlist_section .postlist_box {
   position: relative;
   margin-top: 25px;
-  color: #ffffff;
+  border-radius: 15px;
+  border-color: #F9CF68;
+  border-width: 2px;
+  border-style: solid;
+  color: black;
   overflow: hidden;
-  background: linear-gradient(to bottom, #f1f2f3 25px, #222831 25px);
-  font-size: 20px;
+  background: linear-gradient(to bottom, #ffffff 25px);
+  /* font-size: 20px; */
   line-height: 1.25em;
-  font-weight: 600;
-  border-radius: 20px;
+  /* font-weight: 600; */
 }
 
 /* 포스트 이미지 */
 .postlist_section .postlist_box .img-box {
-  background: #f1f2f3;
+  background: #f9d068a1;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -91,24 +90,23 @@
       -ms-flex-align: center;
           align-items: center;
   height: 215px;
-  border-radius: 0 0 0 45px;
   margin: -1px;
-  /* padding: 25px; */
 }
 .postlist_section .postlist_box .img-box img {
-  max-width: 100%;
-  max-height: 200px;
+  /* max-width: 100%; */
+  /* max-height: 130px; */
   -webkit-transition: all .2s;
   transition: all .2s;
 }
 .postlist_section .box:hover .img-box img {
-  -webkit-transform: scale(1.1);
-          transform: scale(1.1);
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
 }
 
 /* 포스트 카드 내용 */
 .postlist_section .postlist_box .postdetail-box {
-  padding: 25px;
+  padding: 20px;
+  padding-bottom: 10px;
 }
 .postlist_section .postlist_box .postdetail-box h5 {
   font-weight: 600;
@@ -116,37 +114,34 @@
 }
 .postlist_section .postlist_box .postdetail-box p {
   font-size: 14px;
-  color: whitesmoke;
+  color: black;
 }
 .postlist_section .postlist_box .postdetail-box h6 {
   margin-top: 10px;
 }
 
-/* 포스트 내용 + 자세히버튼 한줄 */
+/* 포스트 내용 + 하트 한줄 */
 .postdetail-box .postdetail-title {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: baseline;
   padding-bottom: 3px;
 }
 
-/* 자세히 버튼 */
-.postdetail-title .detailBtn {
-  font-size: 10px;
-  padding: 2px;
-  background-color: #ffbe33;
-  color: white;
-  border-radius: 10px;
-  text-decoration: none;
-}
+
 
 /* 포스트 작성 정보 */
 .postlist_section .post-meta{
-  margin-right: 15px;
+  /* margin-right: 15px; */
   opacity: 0.6;
-  color:grey;
+  /* color:grey; */
   font-size: 0.85em;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
 }
+
+
 
 /* 포스트 좋아요수 */
 .postlist_section .fontaws{

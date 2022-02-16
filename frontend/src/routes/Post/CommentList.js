@@ -143,22 +143,22 @@ function CommentList(props) {
                   currentComments.map( (comment, i) => {
                     return(
                       <div className="commentList" key={i}>
-                        <div>{comment.nickname} : { comment.content } </div>
-                        <i className="fas fa-trash fa-lg trash-icon" commentid={comment.commentId} onClick={deleteComment}></i>
-                        {/* <button className="deletebtn" type="button" commentid={comment.commentId} onClick={ deleteComment }>삭제</button> */}
+                        <div>
+                          {comment.nickname} : { comment.content }  <i className="fas fa-trash trash-icon" commentid={comment.commentId} onClick={deleteComment}></i>
+                        </div>
                       </div>
-                    );
+                    )
                   })
                 }
-                <nav>
-                  <ul className="pagination">
-                    {pageNumbers.map(num => <li key={num}>
+                { comments && 
+                  <nav>
+                    <ul className="pagination">
+                      {pageNumbers.map(num => <li key={num}>
                       <a onClick={() => paginate(num)}>{num}</a>
-                    </li>)}
-
-                  </ul>
-                </nav>
-
+                      </li>)} 
+                    </ul>
+                  </nav>
+                }
               </div>
             </div>
           </div>

@@ -26,9 +26,9 @@ const UserLike = (props) => {
   },[USER_LIKE_URL])
 
   return (
-    <div className="memberbeerlike_container"  >
+    <div className="memberbeerlike_container">
       <div className="container" justify-content="space-around">
-        <h1>Like Beers</h1>
+        <h1 className="font">Like Beers</h1>
         <div className="row grid" style={{justifyContent:'center'}}>
           
           {likebeers === [] ? likebeers.map((beer)=>

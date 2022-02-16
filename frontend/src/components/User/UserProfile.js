@@ -116,27 +116,27 @@ const UserProfile = (props) => {
 					<div id="profile-box">
 						<div id="nickname">
 							<h1>{user.nickName}</h1>
+							{/* 수정하기 아이콘 */}
 							<Link to={{
 								pathname : `/profile/edit`,
 								state : userid
-							}} >
-							<button className="editBtn">수정</button>
+								}} >
+								<div className="editBtn"><i class="fas fa-user-edit fa-lg"></i></div>
 							</Link>
 						</div>
 						
-						{userid === store.getState().userReducer.memberId ? null : <Button id="followbtn" variant={followButton ? "primary":"secondary"}  onClick={setFollow}>{followButton ? '팔로우':'언팔로우'}</Button>
-}
+						
 						<div>
 							{/* <div className="postnum">게시글 : {14} </div> */}
-							<br></br>
+							{/* <br></br> */}
 							<div className="follow_all">
 								<div className="follower">
-									<button className="followBtn" onClick={followersOpenModal} variant="success">팔로워</button>
-									 : {user.followers.length}
+									<button className="followerBtn" onClick={followersOpenModal} variant="success">팔로워</button>
+									<span className="followCtn">{user.followers.length}</span>
 								</div>
 								<div className="following">
-									<button className="followBtn" onClick={followingsOpenModal} variant="warning"> 팔로잉</button>
-									 : {user.followings.length}
+									<button className="followerBtn" onClick={followingsOpenModal} variant="warning"> 팔로잉</button>
+									<span className="followCtn">{user.followings.length}</span>
 								</div>
 							</div>
 							<Followers open={followersModalOpen} close={followersCloseModal} header="팔로워">
@@ -146,10 +146,17 @@ const UserProfile = (props) => {
 								followings
 							</Followings>
 							
-							<p className="user_intro">한줄 소개 : {user.intro ? user.intro : '없네용' }</p>
+							<p className="user_intro">{user.intro ? user.intro : null }</p>
 							
 							{/* <ProgressBar now={user.grade/5} label={`${user.grade/5}%`} /> */}
 						</div>
+
+						{/* 팔로우버튼 */}
+						{userid === store.getState().userReducer.memberId ? null 
+						: <button id="followbtn" variant={followButton ? "primary":"secondary"}  onClick={setFollow}>
+								{followButton ? '팔로우':'언팔로우'}
+							</button>
+						}
 					</div>
 				</div>
 			}

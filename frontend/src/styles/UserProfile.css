@@ -12,7 +12,7 @@
   width: 150px;
   height: 150px;
   margin: 40px 0;
-  margin-right: 20px;
+  /* margin-right: 10px; */
   /* background-color: orange; */
   /* border-color: black; */
 }
@@ -30,7 +30,7 @@
 }
 
 
-
+/* 유저아이콘 큰거 */
 .usericon {
   width: 90%;
   height: 90%;
@@ -38,28 +38,23 @@
   margin-top: 5%;
   margin-bottom: 5%;
 }
-.White {
-  background-color: white;
-  border-radius: 10px;
-}
 
+/* 닉네임 */
 #nickname {
   /* 폰트 적용할것 */
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin: 10px 0;
   
 }
+
+/* 수정하기 아이콘 버튼 */
 .editBtn {
   margin-left: 10px;
-  width: auto;
-  height: auto;
-  font-size: 10px;
-  background-color: beige;
   border: none;
-  border-radius: 10px;
-
+  color: black; 
 }
+
 /* 게시글 수 */
 .postnum {
   font-size: 13px;
@@ -73,13 +68,26 @@
   margin-right: 5px;
   font-size: 12px;
 }
-.followBtn {
+#followbtn{
+  background-color: #f9d068c4;
+  border: none;
+  /* margin-left: 20%; */
+  margin-bottom: 10px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: smaller;
+}
+.followerBtn {
   width: auto;
   height: 20px;
   font-size: 12px;
-  background-color: beige;
+  background-color: #f9d068c4;
   border: none;
-  border-radius: 10px;
+  border-radius: 4px;
+}
+.followCtn {
+  padding: 0 8px 0 5px;
+  font-size: 15px;
 }
 
 #nickname div{

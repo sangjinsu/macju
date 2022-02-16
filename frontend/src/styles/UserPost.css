@@ -1,13 +1,17 @@
-.layout_padding_postlist {
-  padding: 90px 0;
+.userpost_section.layout_padding_postlist {
+  padding: 10px 0 40px 0
 }
 
 /* 제목 */
-.userpost_section h1,
+/* .userpost_section h1,
 .userpost_section h2 {
   font-family: 'Oswald', sans-serif;
+} */
+.noPost {
+  font-family: 'Nanum Pen Script', cursive;
+  font-size: x-large;
+  text-align: center;
 }
-
 .userpost_section .postlist_header {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -61,16 +65,16 @@
 .userpost_section .postlist_box {
   position: relative;
   margin-top: 25px;
-  background-color: #ffffff;
-  border-radius: 10px;
+  border-radius: 15px;
+  border-color: #F9CF68;
+  border-width: 2px;  
+  border-style: solid;
   color: #ffffff;
   border-radius: 15px;
+  color: black;
   overflow: hidden;
-  background: linear-gradient(to bottom, #f1f2f3 25px, #222831 25px);
-  font-size: 20px;
+  background: linear-gradient(to bottom, #ffffff 25px);
   line-height: 1.25em;
-  font-weight: 600;
-  border-radius: 20px;
 }
 
 /* 포스트 이미지 */
@@ -86,24 +90,23 @@
       -ms-flex-align: center;
           align-items: center;
   height: 215px;
-  border-radius: 0 0 0 45px;
   margin: -1px;
-  padding: 25px;
 }
 .userpost_section .postlist_box .img-box img {
-  max-width: 100%;
-  max-height: 145px;
+  /* max-width: 100%;
+  max-height: 145px; */
   -webkit-transition: all .2s;
   transition: all .2s;
 }
 .userpost_section .box:hover .img-box img {
-  -webkit-transform: scale(1.1);
-          transform: scale(1.1);
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
 }
 
 /* 포스트 카드 내용 */
 .userpost_section .postlist_box .postdetail-box {
-  padding: 25px;
+  padding: 15px;
+  padding-bottom: 10px;
 }
 .userpost_section .postlist_box .postdetail-box h5 {
   font-weight: 600;
@@ -111,13 +114,14 @@
 }
 .userpost_section .postlist_box .postdetail-box p {
   font-size: 14px;
+  color: black;
 }
 .userpost_section .postlist_box .postdetail-box h6 {
   margin-top: 10px;
 }
 
 /* 포스트 내용 + 자세히버튼 한줄 */
-.postdetail-box .postdetail-title {
+.userpost_section .postdetail-box .postdetail-title {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -125,10 +129,10 @@
 }
 
 /* 자세히 버튼 */
-.postdetail-title .detailBtn {
-  font-size: 10px;
+.userpost_section .postdetail-title .detailBtn {
+  font-size: 5px;
   padding: 2px;
-  background-color: #ffbe33;
+  background-color: #F9CF68;;
   color: white;
   border-radius: 10px;
   text-decoration: none;

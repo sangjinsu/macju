@@ -334,23 +334,28 @@ const [userFlavor, setUserFlavor] = useState([checked1, checked2, checked3, chec
       <h1>{editUserNickname}'s Profile</h1>
       <br></br>
       <form>
-      <h3>Username</h3>
-      <br></br>
-      <div className="name-box">
-        
-        <h5>닉네임</h5><input id="nickname" defaultValue={editUserNickname} onKeyUp={editNickname} onChange={editNickname}/>
-        <label className={labelNickname} htmlFor="nickname">{ labelNickname === "success" ? '사용 가능한 닉네임입니다.': '사용할 수 없는 닉네임입니다.'}</label>
-      </div>
-      <div className="intro-box">
-        
-        <div style={{display: "flex"}}><h5>소개</h5>
-        <TextField id="outlined-basic" label="Outlined" variant="outlined" defaultValue={introduce} onKeyUp={editIntroduce} onChange={editIntroduce}/>
-
+      {/* <h3>User 정보</h3> */}
+      <div className="">
+        {/* 닉네임 수정 */}
+        <div className="name-box ">
+          {/* <h5 className="col-2 nickname">닉네임</h5> */}
+          {/* <input id="nickname" defaultValue={editUserNickname} onKeyUp={editNickname} onChange={editNickname}/> */}
+          <TextField className="input_box" id="nickname" label="닉네임" defaultValue={editUserNickname} onKeyUp={editNickname} onChange={editNickname}/>
+          <label className={labelNickname} htmlFor="nickname">{ labelNickname === "success" ? '사용 가능한 닉네임입니다.': '사용할 수 없는 닉네임입니다.'}</label>
         </div>
-        <br></br>
+        {/* 한줄소개 수정 */}
+        <div className="content_box ">
+          {/* <h5 className="content">소개</h5> */}
+          <TextField className="input_box" id="outlined-basic" label="소개" variant="outlined" defaultValue={introduce} onKeyUp={editIntroduce} onChange={editIntroduce}/>
+        </div>
+      </div>
+      
+      <br></br>
+        
+      <div className="intro-box">
         <div>
           <h3>Select Choices[Flavor]</h3>
-          <div style={{backgroundColor:'#f9d068a1', borderStyle:"solid", borderColor:"#F9CF68"}}>
+          <div style={{backgroundColor:'#f9d06880', borderStyle:"solid", borderColor:"#F9CF68", borderRadius:'15px'}}>
             
             <div className="container">
             <FormControlLabel color="warning" control={<Checkbox checked={checked1} onChange={handleChange1} />} label="단맛" />
@@ -368,9 +373,10 @@ const [userFlavor, setUserFlavor] = useState([checked1, checked2, checked3, chec
             <FormControlLabel control={<Checkbox checked={checked13} onChange={handleChange13} />} label="청량한맛" />
             </div>
           </div>
-          <hr></hr>
+          {/* <hr></hr> */}
+          <br/>
           <h3>Select Choices[Aroma]</h3>
-          <div style={{backgroundColor:'#f9d068a1', borderStyle:"solid", borderColor:"#F9CF68"}}>
+          <div style={{backgroundColor:'#f9d06880', borderStyle:"solid", borderColor:"#F9CF68", borderRadius:'15px'}}>
           <div className="container">
             <FormControlLabel control={<Checkbox checked={checked14} onChange={handleChange14} />} label="무향" />
             <FormControlLabel control={<Checkbox checked={checked15} onChange={handleChange15} />} label="꽃향" />
@@ -409,7 +415,7 @@ const [userFlavor, setUserFlavor] = useState([checked1, checked2, checked3, chec
       <br></br>
       <div id="btn-box">
       
-      <div role={'button'} className="profile-btn" onClick={submitProfile}>제출</div>
+      <div role={'button'} className="profile-btn" onClick={submitProfile}>완료</div>
       
       </div>
       </form>

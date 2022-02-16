@@ -46,7 +46,7 @@
   }
 
   .postTag {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 
   .map_container {
@@ -110,6 +110,6 @@
 
 @media (max-width: 766px) {
   .postTag {
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
 }

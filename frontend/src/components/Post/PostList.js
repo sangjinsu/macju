@@ -67,8 +67,10 @@ function PostListComponent(){
 
     {/* 포스트 카드 각각 */}
     
-      { newPost.length ===0 ? <div> 포스트가 없어요!! </div> : newPost.map((post) =>
+      {/* { newPost.length ===0 ? <div> 포스트를 작성해주세요~! </div> : newPost.map((post) => */}
+      { newPost.length ===0 ? <div>  </div> : newPost.map((post) =>
         <div className="col-md-6 col-lg-4 fadein" key={post.postId}>
+          <Link to={`/post/${post.postId}`} className='detailBtn' style={{ textDecoration: 'none', color: 'black' }}>
           <div className="box">
             <div className="postlist_box">
             <div className="img-box">
@@ -87,24 +89,26 @@ function PostListComponent(){
               
               {/* 포스트 카드 내용 */}
               <div className="postdetail-box">
-                {/* 포스트 내용 + 자세히 버튼 */}
+                {/* 포스트 내용  */}
                 <div className="postdetail-title">
-                  {/* <h5>{post.content}</h5> */}
                   <h5>{post.content && post.content.length > 15 ? post.content.substr(0, 15) + "....": post.content}</h5>
-                  <Link to={`/post/${post.postId}`} className='detailBtn'>자세히</Link>
+                  {/* 포스트 좋아요 */}
+                  <p className="fontaws"><i className="fas fa-heart" style={{color:"red"}}></i> {post.likes}</p>
                 </div>
 
-                {/* 포스트 좋아요 */}
-                <p className="fontaws"><i className="fas fa-heart" style={{color:"red"}}></i>{post.likes}</p>
+                
                 
                 {/* 포스트 작성 정보 */}
                 <div className="post-meta">
-  
-                  <Link to={`/profile/${post.member.memberId}/post`} style={{ textDecoration: 'none' }}><p>{post.member.nickName}</p></Link> <br/>                   작성시간 : {post.updatedAt[0]}/{post.updatedAt[1]}/{post.updatedAt[2]}
+                  <Link to={`/profile/${post.member.memberId}/post`} style={{ textDecoration: 'none', color:'black' }} className="user">
+                    <div><i className="fas fa-user"></i> {post.member.nickName}</div>
+                  </Link>
+                  <div>{post.updatedAt[0]}.{post.updatedAt[1]}.{post.updatedAt[2]}</div>
                 </div>
               </div>
             </div>
           </div>
+        </Link>
         </div> 
       )}
 

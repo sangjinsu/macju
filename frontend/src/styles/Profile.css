@@ -8,9 +8,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* list-style-type: none; */
-  margin: 45px 0;
-  /* background-color: #fffaea; */
+  padding: 45px 0;
 }
 
 .link_btn {
@@ -28,4 +26,8 @@
 .link_btn li.active {
   background-color: #222831;
   color: #ffffff;
+}
+
+ .font {
+  font-family: 'Dancing Script', cursive;
 }

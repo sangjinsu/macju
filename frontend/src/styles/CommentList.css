@@ -57,7 +57,10 @@
 
 
 /* 댓글 삭제 버튼 */
-.comment_section button.deletebtn{
+.trash-icon{
+  color: #fcb400;
+}
+/* .comment_section button.deletebtn{
   display: inline-block;
   background-color: #ff3333;
   color: #ffffff;
@@ -70,4 +73,15 @@
   margin-left: 5px;
   fill: #ffffff;
   font-size: 12px;
+} */
+
+/* pagination */
+.comment_section .pagination {
+  margin: 20px 10px;
+}
+.comment_section .pagination a:hover{
+  font-weight: bold;
+}
+.comment_section .pagination a {
+ cursor: pointer;
 }

@@ -40,9 +40,9 @@ function PostDetail() {
   const [isLiked, setIsLiked] = useState()
   const [postlikeNum, setPostlikeNum] = useState()
 
-
+  // memberId
   const memberId = store.getState().userReducer.memberId
-  console.log(memberId)
+
   //function
   // Content 수정 (/post/:postId/update)
   const UpdateContent = (e) => {
@@ -67,10 +67,7 @@ function PostDetail() {
       }
 
       // ranking
-      const headers = {
-        'Accept': "application/json; charset=UTF-8"
-      }
-      await axiosInstance.delete(rankingPostDeleteUrl, headers)
+      await axiosInstance.delete(rankingPostDeleteUrl)
 
       // 포스트 삭제시 사용자 등급점수 감소
       const profiledata = store.getState().profileReducer
@@ -124,13 +121,7 @@ function PostDetail() {
         "postId": postId,
         "userHashTags": hashtagArr
       }
-      const headers = {
-        headers: {
-          "Accept" : "application/json;charset=UTF-8",
-          "Content-Type" : "application/json;charset=UTF-8"
-        }
-      }
-      await axiosInstance.put(putPostApiUrl, requestUpdatePostDto, headers)
+      await axiosInstance.put(putPostApiUrl, requestUpdatePostDto)
       dispatch({type:"updatePost", updateContent:updateContent, updateHashTag:hashtagArr})
       setPost(store.getState().postDetailReducer)
       history.push(`post/${postId}`)
@@ -155,10 +146,7 @@ function PostDetail() {
       
       // 랭킹 get
       const rankingPostLikeeUrl = `${RANKING_POST_LIKE_URL}/${postId}/1`
-      const headers = {
-        'Accept': "application/json; charset=UTF-8"
-      }
-      await axiosInstance.get(rankingPostLikeeUrl, headers)
+      await axiosInstance.get(rankingPostLikeeUrl)
     }catch{
       console.log("오류")
     }
@@ -173,14 +161,10 @@ function PostDetail() {
 
       const hashTagArr = [postDetail.beer.beerType.main, ...postDetail.beer.aromaHashTags , ...postDetail.beer.flavorHashTags]
       const newdata = {
-        id : 1,
+        id : memberId,
         tags : hashTagArr
       }
-      const headers = {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Accept': "application/json; charset=UTF-8"
-      }
-      axiosInstance.post(POST_DETAIL_LOG_URL, newdata, {headers})  
+      axiosInstance.post(POST_DETAIL_LOG_URL, newdata)  
       dispatch({type:"postDetailLoading", postDetail: postDetail}) // 추후 이미지도 추가?
       setPost(store.getState().postDetailReducer)
       setText(store.getState().postDetailReducer.content) // update
@@ -210,11 +194,8 @@ function PostDetail() {
   // 랭킹
   const spendData = useCallback( async () => {
     try{
-      const rankingPostUrl = `${RANKING_POST_URL}/${postId}/1` //추후 memberId 수정필요
-      const headers = {
-        'Accept': "application/json; charset=UTF-8"
-      }
-      axiosInstance.get(rankingPostUrl, headers)
+      const rankingPostUrl = `${RANKING_POST_URL}/${postId}/${memberId}`
+      axiosInstance.get(rankingPostUrl)
     }catch{
       console.log("오류입니다")
     }
@@ -317,13 +298,13 @@ function PostDetail() {
 
                       {/* 작성날짜 */}
                       <div className="userdetail">
-                      <Link to={`/profile/${postData.member.memberId}/post`}><div><i class="fas fa-user fa-2x"></i> { postData.member.nickName } </div></Link>
+                      <Link to={`/profile/${postData.member.memberId}/post`}><div><i className="fas fa-user fa-2x"></i> { postData.member.nickName } </div></Link>
                         
                         {/* <div>작성날짜 : { postData.created_at }</div> */}
                       </div>
 
                       {/* 본인 일때만 수정, 삭제 가능하게 해야함 */}
-                      <Link to={`/post/${postId}/update`}><i class="far fa-edit fa-2x"></i></Link>
+                      <Link to={`/post/${postId}/update`}><i className="far fa-edit fa-2x"></i></Link>
                       <i className="fas fa-trash fa-2x trash-icon" onClick={DeletePost}></i>
 
                       {/* <div className="updateBtn">수정하기</div> */}

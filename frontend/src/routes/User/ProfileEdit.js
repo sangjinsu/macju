@@ -260,11 +260,11 @@ const userFlavor = [checked1, checked2, checked3, checked4, checked5, checked6, 
       checked42,
     ]
   const profileData = {
+    "memberId": user.memberId,
+    "nickName": editUserNickname,
+    "intro":introduce,
     "aromas":[],
     "flavors":[],
-    "intro":introduce,
-    "memberId": Number(user.memberId),
-    "nickName": editUserNickname,
   }
   const submitProfile = () =>{
     
@@ -285,17 +285,18 @@ const userFlavor = [checked1, checked2, checked3, checked4, checked5, checked6, 
     profileData.flavors = userFlavorData
     
     console.log(profileData)
-
+    console.group(user.memberId)
     if (introduce && editUserNickname){
       axiosInstance.put(USER_UPDATE_PROFILE, profileData)
       .then((res)=>{
-        // history.push(`/profile/${1}/profile`)
-        window.location.replace(`/profile/${user.memberId}/post`)
+        console.log(res)
+        history.push(`/profile/${user.memberId}/profile`)
+       
       })
     } else {
       alert('내용을 입력하세요')
     }
-  }
+   }
   const nickNameCheck = async () =>{
     if (!(editUserNickname === '')){
       const data = await axiosInstance.get(`${USER_NICKNAME_CHECK}/${editUserNickname}`)

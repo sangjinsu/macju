@@ -20,7 +20,6 @@ const Profile = () => {
   const store = useStore((state)=>state)
   const userNum = useParams()
   const memberId = userNum.userid
-  console.log(memberId)
   
   
 

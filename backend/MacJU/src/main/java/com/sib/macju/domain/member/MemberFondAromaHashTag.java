@@ -1,11 +1,12 @@
 package com.sib.macju.domain.member;
 
 import com.sib.macju.domain.hashtag.AromaHashTag;
-import lombok.*;
-import org.hibernate.Hibernate;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 @Getter
@@ -27,19 +28,6 @@ public class MemberFondAromaHashTag {
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        MemberFondAromaHashTag that = (MemberFondAromaHashTag) o;
-        return memberFondAromaHashTagId != null && Objects.equals(memberFondAromaHashTagId, that.memberFondAromaHashTagId);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
 
     public static MemberFondAromaHashTag createMemberFondAromaHashTag(
             AromaHashTag aromaHashTag,

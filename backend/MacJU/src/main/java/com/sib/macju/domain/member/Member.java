@@ -58,9 +58,9 @@ public class Member {
     private List<Post> posts = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MemberFondAromaHashTag> memberFondAromaHashTags;
+    private List<MemberFondAromaHashTag> memberFondAromaHashTags = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MemberFondFlavorHashTag> memberFondFlavorHashTags;
+    private List<MemberFondFlavorHashTag> memberFondFlavorHashTags = new ArrayList<>();
 
 }

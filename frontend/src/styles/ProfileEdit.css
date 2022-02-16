@@ -7,6 +7,7 @@
   max-width: 935px;
   width: 100%;
   padding: 20px 20px 20px 20px;
+  font-family: 'Secular One', sans-serif;
 }
 .edit-box Link{
   font-weight: 100;
@@ -33,3 +34,17 @@
 .fail {
   color:tomato
 }
+.profile-btn {
+  padding: 7px 20px;
+  cursor: pointer;
+  border-radius: 25px;
+  font-family: 'Secular One', sans-serif;
+  background-color: #F9CF68;
+  color: #ffffff;
+  
+}
+#btn-box {
+  display: flex;
+  justify-content: right;
+}
+

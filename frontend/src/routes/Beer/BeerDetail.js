@@ -9,6 +9,7 @@ import BeerRateUpdate from "./BeerRateUpdate.js"
 import { useDispatch } from "react-redux";
 import Chip from '@mui/material/Chip'
 import axiosInstance from "CustomAxios";
+import { useStore } from "react-redux";
 
 
 function BeerDetail() {
@@ -23,8 +24,9 @@ function BeerDetail() {
 
   
   //temp
-  const memberId = 1    //test용 멤버아이디
-
+  const store = useStore((state)=> state)
+  const memberId = store.getState().userReducer.memberId 
+  console.log(memberId)   
   //react-redux
   const dispatch = useDispatch();  
   

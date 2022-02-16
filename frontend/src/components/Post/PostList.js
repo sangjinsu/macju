@@ -11,6 +11,7 @@ import axiosInstance from "CustomAxios";
 function PostListComponent(){
   const POST_LIST_URL = process.env.REACT_APP_SERVER + ':8888/v1/post/new'
   const BEER_DETAIL_POST_URL = process.env.REACT_APP_SERVER + ':8888/v1/post/beer'
+  const USER_PROFILE_URL = process.env.REACT_APP_SERVER + `:8888/v1/member/profile/`
   const [newPost, setNewPost] = useState([])
   const [newPostImage, setNewPostImage] = useState([])
   const storage = getStorage()
@@ -97,10 +98,10 @@ function PostListComponent(){
                 <p className="fontaws"><i className="fas fa-heart" style={{color:"red"}}></i>{post.likes}</p>
                 
                 {/* 포스트 작성 정보 */}
-                <p className="post-meta">
-                  작성자 :<Link to={`/profile/${post.member.memberId}/post`}>{post.member.nickName}</Link> <br/> 
-                  작성시간 : {post.updatedAt[0]}/{post.updatedAt[1]}/{post.updatedAt[2]}
-                </p>
+                <div className="post-meta">
+  
+                  <Link to={`/profile/${post.member.memberId}/post`} style={{ textDecoration: 'none' }}><p>{post.member.nickName}</p></Link> <br/>                   작성시간 : {post.updatedAt[0]}/{post.updatedAt[1]}/{post.updatedAt[2]}
+                </div>
               </div>
             </div>
           </div>

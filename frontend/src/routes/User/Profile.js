@@ -18,11 +18,9 @@ const Profile = () => {
 
   const dispatch = useDispatch();
   const store = useStore((state)=>state)
-  // const memberId = store.getState().userReducer.memberId
   const userNum = useParams()
-  
   const memberId = userNum.userid
-  
+  console.log(memberId)
   
   
 
@@ -43,12 +41,12 @@ const Profile = () => {
     }
 
     fetchData();
-  }, [])
+  }, [memberId])
 
   return (
     <div className="bg_color">
 
-      <UserProfile />  
+      <UserProfile state={memberId}/>  
       <div className="link_btn_all">
         <div className="link_btn">
           <Link className="profile_link" to={{
@@ -70,13 +68,13 @@ const Profile = () => {
         </div>
       </div>
       <Route path={`/profile/${memberId}/post`}>
-        <UserPost />
+        <UserPost state={memberId}/>
       </Route>
       <Route path={`/profile/${memberId}/like`}>
-        <UserLike />
+        <UserLike state={memberId}/>
       </Route>
       <Route path={`/profile/${memberId}/review`}>
-        <UserReview />
+        <UserReview state={memberId}/>
       </Route>
       
     </div>

@@ -85,3 +85,11 @@
     opacity: 1;
   }
 }
+#profilebtn {
+  font-size: 10px;
+  padding: 2px;
+  background-color: #ffbe33;
+  color: white;
+  border-radius: 10px;
+  text-decoration: none;
+}

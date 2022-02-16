@@ -4,10 +4,9 @@ import axios from "axios";
 import { useStore } from "react-redux";
 import {useParams} from "react-router-dom"
 import axiosInstance from "CustomAxios";
-const UserReview = () =>{
+const UserReview = (props) =>{
   const USER_REVIEW_URL = process.env.REACT_APP_SERVER + ':8888/v1/member'
-  const userNum = useParams()
-  const memberId = userNum.userid
+  const memberId = props.state
   const [userReviews, setUserReviews] = useState([])
   const store = useStore((state)=>state)
 
@@ -22,18 +21,21 @@ const UserReview = () =>{
 
 
   useEffect(() =>{
-    if (store.getState().userReviewReducer.length === 0){
+    if (store.getState().userReviewReducer.data.data.length === 0){
       fetchData();
     } else {
-      setUserReviews(store.getState().userReducer.data)
+      setUserReviews(store.getState().userReducer.data.data)
     }    
 	},[])
 
 
   return (
+    <>
+    {userReviews.length === 0 ? '아직 평가한 맥주가 없습니다.' : 
     <div className="container">
     <Table striped bordered hover>
       {/* 각 테이블별로 맥주 detail page 링크 달기. */}
+     
       <thead>
         <tr>
           <th>#</th>
@@ -52,8 +54,11 @@ const UserReview = () =>{
         </tr>
       )}
       </tbody>
+     
     </Table>    
     </div>
+  }
+  </>
   )
 }
 export default UserReview;

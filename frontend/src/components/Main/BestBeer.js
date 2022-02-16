@@ -2,48 +2,27 @@ import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import axios from "axios";
+import axiosInstance from "CustomAxios";
 
-const headers = {
-  headers:{
-    AccessToken:window.localStorage.getItem("AccessToken"),
-    "Accept":"application/json;charset=UTF-8",
-    "Content-Type":"application/json;charset=UTF-8"
-  }
-}
-
-const BestBeer = () => {
+const BestBeer = (props) => {
   const [rankingBeerList, setRanking] = useState()
-  
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    autoplay: true,
-    arrows: false,
-    fade:true, //center랑 중복 불가능
-    autoplaySpeed: 5000,
-    speed: 5000,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    className: "container"
-  };
+  const settings = props.settings
+  settings.fade = true
 
-
-  const PopBeer = async () => {
-    const RANKING_POPBEER = process.env.REACT_APP_SERVER + ':8888/beer/popbeer'
-    const { data : rankingBeer } = await axios.get(RANKING_POPBEER, headers)
-    const rankingBeerId = rankingBeer.map( (beer) => beer.beerId )
-    setRanking(rankingBeerId)
-  }
-  
   useEffect( () => {
+    const PopBeer = async () => {
+      const RANKING_POPBEER = process.env.REACT_APP_SERVER + ':8888/beer/popbeer'
+      const { data : rankingBeer } = await axiosInstance.get(RANKING_POPBEER)
+      const rankingBeerId = rankingBeer.map( (beer) => beer.beerId )
+      setRanking(rankingBeerId)
+    }
     PopBeer()
   }, [])
 
   return(
     <div className="SlickTest">
-      {/* <h3 className="bestbeer" align="center">Best Beer</h3>
+      <h3 className="bestbeer" align="center">Best Beer</h3>
       <Slider {...settings}>
         {
           rankingBeerList&&rankingBeerList.map((beerid, i) => 
@@ -59,21 +38,25 @@ const BestBeer = () => {
 function CustomSlide(props) {
   const BEER_DETAIL_URL = process.env.REACT_APP_SERVER + ':8080/v1/beer'
   const [imgSrc, setImgSrc] = useState()
+  const [beerName, setName] = useState()
+  const [beerContent, setBeerContent] = useState()
   useEffect( () => {
     const fetchData = async ()=>{
-      const { data : beerDetail } = await axios.get(`${BEER_DETAIL_URL}/${props.beerid}`, headers)
+      const { data : beerDetail } = await axiosInstance.get(`${BEER_DETAIL_URL}/${props.beerid}`)
       setImgSrc(beerDetail.photoPath)
+      setName(beerDetail.name)
+      setBeerContent(beerDetail.content)
     }
     fetchData();
   }, [BEER_DETAIL_URL, props.beerid])
   return(
     <div {...props} className="row">
-      <img className="slideImg col-7" src={imgSrc} alt=""/>
+      <img className="best_beer_img col-7" src={imgSrc} alt=""/>
       <div className="slideDiv col-5">
-        <h3>곰표맥주</h3>
+        <h3>{beerName}</h3>
         <br></br>
-        <span>조회 수 : ??</span>
-      </div> */}
+        <span>{beerContent}</span>
+      </div>
     </div>
   )
 }

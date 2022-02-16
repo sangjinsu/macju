@@ -2,36 +2,17 @@ import React, { useEffect, useState, useCallback } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import axios from "axios";
+import axiosInstance from "CustomAxios";
 
-const headers = {
-  headers:{
-    AccessToken:window.localStorage.getItem("AccessToken"),
-    "Accept":"application/json;charset=UTF-8",
-    "Content-Type":"application/json;charset=UTF-8"
-  }
-}
-
-const RecommendBeer = () => { // 변수명 수정필요
+const RecommendBeer = (props) => { // 변수명 수정필요
   const [beerList, setBeer] = useState()
   
-  const settings = {
-    dots: true,
-    infinite: true,
-    autoplay: true,
-    arrows: false,
-    fade:true, //center랑 중복 불가능
-    autoplaySpeed: 5000,
-    speed: 5000,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    className: "container"
-  };
+  const settings = props.settings
 
   const getRecommend = async () => {
     const RECOMMEND_BEER = process.env.REACT_APP_SERVER + ':8888/v1/recommend/15' // memberId 추후 수정
     
-    const { data: recommendBeer} = await axios.get(RECOMMEND_BEER, headers)
+    const { data: recommendBeer} = await axiosInstance.get(RECOMMEND_BEER)
     setBeer(recommendBeer.recommend)
   }
   
@@ -59,7 +40,7 @@ function CustomSlide(props) {
   const [imgSrc, setImgSrc] = useState()
 
   const imgData = useCallback( async ()=>{
-    const { data : beerDetail } = await axios.get(`${BEER_DETAIL_URL}/${props.beerid}`, headers)
+    const { data : beerDetail } = await axiosInstance.get(`${BEER_DETAIL_URL}/${props.beerid}`)
     setImgSrc(beerDetail.photoPath)
   },[BEER_DETAIL_URL, props.beerid])
   

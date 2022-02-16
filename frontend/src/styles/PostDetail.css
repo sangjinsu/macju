@@ -50,13 +50,22 @@
       -ms-flex-pack: center;
           justify-content: center;
 }
-.postdetail_section .img-box img {
-  /* width: 100%; */
-  max-width: 300px;
-  max-height: 300px;
+
+.detail-box{
+  height: 300px;
+}
+
+/* 이미지 크기 */
+img {
+  height: 300px;
+}
+/* .postdetail_section .img-box img {
+  height: 200px;
+  max-width: 200px;
+  max-height: 200px;
   position: relative;
   z-index: 2;
-}
+} */
 
 /* 포스트 좋아요,댓글, 맥주이름 */
 .postdetail_heading {

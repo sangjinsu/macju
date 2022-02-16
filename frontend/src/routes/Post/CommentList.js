@@ -134,7 +134,7 @@ function CommentList(props) {
                     onChange={ changeComment }
                     required
                   />
-                  <i class="fas fa-location-arrow fa-lg" onClick={ addComment }></i>
+                  <i className="fas fa-location-arrow fa-lg" onClick={ addComment }></i>
                   {/* <button className="comment_button" onClick={ addComment }>Add</button> */}
                 </form>
 

@@ -5,6 +5,19 @@ import RecommendBeer from "../components/Main/RecommendBeer"
 import "../styles/Home.css"
 
 function Home() {
+  const settings = {
+    dots: true,
+    infinite: true,
+    autoplay: true,
+    arrows: false,
+    fade:true,
+    autoplaySpeed: 3000,
+    speed: 2000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    className: "container"
+  };
+
   useEffect( () => {
     CreateBubble()
   }, [])
@@ -12,9 +25,9 @@ function Home() {
   return(
     <div className="SlickTest">
       <div id="bubbles">
-        <BestBeer />
-        <RecommendBeer/>
-        <HotPost />
+        <BestBeer settings={settings} />
+        <RecommendBeer settings={settings} />
+        <HotPost settings={settings} />
       </div>
     </div>
   )

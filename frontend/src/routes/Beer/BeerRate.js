@@ -113,17 +113,19 @@ function BeerRate(props){
         props.setIsRated(true)
         
       })
-      .then(()=>{
-        const profiledata = store.getState().profileReducer
-        profiledata['grade'] = profiledata['grade'] + 5
-        axiosInstance.put(USER_UPDATE_PROFILE, profiledata)
       .then((res)=>{
-        axiosInstance.get(`${USER_UPDATE_PROFILE}/1`)
-      .then((res)=>{
-        //redirect 시켜줘야함.
-        console.log('점수 올리기 성공')
-      })
-      })
+        console.log(res)
+        //아래는 등급 기능임.
+      //   const profiledata = store.getState().profileReducer
+      //   profiledata['grade'] = profiledata['grade'] + 5
+      //   axiosInstance.put(USER_UPDATE_PROFILE, profiledata)
+      // .then((res)=>{
+      //   axiosInstance.get(`${USER_UPDATE_PROFILE}/1`)
+      // .then((res)=>{
+      //   //redirect 시켜줘야함.
+      //   console.log('점수 올리기 성공')
+      // })
+      // })
       })
     } else {
       alert('평가를 완료해주세요!')

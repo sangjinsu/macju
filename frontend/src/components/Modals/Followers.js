@@ -12,13 +12,14 @@ const Followers = (props) => {
   const memberNum = useParams();
   const memberId = memberNum.userid
   const FOLLOWERS_URL = process.env.REACT_APP_SERVER + `:8888/v1/member/${memberId}/followers`
-  
+  console.log(memberId)
   const store = useStore((state) => state)
   const [followers, setFollowers] = useState();
   const fetchData = async () =>{
     const res = await axiosInstance.get(FOLLOWERS_URL)
     setFollowers(res.data.data)
   }
+
 
   useEffect(()=>{
     if (store.getState().followersReducer.length === 0) {
@@ -41,10 +42,17 @@ const Followers = (props) => {
             </button>
           </header>
           <main>
+            {console.log(followers)}
           {followers.length === 0 ? <p>아직 팔로워가 없습니다.</p>: followers.map((person, idx)=>
           //{memberId, nickName, name, comment, age, grade}
-          <div key={idx}>{person.nickName}
-          <Link to={`/profile/${person.memberId}/post`}><Button> 프로필 페이지로 이동</Button></Link>
+          <div key={idx}>{parseInt(person.memberId)=== parseInt(memberId) ? <p>아직 팔로워가 없습니다.</p> : 
+            <>
+            {person.nickName}
+            <Link to={`/profile/${person.memberId}/post`}><button style={{marginLeft:10}} role={'button'} id="profilebtn"> 이동</button></Link>
+            </>
+          
+          }
+          
           
           </div>
           )}

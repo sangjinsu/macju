@@ -10,11 +10,13 @@ import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import "../../styles/UserPost.css"
 import axiosInstance from "CustomAxios";
 
-const UserPost = () => {
+const UserPost = (props) => {
   const USER_POST_URL = process.env.REACT_APP_SERVER + ':8888/v1/post/member'
   const store = useStore((state) => state)
-  const userNum = useParams()
-  const memberId = userNum.userid
+
+
+  const memberId = props.state
+
   const [userPosts, setUserPosts] = useState([])
   const [userPostImages, setUserPostImages] = useState([])
   const storage = getStorage();
@@ -23,15 +25,11 @@ const UserPost = () => {
       const memberPosts = await axiosInstance.get(`${USER_POST_URL}/${memberId}`)
       setUserPosts(memberPosts.data)
     }
-    if (store.getState().userPostReducer.length === 0){
-      fetchData();
-    } else {
-      setUserPosts(store.getState().userPostReducer.data)
-    }
+    fetchData();
 
   ////// 포스트 이미지 가져오기
   
-  },[USER_POST_URL])
+  },[USER_POST_URL, memberId])
   
   
 

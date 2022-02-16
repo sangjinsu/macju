@@ -4,9 +4,11 @@ import { useState } from "react";
 import '../../styles/UserLike.css'
 import {useStore} from "react-redux"
 import axiosInstance from "CustomAxios";
-const UserLike = () => {
+import { useParams } from "react-router-dom";
+const UserLike = (props) => {
+  
   const USER_LIKE_URL = process.env.REACT_APP_SERVER + ':8888/v1/member'
-  const [memberId, setMemberId] = useState(null)
+  const memberId = props.state
   const [likebeers, setLikeBeers] = useState([])
   const store = useStore((state) => state);
   useEffect(() =>{
@@ -21,9 +23,7 @@ const UserLike = () => {
     }
     
   },[USER_LIKE_URL])
-  useEffect(()=>{
-    setMemberId(store.getState().userReducer.memberId)
-  }, [store])
+
   return (
     <div className="memberbeerlike_container">
       <div className="container" justify-content="space-around">

@@ -15,7 +15,6 @@ const UserIcon = (props) =>{
       })() 
     }
 
-    // 
     </>
   )
 }

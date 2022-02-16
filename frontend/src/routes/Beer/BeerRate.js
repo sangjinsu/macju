@@ -19,15 +19,12 @@ function BeerRate(props){
   const [aromaIdArr, setAromaIdArr] = useState([])  //데이터전송용 아이디배열
 
 
-
-
-
-
   //react-redux
   const store = useStore((state)=>state)
+  const memberId = store.getState().userReducer.memberId 
 
   //temp
-  const memberId = 3    // test용 멤버 아이디
+  // const memberId = memberId    // test용 멤버 아이디
 
   //props
   const starrate = props.starrate

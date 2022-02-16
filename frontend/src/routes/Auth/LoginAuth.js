@@ -16,11 +16,11 @@ function LoginAuth() {
       const code = new URL(window.location.href).searchParams.get("code")
       const { data : responseData } = await axios.get(`http://i6c107.p.ssafy.io:8752/oauth/login/response?code=${code}`)
       userData.current = responseData
-      console.group(responseData)
+      console.log(responseData)
       if (userData.current.first_check === true ) {
         history.replace({pathname:"/user/signup", userData:userData.current})
       } else {
-        dispatch({type:"loginSucess", userData:userData.current})
+        dispatch({type:"loginSuccess", userData:userData.current})
         window.localStorage.setItem("AccessToken", userData.current.AccessToken)
         // dispatch({type:'header', AccessToken:userData.current.AccessToken}) header custom 
         history.replace("/home")

@@ -137,8 +137,10 @@ public class MemberController {
 
     @PutMapping("/profile")
     public ResponseEntity<String> updateProfile(@RequestBody RequestUpdateMemberDto requestUpdateMemberDto) {
-        int result = memberService.updateProfile(requestUpdateMemberDto);
-
+        System.out.println(requestUpdateMemberDto.toString());
+        int result = -1;
+        result = memberService.updateProfile(requestUpdateMemberDto);
+        System.out.println(result);
         if (result == 1) {
             return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
         }

@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -128,7 +129,7 @@ public class MemberServiceImpl implements MemberService {
         memberFondFlavorHashTagRepository.saveAll(memberFondFlavorHashTags);
 
         Member result = memberRepository.save(member);
-        if (result == null) {
+        if (result.equals(null)) {
             return 0;
         }
         return 1;

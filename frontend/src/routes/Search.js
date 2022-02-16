@@ -10,15 +10,10 @@ import axiosInstance from 'CustomAxios'
 function Search(props){
   const BEER_URL = process.env.REACT_APP_SERVER + ':8888/v1/beer'
 
-  const [isMoreClick, setIsMoreClick] = useState(false)
-  const [isMoreName, setIsMoreName] = useState(false)
-  const [isMoreTag, setIsMoreTag] = useState(false)
-
-
   // 검색한 결과 - 클릭했을때 state로 값 가져옴
   const location = useLocation();
   const searchresult = location.state   // id 배열 형식
-  console.log(searchresult)
+  // console.log(searchresult)
 
   const [beerArr, setBeerArr] = useState([])
   const [beerAllArr, setBeerAllArr] = useState([])
@@ -26,26 +21,7 @@ function Search(props){
       // console.log(searchAll)
     console.log('클릭 결과', searchresult)
     const fetchbeerdata = async () => {
-    if (searchresult.length) {
-      // 개수가 10개보다 많으면 10개로 자르고 isMore=true
-      if (searchresult.length > 10) {
-        setIsMoreClick(true)
-        const eachbeerdata = await axiosInstance.get(`${BEER_URL}?size=500`)
-        eachbeerdata.data.map((eachbeer) => {
-          // 1~10개까지
-          searchresult.slice(0,10).map((id)=>{
-            if (eachbeer.beerId === id) {
-              setBeerArr((name)=>[...name, eachbeer])
-            }
-          })
-          // 10개 이상부터
-          searchresult.slice(10).map((id)=>{
-            if (eachbeer.beerId === id) {
-              setBeerAllArr((name)=>[...name, eachbeer])
-            }
-          })
-      })
-      } else {
+      if (searchresult) {
         const eachbeerdata = await axiosInstance.get(`${BEER_URL}?size=500`)
         eachbeerdata.data.map((eachbeer) => {
           searchresult.map((id)=>{
@@ -55,10 +31,8 @@ function Search(props){
           })  
         })
       }
-      
     }
     fetchbeerdata();
-    }
   },[searchresult])
 
 
@@ -78,7 +52,7 @@ function Search(props){
   // console.log(searchInput, searchAll)
   useEffect(()=>{
     if (searchAll) {
-      // console.log(searchAll)
+      console.log(searchAll)
       setBeerKodata(searchAll[0].data)
       setBeerEndata(searchAll[1].data)
       setAromadata(searchAll[2].data)
@@ -166,79 +140,35 @@ function Search(props){
   
 
   const [beerNameArr, setBeerNameArr] = useState([])
-  const [beerNameAllArr, setBeerNameAllArr] = useState([])
   const [beerTagArr, setBeerTagArr] = useState([])
-  const [beerTagAllArr, setBeerTagAllArr] = useState([])
   // 검색 결과 => 맥주 아이디로 맥주 정보 불러오기
   useEffect( () => {
-    console.log('맥주이름 결과', beerIdArr_name)
+    // console.log('맥주이름 결과', beerIdArr_name)
     const fetchbeerdata1 = async () => {
-      // if (beerIdArr_name.length) {
-      //   // 개수가 10개보다 많으면 10개로 자르고 isMore=true
-      //   if (beerIdArr_name.length > 10) {
-      //     setIsMoreName(true)
-      //     const eachbeerdata = await axiosInstance.get(`${BEER_URL}?size=500`)
-      //     eachbeerdata.data.map((eachbeer) => {
-      //       // 1~10개까지만 
-      //       beerIdArr_name.slice(0,10).map((id)=>{
-      //         if (eachbeer.beerId === id) {
-      //           setBeerNameArr((name)=>[...name, eachbeer])
-      //         }
-      //       })
-      //       // 10개 이상인 부분
-      //       beerIdArr_name.slice(10).map((id)=>{
-      //         if (eachbeer.beerId === id) {
-      //           setBeerNameAllArr((name)=>[...name, eachbeer])
-      //         }
-      //       })
-      //   })
-      //   } else {
-          const eachbeerdata = await axiosInstance.get(`${BEER_URL}?size=500`)
-          eachbeerdata.data.map((eachbeer) => {
-            beerIdArr_name.map((id)=>{
-              if (eachbeer.beerId === id) {
-                setBeerNameArr((name)=>[...name, eachbeer])
-              }
-            })  
-          })
-        // }
-      // }
+      const eachbeerdata = await axiosInstance.get(`${BEER_URL}?size=500`)
+      eachbeerdata.data.map((eachbeer) => {
+        beerIdArr_name.map((id)=>{
+          if (eachbeer.beerId === id) {
+            setBeerNameArr((name)=>[...name, eachbeer])
+          }
+        })  
+      })
     }
     fetchbeerdata1();
   },[beerIdArr_name, beerKodata, beerEndata])
 
   useEffect( () => {
-    console.log('맛향종류유저 결과', beerIdArr_others)
+    // console.log('맛향종류유저 결과', beerIdArr_others)
     const fetchbeerdata2 = async () => {
       if (beerIdArr_others.length) {
-        // 개수가 10개보다 많으면 10개로 자르고 isMore=true
-        if (beerIdArr_others.length > 10) {
-          setIsMoreTag(true)
-          const eachbeerdata = await axiosInstance.get(`${BEER_URL}?size=500`)
-          eachbeerdata.data.map((eachbeer) => {
-            // 1~10개까지만 
-            beerIdArr_others.slice(0,10).map((id)=>{
-              if (eachbeer.beerId === id) {
-                setBeerTagArr((name)=>[...name, eachbeer])
-              }
-            })
-            // 10개 이상인 부분
-            beerIdArr_others.slice(10).map((id)=>{
-              if (eachbeer.beerId === id) {
-                setBeerTagAllArr((name)=>[...name, eachbeer])
-              }
-            })
+        const eachbeerdata = await axiosInstance.get(`${BEER_URL}?size=500`)
+        eachbeerdata.data.map((eachbeer) => {
+          beerIdArr_others.map((id)=>{
+            if (eachbeer.beerId === id) {
+              setBeerTagArr((name)=>[...name, eachbeer])
+            }
+          })  
         })
-        } else {
-          const eachbeerdata = await axiosInstance.get(`${BEER_URL}?size=500`)
-          eachbeerdata.data.map((eachbeer) => {
-            beerIdArr_others.map((id)=>{
-              if (eachbeer.beerId === id) {
-                setBeerTagArr((name)=>[...name, eachbeer])
-              }
-            })  
-          })
-        }
       }
     }
     fetchbeerdata2();
@@ -255,15 +185,15 @@ function Search(props){
   }, [location])
 
   // 더보기 클릭하면 배열 모두 보여줌
-  const clickMoreName = () => {
-    setBeerNameArr(beerNameAllArr)
-  }
-  const clickMoreTag = () => {
-    setBeerTagArr(beerTagAllArr)
-  }
-  const clickMoreClick = () => {
-    setBeerArr(beerAllArr)
-  }
+  // const clickMoreName = () => {
+  //   setBeerNameArr(beerNameAllArr)
+  // }
+  // const clickMoreTag = () => {
+  //   setBeerTagArr(beerTagAllArr)
+  // }
+  // const clickMoreClick = () => {
+  //   setBeerArr(beerAllArr)
+  // }
 
   const [currentPage, setCurrentPage] = useState(1); //현재 페이지
   const [postPerPage] = useState(8); //페이지당 개수
@@ -272,6 +202,8 @@ function Search(props){
   const indexOfLastArr = currentPage * postPerPage; //1*8 = 8번 포스트
   const indexOfFirstArr = indexOfLastArr - postPerPage; //8-8 = 0번 포스트
   const currentbeerNameArr = beerNameArr.slice(indexOfFirstArr, indexOfLastArr); //0~10번까지 포스트
+  const currentbeerTagArr = beerTagArr.slice(indexOfFirstArr, indexOfLastArr); //0~10번까지 포스트
+  const currentbeerArr = beerArr.slice(indexOfFirstArr, indexOfLastArr); //0~10번까지 포스트
 
   //클릭 이벤트-페이지 바꾸기
   const paginate = pageNum => setCurrentPage(pageNum);
@@ -311,11 +243,12 @@ function Search(props){
                           {/* 맥주 이름 + 자세히 버튼 */}
                           <div className='beerdetail-title'>
                             <h5>{beer.name}</h5>
+                            <div>{beer.englishName}</div>
                             {/* <Link to={`/beer/${beer.beerId}`} className='detailBtn'>자세히</Link> */}
                           </div>
 
                           {/* 맥주 별점 */}
-                          <div className="star-ratings">
+                          {/* <div className="star-ratings">
                             <div 
                               className="star-ratings-fill space-x-2 text-lg"
                               style={{width:`${beer.averageRate*20}%` }}
@@ -325,15 +258,15 @@ function Search(props){
                             <div className="star-ratings-base space-x-2 text-lg">
                               <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
                             </div>
-                          </div>
+                          </div> */}
 
                           {/* 맥주 설명 */}
-                          <div className='beer_volume'>
+                          {/* <div className='beer_volume'>
                             ALC : {beer.volume}%
-                          </div>
+                          </div> */}
 
                           {/* 맥주 해시태그 */}
-                          <div className='beer_hashtag_all'>
+                          {/* <div className='beer_hashtag_all'>
                             {beer.aromaHashTags.map((aroma,a) => {
                               return <div key={a} className='beer_hashtag'>#{aroma}</div>
                             })}
@@ -342,7 +275,7 @@ function Search(props){
                             {beer.flavorHashTags.map((flavor,f) => {
                               return <div key={f} className='beer_hashtag'>#{flavor}</div>
                             })}
-                          </div>
+                          </div> */}
 
                           {/* 맥주 카테고리 */}
                           <div className="options">
@@ -350,9 +283,11 @@ function Search(props){
                               <h6 className='beerCategory'>
                                 {beer.beerType.en_main}
                               </h6>
-                              <h6 className='beerCategory'>
-                                {beer.beerType.en_detail}
-                              </h6>
+                              { beer.beerType.ko_detail !== null
+                                ? <h6 className='beerCategory'>
+                                    {beer.beerType.en_detail}
+                                  </h6>
+                                : null }
                             </div>
                           </div>
 
@@ -370,16 +305,12 @@ function Search(props){
           postPerPage={postPerPage} 
           totalPosts={beerNameArr.length} 
           paginate={paginate}  />
-        { isMoreName &&   // 더보기 버튼
-          <div>
-            <div className="moreBtn btn " onClick={clickMoreName} >More...</div>
-          </div>
-        }
+
 
         {/* 태그로 검색했을 때 */}
         <div className="search_beer">
           {/* {console.log(beerTagArr)} */}
-          { beerTagArr && 
+          { currentbeerTagArr && 
             <h4>' #{searchInput} '  검색 결과</h4> ,
             <div className='row'>
               { beerTagArr.map((beer, i)=>{
@@ -404,23 +335,6 @@ function Search(props){
                             {/* <Link to={`/beer/${beer.beerId}`} className='detailBtn'>자세히</Link> */}
                           </div>
 
-                          {/* 맥주 별점 */}
-                          <div className="star-ratings">
-                            <div 
-                              className="star-ratings-fill space-x-2 text-lg"
-                              style={{width:`${beer.averageRate*20}%` }}
-                            >
-                              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                            </div>
-                            <div className="star-ratings-base space-x-2 text-lg">
-                              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                            </div>
-                          </div>
-
-                          {/* 맥주 설명 */}
-                          <div className='beer_volume'>
-                            ALC : {beer.volume}%
-                          </div>
 
                           {/* 맥주 해시태그 */}
                           <div className='beer_hashtag_all'>
@@ -456,16 +370,20 @@ function Search(props){
             </div>
           }
         </div>
-        { isMoreTag &&   // 더보기 버튼
+        <SearchPagination 
+          postPerPage={postPerPage} 
+          totalPosts={beerTagArr.length} 
+          paginate={paginate}  />
+        {/* { isMoreTag &&   // 더보기 버튼
           <div>
             <div className="moreBtn btn " onClick={clickMoreTag} >More...</div>
           </div>
-        }
+        } */}
 
         {/* 클릭해서 검색했을 때 */}
         <div className="search_beer">
           {/* {console.log(beerTagArr)} */}
-          { beerArr && 
+          { currentbeerArr && 
             <h4>' {} '  검색 결과</h4> ,
             <div className='row'>
               { beerArr.map((beer, i)=>{
@@ -542,11 +460,15 @@ function Search(props){
             </div>
           }
         </div>
-        { isMoreClick &&   // 더보기 버튼
+        <SearchPagination 
+          postPerPage={postPerPage} 
+          totalPosts={beerArr.length} 
+          paginate={paginate}  />
+        {/* { isMoreClick &&   // 더보기 버튼
           <div>
             <div className="moreBtn btn " onClick={clickMoreClick} >More...</div>
           </div>
-        }
+        } */}
       </div>
     </div>
   )

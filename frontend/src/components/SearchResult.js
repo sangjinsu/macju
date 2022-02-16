@@ -17,12 +17,12 @@ const SearchResult = (props) =>{
       // 맥주 이름 한글 => 클릭하면 바로 맥주디테일로
       (()=>{
         if (searchResult.length === 0) return null
-        if (searchResult[0].length !== 0) return searchResult[0].data.map((result, i) =>
-        <Link to={{pathname: `/search/${result.beer_name}`,
-                  state: result
-                  }}
-        ><ListGroup.Item key={i}> {result.beer_name}</ListGroup.Item> </Link>
-        )         
+        if (searchResult[0].length !== 0) 
+          return searchResult[0].data.map((result, i) =>
+            <Link to={{pathname: `/beer/${result.beer_id}`}} key={i}>
+              <ListGroup.Item> {result.beer_name}</ListGroup.Item> 
+            </Link>
+        )       
       })() 
     }
     {
@@ -66,7 +66,7 @@ const SearchResult = (props) =>{
                   state: searchResult[3].data[Object.keys(searchResult[3].data)[0]].beers
                   }}           
            >
-          <ListGroup.Item >{Object.keys(searchResult[3].data)[0]}({searchResult[3].data[Object.keys(searchResult[3].data)[0]].beers.length}개)</ListGroup.Item>
+            <ListGroup.Item >{Object.keys(searchResult[3].data)[0]}({searchResult[3].data[Object.keys(searchResult[3].data)[0]].beers.length}개)</ListGroup.Item>
           </Link>
         )
       })()
@@ -76,11 +76,18 @@ const SearchResult = (props) =>{
       (()=>{
         if (searchResult.length === 0) return null
         if (!searchResult[4]) return null
-        searchResult[4].data.map((result, i)=> _.isEmpty(result) ? null : 
-        <Link to={{ pathname: `/search/${result}`,
-                    state: searchResult[4].data
-        }}><ListGroup.Item>{console.log(result[Object.keys(result)])}</ListGroup.Item></Link>
-        ) 
+        searchResult[4].data.map((results, i)=> { 
+          if (!_.isEmpty(results)) {
+            const alltype = Object.keys(results)
+            alltype.map((type, j)=>{ return (
+              <Link to={{ pathname: `/search/${type}`,
+                      state: results[type].beers }} key={i}
+              > 
+                <ListGroup.Item>{type}({results[type].beers.length}개)</ListGroup.Item>
+              </Link>
+            )})
+          }
+        })
       })()
     }
     {/* userdata */}

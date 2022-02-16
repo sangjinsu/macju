@@ -7,9 +7,9 @@ import java.util.List;
 
 @Data
 public class RequestUpdateMemberDto implements Serializable {
-    private final Long memberId;
-    private final String nickName;
-    private final String intro;
-    private final List<Long> aromas;
-    private final List<Long> flavors;
+    private Long memberId;
+    private String nickName;
+    private String intro;
+    private List<Long> aromas;
+    private List<Long> flavors;
 }

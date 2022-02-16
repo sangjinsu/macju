@@ -7,6 +7,7 @@ import org.hibernate.annotations.ColumnDefault;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Getter
@@ -56,9 +57,10 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Post> posts = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member", orphanRemoval = true)
-    private List<MemberFondAromaHashTag> memberFondAromaHashTags = new ArrayList<>();
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MemberFondAromaHashTag> memberFondAromaHashTags;
 
-    @OneToMany(mappedBy = "member", orphanRemoval = true)
-    private List<MemberFondFlavorHashTag> memberFondFlavorHashTags = new ArrayList<>();
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MemberFondFlavorHashTag> memberFondFlavorHashTags;
+
 }

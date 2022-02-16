@@ -102,22 +102,30 @@ public class MemberServiceImpl implements MemberService {
         member.setNickName(requestUpdateMemberDto.getNickName());
 
         member.getMemberFondAromaHashTags().clear();
-        member.getMemberFondAromaHashTags().clear();
+        member.getMemberFondFlavorHashTags().clear();
 
-        List<MemberFondAromaHashTag> memberFondAromaHashTags = requestUpdateMemberDto.getAromas().stream().map(
-                aroma -> {
-                    Optional<AromaHashTag> aromaHashTag = aromaHashTagRepository.findById(aroma);
-                    return MemberFondAromaHashTag.createMemberFondAromaHashTag(aromaHashTag.get(), member);
-                }
-        ).collect(Collectors.toList());
+        List<MemberFondAromaHashTag> memberFondAromaHashTags =
+                requestUpdateMemberDto
+                        .getAromas()
+                        .stream()
+                        .map(
+                                aroma -> {
+                                    Optional<AromaHashTag> aromaHashTag = aromaHashTagRepository.findById(aroma);
+                                    return MemberFondAromaHashTag.createMemberFondAromaHashTag(aromaHashTag.get(), member);
+                                }
+                        ).collect(Collectors.toList());
 
-        List<MemberFondFlavorHashTag> memberFondFlavorHashTags = requestUpdateMemberDto.getFlavors().stream().map(flavor -> {
-            Optional<FlavorHashTag> flavorHashTag = flavorHashTagRepository.findById(flavor);
-            return MemberFondFlavorHashTag.createMemberFondFlavorHashTag(flavorHashTag.get(), member);
-        }).collect(Collectors.toList());
+        List<MemberFondFlavorHashTag> memberFondFlavorHashTags =
+                requestUpdateMemberDto
+                        .getFlavors()
+                        .stream()
+                        .map(flavor -> {
+                            Optional<FlavorHashTag> flavorHashTag = flavorHashTagRepository.findById(flavor);
+                            return MemberFondFlavorHashTag.createMemberFondFlavorHashTag(flavorHashTag.get(), member);
+                        }).collect(Collectors.toList());
 
-        member.setMemberFondAromaHashTags(memberFondAromaHashTags);
-        member.setMemberFondFlavorHashTags(memberFondFlavorHashTags);
+        memberFondAromaHashTagRepository.saveAll(memberFondAromaHashTags);
+        memberFondFlavorHashTagRepository.saveAll(memberFondFlavorHashTags);
 
         Member result = memberRepository.save(member);
         if (result == null) {

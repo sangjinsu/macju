@@ -6,7 +6,6 @@ import "../../firebase_config"
 import imageCompression from 'browser-image-compression';
 import '../../styles/PostCreate.css'
 import { v4 as uuidv4 } from 'uuid';
-import axios from "axios";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import Slider from "react-slick";

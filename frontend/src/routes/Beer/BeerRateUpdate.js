@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import StarRate from './StartRate.js'
 import Modal from 'react-modal';
 import '../../styles/BeerRate.css'
-import axios from "axios";
-import axiosInstance from "CustomAxios";
+import axiosInstance from "CustomAxios.js";
+
 function BeerRate(props){
   //url
   const BEER_RATE_URL = process.env.REACT_APP_SERVER + ':8888/v1/beer'

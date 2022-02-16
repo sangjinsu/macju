@@ -19,10 +19,8 @@ function LoginAuth() {
       console.log(responseData)
       if (userData.current.first_check === true ) {
         history.replace({pathname:"/user/signup", userData:userData.current})
-      } 
-      else {
+      } else {
         dispatch({type:"loginSuccess", userData:userData.current})
-        
         window.localStorage.setItem("AccessToken", userData.current.AccessToken)
         // dispatch({type:'header', AccessToken:userData.current.AccessToken}) header custom 
         history.replace("/home")

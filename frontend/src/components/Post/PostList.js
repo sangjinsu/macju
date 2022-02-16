@@ -3,9 +3,9 @@ import { useState } from "react";
 import { useEffect } from "react";
 import {Link, useParams} from "react-router-dom"
 import "../../styles/PostList.css"
-import axios from "axios";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import axiosInstance from "CustomAxios";
 
 
 function PostListComponent(){
@@ -41,13 +41,13 @@ function PostListComponent(){
 
   // 전체 포스트 리스트
   const fetchPostListData = async() =>{
-    const data = await axios.get(POST_LIST_URL)
+    const data = await axiosInstance.get(POST_LIST_URL)
     setNewPost(data.data)
   }
 
   // 맥주 디테일 - 포스트 리스트
   const fetchBeerDetailData = async() =>{
-    const data =await axios.get(`${BEER_DETAIL_POST_URL}/${beerid}`)
+    const data =await axiosInstance.get(`${BEER_DETAIL_POST_URL}/${beerid}`)
     setNewPost(data.data)
   }
 

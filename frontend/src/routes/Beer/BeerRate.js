@@ -2,9 +2,8 @@ import { useState } from "react";
 import StarRate from './StartRate.js'
 import Modal from 'react-modal';
 import '../../styles/BeerRate.css'
-import axios from "axios";
 import {useStore} from "react-redux"
-import axiosInstance from "CustomAxios";
+import axiosInstance from "CustomAxios.js";
 
 function BeerRate(props){
   //url

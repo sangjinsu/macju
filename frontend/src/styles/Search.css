@@ -124,6 +124,7 @@
 }
 .search_section .beerdetail-box .options {
   position: absolute;
+  right: 20px;
   bottom: 10px;
 }
 
@@ -138,11 +139,6 @@
 /* 맥주이름 */
 .search_section .beerlist_box .beerdetail-box h5 {
   font-weight: 600;
-}
-.search_section .beerdetail-box .beerdetail-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 /* 맥주별점 */
@@ -206,6 +202,7 @@
 .search_section .beerCategory {
   padding: 5px 6px;
   border-radius: 15px;
+  color: white;
   background-color: #F9CF68;
 }
 .search_section .moreBtn {
@@ -213,6 +210,11 @@
   justify-content: flex-end;
   margin-top: 30px;
 }
+
+
+
+
+
 
 
 /* 포스트 검색 결과 */

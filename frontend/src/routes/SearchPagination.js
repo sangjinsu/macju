@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/SearchPagination.css'
 
 const SearchPagination = ({postPerPage, totalPosts, paginate}) => {
   const pageNumbers = [];
@@ -7,14 +8,14 @@ const SearchPagination = ({postPerPage, totalPosts, paginate}) => {
     pageNumbers.push(i);
   }
     return (
-      <nav>
+      <div className='searchPagination'>
         <ul className="pagination">
           {pageNumbers.map(num => 
-            <li key={num}>
-              <a onClick={() => paginate(num)} href='!#'>{num}</a>
+            <li className='pagination_li' key={num}>
+              <a className='btn pageBtn' onClick={() => paginate(num)}>{num}</a>
             </li>)}
         </ul>
-      </nav>
+      </div>
     );
   };
   

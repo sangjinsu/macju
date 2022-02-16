@@ -1,0 +1,24 @@
+.searchPagination {
+  display: flex;
+  justify-content: center;
+}
+
+.searchPagination .pagination .pagination_li {
+  /* display: inline-block; */
+  /* overflow: hidden; */
+  border-width: 3px;
+  border-color: white;
+}
+
+
+/* .searchPagination .pagination .pagination_li a:focus{
+  font-weight: bold;
+ } */
+ .searchPagination .pagination .pagination_li a:hover{
+   /* font-size: 1.1rem; */
+   font-weight: bold;
+ }
+
+.searchPagination .pagination .pageBtn {
+  cursor: pointer;
+}

@@ -61,7 +61,7 @@ function Signup(props) {
         }
       }
       console.log(headers)
-      const {data : singupResponse} = await axiosInstance.post(USER_SIGNUP_URL, singupData, headers)
+      const {data : singupResponse} = await axios.post(USER_SIGNUP_URL, singupData, headers)
       console.log('ttt')
       userData.memberId = singupResponse.memberId
       dispatch({type:"loginSucess", userData:userData})

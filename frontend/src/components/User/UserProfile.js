@@ -3,16 +3,18 @@ import { useEffect, useState } from "react";
 import Followers from "components/Modals/Followers.js"
 import Followings from "components/Modals/Followings.js"
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { useDispatch, useStore } from "react-redux";
 import { Button, ProgressBar } from "react-bootstrap";
 import UserIcon from "./UserIcon";
 import axiosInstance from "CustomAxios";
 const UserProfile = () => {
+
 	const store = useStore((state)=>state)
 	const dispatch = useDispatch();
 	const userNum = useParams();
 	const userid = userNum.userid
+	const history = useHistory();
 	
 	
 	const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8888/v1/member/profile'
@@ -129,7 +131,10 @@ const UserProfile = () => {
 					<div id="profile-box">
 						<div id="nickname">
 							<h1>{user.nickName}</h1>
-							<Link to={`/profile/${user.memberId}/edit`}>
+							<Link to={{
+								pathname : `/profile/edit`,
+								state : userid
+							}} >
 							<button className="editBtn">수정</button>
 							</Link>
 						</div>
@@ -140,11 +145,11 @@ const UserProfile = () => {
 							<div className="follow_all">
 								<div className="follower">
 									<button className="followBtn" onClick={followersOpenModal} variant="success">팔로워</button>
-									 : {user.followers.length} 
+									 : {user.followers} 
 								</div>
 								<div className="following">
 									<button className="followBtn" onClick={followingsOpenModal} variant="warning"> 팔로잉</button>
-									 : {user.followings.length}
+									 : {user.followings}
 								</div>
 							</div>
 							<Followers open={followersModalOpen} close={followersCloseModal} header="팔로워">
@@ -156,7 +161,7 @@ const UserProfile = () => {
 							
 							<p className="user_intro">한줄 소개 : {user.intro ? user.intro : '없네용' }</p>
 							
-							<ProgressBar now={user.grade/5} label={`${user.grade/5}%`} />
+							{/* <ProgressBar now={user.grade/5} label={`${user.grade/5}%`} /> */}
 						</div>
 					</div>
 				</div>

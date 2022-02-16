@@ -3,32 +3,27 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { useStore } from "react-redux";
-import { Link, Redirect, Route, useHistory, useParams } from "react-router-dom";
+import { Link, Redirect, Route, useHistory, useLocation, useParams } from "react-router-dom";
 import "../../styles/ProfileEdit.css"
+import axiosInstance from "CustomAxios";
 
 
 
 const ProfileEdit = () => {
-
+  
   const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8888/v1/member/profile'
   const USER_NICKNAME_CHECK = process.env.REACT_APP_SERVER +  ':8888/v1/member/validatenickname'
   const [editUserNickname, setEditUserNickname] = useState('')
   const [introduce, setIntroduce] =useState('')
   const [labelNickname, setLabelNickname] = useState('fail')
   const store = useStore((state)=>state)
-
-  const history = useHistory()
-
-  const userNum = useParams()
-  const memberId = userNum.userid
-
-  const headers = {
-    'Content-Type': 'application/json; charset=UTF-8',
-    'Accept': "application/json; charset=UTF-8"
-  }
-
+  const memberId = store.getState().userReducer.memberId
+  const history = useHistory();
+  const location = useLocation();
+  const userId = location.state   // id 배열 형식
+  
   const profileData = {
-    "memberId": 1, 
+    "memberId": memberId, 
     "nickName": editUserNickname,
     "name": "ssafy",
     "intro":introduce,
@@ -36,10 +31,10 @@ const ProfileEdit = () => {
   }
   const submitProfile = () =>{
     if (introduce && editUserNickname){
-      axios.put(USER_UPDATE_PROFILE, profileData, {headers})
+      axiosInstance.put(USER_UPDATE_PROFILE, profileData)
       .then((res)=>{
         // history.push(`/profile/${1}/profile`)
-        window.location.replace(`/profile/${1}/profile`)
+        window.location.replace(`/profile/${memberId}/post`)
       })
     } else {
       alert('내용을 입력하세요')
@@ -47,7 +42,7 @@ const ProfileEdit = () => {
   }
   const nickNameCheck = async () =>{
     if (!(editUserNickname === '')){
-      const data = await axios.get(`${USER_NICKNAME_CHECK}/${editUserNickname}`)
+      const data = await axiosInstance.get(`${USER_NICKNAME_CHECK}/${editUserNickname}`)
       //차후 동일 닉네임 요청 전처리 필요
       setLabelNickname(data.data)
      
@@ -64,7 +59,7 @@ const ProfileEdit = () => {
 
   useEffect(()=>{
     const fetchData = async() =>{
-      const data = await axios.get('http://i6c107.p.ssafy.io:8080/v1/member/profile/1')
+      const data = await axiosInstance.get(`http://i6c107.p.ssafy.io:8080/v1/member/profile/${memberId}`)
       setEditUserNickname(data.data.nickName)
       setIntroduce(data.data.intro)
     }
@@ -76,13 +71,15 @@ const ProfileEdit = () => {
   useEffect(()=>{
     nickNameCheck();
   }, [editUserNickname, nickNameCheck])
+
+  
   useEffect(()=>{
-    console.log(memberId)
-    console.log(store.getState().userReducer.memberId)
-    if (memberId !== store.getState().userReducer.memberId){
-      history.push('/user/login')
-    }
-  }, [])
+		if (Number(userId) !== Number(store.getState().userReducer.memberId)){
+			alert('권한이 없습니다.')
+			history.push('/home')
+		}
+		
+	}, [])
 
 
 

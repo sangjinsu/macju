@@ -17,6 +17,7 @@ function LoginAuth() {
       const { data : responseData } = await axios.get(`http://i6c107.p.ssafy.io:8752/oauth/login/response?code=${code}`)
       userData.current = responseData
       if (userData.current.first_check === true ) {
+        
         history.replace({pathname:"/user/signup", userData:userData.current})
       } else {
         dispatch({type:"loginSucess", userData:userData.current})

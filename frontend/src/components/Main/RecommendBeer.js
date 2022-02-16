@@ -49,35 +49,29 @@ const RecommendBeer = () => { // 변수명 수정필요
 }
 
 
-<<<<<<< HEAD
-// function CustomSlide(props) {
-//   const BEER_DETAIL_URL = process.env.REACT_APP_SERVER + ':8080/v1/beer'
-//   const [imgSrc, setImgSrc] = useState()
-=======
 function CustomSlide(props) {
   const BEER_DETAIL_URL = process.env.REACT_APP_SERVER + ':8888/v1/beer'
   const [imgSrc, setImgSrc] = useState()
->>>>>>> aff279e40c753ec90ed7ee467921bdf8f7bcba0f
 
-//   const imgData = useCallback( async ()=>{
-//     const { data : beerDetail } = await axios.get(`${BEER_DETAIL_URL}/${props.beerid}`)
-//     setImgSrc(beerDetail.photoPath)
-//   },[BEER_DETAIL_URL, props.beerid])
+  const imgData = useCallback( async ()=>{
+    const { data : beerDetail } = await axios.get(`${BEER_DETAIL_URL}/${props.beerid}`)
+    setImgSrc(beerDetail.photoPath)
+  },[BEER_DETAIL_URL, props.beerid])
   
-//   useEffect( () => {
-//     imgData();
-//   }, [BEER_DETAIL_URL, props.beerid, imgData])
+  useEffect( () => {
+    imgData();
+  }, [BEER_DETAIL_URL, props.beerid, imgData])
 
-//   return(
-//     <div {...props} className="row">
-//       <img className="slideImg col-7" src={imgSrc} alt=""/>
-//       <div className="slideDiv col-5">
-//         <h3>곰표맥주</h3>
-//         <br></br>
-//         <span>조회 수 : ??</span>
-//       </div>
-//     </div>
-//   )
-// }
+  return(
+    <div {...props} className="row">
+      <img className="slideImg col-7" src={imgSrc} alt=""/>
+      <div className="slideDiv col-5">
+        <h3>곰표맥주</h3>
+        <br></br>
+        <span>조회 수 : ??</span>
+      </div>
+    </div>
+  )
+}
 
 export default RecommendBeer;

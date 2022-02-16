@@ -47,13 +47,13 @@ function App() {
           </Route>
           <Route path="/profile">
             <Switch>
-              <Route exact path="/profile/:userid/edit" component={PageAuth(ProfileEdit, true)} />
-              <Route path="/profile/:userid" component={PageAuth(Profile, true)} />
+              <Route exact path="/profile/:userid/edit" component={PageAuth(ProfileEdit, false)} />
+              <Route path="/profile/:userid" component={PageAuth(Profile, false)} />
               {/* <Route path="*" component={PageNotFound} /> */}
             </Switch>
           </Route>
-          <Route exact path="/oauth/login/resopnse" component={PageAuth(LoginAuth, true)}/>
-          <Route exact path="/search" component={PageAuth(Search, true)} />
+          <Route exact path="/oauth/login/resopnse" component={PageAuth(LoginAuth, false)}/>
+          <Route exact path="/search" component={PageAuth(Search, false)} />
           <Route path="*" component={PageNotFound} />
         </Switch>
         <Footer />

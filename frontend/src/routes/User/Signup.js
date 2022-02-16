@@ -60,6 +60,7 @@ function Signup(props) {
       }
  
       const {data : singupResponse} = await axios.post(USER_SIGNUP_URL, singupData, headers)
+      
       window.localStorage.setItem("AccessToken", userData.AccessToken)
 
       userData.memberId = singupResponse.memberId

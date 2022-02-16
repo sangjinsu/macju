@@ -9,6 +9,7 @@ import { useStore } from "react-redux";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import "../../styles/UserPost.css"
 import axiosInstance from "CustomAxios";
+import UserIcon from "./UserIcon"
 
 const UserPost = (props) => {
   const USER_POST_URL = process.env.REACT_APP_SERVER + ':8888/v1/post/member'
@@ -18,11 +19,13 @@ const UserPost = (props) => {
   const memberId = props.state
 
   const [userPosts, setUserPosts] = useState([])
+
   const [userPostImages, setUserPostImages] = useState([])
   const storage = getStorage();
   useEffect(() => {
     const fetchData = async() =>{
       const memberPosts = await axiosInstance.get(`${USER_POST_URL}/${memberId}`)
+      console.log(memberPosts)
       setUserPosts(memberPosts.data)
     }
     fetchData();
@@ -62,7 +65,7 @@ const UserPost = (props) => {
 
     <div className="container">
      <div className="row grid postlist_component">
-  
+    {console.log(userPosts)}
       { userPosts.length === 0 ? <div> 포스트가 없어요!! </div> : userPosts.map((post) =>
         <div className="col-md-6 col-lg-4 fadein" key={post.postId}>
           <div className="box">
@@ -75,7 +78,11 @@ const UserPost = (props) => {
                   {/* 기본이미지 하나 구해야겠네요 */}
                   <img src={data.res} alt=""></img>
                   {/* <img src={post.photo.data}></img> */}
-                </div> : null
+                </div> : <>
+            <UserIcon grade={2500}/>
+
+            <div id="text" style={{marginTop:50 ,textAlign:'center'}}>아직 작성한 게시글이 없습니다.</div>
+            </>
                 )
               }
           

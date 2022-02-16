@@ -62,9 +62,7 @@ function PostCreate(props) {
       const preFileNames = Object.values(files).map( (preFile) => preFile.name)
 
       for (let i = 0; i < files.length; i++){
-        if (!(nowFileNames in preFileNames) ){
-          console.log("1111")
-          
+        if (!(nowFileNames in preFileNames) ){      
           const compressedFile = await imageCompression(files[i], options)
           const currentTime = Date.now()
           const uniqueName = uuidv4()
@@ -173,19 +171,17 @@ function PostCreate(props) {
         userHashTags : hashtagArr,
         
       }
-      const headers = {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Accept': "application/json; charset=UTF-8"
-      }
-      axiosInstance.post(POST_CREATE_URL, newpost, headers)
+      axiosInstance.post(POST_CREATE_URL, newpost)
       .then(()=>{
-        const profiledata = store.getState().profileReducer
-        profiledata['grade'] = profiledata['grade'] + 10
-        axiosInstance.put(USER_UPDATE_PROFILE, profiledata)
-        .then(()=>{
-          history.push(`/post`)
-          // history.replace(`/beer/${beerid}`)
-        })
+        history.push(`/post`)
+        // const profiledata = store.getState().userProfileReducer
+        // console.log(profiledata)
+        // profiledata['grade'] = profiledata['grade'] + 10
+        // axiosInstance.put(USER_UPDATE_PROFILE, profiledata)
+        // .then(()=>{
+          
+        //   // history.replace(`/beer/${beerid}`)
+        // })
 
       })
       .catch(()=>{

@@ -2,6 +2,7 @@
   background-color: #fffaea;
   /* background-color: white; */
   margin: 50px 20px;
+  font-family: "Open Sans", sans-serif;
 }
 .likebeer {
   display: flex;
@@ -11,4 +12,8 @@
 .likebeer_img {
   height: 8rem;
 
+}
+#text{
+  font-family: 'Nanum Pen Script', cursive;
+  font-size: xx-large;
 }

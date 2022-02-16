@@ -154,37 +154,6 @@ const ProfileEdit = () => {
   const handleChange42 = (e) =>{
     setChecked42(e.target.checked)
   }
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   const [checked1, setChecked1] = useState(false)
   const [checked2, setChecked2] = useState(false)
   const [checked3, setChecked3] = useState(false)
@@ -227,8 +196,8 @@ const ProfileEdit = () => {
   const [checked40, setChecked40] = useState(false)
   const [checked41, setChecked41] = useState(false)
   const [checked42, setChecked42] = useState(false)
-const userFlavor = [checked1, checked2, checked3, checked4, checked5, checked6, checked7, checked8, checked9, checked10, checked11, checked12, checked13]
-    const userAroma = [
+const [userFlavor, setUserFlavor] = useState([checked1, checked2, checked3, checked4, checked5, checked6, checked7, checked8, checked9, checked10, checked11, checked12, checked13])
+    const [userAroma, setUserAroma] = useState([
       checked14,
       checked15,
       checked16,
@@ -258,7 +227,7 @@ const userFlavor = [checked1, checked2, checked3, checked4, checked5, checked6, 
       checked40,
       checked41,
       checked42,
-    ]
+    ])
   const profileData = {
     "memberId": user.memberId,
     "nickName": editUserNickname,
@@ -283,13 +252,11 @@ const userFlavor = [checked1, checked2, checked3, checked4, checked5, checked6, 
     }
     profileData.aromas  = userAromaData
     profileData.flavors = userFlavorData
-    
-    console.log(profileData)
-    console.group(user.memberId)
+
     if (introduce && editUserNickname){
       axiosInstance.put(USER_UPDATE_PROFILE, profileData)
-      .then((res)=>{
-        console.log(res)
+      .then(()=>{
+        
         history.push(`/profile/${user.memberId}/profile`)
        
       })
@@ -321,19 +288,27 @@ const userFlavor = [checked1, checked2, checked3, checked4, checked5, checked6, 
       setIntroduce(data.data.intro)
       const checkedFlavor = data.data.flavors
       const checkedAroma = data.data.aromas
-      for (let i = 0; i < userFlavor.length; i++){
-        if (userFlavor[i] in checkedFlavor) {
-          userFlavor[i] = true
+      const copiedFlavor = [...userFlavor]
+      const copiedAroma = [...userAroma]
+      for (let i = 1; i < copiedFlavor.length + 1; i++){
+
+        if (i in checkedFlavor) {
+          copiedFlavor[i - 1] = true 
         }
       }
-      for (let i = 0; i < userAroma.length; i++){
-        if (userAroma[i] in checkedAroma) {
-          userAroma[i] = true
+      console.log(copiedFlavor)
+      setUserFlavor(copiedFlavor)
+      for (let i = 1; i < copiedAroma.length + 1; i++){
+        if (i in checkedAroma) {
+          copiedAroma[i - 1] = true
         }
       }
+      setUserAroma(copiedAroma)
+
     }
+    console.log('g')
     fetchData();
-  }, [])
+  }, [user])
 
 
 

@@ -3,7 +3,6 @@ import React, { useEffect, useState, useCallback } from 'react'
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import '../../styles/Signup.css'
-import axiosInstance from 'CustomAxios'
 
 function Signup(props) {
   const VALIDATE_NICKNAME_URL = process.env.REACT_APP_SERVER + ':8888/v1/member/validatenickname'
@@ -60,18 +59,20 @@ function Signup(props) {
           "Content-Type":"application/json;charset=UTF-8"
         }
       }
-      console.log(headers)
+ 
       const {data : singupResponse} = await axios.post(USER_SIGNUP_URL, singupData, headers)
-      console.log('ttt')
+      window.localStorage.setItem("AccessToken", userData.AccessToken)
+
       userData.memberId = singupResponse.memberId
       dispatch({type:"loginSuccess", userData:userData})
-      window.localStorage.setItem("AccessToken", userData.AccessToken)
+
       history.push("/home")
+      window.location.reload() 
     }catch(err){
       // 회원가입 실패시 알람 + 로그인 페이지 다시 이동
       console.log(err)
       alert("회원가입 실패")
-      // history.replace("/user/login")
+      history.replace("/user/login")
     }
   }, [age, userData, nickname, USER_SIGNUP_URL, dispatch, history])
 
@@ -94,7 +95,7 @@ function Signup(props) {
     }catch{
       console.log("중복확인 실패")
     }
-  }, [nickname, VALIDATE_NICKNAME_URL])
+  }, [nickname, VALIDATE_NICKNAME_URL, userData.AccessToken])
 
   useEffect( () => {
     if (nickname) {
@@ -156,7 +157,7 @@ function Signup(props) {
                   {/* 성별 입력 */}
                   <div>
                     <select className="form-control nice-select wide" name="choice" onChange={selectValue}>
-                      <option value="" disabled value>
+                      <option disabled value>
                         성별
                       </option>
                       <option value="man">

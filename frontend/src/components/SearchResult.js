@@ -49,7 +49,6 @@ const SearchResult = (props) =>{
                   state: searchResult[2].data[Object.keys(searchResult[2].data)[0]].beers
                   }}           
            >
-             
           <ListGroup.Item >{Object.keys(searchResult[2].data)[0]}({searchResult[2].data[Object.keys(searchResult[2].data)[0]].beers.length}개)</ListGroup.Item>
           </Link>
         )

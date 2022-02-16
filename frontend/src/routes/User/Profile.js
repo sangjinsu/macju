@@ -18,8 +18,7 @@ const Profile = () => {
   const store = useStore((state)=>state)
   // const memberId = store.getState().userReducer.memberId
   const userNum = useParams()
-  
-  const memberId = userNum.userid
+
   
   
 

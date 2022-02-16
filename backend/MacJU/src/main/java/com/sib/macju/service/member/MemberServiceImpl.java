@@ -104,33 +104,34 @@ public class MemberServiceImpl implements MemberService {
 
         member.getMemberFondAromaHashTags().clear();
         member.getMemberFondFlavorHashTags().clear();
-        System.out.println("여기까진 들어오니?");
-        List<MemberFondAromaHashTag> memberFondAromaHashTags = requestUpdateMemberDto.getAromas().stream().map(
-                aroma -> {
-                    Optional<AromaHashTag> aromaHashTag = aromaHashTagRepository.findById(aroma);
-                    return MemberFondAromaHashTag.createMemberFondAromaHashTag(aromaHashTag.get(), member);
-                }
-        ).collect(Collectors.toList());
-        for(int i=0; i<memberFondAromaHashTags.size(); i++){
-            System.out.println(memberFondAromaHashTags.get(i).getMemberFondAromaHashTagId()+"    "+memberFondAromaHashTags.get(i).getAromaHashTag().getAromaHashTagId());
-        }
-        List<MemberFondFlavorHashTag> memberFondFlavorHashTags = requestUpdateMemberDto.getFlavors().stream().map(flavor -> {
-            Optional<FlavorHashTag> flavorHashTag = flavorHashTagRepository.findById(flavor);
-            return MemberFondFlavorHashTag.createMemberFondFlavorHashTag(flavorHashTag.get(), member);
-        }).collect(Collectors.toList());
 
-        member.setMemberFondAromaHashTags(memberFondAromaHashTags);
-        member.setMemberFondFlavorHashTags(memberFondFlavorHashTags);
+        List<MemberFondAromaHashTag> memberFondAromaHashTags =
+                requestUpdateMemberDto
+                        .getAromas()
+                        .stream()
+                        .map(
+                                aroma -> {
+                                    Optional<AromaHashTag> aromaHashTag = aromaHashTagRepository.findById(aroma);
+                                    return MemberFondAromaHashTag.createMemberFondAromaHashTag(aromaHashTag.get(), member);
+                                }
+                        ).collect(Collectors.toList());
+
+        List<MemberFondFlavorHashTag> memberFondFlavorHashTags =
+                requestUpdateMemberDto
+                        .getFlavors()
+                        .stream()
+                        .map(flavor -> {
+                            Optional<FlavorHashTag> flavorHashTag = flavorHashTagRepository.findById(flavor);
+                            return MemberFondFlavorHashTag.createMemberFondFlavorHashTag(flavorHashTag.get(), member);
+                        }).collect(Collectors.toList());
+
         memberFondAromaHashTagRepository.saveAll(memberFondAromaHashTags);
         memberFondFlavorHashTagRepository.saveAll(memberFondFlavorHashTags);
-        System.out.println("여기까진 들어오니?2222");
+
         Member result = memberRepository.save(member);
-        System.out.println("저장을 못 하니"+result.toString());
         if (result.equals(null)) {
-            System.out.println("return은 하니?");
             return 0;
         }
-        System.out.println("return은 하니?");
         return 1;
     }
 

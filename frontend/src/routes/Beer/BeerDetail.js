@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from 'react-router-dom';
 import { BsHeartFill, BsHeart } from "react-icons/bs";
-import axios from "axios"
 import "../../firebase_config"
 import '../../styles/BeerDetail.css'
 import PostListComponent from "../../components/Post/PostList"
@@ -9,6 +8,7 @@ import BeerRate from "./BeerRate.js"
 import BeerRateUpdate from "./BeerRateUpdate.js"
 import { useDispatch } from "react-redux";
 import Chip from '@mui/material/Chip'
+import axiosInstance from "CustomAxios";
 
 
 function BeerDetail() {
@@ -21,6 +21,7 @@ function BeerDetail() {
   const RANKING_BEER_LIKE_URL = process.env.REACT_APP_SERVER + ':8888/beer/like'
   const BEER_LIKE_URL = process.env.REACT_APP_SERVER + ':8888/v1/member'
 
+  
   //temp
   const memberId = 1    //test용 멤버아이디
 
@@ -55,15 +56,15 @@ function BeerDetail() {
 
   useEffect(()=>{
     const fetchData = async ()=>{
-      const { data : beerdetail } = await axios.get(`${BEER_DETAIL_URL}/${beerid}`)
+      const { data : beerdetail } = await axiosInstance.get(`${BEER_DETAIL_URL}/${beerid}`)
       setbeer(beerdetail)
       // 맥주별 포스트 목록
-      const beer_postdetail = await axios.get(`${BEER_DETAIL_POST_URL}/${beerid}`)
+      const beer_postdetail = await axiosInstance.get(`${BEER_DETAIL_POST_URL}/${beerid}`)
       dispatch({type:'beerDetailPost', beerdetaildata:beer_postdetail})
 
 
       // 평가한 맥주 목록
-      const { data : rated_beer } = await axios.get(`${RATED_BEER_URL}/${memberId}/rates`)
+      const { data : rated_beer } = await axiosInstance.get(`${RATED_BEER_URL}/${memberId}/rates`)
       const rated = rated_beer.data
       for (let i in rated) {
         if (rated[i].beer.beerId === Number(beerid)) {
@@ -72,7 +73,7 @@ function BeerDetail() {
       }
       
       // 좋아한 맥주 목록
-      const { data : beerlikedata } = await axios.get(`${BEER_LIKE_URL}/${memberId}/like/beer`)
+      const { data : beerlikedata } = await axiosInstance.get(`${BEER_LIKE_URL}/${memberId}/like/beer`)
       setLikebeers(beerlikedata.data)
       for (let i in beerlikedata.data) {
         if (beerlikedata.data[i].beerId === Number(beerid)) {
@@ -94,7 +95,7 @@ function BeerDetail() {
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': "application/json; charset=UTF-8"
       }
-      axios.post(BEER_DETAIL_LOG_URL, newdata, {headers})     // 주석풀면 로그에 post 보냄
+      axiosInstance.post(BEER_DETAIL_LOG_URL, newdata, {headers})     // 주석풀면 로그에 post 보냄
       .then()
     }
     fetchData();
@@ -121,14 +122,14 @@ function BeerDetail() {
       }
 
       // 좋아요 post 보내기
-      axios.post(`${BEER_LIKE_URL}/beer/${memberId}/like/${beerid}`)
+      axiosInstance.post(`${BEER_LIKE_URL}/beer/${memberId}/like/${beerid}`)
       
       // 랭킹 get
       const rankingBeerLikeeUrl = `${RANKING_BEER_LIKE_URL}/${beerid}/1`
       const headers = {
         'Accept': "application/json; charset=UTF-8"
       }
-      await axios.get(rankingBeerLikeeUrl, headers)
+      await axiosInstance.get(rankingBeerLikeeUrl, headers)
     }catch{
       console.log("오류")
     }
@@ -141,7 +142,7 @@ function BeerDetail() {
         const headers = {
           'Accept': "application/json; charset=UTF-8"
         }
-        await axios.get(rankingBeerUrl, headers)
+        await axiosInstance.get(rankingBeerUrl, headers)
       }catch{
         console.log("오류입니다")
       }

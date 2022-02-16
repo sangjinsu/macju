@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import StarRate from './StartRate.js'
 import Modal from 'react-modal';
 import '../../styles/BeerRate.css'
-import axios from "axios";
+import axiosInstance from "CustomAxios.js";
 
 function BeerRate(props){
   //url
@@ -82,7 +82,7 @@ function BeerRate(props){
 
   // 평가수정했을때 starrate 수정
   const updateRate = async ()=>{
-    const {data:ratedata} = await axios.get(`${BEER_RATE_URL}/${beerid}/member/${memberId}`)
+    const {data:ratedata} = await axiosInstance.get(`${BEER_RATE_URL}/${beerid}/member/${memberId}`)
     props.setStarrate(ratedata.rate)
   }
 
@@ -98,7 +98,7 @@ function BeerRate(props){
       'Accept': "application/json; charset=UTF-8"
     }
     if (aromaArr.length && flavorArr.length && starrate) {
-      axios.put(`${BEER_RATE_URL}/${beerid}/member/${memberId}`, newrate, {headers}) 
+      axiosInstance.put(`${BEER_RATE_URL}/${beerid}/member/${memberId}`, newrate, {headers}) 
       .then(() => {
         props.set_rateModal(false)
         updateRate();
@@ -112,7 +112,7 @@ function BeerRate(props){
 
   useEffect(()=>{
     const fetchData = async ()=>{
-      const {data:ratedata} = await axios.get(`${BEER_RATE_URL}/${beerid}/member/${memberId}`)
+      const {data:ratedata} = await axiosInstance.get(`${BEER_RATE_URL}/${beerid}/member/${memberId}`)
       props.setStarrate(ratedata.rate)
 
       ratedata.aromaHashTags.map((tag, i)=>{

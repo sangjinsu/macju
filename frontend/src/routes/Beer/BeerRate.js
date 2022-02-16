@@ -2,8 +2,8 @@ import { useState } from "react";
 import StarRate from './StartRate.js'
 import Modal from 'react-modal';
 import '../../styles/BeerRate.css'
-import axios from "axios";
 import {useStore} from "react-redux"
+import axiosInstance from "CustomAxios.js";
 
 function BeerRate(props){
   //url
@@ -90,7 +90,7 @@ function BeerRate(props){
 
   // 평가완료했을때 starrate 수정
   const updateRate = async ()=>{
-    const {data:ratedata} = await axios.get(`${BEER_RATE_URL}/${beerid}/member/${memberId}`)
+    const {data:ratedata} = await axiosInstance.get(`${BEER_RATE_URL}/${beerid}/member/${memberId}`)
     props.setStarrate(ratedata.rate)
   }
 
@@ -106,7 +106,7 @@ function BeerRate(props){
       'Accept': "application/json; charset=UTF-8"
     }
     if (aromaArr.length && flavorArr.length && starrate) {
-      axios.post(`${BEER_RATE_URL}/${beerid}/member/${memberId}`, newrate, {headers}) 
+      axiosInstance.post(`${BEER_RATE_URL}/${beerid}/member/${memberId}`, newrate, {headers}) 
       .then(() => {
         props.set_rateModal(false)
         updateRate()
@@ -116,9 +116,9 @@ function BeerRate(props){
       .then(()=>{
         const profiledata = store.getState().profileReducer
         profiledata['grade'] = profiledata['grade'] + 5
-        axios.put(USER_UPDATE_PROFILE, profiledata)
+        axiosInstance.put(USER_UPDATE_PROFILE, profiledata)
       .then((res)=>{
-        axios.get(`${USER_UPDATE_PROFILE}/1`)
+        axiosInstance.get(`${USER_UPDATE_PROFILE}/1`)
       .then((res)=>{
         //redirect 시켜줘야함.
         console.log('점수 올리기 성공')

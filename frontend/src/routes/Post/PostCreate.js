@@ -6,10 +6,10 @@ import "../../firebase_config"
 import imageCompression from 'browser-image-compression';
 import '../../styles/PostCreate.css'
 import { v4 as uuidv4 } from 'uuid';
-import axios from "axios";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import Slider from "react-slick";
+import axiosInstance from "CustomAxios";
 
 function PostCreate(props) {
   const POST_CREATE_URL = process.env.REACT_APP_SERVER + ':8888/v1/post'
@@ -177,11 +177,11 @@ function PostCreate(props) {
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': "application/json; charset=UTF-8"
       }
-      axios.post(POST_CREATE_URL, newpost, headers)
+      axiosInstance.post(POST_CREATE_URL, newpost, headers)
       .then(()=>{
         const profiledata = store.getState().profileReducer
         profiledata['grade'] = profiledata['grade'] + 10
-        axios.put(USER_UPDATE_PROFILE, profiledata)
+        axiosInstance.put(USER_UPDATE_PROFILE, profiledata)
         .then(()=>{
           history.push(`/post`)
           // history.replace(`/beer/${beerid}`)

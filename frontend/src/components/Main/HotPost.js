@@ -6,6 +6,13 @@ import "slick-carousel/slick/slick-theme.css";
 import axios from "axios";
 import { useCallback } from "react";
 
+const headers = {
+  headers:{
+    AccessToken:window.localStorage.getItem("AccessToken"),
+    "Accept":"application/json;charset=UTF-8",
+    "Content-Type":"application/json;charset=UTF-8"
+  }
+}
 
 const HotPost = () => {
   const [rankingPostList, setRanking] = useState()
@@ -28,9 +35,7 @@ const HotPost = () => {
     const hotPost = async () => {
       try{
         const RANKING_HOTPOST = process.env.REACT_APP_SERVER + ':8888/post/hotpost'
-        const headers = {
-          'Accept': "application/json; charset=UTF-8"
-        }
+
         const { data : rankingPost } = await axios.get(RANKING_HOTPOST, headers)
         const rankingPostId = rankingPost.map( (post) => post.postId )
         setRanking(rankingPostId)
@@ -63,7 +68,7 @@ function CustomSlide(props) {
   const [imgSrc, setImgSrc] = useState()
 
   const imgData = useCallback( async ()=>{
-    const { data : postDetail } = await axios.get(`${BEER_DETAIL_URL}`)
+    const { data : postDetail } = await axios.get(`${BEER_DETAIL_URL}`, headers)
     const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/${postDetail.photos[0].data}`)
     const storageResponse = await getDownloadURL(storageRef)
     setImgSrc(storageResponse)

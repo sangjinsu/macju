@@ -3,7 +3,6 @@ import { useState } from "react";
 import '../../styles/BeerList.css'
 import { Link } from "react-router-dom"
 import FadeIn from 'react-fade-in';
-import axios from "axios"
 import "../../firebase_config"
 import { useDispatch, useStore } from 'react-redux';
 import CircularProgress from '@mui/material/CircularProgress';

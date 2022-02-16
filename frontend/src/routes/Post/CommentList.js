@@ -1,13 +1,11 @@
 import React, { useEffect, useRef, useState, useCallback } from "react"
-import { useDispatch, useSelector, useStore } from 'react-redux';
+import { useDispatch, useStore } from 'react-redux';
 import axios from 'axios';
 import "../../styles/CommentList.css"
+import axiosInstance from "CustomAxios";
 
 function CommentList(props) {
   const postId = props.postId; // PostDetail 에서 postId값을 props로 받기
-
-  const userData = useSelector(state => state.userReducer)
-  const memberId = userData.memberId
 
   const COMMENT_LIST_URL = process.env.REACT_APP_SERVER + ':8888/v1/post'
   const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8888/v1/member/profile'
@@ -19,6 +17,18 @@ function CommentList(props) {
   const dispatch = useDispatch();
   const [comments, setcomments] = useState([]);
   const [inputComment, inputCommentChange] = useState("");
+  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
+  const commentPerPage = 10; // 페이지당 포스트 개수
+
+  const indexOfLastComment = currentPage * commentPerPage // 1 * 10 
+  const indexOfFirstPost = indexOfLastComment - commentPerPage
+  const currentComments = comments.slice(indexOfFirstPost, indexOfLastComment)
+  const pageNumbers = [];
+  for (let i=1; i<=Math.ceil(comments.length / commentPerPage); i++){
+    pageNumbers.push(i)
+  }
+
+  const paginate = pageNum => setCurrentPage(pageNum)
 
   // input의 Comment 값 저장
   const changeComment = (e) => {
@@ -32,7 +42,7 @@ function CommentList(props) {
       try{
         const postData = {
           "content": inputComment,
-          "memberId": memberId
+          "memberId": 1
         }
         const headers = {
           headers: {
@@ -41,13 +51,13 @@ function CommentList(props) {
           }
         }
         
-        const { data : addData} = await axios.post(commentApiUrl, postData, headers)
+        const { data : addData} = await axiosInstance.post(commentApiUrl, postData, headers)
         newCommentId.current = addData // comment가 생성될 때 comment id값 받아와서 사용 -> redux 관리 위해
         dispatchComment.current = {
           "commentId": newCommentId.current,
           "content": inputComment,
-          "memberId": memberId, // 수정 필요
-          "nickname": memberId.nickname // 수정필요
+          "memberId": 1, // 수정 필요
+          "nickname": "kimdongiln" // 수정필요
         }
         dispatch({ type : "addComment", inputComment : dispatchComment.current })
         setcomments(store.getState().commentReducer)
@@ -70,14 +80,14 @@ function CommentList(props) {
       const commentId = e.target.attributes.commentid.value
       const deleteApiUrl = `${COMMENT_LIST_URL}/${postId}/comment/${commentId}`
 
-      await axios.delete(deleteApiUrl)
+      await axiosInstance.delete(deleteApiUrl)
       dispatch({ type : "deleteComment", commentKey : commentId })
       setcomments(store.getState().commentReducer)
 
       // 댓글 삭제시 회원점수 감소
-      const profiledata = store.getState().profileReducer
-      profiledata['grade'] = profiledata['grade'] - 3
-      axios.put(USER_UPDATE_PROFILE, profiledata)
+      // const profiledata = store.getState().profileReducer
+      // profiledata['grade'] = profiledata['grade'] - 3
+      // axiosInstance.put(USER_UPDATE_PROFILE, profiledata)
     }
     catch{
       console.log("오류")
@@ -87,7 +97,7 @@ function CommentList(props) {
   // Comment 데이터 불러오기
   const fetchData = useCallback( async () =>{
     try{
-      const responseData = await axios.get(commentApiUrl)
+      const responseData = await axiosInstance.get(commentApiUrl)
       dispatch({type:"dataLoading", responseData : responseData.data})
       setcomments(store.getState().commentReducer)
     }
@@ -124,20 +134,30 @@ function CommentList(props) {
                     onChange={ changeComment }
                     required
                   />
-                  <button className="comment_button" onClick={ addComment }>Add</button>
+                  <i class="fas fa-location-arrow fa-lg" onClick={ addComment }></i>
+                  {/* <button className="comment_button" onClick={ addComment }>Add</button> */}
                 </form>
 
                 {/* 댓글 목록 */}
                 {
-                  comments.map( (comment, i) => {
+                  currentComments.map( (comment, i) => {
                     return(
                       <div className="commentList" key={i}>
                         <div>{comment.nickname} : { comment.content } </div>
-                        <button className="deletebtn" type="button" commentid={comment.commentId} onClick={ deleteComment }>삭제</button>
+                        <i className="fas fa-trash fa-lg trash-icon" commentid={comment.commentId} onClick={deleteComment}></i>
+                        {/* <button className="deletebtn" type="button" commentid={comment.commentId} onClick={ deleteComment }>삭제</button> */}
                       </div>
                     );
                   })
                 }
+                <nav>
+                  <ul className="pagination">
+                    {pageNumbers.map(num => <li key={num}>
+                      <a onClick={() => paginate(num)}>{num}</a>
+                    </li>)}
+
+                  </ul>
+                </nav>
 
               </div>
             </div>

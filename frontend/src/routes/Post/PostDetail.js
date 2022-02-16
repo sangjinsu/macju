@@ -6,6 +6,7 @@ import CommentList from "./CommentList";
 import { useDispatch, useStore } from "react-redux";
 import PostDetailImages from "../../components/Post/PostDetailImages"
 import { deleteObject, getStorage, ref } from "firebase/storage";
+import Chip from '@mui/material/Chip'
 import axiosInstance from "CustomAxios";
 
 function PostDetail() {
@@ -259,7 +260,8 @@ function PostDetail() {
 
                     {/* 맥주이름 버튼 */}
                     <Link to={`/beer/${postData.beer.beerId}`}>
-                      <div className="beerName" href="">{postData.beer.name}</div>
+                      <Chip className="maintype" href="" label={postData.beer.name} variant="outlined" />
+                      {/* <div className="beerName" href="">{postData.beer.name}</div> */}
                     </Link>
                     
                   </div>
@@ -315,14 +317,14 @@ function PostDetail() {
 
                       {/* 작성날짜 */}
                       <div className="userdetail">
-                      <Link to={`/profile/${postData.member.memberId}/post`}><div>작성자 : { postData.member.nickName } </div></Link>
+                      <Link to={`/profile/${postData.member.memberId}/post`}><div><i class="fas fa-user fa-2x"></i> { postData.member.nickName } </div></Link>
                         
                         {/* <div>작성날짜 : { postData.created_at }</div> */}
                       </div>
 
                       {/* 본인 일때만 수정, 삭제 가능하게 해야함 */}
-                      <Link to={`/post/${postId}/update`}>수정하기</Link>
-                      <button onClick={DeletePost}>삭제하기</button>
+                      <Link to={`/post/${postId}/update`}><i class="far fa-edit fa-2x"></i></Link>
+                      <i className="fas fa-trash fa-2x trash-icon" onClick={DeletePost}></i>
 
                       {/* <div className="updateBtn">수정하기</div> */}
                       {/* <div className="deleteBtn">수정하기</div> */}

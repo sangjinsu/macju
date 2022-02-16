@@ -22,8 +22,9 @@ function LoginAuth() {
       } else {
         dispatch({type:"loginSuccess", userData:userData.current})
         window.localStorage.setItem("AccessToken", userData.current.AccessToken)
-        // dispatch({type:'header', AccessToken:userData.current.AccessToken}) header custom 
+
         history.replace("/home")
+        window.location.reload()
       }
     }catch(err){
       console.log(err)

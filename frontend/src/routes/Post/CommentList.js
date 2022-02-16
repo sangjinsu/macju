@@ -134,7 +134,8 @@ function CommentList(props) {
                     onChange={ changeComment }
                     required
                   />
-                  <button className="comment_button" onClick={ addComment }>Add</button>
+                  <i class="fas fa-location-arrow fa-lg" onClick={ addComment }></i>
+                  {/* <button className="comment_button" onClick={ addComment }>Add</button> */}
                 </form>
 
                 {/* 댓글 목록 */}
@@ -143,7 +144,8 @@ function CommentList(props) {
                     return(
                       <div className="commentList" key={i}>
                         <div>{comment.nickname} : { comment.content } </div>
-                        <button className="deletebtn" type="button" commentid={comment.commentId} onClick={ deleteComment }>삭제</button>
+                        <i className="fas fa-trash fa-lg trash-icon" commentid={comment.commentId} onClick={deleteComment}></i>
+                        {/* <button className="deletebtn" type="button" commentid={comment.commentId} onClick={ deleteComment }>삭제</button> */}
                       </div>
                     );
                   })

@@ -5,6 +5,7 @@ import '../../styles/UserLike.css'
 import {useStore} from "react-redux"
 import axiosInstance from "CustomAxios";
 import { useParams } from "react-router-dom";
+import UserIcon from "./UserIcon"
 const UserLike = (props) => {
   
   const USER_LIKE_URL = process.env.REACT_APP_SERVER + ':8888/v1/member'
@@ -25,10 +26,11 @@ const UserLike = (props) => {
   },[USER_LIKE_URL])
 
   return (
-    <div className="memberbeerlike_container">
+    <div className="memberbeerlike_container"  >
       <div className="container" justify-content="space-around">
         <h1>Like Beers</h1>
-        <div className="row grid">
+        <div className="row grid" style={{justifyContent:'center'}}>
+          
           {likebeers === [] ? likebeers.map((beer)=>
               <div className="col-4 col-lg-2 likebeer" key={beer.beerId}>
                 <div>
@@ -38,7 +40,14 @@ const UserLike = (props) => {
                 </div>
               </div>
             )
-            : <div> 없음.</div> }
+            : 
+            <>
+            <UserIcon grade={2500}/>
+
+            <div id="text" style={{marginTop:50 ,textAlign:'center'}}>아직 좋아요한 맥주가 없습니다.</div>
+            </>
+             }
+            
         </div>
         
       </div>

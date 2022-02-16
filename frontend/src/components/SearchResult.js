@@ -27,11 +27,12 @@ const SearchResult = (props) =>{
       (()=>{
         if (searchResult.length === 0) return null
         if (!searchResult[1]) return null
-        if (searchResult[1].length !== 0) 
-          return searchResult[1].data.map((result, i) =>
-            <Link to={{pathname:`/beer/${result.beer_id}`}}>
-              <ListGroup.Item key={i}> {result.beer_name}</ListGroup.Item>
-            </Link> 
+        if (searchResult[1].length !== 0) return searchResult[1].data.map((result, i) =>
+        <Link to={{pathname:`/search/${result.beer_name}`,
+                  state: result
+                  }}
+        >
+        <ListGroup.Item key={i}> {result.beer_name}</ListGroup.Item></Link> 
         )       
       })
     }
@@ -64,7 +65,7 @@ const SearchResult = (props) =>{
                           Object.keys(searchResult[3].data)[0]]
                   }}           
            >
-            <ListGroup.Item >{Object.keys(searchResult[3].data)[0]}({searchResult[3].data[Object.keys(searchResult[3].data)[0]].beers.length}개)</ListGroup.Item>
+          <ListGroup.Item >{Object.keys(searchResult[3].data)[0]}({searchResult[3].data[Object.keys(searchResult[3].data)[0]].beers.length}개)</ListGroup.Item>
           </Link>
         )
       })

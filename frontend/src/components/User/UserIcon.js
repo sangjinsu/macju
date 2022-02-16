@@ -14,7 +14,7 @@ const UserIcon = (props) =>{
         if (2000 <= grade && grade < 5000) return <img src="/img/icons/beer-can.png" alt="" style={{maxWidth:150, maxHeight:150}}></img>
       })() 
     }
-
+ 
     </>
   )
 }

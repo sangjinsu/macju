@@ -53,8 +53,7 @@ const followingsReducer = (state = [], action) => {
 
 
 const userProfileReducer = (state = [], action)=>{
-  if (action.type === "user"){
-    
+  if (action.type === "user"){   
     return action.userdata.data
   }
   return state

@@ -13,7 +13,7 @@ function Signup(props) {
   const history = useHistory()
   const [nickname, nicknameChange] = useState("");
   const [age, ageChange] = useState("");
-  const [gender, setGender] = useState("");
+  const [name, setName] = useState("");
   const [AvailableNick, setAvailable] = useState()
   const [submitBtn, deactivateSubmitBtn] = useState(true)
   
@@ -23,9 +23,9 @@ function Signup(props) {
     nicknameChange(e.target.value);
   }
 
-  // gender 변경
-  const selectValue = e => {
-    setGender(e.target.value); 
+  // name 변경
+  const changeName = e => {
+    setName(e.target.value);
   }
 
   // 나이 변경
@@ -47,8 +47,7 @@ function Signup(props) {
         "kakaoId":userData.kakaoId,
         "nickName":nickname,
         "age":age,
-        "name":"Myname"
-        // "gender" : gender
+        "name":name
       }
       
 
@@ -61,6 +60,7 @@ function Signup(props) {
       }
  
       const {data : singupResponse} = await axios.post(USER_SIGNUP_URL, singupData, headers)
+      
       window.localStorage.setItem("AccessToken", userData.AccessToken)
 
       userData.memberId = singupResponse.memberId
@@ -74,7 +74,7 @@ function Signup(props) {
       alert("회원가입 실패")
       history.replace("/user/login")
     }
-  }, [age, userData, nickname, USER_SIGNUP_URL, dispatch, history])
+  }, [age, userData, nickname, name, USER_SIGNUP_URL, dispatch, history])
 
   // 닉네임 수정할 때 버튼 막아놓고 시작
   useEffect( () => { 
@@ -107,26 +107,28 @@ function Signup(props) {
   )
 
   useEffect( () => {
-    if (AvailableNick && gender && age) {
+    if (AvailableNick && name && age) {
       deactivateSubmitBtn(false)
     }
-    }, [AvailableNick, nickname, gender, age]
+    }, [AvailableNick, nickname, name, age]
   )
 
   return(
     <div className="Signup">
-      <section className="signup_section layout_padding_signup">
-        <div className="container">
+      <section className="signup_section layout_padding_signup container">
+        <div className="row">
+            {/* 추후 추가될 것 (이미지?) */}
+            <div className="col-md-6">
+              <div className="map_container ">
+                <img id="signupImg" src="/img/logo/MacJu.png" alt="" />
+              </div>
+            </div>
           {/* Signup 제목 */}
-          <div className="signup_heading_container">
+          <div className="signup_heading_container col-md-6">
             <div className='signup_heading'>
               Signup
             </div>
-          </div>
-
-          {/* 회원가입 입력창 */}
-          <div className="row">
-            <div className="col-sm-6 offset-sm-3">
+            <div className="">
               <div className="form_container">
                 <form>
 
@@ -139,6 +141,18 @@ function Signup(props) {
                       name="nickname"
                       value={ nickname }
                       onChange={ changeNickName }
+                    />
+                  </div>
+
+                  {/* 성별 입력 */}
+                  <div>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Name"
+                      name="name"
+                      value={ name }
+                      onChange={ changeName }
                     />
                   </div>
                   
@@ -154,21 +168,6 @@ function Signup(props) {
                     />
                   </div>
 
-                  {/* 성별 입력 */}
-                  <div>
-                    <select className="form-control nice-select wide" name="choice" onChange={selectValue}>
-                      <option disabled value>
-                        성별
-                      </option>
-                      <option value="man">
-                        남자
-                      </option>
-                      <option value="woman">
-                        여자
-                      </option>
-                    </select>
-                  </div>
-
                   {/* 회원가입 완료 버튼 */}
                   <div className='btn_box'>
                     <button className='delbtn' disabled={submitBtn} onClick={signupBtn}>
@@ -179,15 +178,9 @@ function Signup(props) {
 
               </div>
             </div>
-
-            {/* 추후 추가될 것 (이미지?) */}
-            {/* <div className="col-md-6">
-              <div className="map_container ">
-                <div id="signupImg">image띄우는 곳</div>
-              </div>
-            </div> */}
-
           </div>
+
+
         </div>
       </section>
     </div>

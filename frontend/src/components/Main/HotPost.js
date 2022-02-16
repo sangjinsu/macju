@@ -1,49 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import axios from "axios";
-import { useCallback } from "react";
+import axiosInstance from "CustomAxios";
 
-const headers = {
-  headers:{
-    AccessToken:window.localStorage.getItem("AccessToken"),
-    "Accept":"application/json;charset=UTF-8",
-    "Content-Type":"application/json;charset=UTF-8"
-  }
-}
-
-const HotPost = () => {
+const HotPost = (props) => {
   const [rankingPostList, setRanking] = useState()
   const [slideNum, setSlideNum] = useState()
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    autoplay: true,
-    arrows: false,
-    // fade:true, //center랑 중복 불가능
-    autoplaySpeed: 5000,
-    speed: 5000,
-    slidesToShow: slideNum <= 3? slideNum : 3 ,
-    slidesToScroll: 1,
-    className: "container"
-  };
+  const settings = props.settings
+  settings.fade = false
+  settings.slidesToShow = slideNum <= 2? slideNum : 2
+  
+  const hotPost = async () => {
+    try{
+      const RANKING_HOTPOST = process.env.REACT_APP_SERVER + ':8888/post/hotpost'
+
+      const { data : rankingPost } = await axiosInstance.get(RANKING_HOTPOST)
+      const rankingPostId = rankingPost.map( (post) => post.postId )
+      
+      setRanking(rankingPostId)
+      setSlideNum(rankingPost.length)
+    }catch{
+      console.log("불러오기 실패")
+    }
+  }
 
   useEffect( () => {
-    const hotPost = async () => {
-      try{
-        const RANKING_HOTPOST = process.env.REACT_APP_SERVER + ':8888/post/hotpost'
-
-        const { data : rankingPost } = await axios.get(RANKING_HOTPOST, headers)
-        const rankingPostId = rankingPost.map( (post) => post.postId )
-        setRanking(rankingPostId)
-        setSlideNum(rankingPost.length)
-      }catch{
-        console.log("불러오기 실패")
-      }
-    }
     hotPost()
   }, [])
 
@@ -66,9 +50,11 @@ function CustomSlide(props) {
   const BEER_DETAIL_URL = process.env.REACT_APP_SERVER + `:8888/v1/post/${props.postid}`
   const storage = getStorage()
   const [imgSrc, setImgSrc] = useState()
+  const [hotPostHashTag, setHashTag] = useState()
 
   const imgData = useCallback( async ()=>{
-    const { data : postDetail } = await axios.get(`${BEER_DETAIL_URL}`, headers)
+    const { data : postDetail } = await axiosInstance.get(`${BEER_DETAIL_URL}`)
+    setHashTag(postDetail.userHashTags[0].content)
     const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/${postDetail.photos[0].data}`)
     const storageResponse = await getDownloadURL(storageRef)
     setImgSrc(storageResponse)
@@ -80,7 +66,8 @@ function CustomSlide(props) {
   
   return(
     <div {...props} className="row">
-      {/* <img className="slideImg col-7" src={imgSrc} alt=""/> */}
+      <h6 className="hot_post_hashtag">#{hotPostHashTag}</h6>
+      <img className="hot_post_img" src={imgSrc} alt=""/>
     </div>
   )
 }

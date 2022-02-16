@@ -4,6 +4,7 @@ import axios from "axios";
 import { useStore } from "react-redux";
 import {useParams} from "react-router-dom"
 import axiosInstance from "CustomAxios";
+import UserIcon from "./UserIcon"
 const UserReview = (props) =>{
   const USER_REVIEW_URL = process.env.REACT_APP_SERVER + ':8888/v1/member'
   const memberId = props.state
@@ -30,8 +31,13 @@ const UserReview = (props) =>{
 
 
   return (
-    <>
-    {userReviews.length === 0 ? '아직 평가한 맥주가 없습니다.' : 
+    <div className="row grid" style={{justifyContent:'center'}}>
+
+    {userReviews.length === 0 ?<>
+            <UserIcon grade={50}/>
+
+            <div id="text" style={{marginTop:50 ,textAlign:'center'}}>아직 평가 한 맥주가 없습니다.</div>
+            </> : 
     <div className="container">
     <Table striped bordered hover>
       {/* 각 테이블별로 맥주 detail page 링크 달기. */}
@@ -58,7 +64,7 @@ const UserReview = (props) =>{
     </Table>    
     </div>
   }
-  </>
+  </div>
   )
 }
 export default UserReview;

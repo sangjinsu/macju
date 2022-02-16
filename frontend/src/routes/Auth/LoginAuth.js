@@ -15,6 +15,7 @@ function LoginAuth() {
     try{
       const code = new URL(window.location.href).searchParams.get("code")
       const { data : responseData } = await axios.get(`http://i6c107.p.ssafy.io:8752/oauth/login/response?code=${code}`)
+      console.log(responseData)
       userData.current = responseData
       console.log(responseData)
       if (userData.current.first_check === true ) {

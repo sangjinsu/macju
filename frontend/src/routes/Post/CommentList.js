@@ -64,9 +64,9 @@ function CommentList(props) {
         inputCommentChange("")
   
         // 댓글 작성될 때 회원점수 적립
-        const profiledata = store.getState().profileReducer
-        profiledata['grade'] = profiledata['grade'] + 3
-        axios.put(USER_UPDATE_PROFILE, profiledata)
+        // const profiledata = store.getState().profileReducer
+        // profiledata['grade'] = profiledata['grade'] + 3
+        // axios.put(USER_UPDATE_PROFILE, profiledata)
       }
       catch{
         console.log("오류")
@@ -134,7 +134,7 @@ function CommentList(props) {
                     onChange={ changeComment }
                     required
                   />
-                  <i class="fas fa-location-arrow fa-lg" onClick={ addComment }></i>
+                  <i className="fas fa-location-arrow fa-lg" onClick={ addComment }></i>
                   {/* <button className="comment_button" onClick={ addComment }>Add</button> */}
                 </form>
 

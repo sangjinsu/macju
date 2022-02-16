@@ -10,19 +10,27 @@
 }
 
 .slick-dots {
-  bottom: 20px;
+  bottom: 5px;
   /* margin-top: 200px; */
 }
 
-/* .slick-track {
-  width: 100%;
-} */
+
+/* hot post */
+.hot_post_hashtag{
+  text-align: center;
+}
 
 /* 이미지 크기 조정 */
-.slideImg {
-  margin: 0 auto;
-  width: 30%;
-  height: 30%;
+.best_beer_img {
+  /* margin: 0 auto; */
+  margin-bottom: 10px;
+  height: 400px;
+}
+
+.hot_post_img{
+  /* margin: 0 auto; */
+  margin-bottom: 10px;
+  height: 200px;
 }
 
 #bubbles {
@@ -48,10 +56,6 @@
           animation-timing-function: linear; */
 
 }
-/* @media (min-width: 640px)
-.hero {
-  padding: 10rem 0;
-} */
 
 .slick-slide img {
   display: inline-block;

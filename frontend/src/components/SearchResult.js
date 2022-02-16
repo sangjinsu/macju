@@ -1,9 +1,10 @@
 import { ListGroup } from "react-bootstrap";
 import _ from "lodash"
 import { Link } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
+
 
 
 
@@ -13,6 +14,7 @@ const SearchResult = (props) =>{
   return (  
     <ListGroup style={{marginTop:40 ,position:'fixed', zIndex:12000}}>   
     {
+      // 맥주 이름 한글 => 클릭하면 바로 맥주디테일로
       (()=>{
         if (searchResult.length === 0) return null
         if (searchResult[0].length !== 0) return searchResult[0].data.map((result, i) =>
@@ -24,6 +26,7 @@ const SearchResult = (props) =>{
       })() 
     }
     {
+      // 맥주 이름 영어 => 클릭하면 바로 맥주디테일로
       (()=>{
         if (searchResult.length === 0) return null
         if (!searchResult[1]) return null
@@ -37,6 +40,7 @@ const SearchResult = (props) =>{
       })()
     }
     {
+      // aroma 향
       (()=>{
 
         if (searchResult.length === 0) return null
@@ -46,13 +50,13 @@ const SearchResult = (props) =>{
                   state: searchResult[2].data[Object.keys(searchResult[2].data)[0]].beers
                   }}           
            >
-             
           <ListGroup.Item >{Object.keys(searchResult[2].data)[0]}({searchResult[2].data[Object.keys(searchResult[2].data)[0]].beers.length}개)</ListGroup.Item>
           </Link>
         )
       })()
     }
     {
+      // flavor 맛
       (()=>{
 
         if (searchResult.length === 0) return null
@@ -67,7 +71,9 @@ const SearchResult = (props) =>{
         )
       })()
     }
-    {(()=>{
+    {
+      // Type 맥주 종류
+      (()=>{
         if (searchResult.length === 0) return null
         if (!searchResult[4]) return null
         searchResult[4].data.map((result, i)=> _.isEmpty(result) ? null : 

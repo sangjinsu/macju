@@ -3,14 +3,17 @@ import { useEffect } from "react";
 import { useState } from "react";
 import '../../styles/UserLike.css'
 import {useStore} from "react-redux"
-const UserLike = () => {
-  const USER_LIKE_URL = process.env.REACT_APP_SERVER + ':8080/v1/member'
-  const [memberId, setMemberId] = useState(null)
+import axiosInstance from "CustomAxios";
+import { useParams } from "react-router-dom";
+const UserLike = (props) => {
+  
+  const USER_LIKE_URL = process.env.REACT_APP_SERVER + ':8888/v1/member'
+  const memberId = props.state
   const [likebeers, setLikeBeers] = useState([])
   const store = useStore((state) => state);
   useEffect(() =>{
     const fetchData = async () =>{
-    const memberbeers = await axios.get(`${USER_LIKE_URL}/${memberId}/like/beer`)
+    const memberbeers = await axiosInstance.get(`${USER_LIKE_URL}/${memberId}/like/beer`)
     setLikeBeers(memberbeers.data)
     }
     if (store.getState().userLikeReducer.length === 0){
@@ -20,9 +23,7 @@ const UserLike = () => {
     }
     
   },[USER_LIKE_URL])
-  useEffect(()=>{
-    setMemberId(store.getState().userReducer.memberId)
-  }, [store])
+
   return (
     <div className="memberbeerlike_container">
       <div className="container" justify-content="space-around">

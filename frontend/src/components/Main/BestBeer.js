@@ -4,9 +4,17 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axios from "axios";
 
+const headers = {
+  headers:{
+    AccessToken:window.localStorage.getItem("AccessToken"),
+    "Accept":"application/json;charset=UTF-8",
+    "Content-Type":"application/json;charset=UTF-8"
+  }
+}
 
 const BestBeer = () => {
   const [rankingBeerList, setRanking] = useState()
+  
 
   const settings = {
     dots: true,
@@ -21,11 +29,9 @@ const BestBeer = () => {
     className: "container"
   };
 
+
   const PopBeer = async () => {
-    const RANKING_POPBEER = process.env.REACT_APP_SERVER + ':8081/beer/popbeer'
-    const headers = {
-      'Accept': "application/json; charset=UTF-8"
-    }
+    const RANKING_POPBEER = process.env.REACT_APP_SERVER + ':8888/beer/popbeer'
     const { data : rankingBeer } = await axios.get(RANKING_POPBEER, headers)
     const rankingBeerId = rankingBeer.map( (beer) => beer.beerId )
     setRanking(rankingBeerId)
@@ -55,7 +61,7 @@ function CustomSlide(props) {
   const [imgSrc, setImgSrc] = useState()
   useEffect( () => {
     const fetchData = async ()=>{
-      const { data : beerDetail } = await axios.get(`${BEER_DETAIL_URL}/${props.beerid}`)
+      const { data : beerDetail } = await axios.get(`${BEER_DETAIL_URL}/${props.beerid}`, headers)
       setImgSrc(beerDetail.photoPath)
     }
     fetchData();

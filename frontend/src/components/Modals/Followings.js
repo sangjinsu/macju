@@ -5,19 +5,19 @@ import { Button } from "react-bootstrap";
 import { Link,useParams } from "react-router-dom";
 import "../../styles/Modal.css"
 import {useStore} from 'react-redux'
+import axiosInstance from "CustomAxios";
+
 
 const Followings = (props) => {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close, header } = props;
   const memberNum = useParams();
   const memberId = memberNum.userid
-
-  const FOLLOWINGS_URL = process.env.REACT_APP_SERVER + `:8080/v1/member/${memberId}/followings`
-
+  const FOLLOWINGS_URL = process.env.REACT_APP_SERVER + `:8888/v1/member/${memberId}/followings`
   const store = useStore((state) => state)
   const [followings, setFollowings] = useState();
   const fetchData = async () =>{
-    const res = await axios.get(FOLLOWINGS_URL)
+    const res = await axiosInstance.get(FOLLOWINGS_URL)
     setFollowings(res.data.data)
   }
 
@@ -28,7 +28,7 @@ const Followings = (props) => {
       setFollowings(store.getState().followingsReducer)
     }
     
-  }, [])
+  }, [store])
   return (
     // 모달이 열릴때 openModal 클래스가 생성된다.
     <div className={open ? 'openModal modal' : 'modal'}>
@@ -42,10 +42,11 @@ const Followings = (props) => {
             </button>
           </header>
           <main>
-          {followings.length === 0 ? <p>아직 팔로워가 없습니다.</p>: followings.map((person, idx)=>
+            
+          {followings.length === 0 ? <p>아직 팔로잉 하는 사람이 없습니다.</p>: followings.map((person, idx)=>
           //{memberId, nickName, name, comment, age, grade}
           <div key={idx}>{person.nickName}
-          <Link to={`/profile/${person.memberId}/post`}><Button> 프로필 페이지로 이동</Button></Link>
+          <Link to={`/profile/${person.memberId}/post`}><button style={{marginLeft:10}} role={'button'} id="profilebtn"> 이동</button></Link>
           
           </div>
           )}

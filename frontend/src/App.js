@@ -16,13 +16,14 @@ import LoginAuth from "routes/Auth/LoginAuth";
 import PageAuth from "./hoc/auth";
 import Search from "routes/Search"
 
+
 function App() {
   return (
     <div>
       <Router>
         <Navbar />
         <Switch>
-          <Route exact path="/home" component={Home} />
+          <Route exact path="/home" component={PageAuth(Home, true)} />
           <Route path="/post">
             <Switch>
               <Route exact path="/post/new" component={PageAuth(PostCreate, true)} />
@@ -47,13 +48,14 @@ function App() {
           </Route>
           <Route path="/profile">
             <Switch>
-              <Route exact path="/profile/:userid/edit" component={PageAuth(ProfileEdit, false)} />
-              <Route path="/profile/:userid" component={PageAuth(Profile, false)} />
-              {/* <Route path="*" component={PageNotFound} /> */}
+              <Route exact path="/profile/edit" component={PageAuth(ProfileEdit, true)} />
+              <Route path="/profile/:userid" component={PageAuth(Profile, true)} />
+              <Route path="*" component={PageNotFound} />
             </Switch>
           </Route>
-          <Route exact path="/oauth/login/resopnse" component={PageAuth(LoginAuth, false)}/>
-          <Route exact path="/search" component={PageAuth(Search, false)} />
+          <Route path="/oauth/login/resopnse" component={PageAuth(LoginAuth, false)}/>
+          <Route path="/search" component={PageAuth(Search, true)} />
+
           <Route path="*" component={PageNotFound} />
         </Switch>
         <Footer />

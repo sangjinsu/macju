@@ -1,28 +1,32 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from 'react-router-dom';
 import { BsHeartFill, BsHeart } from "react-icons/bs";
-import axios from "axios"
 import "../../firebase_config"
 import '../../styles/BeerDetail.css'
 import PostListComponent from "../../components/Post/PostList"
 import BeerRate from "./BeerRate.js"
 import BeerRateUpdate from "./BeerRateUpdate.js"
-import { useDispatch, useStore } from "react-redux";
+import { useDispatch } from "react-redux";
 import Chip from '@mui/material/Chip'
+import axiosInstance from "CustomAxios";
+import { useStore } from "react-redux";
 
 
 function BeerDetail() {
   //url
-  const BEER_DETAIL_URL = process.env.REACT_APP_SERVER + ':8080/v1/beer'
-  const BEER_DETAIL_POST_URL = process.env.REACT_APP_SERVER + ':8080/v1/post/beer'
-  const RATED_BEER_URL = process.env.REACT_APP_SERVER + ':8080/v1/member'
-  const BEER_DETAIL_LOG_URL = process.env.REACT_APP_SERVER + ':8080/v1/log'
-  const RANKING_BEER_URL = process.env.REACT_APP_SERVER + ':8081/beer/view'
-  const RANKING_BEER_LIKE_URL = process.env.REACT_APP_SERVER + ':8081/beer/like'
-  const BEER_LIKE_URL = process.env.REACT_APP_SERVER + ':8080/v1/member'
+  const BEER_DETAIL_URL = process.env.REACT_APP_SERVER + ':8888/v1/beer'
+  const BEER_DETAIL_POST_URL = process.env.REACT_APP_SERVER + ':8888/v1/post/beer'
+  const RATED_BEER_URL = process.env.REACT_APP_SERVER + ':8888/v1/member'
+  const BEER_DETAIL_LOG_URL = process.env.REACT_APP_SERVER + ':8888/v1/log'
+  const RANKING_BEER_URL = process.env.REACT_APP_SERVER + ':8888/beer/view'
+  const RANKING_BEER_LIKE_URL = process.env.REACT_APP_SERVER + ':8888/beer/like'
+  const BEER_LIKE_URL = process.env.REACT_APP_SERVER + ':8888/v1/member'
 
   
-  const store = useStore((state)=>state)
+  //temp
+  const store = useStore((state)=> state)
+  const memberId = store.getState().userReducer.memberId 
+  console.log(memberId)   
   //react-redux
   const dispatch = useDispatch();  
   
@@ -47,35 +51,22 @@ function BeerDetail() {
   // 별점
   const [starrate, setStarrate] = useState()
 
-
-
-
-  const memberId = store.getState().userReducer.memberId
   
-  //로그인 확인
-  function CheckLogin() {
-    if (memberId) {
-      return '/post/new'
-    } else {
-      alert('로그인 후 이용하세요')
-      return 'user/login'
-    }
-  }
 
 
 
 
   useEffect(()=>{
     const fetchData = async ()=>{
-      const { data : beerdetail } = await axios.get(`${BEER_DETAIL_URL}/${beerid}`)
+      const { data : beerdetail } = await axiosInstance.get(`${BEER_DETAIL_URL}/${beerid}`)
       setbeer(beerdetail)
       // 맥주별 포스트 목록
-      const beer_postdetail = await axios.get(`${BEER_DETAIL_POST_URL}/${beerid}`)
+      const beer_postdetail = await axiosInstance.get(`${BEER_DETAIL_POST_URL}/${beerid}`)
       dispatch({type:'beerDetailPost', beerdetaildata:beer_postdetail})
 
 
       // 평가한 맥주 목록
-      const { data : rated_beer } = await axios.get(`${RATED_BEER_URL}/${memberId}/rates`)
+      const { data : rated_beer } = await axiosInstance.get(`${RATED_BEER_URL}/${memberId}/rates`)
       const rated = rated_beer.data
       for (let i in rated) {
         if (rated[i].beer.beerId === Number(beerid)) {
@@ -84,7 +75,7 @@ function BeerDetail() {
       }
       
       // 좋아한 맥주 목록
-      const { data : beerlikedata } = await axios.get(`${BEER_LIKE_URL}/${memberId}/like/beer`)
+      const { data : beerlikedata } = await axiosInstance.get(`${BEER_LIKE_URL}/${memberId}/like/beer`)
       setLikebeers(beerlikedata.data)
       for (let i in beerlikedata.data) {
         if (beerlikedata.data[i].beerId === Number(beerid)) {
@@ -97,17 +88,16 @@ function BeerDetail() {
       const hashTagArr = [beerdetail.beerType.en_main, ...beerdetail.aromaHashTags , ...beerdetail.flavorHashTags]
       // console.log(hashTagArr)
       const newdata = {
-        id : 3,
+        id : 1,
         tags : hashTagArr
       }
       // console.log(newdata)
 
       const headers = {
         'Content-Type': 'application/json; charset=UTF-8',
-        'Accept': "application/json; charset=UTF-8",
-        'AccessToken': store.getState().userReducer.AccessToken
+        'Accept': "application/json; charset=UTF-8"
       }
-      axios.post(BEER_DETAIL_LOG_URL, newdata, {headers})     // 주석풀면 로그에 post 보냄
+      axiosInstance.post(BEER_DETAIL_LOG_URL, newdata, {headers})     // 주석풀면 로그에 post 보냄
       .then()
     }
     fetchData();
@@ -134,14 +124,14 @@ function BeerDetail() {
       }
 
       // 좋아요 post 보내기
-      axios.post(`${BEER_LIKE_URL}/beer/${memberId}/like/${beerid}`)
+      axiosInstance.post(`${BEER_LIKE_URL}/beer/${memberId}/like/${beerid}`)
       
       // 랭킹 get
       const rankingBeerLikeeUrl = `${RANKING_BEER_LIKE_URL}/${beerid}/1`
       const headers = {
         'Accept': "application/json; charset=UTF-8"
       }
-      await axios.get(rankingBeerLikeeUrl, headers)
+      await axiosInstance.get(rankingBeerLikeeUrl, headers)
     }catch{
       console.log("오류")
     }
@@ -154,7 +144,7 @@ function BeerDetail() {
         const headers = {
           'Accept': "application/json; charset=UTF-8"
         }
-        await axios.get(rankingBeerUrl, headers)
+        await axiosInstance.get(rankingBeerUrl, headers)
       }catch{
         console.log("오류입니다")
       }
@@ -287,7 +277,7 @@ function BeerDetail() {
                 <Link 
                   className='btnText' 
                   to={{
-                    pathname: CheckLogin(),
+                    pathname: '/post/new',
                     state: {beerid: beer.beerId},
                   }}
                 >포스팅하기</Link>

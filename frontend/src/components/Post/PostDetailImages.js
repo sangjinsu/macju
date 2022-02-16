@@ -2,15 +2,15 @@ import { getDownloadURL, getStorage , ref } from "firebase/storage";
 import { useState, useEffect, useCallback } from "react";
 import { useStore } from "react-redux";
 import { useParams } from "react-router-dom"
-import axios from "axios"
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import axiosInstance from "CustomAxios";
 
 function PostDetailImages(){
-  const POST_DETAIL_URL = process.env.REACT_APP_SERVER + ':8080/v1/post'
+  const POST_DETAIL_URL = process.env.REACT_APP_SERVER + ':8888/v1/post'
   
   const settings = {
     dots: true,
@@ -49,7 +49,7 @@ function PostDetailImages(){
   }, [images, postDetailImage, storage])
 
   const fetchPostDetailData = useCallback ( async () =>{
-    const postDetail = await axios.get(`${POST_DETAIL_URL}/${postId}`)
+    const postDetail = await axiosInstance.get(`${POST_DETAIL_URL}/${postId}`)
     const imageList = [...postDetailImage]
     for (let i = 0; i < postDetail.data.photos.length; i++){
       const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/${postDetail.data.photos[i].data}`)

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useRef, useCallback, useEffect } from "react";
-import { useDispatch, useStore } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -9,22 +9,22 @@ function LoginAuth() {
   const userData = useRef()
   const history = useHistory()
   const dispatch = useDispatch()
-  
-  const store = useStore((state)=>state)
-  
+
+
   const requestAuth = useCallback (async () => {
     try{
       const code = new URL(window.location.href).searchParams.get("code")
-      const user = await axios.get(`http://i6c107.p.ssafy.io:8752/oauth/login/response?code=${code}`)
-      if (user.data.memberId === null) {
-        dispatch({type:"kakaoId", userKaKaoId:user.data.kakaoId})
-        dispatch({type:'header', AccessToken:user.data.AccessToken})
-        history.replace({pathname:"/user/signup"})
+      const { data : responseData } = await axios.get(`http://i6c107.p.ssafy.io:8752/oauth/login/response?code=${code}`)
+      userData.current = responseData
+      console.log(responseData)
+      if (userData.current.first_check === true ) {
+        history.replace({pathname:"/user/signup", userData:userData.current})
       } else {
-        dispatch({type:"loginSuccess", userdata:user.data})
-        dispatch({type:"kakaoId", userKaKaoId:user.data.kakaoId})
-        dispatch({type:'header', AccessToken:user.data.AccessToken})
+        dispatch({type:"loginSuccess", userData:userData.current})
+        window.localStorage.setItem("AccessToken", userData.current.AccessToken)
+
         history.replace("/home")
+        window.location.reload()
       }
     }catch(err){
       console.log(err)

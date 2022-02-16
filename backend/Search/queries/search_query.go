@@ -20,6 +20,7 @@ func encodeQuery(query map[string]interface{}) bytes.Buffer {
 
 func (sq *SearchQueries) BeerKoName(name string) bytes.Buffer {
 	query := map[string]interface{}{
+		"size":    10000,
 		"_source": []string{"beer_id", "beer_name"},
 		"query": map[string]interface{}{
 			"match_phrase_prefix": map[string]interface{}{
@@ -35,6 +36,7 @@ func (sq *SearchQueries) BeerKoName(name string) bytes.Buffer {
 
 func (sq *SearchQueries) BeerEnName(name string) bytes.Buffer {
 	query := map[string]interface{}{
+		"size":    10000,
 		"_source": []string{"beer_id", "english_name"},
 		"query": map[string]interface{}{
 			"match_phrase_prefix": map[string]interface{}{
@@ -50,6 +52,7 @@ func (sq *SearchQueries) BeerEnName(name string) bytes.Buffer {
 
 func (sq *SearchQueries) PostByBeerId(beerId float64) bytes.Buffer {
 	query := map[string]interface{}{
+		"size":    10000,
 		"_source": []string{"post_id"},
 		"query": map[string]interface{}{
 			"bool": map[string]interface{}{
@@ -76,6 +79,7 @@ func (sq *SearchQueries) PostByBeerId(beerId float64) bytes.Buffer {
 
 func (sq *SearchQueries) BeerKoMainType(beerType string) bytes.Buffer {
 	query := map[string]interface{}{
+		"size":    10000,
 		"_source": []string{"ko_main", "beer_id"},
 		"query": map[string]interface{}{
 			"bool": map[string]interface{}{
@@ -97,6 +101,7 @@ func (sq *SearchQueries) BeerKoMainType(beerType string) bytes.Buffer {
 
 func (sq *SearchQueries) BeerEnMainType(beerType string) bytes.Buffer {
 	query := map[string]interface{}{
+		"size":    10000,
 		"_source": []string{"en_main", "beer_id"},
 		"query": map[string]interface{}{
 			"bool": map[string]interface{}{
@@ -118,6 +123,7 @@ func (sq *SearchQueries) BeerEnMainType(beerType string) bytes.Buffer {
 
 func (sq *SearchQueries) BeerKoDetailType(beerType string) bytes.Buffer {
 	query := map[string]interface{}{
+		"size":    10000,
 		"_source": []string{"ko_detail", "beer_id"},
 		"query": map[string]interface{}{
 			"bool": map[string]interface{}{
@@ -139,6 +145,7 @@ func (sq *SearchQueries) BeerKoDetailType(beerType string) bytes.Buffer {
 
 func (sq *SearchQueries) BeerEnDetailType(beerType string) bytes.Buffer {
 	query := map[string]interface{}{
+		"size":    10000,
 		"_source": []string{"en_detail", "beer_id"},
 		"query": map[string]interface{}{
 			"bool": map[string]interface{}{
@@ -160,6 +167,7 @@ func (sq *SearchQueries) BeerEnDetailType(beerType string) bytes.Buffer {
 
 func (sq *SearchQueries) UserHashTag(tag string) bytes.Buffer {
 	query := map[string]interface{}{
+		"size":    10000,
 		"_source": []string{"post_id", "content"},
 		"query": map[string]interface{}{
 			"bool": map[string]interface{}{
@@ -186,6 +194,7 @@ func (sq *SearchQueries) UserHashTag(tag string) bytes.Buffer {
 
 func (sq *SearchQueries) AromaHashTag(tag string) bytes.Buffer {
 	query := map[string]interface{}{
+		"size":    10000,
 		"_source": []string{"aroma", "beer_id"},
 		"query": map[string]interface{}{
 			"match_phrase_prefix": map[string]interface{}{
@@ -201,6 +210,7 @@ func (sq *SearchQueries) AromaHashTag(tag string) bytes.Buffer {
 
 func (sq *SearchQueries) FlavorHashTag(tag string) bytes.Buffer {
 	query := map[string]interface{}{
+		"size":    10000,
 		"_source": []string{"flavor", "beer_id"},
 		"query": map[string]interface{}{
 			"match_phrase_prefix": map[string]interface{}{

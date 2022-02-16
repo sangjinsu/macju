@@ -12,7 +12,6 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
 @Table(name = "member_fond_flavor_hash_tag")
 public class MemberFondFlavorHashTag {

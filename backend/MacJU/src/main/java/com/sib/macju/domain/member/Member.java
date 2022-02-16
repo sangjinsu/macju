@@ -12,7 +12,6 @@ import java.util.Optional;
 @Entity
 @Getter
 @Setter
-@ToString
 @Table(name = "member")
 @NoArgsConstructor//(access = AccessLevel.PROTECTED)
 public class Member {

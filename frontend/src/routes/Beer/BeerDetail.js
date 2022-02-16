@@ -6,7 +6,7 @@ import '../../styles/BeerDetail.css'
 import PostListComponent from "../../components/Post/PostList"
 import BeerRate from "./BeerRate.js"
 import BeerRateUpdate from "./BeerRateUpdate.js"
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Chip from '@mui/material/Chip'
 import axiosInstance from "CustomAxios";
 import { useStore } from "react-redux";
@@ -25,7 +25,8 @@ function BeerDetail() {
   
   //temp
   const store = useStore((state)=> state)
-  const memberId = store.getState().userReducer.memberId 
+  const userData = useSelector(state => state.userReducer)
+  const memberId = userData.memeberId
   console.log(memberId)   
   //react-redux
   const dispatch = useDispatch();  
@@ -88,7 +89,7 @@ function BeerDetail() {
       const hashTagArr = [beerdetail.beerType.en_main, ...beerdetail.aromaHashTags , ...beerdetail.flavorHashTags]
       // console.log(hashTagArr)
       const newdata = {
-        id : 1,
+        id : memberId,
         tags : hashTagArr
       }
       // console.log(newdata)
@@ -97,7 +98,7 @@ function BeerDetail() {
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': "application/json; charset=UTF-8"
       }
-      axiosInstance.post(BEER_DETAIL_LOG_URL, newdata, {headers})     // 주석풀면 로그에 post 보냄
+      axiosInstance.post(BEER_DETAIL_LOG_URL, newdata, {headers})    
       .then()
     }
     fetchData();
@@ -140,7 +141,7 @@ function BeerDetail() {
   useEffect(() => {
     const spendData = async () => {
       try{
-        const rankingBeerUrl = `${RANKING_BEER_URL}/${beerid}/1` //추후 memberId 수정필요
+        const rankingBeerUrl = `${RANKING_BEER_URL}/${beerid}/${memberId}` //추후 memberId 수정필요
         const headers = {
           'Accept': "application/json; charset=UTF-8"
         }

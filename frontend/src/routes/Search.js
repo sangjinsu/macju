@@ -6,19 +6,26 @@ import axios from "axios"
 import "../styles/Search.css"
 import SearchPagination from './SearchPagination.js';
 import axiosInstance from 'CustomAxios'
+import { isEmpty } from 'lodash';
 
 function Search(props){
   const BEER_URL = process.env.REACT_APP_SERVER + ':8888/v1/beer'
 
   // 검색한 결과 - 클릭했을때 state로 값 가져옴
   const location = useLocation();
-  const searchresult = location.state   // id 배열 형식
-  // console.log(searchresult)
+  const [searchClickInput, setSearchClickInput] = useState('')
+  const [searchresult, setSearchresult] = useState([])
+  useEffect(()=>{
+    if (location.state) {
+      setSearchClickInput(location.state[1])  // 검색할 값
+      setSearchresult(location.state[0])   // id 배열 형식
+    }
+    console.log(location.state)
+  },[])
+  
 
   const [beerArr, setBeerArr] = useState([])
-  const [beerAllArr, setBeerAllArr] = useState([])
   useEffect(()=>{
-      // console.log(searchAll)
     console.log('클릭 결과', searchresult)
     const fetchbeerdata = async () => {
       if (searchresult) {
@@ -49,7 +56,6 @@ function Search(props){
   // 검색한 값 - 엔터했을때 props로 값 가져옴
   const searchInput = props.location.searchInput
   const searchAll = props.location.searchAll
-  // console.log(searchInput, searchAll)
   useEffect(()=>{
     if (searchAll) {
       console.log(searchAll)
@@ -70,7 +76,7 @@ function Search(props){
   // 검색 결과 
   const fetchSearchResult = async () =>{
     // 맥주이름 검색
-    console.log(beerKodata)
+    // console.log(beerKodata)
     beerKodata&&beerKodata.map(beerKo => {
       setBeerIdArr_name((id)=> [...id, beerKo.beer_id])
     })
@@ -174,7 +180,6 @@ function Search(props){
     fetchbeerdata2();
   },[beerIdArr_others, aromadata, flavordata, typedata_all, userdata])
 
-  // console.log(beerArr)
 
   // 새로고침하면 배열 리셋
   useEffect(()=>{
@@ -182,46 +187,53 @@ function Search(props){
     setBeerIdArr_others([])
     setBeerNameArr([])
     setBeerTagArr([])
+    // setCurrentPageName([])
+    // setCurrentPageTag([])
+    // setCurrentPage([])
   }, [location])
 
-  // 더보기 클릭하면 배열 모두 보여줌
-  // const clickMoreName = () => {
-  //   setBeerNameArr(beerNameAllArr)
-  // }
-  // const clickMoreTag = () => {
-  //   setBeerTagArr(beerTagAllArr)
-  // }
-  // const clickMoreClick = () => {
-  //   setBeerArr(beerAllArr)
-  // }
 
+  /////////////////// Pagination
+  // 현재 페이지
+  const [currentPageName, setCurrentPageName] = useState(1); //현재 페이지
+  const [currentPageTag, setCurrentPageTag] = useState(1); //현재 페이지
   const [currentPage, setCurrentPage] = useState(1); //현재 페이지
+  
   const [postPerPage] = useState(8); //페이지당 개수
 
   //현재 페이지 가져오기
-  const indexOfLastArr = currentPage * postPerPage; //1*8 = 8번 포스트
-  const indexOfFirstArr = indexOfLastArr - postPerPage; //8-8 = 0번 포스트
-  const currentbeerNameArr = beerNameArr.slice(indexOfFirstArr, indexOfLastArr); //0~10번까지 포스트
-  const currentbeerTagArr = beerTagArr.slice(indexOfFirstArr, indexOfLastArr); //0~10번까지 포스트
-  const currentbeerArr = beerArr.slice(indexOfFirstArr, indexOfLastArr); //0~10번까지 포스트
+  const indexOfLastArr1 = currentPageName * postPerPage; //1*8 = 8번 포스트  // 맥주이름검색
+  const indexOfFirstArr1 = indexOfLastArr1 - postPerPage; //8-8 = 0번 포스트
+
+  const indexOfLastArr2 = currentPageTag * postPerPage; //1*8 = 8번 포스트   // 태그검색
+  const indexOfFirstArr2 = indexOfLastArr2 - postPerPage; //8-8 = 0번 포스트
+  
+  const indexOfLastArr3 = currentPage * postPerPage; //1*8 = 8번 포스트      // 클릭검색
+  const indexOfFirstArr3 = indexOfLastArr3 - postPerPage; //8-8 = 0번 포스트
+
+  const currentbeerNameArr = beerNameArr.slice(indexOfFirstArr1, indexOfLastArr1);  // 맥주이름검색
+  const currentbeerTagArr = beerTagArr.slice(indexOfFirstArr2, indexOfLastArr2);    // 태그검색
+  const currentbeerArr = beerArr.slice(indexOfFirstArr3, indexOfLastArr3);          // 클릭검색
 
   //클릭 이벤트-페이지 바꾸기
-  const paginate = pageNum => setCurrentPage(pageNum);
+  const paginate1 = pageNum => setCurrentPageName(pageNum);
+  const paginate2 = pageNum => setCurrentPageTag(pageNum);
+  const paginate3 = pageNum => setCurrentPage(pageNum);
+  
 
   return(
     <div className="search_section layout_padding_search">
       <div className="container">
         {/* 맥주 리스트 제목 */}
         <div className="heading_container heading_center">
-          <h2>Result</h2>
-          <h4>' {searchInput} '  검색 결과</h4>
+          <h2>Search Result</h2>
+          {/* <h4>' {searchInput} '  검색 결과</h4> */}
         </div>
         
         {/* 맥주이름으로 검색했을 때 */}
         <div className="search_beer">
-          {/* { beerNameArr &&  */}
+          { !!currentbeerNameArr.length && <h4>' {searchInput} '  검색 결과</h4> }
           { currentbeerNameArr && 
-            <h4>' {searchInput} '  검색 결과</h4> ,
             <div className='row'>
               { currentbeerNameArr.map((beer, i)=>{
                 return (
@@ -247,35 +259,6 @@ function Search(props){
                             {/* <Link to={`/beer/${beer.beerId}`} className='detailBtn'>자세히</Link> */}
                           </div>
 
-                          {/* 맥주 별점 */}
-                          {/* <div className="star-ratings">
-                            <div 
-                              className="star-ratings-fill space-x-2 text-lg"
-                              style={{width:`${beer.averageRate*20}%` }}
-                            >
-                              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                            </div>
-                            <div className="star-ratings-base space-x-2 text-lg">
-                              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                            </div>
-                          </div> */}
-
-                          {/* 맥주 설명 */}
-                          {/* <div className='beer_volume'>
-                            ALC : {beer.volume}%
-                          </div> */}
-
-                          {/* 맥주 해시태그 */}
-                          {/* <div className='beer_hashtag_all'>
-                            {beer.aromaHashTags.map((aroma,a) => {
-                              return <div key={a} className='beer_hashtag'>#{aroma}</div>
-                            })}
-                          </div>
-                          <div className='beer_hashtag_all'>
-                            {beer.flavorHashTags.map((flavor,f) => {
-                              return <div key={f} className='beer_hashtag'>#{flavor}</div>
-                            })}
-                          </div> */}
 
                           {/* 맥주 카테고리 */}
                           <div className="options">
@@ -304,16 +287,15 @@ function Search(props){
         <SearchPagination 
           postPerPage={postPerPage} 
           totalPosts={beerNameArr.length} 
-          paginate={paginate}  />
+          paginate={paginate1}  />
 
 
         {/* 태그로 검색했을 때 */}
         <div className="search_beer">
-          {/* {console.log(beerTagArr)} */}
+          { !!currentbeerTagArr.length && <h4>' #{searchInput} '  검색 결과</h4> }
           { currentbeerTagArr && 
-            <h4>' #{searchInput} '  검색 결과</h4> ,
             <div className='row'>
-              { beerTagArr.map((beer, i)=>{
+              { currentbeerTagArr.map((beer, i)=>{
                 return (
                   <div className='col-sm-6 col-md-4 col-lg-3 fadein all' key={beer.beerId}>
                     {/* {console.log(beer)} */}
@@ -354,9 +336,11 @@ function Search(props){
                             <h6 className='beerCategory'>
                                 {beer.beerType.en_main}
                               </h6>
-                              <h6 className='beerCategory'>
-                                {beer.beerType.en_detail}
-                              </h6>
+                              { beer.beerType.ko_detail !== null
+                                ? <h6 className='beerCategory'>
+                                    {beer.beerType.en_detail}
+                                  </h6>
+                                : null }
                             </div>
                           </div>
 
@@ -373,20 +357,15 @@ function Search(props){
         <SearchPagination 
           postPerPage={postPerPage} 
           totalPosts={beerTagArr.length} 
-          paginate={paginate}  />
-        {/* { isMoreTag &&   // 더보기 버튼
-          <div>
-            <div className="moreBtn btn " onClick={clickMoreTag} >More...</div>
-          </div>
-        } */}
+          paginate={paginate2}  />
+
 
         {/* 클릭해서 검색했을 때 */}
         <div className="search_beer">
-          {/* {console.log(beerTagArr)} */}
+          { !!currentbeerArr.length && <h4>' {searchClickInput} '  검색 결과</h4> }
           { currentbeerArr && 
-            <h4>' {} '  검색 결과</h4> ,
             <div className='row'>
-              { beerArr.map((beer, i)=>{
+              { currentbeerArr.map((beer, i)=>{
                 return (
                   <div className='col-sm-6 col-md-4 col-lg-3 fadein all' key={beer.beerId}>
                     {/* {console.log(beer)} */}
@@ -444,9 +423,11 @@ function Search(props){
                               <h6 className='beerCategory'>
                                 {beer.beerType.en_main}
                               </h6>
-                              <h6 className='beerCategory'>
-                                {beer.beerType.en_detail}
-                              </h6>
+                              { beer.beerType.ko_detail !== null
+                                ? <h6 className='beerCategory'>
+                                    {beer.beerType.en_detail}
+                                  </h6>
+                                : null }
                             </div>
                           </div>
 
@@ -463,12 +444,7 @@ function Search(props){
         <SearchPagination 
           postPerPage={postPerPage} 
           totalPosts={beerArr.length} 
-          paginate={paginate}  />
-        {/* { isMoreClick &&   // 더보기 버튼
-          <div>
-            <div className="moreBtn btn " onClick={clickMoreClick} >More...</div>
-          </div>
-        } */}
+          paginate={paginate3}  />
       </div>
     </div>
   )

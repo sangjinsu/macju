@@ -3,6 +3,7 @@ import StarRate from './StartRate.js'
 import Modal from 'react-modal';
 import '../../styles/BeerRate.css'
 import axiosInstance from "CustomAxios.js";
+import { useStore } from "react-redux";
 
 function BeerRate(props){
   //url
@@ -18,7 +19,9 @@ function BeerRate(props){
   const [aromaArr, setAromaArr] = useState([])      //보여주기용
   const [aromaIdArr, setAromaIdArr] = useState([])  //데이터전송용 아이디배열
   //temp
-  const memberId = 3    // test용 멤버 아이디
+  // const memberId = 3    // test용 멤버 아이디
+  const store = useStore((state)=>state)
+  const memberId = store.getState().userReducer.memberId 
 
   //props
   const starrate = props.starrate

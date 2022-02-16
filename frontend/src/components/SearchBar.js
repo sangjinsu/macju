@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, useLocation } from 'react-router-dom';
 import '../styles/SearchBar.css'
-import axios from "axios"
 // import { useDispatch } from "react-redux";
 // import { ListGroup } from "react-bootstrap";
 import {Delay, GetPoint, GetPath} from './searchBarFunc'
@@ -31,7 +30,8 @@ function SearchBar(){
   // enter or click 했을때
   const SearchSubmit = ((e)=> {
     e.preventDefault()
-    console.log('검색할 값 :', searchInput)
+    // console.log('검색할 값 :', searchInput)
+    // console.log('결과', searchAll)
     history.replace({pathname:`/search/${searchInput}`, searchInput:searchInput, searchAll:searchAll})
     // history.push(`/search?${searchInput}`)
   })
@@ -39,7 +39,8 @@ function SearchBar(){
   
   // 검색결과 get 요청
   const fetchSearchResult = async () =>{
-    setSearchAll([])
+    const nowsearch = []
+    // setSearchAll([])
     const beerKosearch = axiosInstance.get(`${SEARCH_URL}/v1/search/name?query=${searchInput}&lang=ko`)
     const beerEnsearch = axiosInstance.get(`${SEARCH_URL}/v1/search/name?query=${searchInput}&lang=en`)
     const aromasearch = axiosInstance.get(`${SEARCH_URL}/v1/search/aroma?query=${searchInput}`)
@@ -48,19 +49,17 @@ function SearchBar(){
     const usersearch = axiosInstance.get(`${SEARCH_URL}/v1/search/user?query=${searchInput}`)
     Promise.allSettled([beerKosearch, beerEnsearch, aromasearch, flavorsearch, typesearch,usersearch])
     .then((results)=>
-    results.map((result, i) => {
-      if (result.status === 'fulfilled') {
-        setSearchAll((prev)=>[...prev, result.value]) 
-      }
-    })
+      results.map((result, i) => {
+        if (result.status === 'fulfilled') {
+          nowsearch.push(result.value)
+          // setSearchAll((prev)=>[...prev, result.value]) 
+        }
+      })
     )
+    setSearchAll(nowsearch)
      
   }
 
-  useEffect( () => {
-    if (searchInput) {fetchSearchResult()}
-
-  }, [searchInput])  
 
   function EraseEffect() {
   
@@ -192,9 +191,15 @@ function SearchBar(){
   }, [])
 
 
+  useEffect( () => {
+    if (searchInput) {fetchSearchResult()}
+  }, [searchInput])  
+
   useEffect(()=>{
     setSearchInput('')
     setSearchAll([])
+    // fetchSearchResult()
+    // console.log('초기화')
   }, [location])
   
 
@@ -205,7 +210,8 @@ function SearchBar(){
         {/* 검색창 */}
         <button type="submit" className="searchicon"><i className="fa fa-search"></i></button>
         <div className="text" id="dropdown">
-          <input id="input" type="text" placeholder="검색..." onChange={setInput} autoComplete={"off"} value={searchInput}/>
+          <input id="input" type="text" placeholder="검색..." onKeyUp={setInput} autoComplete={"off"}/>
+          {/* <input id="input" type="text" placeholder="검색..." onChange={setInput} autoComplete={"off"} value={searchInput}/> */}
         </div>
         
         {/* 지우기 버튼 */}

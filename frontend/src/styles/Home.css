@@ -1,49 +1,15 @@
-.SlickTest{
-  position: relative;
-}
-
-.slick-list { 
-  width: 100%;
-  height: 100%;
-  margin: 0 auto;
-  overflow-x: hidden;
-}
-
-.slick-dots {
-  bottom: 5px;
-  /* margin-top: 200px; */
-}
-
-
-/* hot post */
-.hot_post_hashtag{
-  text-align: center;
-}
-
-/* 이미지 크기 조정 */
-.best_beer_img {
-  /* margin: 0 auto; */
-  margin-bottom: 10px;
-  max-height: 300px;
-}
-
-.hot_post_img{
-  /* margin: 0 auto; */
-  margin-bottom: 10px;
-  max-height: 200px;
-}
-
 #bubbles {
   width: 100%;
   /* height: 100%; */
   /* position: absolute; */
   overflow: hidden;
   top: 0;
-  background: #ff9c08;
+  background: #ffba0c;
   z-index: -1;
 }
+/* 버블색깔 */
 #bubbles div.bubble {
-  background: #ffc36e;
+  background: #F9CF68;
   border-radius: 100%;
   position: absolute;
   -webkit-animation-name: fade;
@@ -57,12 +23,51 @@
 
 }
 
+
+.main_container {
+  margin: auto;
+  width: 80vw;
+}
+
+/* 캐러셀 밑에 원 */
+.slick-dots {
+  bottom: 5px;
+  /* margin-top: 200px; */
+}
+
+/* 제목 글씨 */
+.recommendtitle, .bestbeer, .hotPost {
+  font-family: 'Dancing Script', cursive;
+  font-size: 40px;
+}
+
+/* 맥주이름 글씨 */
+.beer_name {
+  font-weight: bold;
+  font-family: 'Dancing Script', cursive;
+
+}
+
+/* slick 이미지  */
 .slick-slide img {
   display: inline-block;
+  /* height: 300px !important; */
+  /* width: 300px !important; */
 }
 .slideDiv {
   display: inline-block;
 }
 
+
 @-webkit-keyframes fade{from{bottom:0px;opacity:1;visibility:visible}to{bottom:110%}}
         @keyframes fade{from{bottom:0px;opacity:1;visibility:visible}to{bottom:110%}}
+
+
+/* .slick-slide {
+  display: flex !important;
+  justify-content: center !important;
+  height: 300px !important;
+  font-weight: ;
+} */
+
+

@@ -33,7 +33,7 @@ const HotPost = (props) => {
 
   return(
     <div className="SlickTest">
-      <h3 className="bestbeer" align="center">Hot Post</h3>
+      <h3 className="hotPost pt-5" align="center">Hot Post</h3>
       <Slider {...settings}>
         {
           rankingPostList&&rankingPostList.map((postid, i) => 
@@ -65,9 +65,9 @@ function CustomSlide(props) {
   }, [BEER_DETAIL_URL, storage, imgData])
   
   return(
-    <div {...props} className="row">
+    <div {...props} className="row text-center">
       <h6 className="hot_post_hashtag">#{hotPostHashTag}</h6>
-      <img className="hot_post_img" src={imgSrc} alt=""/>
+      <img className="hot_post_img col-6 mb-5 " src={imgSrc} alt=""/>
     </div>
   )
 }

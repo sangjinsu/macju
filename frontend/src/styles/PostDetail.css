@@ -52,11 +52,12 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  max-height: 300px;
+
 }
 
 .postdetail_section .detail-box{
-  /* height: 300px; */
-  width: auto;
+  /* width: auto; */
   margin-top: 40px;
 }
 

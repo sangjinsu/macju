@@ -31,7 +31,7 @@ function NavBar(){
             <div className="container">
               <nav className="navbar custom_nav-container ">
                 <div >
-                  <a className="navbar-macju" href="/home">
+                  <a className="navbar-macju" href="/home" style={{ textDecoration: 'none' }}>
                     <span>
                       MacJU
                     </span>

@@ -9,6 +9,7 @@ const BestBeer = (props) => {
 
   const settings = props.settings
   settings.fade = true
+  settings.slidesToShow = 1
 
   useEffect( () => {
     const PopBeer = async () => {
@@ -35,8 +36,9 @@ const BestBeer = (props) => {
 }
 
 
+
 function CustomSlide(props) {
-  const BEER_DETAIL_URL = process.env.REACT_APP_SERVER + ':8080/v1/beer'
+  const BEER_DETAIL_URL = process.env.REACT_APP_SERVER + ':8888/v1/beer'
   const [imgSrc, setImgSrc] = useState()
   const [beerName, setName] = useState()
   const [beerContent, setBeerContent] = useState()

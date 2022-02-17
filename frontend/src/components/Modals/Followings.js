@@ -35,7 +35,7 @@ const Followings = (props) => {
           <main>
           {followings.length === 0 ? <p>아직 팔로잉 하는 사람이 없습니다.</p>: followings.map((person, idx)=>
           <div key={idx}>{person.nickName}
-          <Link to={`/profile/${person.memberId}/post`}><button style={{marginLeft:10}} role={'button'} id="profilebtn"> 이동</button></Link>
+          <Link to={`/profile/${person.memberId}/post`}><button onClick={close} style={{marginLeft:10}} role={'button'} id="profilebtn"> 이동</button></Link>
           
           </div>
           )}

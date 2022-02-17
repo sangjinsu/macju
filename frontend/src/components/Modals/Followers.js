@@ -39,7 +39,7 @@ const Followers = (props) => {
           <div key={idx}>{parseInt(person.memberId)=== parseInt(memberId) ? <p>아직 팔로워가 없습니다.</p> : 
             <>
             {person.nickName}
-            <Link to={`/profile/${person.memberId}/post`}><button style={{marginLeft:10}} role={'button'} id="profilebtn"> 이동</button></Link>
+            <Link to={`/profile/${person.memberId}/post`}><button onClick={close} style={{marginLeft:10}} role={'button'} id="profilebtn"> 이동</button></Link>
             </>
           
           }

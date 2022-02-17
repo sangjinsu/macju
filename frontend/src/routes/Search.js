@@ -151,11 +151,9 @@ function Search(props){
       const eachbeerdata = await axiosInstance.get(`${BEER_URL}?size=500`)
       for (let i =0 ; i < eachbeerdata.length; i++){
         for (let j = 0; j <beerIdArr_name.length; j++){
-          if (eachbeer.beerId === id) {
-            setBeerNameArr((name)=>[...name, eachbeer])
-            break
+          if (eachbeerdata[i] === beerIdArr_name[j]) {
+            setBeerNameArr((name)=>[...name, eachbeerdata[i]])
           }
-
         }
       }
     }

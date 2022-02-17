@@ -4,12 +4,16 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
+import { useCookies } from "react-cookie"
 
 function LoginAuth() {
   const userData = useRef()
   const history = useHistory()
   const dispatch = useDispatch()
 
+  const setCookie = useCookies(["AccessToken"])[1]
+  
+  const date = new Date(Date.now() + (60 * 60 * 60 * 60))
 
   const requestAuth = useCallback (async () => {
     try{
@@ -19,8 +23,8 @@ function LoginAuth() {
       if (userData.current.first_check === true ) {
         history.replace({pathname:"/user/signup", userData:userData.current})
       } else {
-        dispatch({type:"loginSuccess", userData:userData.current})
-        window.localStorage.setItem("AccessToken", userData.current.AccessToken)
+        dispatch({type:"loginSuccess", userData:userData.current}) 
+        setCookie("AccessToken", userData.current.AccessToken, {path: "/", expire:date.toUTCString()})
 
         history.replace("/home")
         window.location.reload()
@@ -29,7 +33,7 @@ function LoginAuth() {
       console.log(err)
       history.replace("/user/login")
     }
-  }, [dispatch, history])
+  }, [dispatch, history, setCookie]) // date 넣으면 every rendering!!
 
   useEffect( () => {
     requestAuth()

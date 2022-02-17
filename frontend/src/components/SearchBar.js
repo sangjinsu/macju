@@ -186,12 +186,6 @@ function SearchBar(){
   useEffect( () => {
     fetchSearchResult()
   }, [searchInput, fetchSearchResult])  
-  const handelKeyPress = (e) =>{
-    if (e.key === 'Enter'){
-      setSearchresult([])
-      history.replace({pathname:`/search/${searchInput}`, searchInput:searchInput, searchAll:searchAll})
-    }
-  }
   const removeSearch = () =>{
     setSearchresult([])
   }

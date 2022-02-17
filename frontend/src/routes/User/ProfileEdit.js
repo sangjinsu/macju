@@ -325,7 +325,7 @@ const ProfileEdit = () => {
       profileData.aromas = [...profileData.aromas, 28]
     }
 
-
+    console.log(profileData)
     if (introduce && editUserNickname){
       await axiosInstance.put(USER_UPDATE_PROFILE, profileData)
       .then((res)=>{

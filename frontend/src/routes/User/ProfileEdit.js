@@ -291,7 +291,6 @@ const [userFlavor, setUserFlavor] = useState([checked1, checked2, checked3, chec
           copiedFlavor[i - 1] = true 
         }
       }
-      console.log(copiedFlavor)
       setUserFlavor(copiedFlavor)
       for (let i = 1; i < copiedAroma.length + 1; i++){
         if (i in checkedAroma) {
@@ -301,7 +300,6 @@ const [userFlavor, setUserFlavor] = useState([checked1, checked2, checked3, chec
       setUserAroma(copiedAroma)
 
     }
-    console.log('g')
     fetchData();
   }, [user])
 

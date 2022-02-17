@@ -232,18 +232,21 @@ const ProfileEdit = () => {
     "flavors":[],
   }
   const submitProfile = async () =>{
+    console.log(userFlavor, userAroma)
     const userAromaData = []
-    for (let i = 1; i < userAroma.length + 1; i++){
-      if (userAroma[i-1] === true) {
+    userAroma.map(async (data, i) =>{
+      if (data === true){
         await userAromaData.push(i)
       }
-    }
+      return
+    })
     const userFlavorData = []
-    for (let i = 1; i < userFlavor.length + 1; i++){
-      if (userFlavor[i-1] === true) {
+    userFlavor.map(async (data, i) =>{
+      if (data === true){
         await userFlavorData.push(i)
       }
-    }
+      return
+    })
     if (introduce && editUserNickname){
       console.log(userAromaData)
       console.log(userFlavorData)

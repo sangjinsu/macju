@@ -16,7 +16,6 @@ const UserPost = (props) => {
   useEffect(() => {
     const fetchData = async() =>{
       const memberPosts = await axiosInstance.get(`${USER_POST_URL}/${memberId}`)
-      console.log(memberPosts)
       setUserPosts(memberPosts.data)
     }
     fetchData();
@@ -40,9 +39,6 @@ const UserPost = (props) => {
   //eslint-disable-next-line
   }, [userPosts])
 
-
-
-
   return (
     <section className="userpost_section layout_padding_postlist">
 
@@ -50,7 +46,6 @@ const UserPost = (props) => {
       <h1 className="font">Posts</h1>
       <div className="postlist_component">
         <div className="row grid postlist_component">
-          {console.log(userPosts)}
         { userPosts.length === 0 ?  
           <>
             <UserIcon grade={2500}/>
@@ -58,7 +53,6 @@ const UserPost = (props) => {
           </> : userPosts.map((post) =>
           <div className="col-md-6 col-lg-4 fadein" key={post.postId}>
             <div className="box">
-
               <div className="postlist_box">            
                 {userPostImages&&userPostImages.map((data, i)=> data.id === post.postId ? 
                   <div key={i} className="img-box">
@@ -77,7 +71,6 @@ const UserPost = (props) => {
                     작성시간 : {post.updatedAt[0]}/{post.updatedAt[1]}/{post.updatedAt[2]}
                   </div>
                 </div>
-                
               </div>
             </div>
           </div> 

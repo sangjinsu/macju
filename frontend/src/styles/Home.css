@@ -46,7 +46,12 @@
   font-size: 40px;
 }
 
-.main_name_color{
+.hot_name_color{
+  color:black;
+  text-decoration: none;
+}
+
+.reco_name_color{
   color:black;
   text-decoration: none;
 }
@@ -61,7 +66,7 @@
 /* slick 이미지  */
 .slick-slide img {
   display: inline-block;
-  max-height: 500px;
+  max-height: 250px;
 }
 .slideDiv {
   display: inline-block;

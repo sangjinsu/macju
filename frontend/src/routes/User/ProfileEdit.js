@@ -109,7 +109,7 @@ const ProfileEdit = () => {
     }
   }, [labelNickname])
   function handleChange(e){
-    if (e < 14){
+    if (parseInt(e) < 14){
     const flavorData = [...flavors]
     flavorData[e - 1] = true
     setFlavors(flavorData)

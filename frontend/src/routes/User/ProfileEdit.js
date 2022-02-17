@@ -37,8 +37,12 @@ const ProfileEdit = () => {
       profileData['aromas'] = aromas
       profileData['flavors'] = flavors
       axiosInstance.put(USER_UPDATE_PROFILE, profileData)
-      .then(()=>{
+      .then((res)=>{
+        console.log(res)
         history.push(`/profile/${user.memberId}/profile`)
+      })
+      .catch((err)=>{
+        console.log(err)
       })
     } else {
       alert('내용을 입력하세요')

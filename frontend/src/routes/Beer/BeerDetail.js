@@ -88,7 +88,7 @@ function BeerDetail() {
 
       // 로그 보내기
       const hashTagArr = [beerdetail.beerType.en_main, ...beerdetail.aromaHashTags , ...beerdetail.flavorHashTags]
-
+      
       // console.log(hashTagArr)
       const newdata = {
         id : memberId,

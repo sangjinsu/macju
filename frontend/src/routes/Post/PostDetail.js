@@ -11,13 +11,13 @@ import axiosInstance from "CustomAxios";
 
 function PostDetail() {
   //url
-  const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8080/v1/member/profile'
-  const POST_DETAIL_URL = process.env.REACT_APP_SERVER + ':8080/v1/post'
-  const POST_DETAIL_LOG_URL = process.env.REACT_APP_SERVER + ':8080/v1/log'
-  const RANKING_POST_DLELETE_URL = process.env.REACT_APP_SERVER + ":8081/post"
-  const RANKING_POST_LIKE_URL = process.env.REACT_APP_SERVER + ":8081/post/like"
-  const RANKING_POST_URL = process.env.REACT_APP_SERVER + ":8081/post/view"
-  const POST_LIKE_URL = process.env.REACT_APP_SERVER + ':8080/v1/member'
+  const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8888/v1/member/profile'
+  const POST_DETAIL_URL = process.env.REACT_APP_SERVER + ':8888/v1/post'
+  const POST_DETAIL_LOG_URL = process.env.REACT_APP_SERVER + ':8888/v1/log'
+  const RANKING_POST_DLELETE_URL = process.env.REACT_APP_SERVER + ":8888/post"
+  const RANKING_POST_LIKE_URL = process.env.REACT_APP_SERVER + ":8888/post/like"
+  const RANKING_POST_URL = process.env.REACT_APP_SERVER + ":8888/post/view"
+  const POST_LIKE_URL = process.env.REACT_APP_SERVER + ':8888/v1/member'
   
   
   //basic data
@@ -161,11 +161,12 @@ function PostDetail() {
       const postDetail = responseDetail.data
       console.log(postDetail)
 
-      const hashTagArr = [postDetail.beer.beerType.main, ...postDetail.beer.aromaHashTags , ...postDetail.beer.flavorHashTags]
+      const hashTagArr = [postDetail.beer.beerType.en_main, ...postDetail.beer.aromaHashTags , ...postDetail.beer.flavorHashTags]
       const newdata = {
         id : memberId,
         tags : hashTagArr
       }
+      console.log(newdata)
       axiosInstance.post(POST_DETAIL_LOG_URL, newdata)  
       dispatch({type:"postDetailLoading", postDetail: postDetail}) // 추후 이미지도 추가?
       setPost(store.getState().postDetailReducer)

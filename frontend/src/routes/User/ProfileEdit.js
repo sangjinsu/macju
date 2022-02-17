@@ -37,8 +37,12 @@ const ProfileEdit = () => {
       profileData['aromas'] = aromas
       profileData['flavors'] = flavors
       axiosInstance.put(USER_UPDATE_PROFILE, profileData)
-      .then(()=>{
+      .then((res)=>{
+        console.log(res)
         history.push(`/profile/${user.memberId}/profile`)
+      })
+      .catch((err)=>{
+        console.log(err)
       })
     } else {
       alert('내용을 입력하세요')
@@ -98,19 +102,23 @@ const ProfileEdit = () => {
 
   useEffect(()=>{
     if (labelNickname === "fail"){
-      document.getElementsByClassName('profile-btn').disabled
+      document.getElementsByClassName('profile-btn').disabled = true
+    }
+    if (labelNickname === 'success'){
+      document.getElementsByClassName('profile-btn').disabled = false
     }
   }, [labelNickname])
-  const handleChange = (e) =>{
-    if (e < 14){
+  function handleChange(e){
+    if (parseInt(e) < 14){
     const flavorData = [...flavors]
     flavorData[e - 1] = true
     setFlavors(flavorData)
     } else {
       const aromaData = [...aromas]
       aromaData[e - 1] = true
+      setAromas(aromaData)
     }
-    setAromas(aromaData)
+    
   }
   return (
     <div className="container edit-box" >
@@ -137,7 +145,7 @@ const ProfileEdit = () => {
             <div className="container">
               
             {flavors.length !== 0 ? flavors.map((flavor, i)=>
-              <FormControlLabel control={<Checkbox checked={flavor} onChange={handleChange(i + 1)} />} label={flavorName[i]} /> 
+              <FormControlLabel key={i} control={<Checkbox checked={flavor} onChange={handleChange(i + 1)} />} label={flavorName[i]} /> 
             ):null}
 
             </div>
@@ -147,7 +155,7 @@ const ProfileEdit = () => {
           <div style={{backgroundColor:'#f9d06880', borderStyle:"solid", borderColor:"#F9CF68", borderRadius:'15px'}}>
           <div className="container">
           {aromas.length !== 0 ? aromas.map((aroma, i)=>
-              <FormControlLabel control={<Checkbox checked={aroma} onChange={handleChange(i + 13)} />} label={aromaName[i]} /> 
+              <FormControlLabel key={i} control={<Checkbox checked={aroma} onChange={handleChange(i + 13)} />} label={aromaName[i]} /> 
             ):null}
           </div>  
           </div>

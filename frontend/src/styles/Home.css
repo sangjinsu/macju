@@ -46,6 +46,11 @@
   font-size: 40px;
 }
 
+.main_name_color{
+  color:black;
+  text-decoration: none;
+}
+
 /* 맥주이름 글씨 */
 .beer_name {
   font-weight: bold;

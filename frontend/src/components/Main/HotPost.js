@@ -4,6 +4,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axiosInstance from "CustomAxios";
+import { Link } from "react-router-dom";
 
 const HotPost = (props) => {
   const [rankingPostList, setRanking] = useState()
@@ -72,8 +73,10 @@ function CustomSlide(props) {
   
   return(
     <div {...props} className="row text-center">
+      <Link to={`/post/${props.postid}`}>
       <h6 className="hot_post_hashtag">#{hotPostHashTag}</h6>
       <img className="hot_post_img col-6 mb-5 " src={imgSrc} alt=""/>
+      </Link>
     </div>
   )
 }

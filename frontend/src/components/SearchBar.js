@@ -197,7 +197,7 @@ function SearchBar(){
 
         <button type="submit" className="searchicon"><i className="fa fa-search"></i></button>
         <div className="text" id="dropdown">
-          <input id="input" type="text" placeholder="검색..." onChange={setInput} autoComplete={"off"} value={searchInput} onKeyPress={handelKeyPress}/>
+          <input id="input" type="text" placeholder="검색..." onChange={setInput} autoComplete={"off"} value={searchInput}/>
         </div>
         
         <button className="clear" onClick={ eraseInput } >

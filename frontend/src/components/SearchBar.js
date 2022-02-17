@@ -37,7 +37,6 @@ function SearchBar(){
   })
   useEffect(()=>{
     setSearchresult(searchAll)
-    console.log('g')
   }, [searchAll])
   
   // 검색결과 get 요청
@@ -193,7 +192,11 @@ function SearchBar(){
     fetchSearchResult()
 
   }, [searchInput])  
-
+  const handelKeyPress = (e) =>{
+    if (e.key === 'Enter'){
+      history.replace({pathname:`/search/${searchInput}`, searchInput:searchInput, searchAll:searchAll})
+    }
+  }
 
   
 
@@ -204,8 +207,7 @@ function SearchBar(){
         {/* 검색창 */}
         <button type="submit" className="searchicon"><i className="fa fa-search"></i></button>
         <div className="text" id="dropdown">
-          {/* <input id="input" type="text" placeholder="검색..." onKeyUp={setInput} autoComplete={"off"}/> */}
-          <input id="input" type="text" placeholder="검색..." onChange={setInput} autoComplete={"off"} value={searchInput}/>
+          <input id="input" type="text" placeholder="검색..." onChange={setInput} autoComplete={"off"} value={searchInput} onKeyPress={handelKeyPress}/>
         </div>
         
         {/* 지우기 버튼 */}

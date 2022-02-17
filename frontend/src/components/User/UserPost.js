@@ -13,13 +13,8 @@ import UserIcon from "./UserIcon"
 
 const UserPost = (props) => {
   const USER_POST_URL = process.env.REACT_APP_SERVER + ':8888/v1/post/member'
-  const store = useStore((state) => state)
-
-
   const memberId = props.state
-
   const [userPosts, setUserPosts] = useState([])
-
   const [userPostImages, setUserPostImages] = useState([])
   const storage = getStorage();
   useEffect(() => {
@@ -34,14 +29,11 @@ const UserPost = (props) => {
   
   },[USER_POST_URL, memberId])
   
-  
-
-
   useEffect(()=> {
     const fetchData = async() =>{
       const imageList = []
       for (let i = 0; i < userPosts.length; i++) {
-        const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/imgs/${userPosts[i].postId}/${userPosts[i].photo.data}`)
+        const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/${userPosts[i].photo.data}`)
         await getDownloadURL(storageRef)
         .then((res)=>{
           if (!userPostImages.some((url)=>url===res)){

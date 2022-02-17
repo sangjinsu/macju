@@ -24,7 +24,6 @@ function PostListComponent(){
     const fetchData = async() =>{
       const imageList = []
       for (let i = 0; i < newPost.length; i++) {
-        console.log(newPost[i].photo.data)
         const storageRef = ref(storage, `gs://ssafy-01-user-image.appspot.com/${newPost[i].photo.data}`)
         await getDownloadURL(storageRef)
         .then((res)=>{

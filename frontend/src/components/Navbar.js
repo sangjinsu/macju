@@ -65,7 +65,6 @@ function NavBar(){
                     </li>
                     <div className="dropdown-divider"></div>
                     <li>
-                      {console.log(store.getState().userReducer.memberId)}
                       <Link to={`/profile/${store.getState().userReducer.memberId}/post`} className="dropdown-item user_link">
                         <i className="fa fa-user" aria-hidden="true"></i>
                       </Link>

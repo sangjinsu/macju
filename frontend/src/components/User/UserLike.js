@@ -13,6 +13,7 @@ const UserLike = (props) => {
   const [likebeers, setLikeBeers] = useState([])
   const store = useStore((state) => state);
   useEffect(() =>{
+    
     const fetchData = async () =>{
     const memberbeers = await axiosInstance.get(`${USER_LIKE_URL}/${memberId}/like/beer`)
     setLikeBeers(memberbeers.data)
@@ -30,8 +31,8 @@ const UserLike = (props) => {
       <div className="container" justify-content="space-around">
         <h1 className="font">Like Beers</h1>
         <div className="row grid" style={{justifyContent:'center'}}>
-          
-          {likebeers === [] ? likebeers.map((beer)=>
+          {console.log(likebeers)}
+          {likebeers.length !== 0 ? likebeers.map((beer)=>
               <div className="col-4 col-lg-2 likebeer" key={beer.beerId}>
                 <div>
                   {/* 여기도 기본이미지가 필요하네용 */}

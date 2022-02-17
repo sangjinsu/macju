@@ -25,7 +25,8 @@ const UserReview = (props) =>{
     if (store.getState().userReviewReducer.data.data.length === 0){
       fetchData();
     } else {
-      setUserReviews(store.getState().userReducer.data.data)
+      
+      setUserReviews(store.getState().userReviewReducer.data.data)
     }    
 	},[])
 

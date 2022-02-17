@@ -71,9 +71,9 @@ function PostDetail() {
       await axiosInstance.delete(rankingPostDeleteUrl)
 
       // 포스트 삭제시 사용자 등급점수 감소
-      const profiledata = store.getState().profileReducer
-      profiledata['grade'] = profiledata['grade'] - 10
-      axiosInstance.put(USER_UPDATE_PROFILE, profiledata)
+      // const profiledata = store.getState().profileReducer
+      // profiledata['grade'] = profiledata['grade'] - 10
+      // axiosInstance.put(USER_UPDATE_PROFILE, profiledata)
 
       // 포스트 삭제 완료되면 post 리스트 페이지로 넘겨준다
       history.push("/post")

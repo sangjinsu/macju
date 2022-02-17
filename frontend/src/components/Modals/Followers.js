@@ -12,7 +12,6 @@ const Followers = (props) => {
   const memberNum = useParams();
   const memberId = memberNum.userid
   const FOLLOWERS_URL = process.env.REACT_APP_SERVER + `:8888/v1/member/${memberId}/followers`
-  console.log(memberId)
   const store = useStore((state) => state)
   const [followers, setFollowers] = useState();
   const fetchData = async () =>{
@@ -42,7 +41,6 @@ const Followers = (props) => {
             </button>
           </header>
           <main>
-            {console.log(followers)}
           {followers.length === 0 ? <p>아직 팔로워가 없습니다.</p>: followers.map((person, idx)=>
           //{memberId, nickName, name, comment, age, grade}
           <div key={idx}>{parseInt(person.memberId)=== parseInt(memberId) ? <p>아직 팔로워가 없습니다.</p> : 

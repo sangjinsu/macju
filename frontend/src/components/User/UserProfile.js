@@ -34,7 +34,6 @@ const UserProfile = (props) => {
 		btn.disabled = true
 		await axiosInstance.post(FOLLOW_POST_URL)
 		.then((res)=>{
-			console.log(res)
 			btn.disabled =false
 			if (res.data === 'follow'){
 				setFollowButton(false)
@@ -50,10 +49,6 @@ const UserProfile = (props) => {
 	useEffect(()=>{
 		const fetchData = async () =>{
 			const res = await axiosInstance.get(FOLLOWING_GET_URL)
-			console.log(res.data.data) // <- 얘가 이제 화면에서 보여질 팔로워! 팔로워 안에 '나'가 있으면 이제 button 변경
-			for (let i = 0; i< res.data.data.length; i++) {
-				console.log(res.data.data[i])
-			}
 			res.data.data.map((person, i) =>{
 				if (parseInt(store.getState().userReducer.memberId) === parseInt(person.memberId)){
 					setFollowButton(false)
@@ -80,7 +75,6 @@ const UserProfile = (props) => {
 			const profiledata = await axiosInstance.get(`${USER_PROFILE_URL}`)
 			setUser(profiledata.data)
 		}
-		console.log('g')
 		fetchData();		
 	},[store, userid])
 
@@ -121,7 +115,7 @@ const UserProfile = (props) => {
 								pathname : `/profile/edit`,
 								state : userid
 								}} >
-								<div className="editBtn"><i class="fas fa-user-edit fa-lg"></i></div>
+								<div className="editBtn"><i className="fas fa-user-edit fa-lg"></i></div>
 							</Link>
 						</div>
 						

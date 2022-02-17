@@ -67,7 +67,10 @@ function PostDetail() {
   const addHashTag = ((e)=>{
     e.preventDefault()
     if (hashtag.trim() !== "") {
-      setHashtagArr([hashtag, ...hashtagArr])
+      if (!hashtagArr.includes(hashtag.trim())){
+        setHashtagArr([hashtag, ...hashtagArr])
+      }
+      
       setHashtag("")
     }
   })

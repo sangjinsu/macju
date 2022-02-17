@@ -192,18 +192,16 @@ class FlavorHashTag(models.Model):
         db_table = 'flavor_hash_tag'
 
 
-'''
-class Follow(models.Model):
-    id = models.BigIntegerField(primary_key=True)
-    following = models.ForeignKey(
-        'Member', models.DO_NOTHING, blank=True, null=True)
-    follow = models.ForeignKey(
-        'Member', models.DO_NOTHING, blank=True, null=True)
+# class Follow(models.Model):
+#     id = models.BigIntegerField(primary_key=True)
+#     following = models.ForeignKey(
+#         'Member', models.DO_NOTHING, blank=True, null=True)
+#     follow = models.ForeignKey(
+#         'Member', models.DO_NOTHING, blank=True, null=True)
 
-    class Meta:
-        managed = False
-        db_table = 'follow'
-'''
+#     class Meta:
+#         managed = False
+#         db_table = 'follow'
 
 
 class HibernateSequence(models.Model):
@@ -219,9 +217,9 @@ class Member(models.Model):
     age = models.IntegerField()
     grade = models.IntegerField()
     intro = models.CharField(max_length=150, blank=True, null=True)
+    kakao_id = models.BigIntegerField(unique=True)
     name = models.CharField(max_length=255)
     nick_name = models.CharField(unique=True, max_length=10)
-    profile_color = models.CharField(max_length=255, blank=True, null=True)
     status = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:

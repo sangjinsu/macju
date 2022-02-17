@@ -101,7 +101,7 @@ const ProfileEdit = () => {
       document.getElementsByClassName('profile-btn').disabled
     }
   }, [labelNickname])
-  const handleChange = (e) =>{
+  function handleChange(e){
     if (e < 14){
     const flavorData = [...flavors]
     flavorData[e - 1] = true
@@ -109,8 +109,9 @@ const ProfileEdit = () => {
     } else {
       const aromaData = [...aromas]
       aromaData[e - 1] = true
+      setAromas(aromaData)
     }
-    setAromas(aromaData)
+    
   }
   return (
     <div className="container edit-box" >

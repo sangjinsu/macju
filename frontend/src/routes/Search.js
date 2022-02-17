@@ -6,6 +6,7 @@ import SearchPagination from './SearchPagination.js';
 import axiosInstance from 'CustomAxios'
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import { useCallback } from 'react';
 
 function Search(props){
   const BEER_URL = process.env.REACT_APP_SERVER + ':8888/v1/beer'
@@ -17,7 +18,7 @@ function Search(props){
       setSearchClickInput(location.state[1]) 
       setSearchresult(location.state[0])  
     }
-  },[])
+  },[location.state])
   const [beerArr, setBeerArr] = useState([])
   useEffect(()=>{
     const fetchbeerdata = async () => {
@@ -33,7 +34,7 @@ function Search(props){
       }
     }
     fetchbeerdata();
-  },[searchresult])
+  },[searchresult, BEER_URL])
   const [beerEndata, setBeerEndata] = useState([])
   const [beerKodata, setBeerKodata] = useState([])
   const [aromadata, setAromadata] = useState()
@@ -51,10 +52,11 @@ function Search(props){
       setTypedata(searchAll[4].data)
       setUserdata(searchAll[5].data)
     }
-  },[searchInput])
-  const [beerIdArr_name, setBeerIdArr_name] = useState([])   
-  const [beerIdArr_others, setBeerIdArr_others] = useState([])  
-  const fetchSearchResult = async () =>{
+  },[searchInput, searchAll])
+  const [beerIdArr_name, setBeerIdArr_name] = useState([])
+  const [beerIdArr_others, setBeerIdArr_others] = useState([])
+
+  const fetchSearchResult = useCallback( async () =>{
     beerKodata&&beerKodata.map(beerKo => {
       setBeerIdArr_name((id)=> [...id, beerKo.beer_id])
     })
@@ -112,10 +114,11 @@ function Search(props){
         })
       }
     }
-  }
+  }, [aromadata, beerEndata, beerIdArr_others, beerKodata, flavordata, typedata_all, userdata])
+
   useEffect( () => {
     if (searchInput) {fetchSearchResult()}
-  }, [beerEndata, beerKodata, aromadata, flavordata, typedata_all, userdata])  
+  }, [beerEndata, beerKodata, aromadata, flavordata, typedata_all, userdata, fetchSearchResult, searchInput])  
   const [beerNameArr, setBeerNameArr] = useState([])
   const [beerTagArr, setBeerTagArr] = useState([])
   useEffect( () => {
@@ -130,7 +133,7 @@ function Search(props){
       })
     }
     fetchbeerdata1();
-  },[beerIdArr_name, beerKodata, beerEndata])
+  },[beerIdArr_name, beerKodata, beerEndata, BEER_URL])
   useEffect( () => {
     const fetchbeerdata2 = async () => {
       if (beerIdArr_others.length) {
@@ -147,7 +150,7 @@ function Search(props){
       }
     }
     fetchbeerdata2();
-  },[beerIdArr_others, aromadata, flavordata, typedata_all, userdata])
+  },[beerIdArr_others, aromadata, flavordata, typedata_all, userdata, BEER_URL])
   useEffect(()=>{
     setBeerIdArr_name([])
     setBeerIdArr_others([])

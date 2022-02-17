@@ -85,7 +85,7 @@ function Signup(props) {
     }catch(err){
       console.log(err)
     }
-  }, [nickname, VALIDATE_NICKNAME_URL, userData.AccessToken])
+  }, [nickname, VALIDATE_NICKNAME_URL])
 
   useEffect( () => {
     if (nickname) {

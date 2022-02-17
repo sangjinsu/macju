@@ -7,6 +7,7 @@ import axiosInstance from "CustomAxios";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox"
 import TextField  from "@mui/material/TextField"
+import { useCallback } from "react";
 
 const ProfileEdit = () => {
   
@@ -260,13 +261,12 @@ const [userFlavor, setUserFlavor] = useState([checked1, checked2, checked3, chec
       alert('내용을 입력하세요')
     }
    }
-  const nickNameCheck = async () =>{
+  const nickNameCheck = useCallback( async () =>{
     if (!(editUserNickname === '')){
       const data = await axiosInstance.get(`${USER_NICKNAME_CHECK}/${editUserNickname}`)
       setLabelNickname(data.data)
-     
-  }
-}
+    }
+  }, [USER_NICKNAME_CHECK, editUserNickname])
 
   const editIntroduce = (e) =>{
     setIntroduce(e.target.value)
@@ -301,7 +301,7 @@ const [userFlavor, setUserFlavor] = useState([checked1, checked2, checked3, chec
 
     }
     fetchData();
-  }, [user])
+  }, [user, userAroma, userFlavor])
 
 
 
@@ -316,7 +316,7 @@ const [userFlavor, setUserFlavor] = useState([checked1, checked2, checked3, chec
 			history.push('/home')
 		}
 		
-	}, [])
+	}, [history, store, userId])
 
 
 

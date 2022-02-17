@@ -100,13 +100,13 @@ function BeerRate(props){
       const {data:ratedata} = await axiosInstance.get(`${BEER_RATE_URL}/${beerid}/member/${memberId}`)
       props.setStarrate(ratedata.rate)
 
-      ratedata.aromaHashTags.map((tag, i)=>{
+      ratedata.aromaHashTags.map((tag)=>{
         if (aromaArr.indexOf(tag.aroma) === -1) {
           setAromaArr((arr)=>[...arr, tag.aroma])
           setAromaIdArr((arr)=>[...arr, tag.id])
         }
       })
-      ratedata.flavorHashTags.map((tag, i)=>{
+      ratedata.flavorHashTags.map((tag)=>{
         if (flavorArr.indexOf(tag.flavor) === -1) {
           setFlavorArr((arr)=>[...arr, tag.flavor])
           setFlavorIdArr((arr)=>[...arr, tag.id])
@@ -115,7 +115,7 @@ function BeerRate(props){
     }
     
     fetchData();
-  }, [BEER_RATE_URL])
+  }, [BEER_RATE_URL, aromaArr, beerid, flavorArr, memberId, props])
 
 
 

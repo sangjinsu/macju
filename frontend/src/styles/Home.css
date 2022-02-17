@@ -46,7 +46,12 @@
   font-size: 40px;
 }
 
-.main_name_color{
+.hot_name_color{
+  color:black;
+  text-decoration: none;
+}
+
+.reco_name_color{
   color:black;
   text-decoration: none;
 }

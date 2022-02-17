@@ -1,4 +1,4 @@
-FROM node:alpine as builder 
+FROM node:alpine
 
 WORKDIR /usr/src/app
 
@@ -9,11 +9,7 @@ RUN npm install --save --legacy-peer-deps
 
 COPY ./ ./
 
-RUN npm run build
+CMD [ "npm", "run", "start" ]
 
-FROM nginx
-EXPOSE 80
-
-COPY --from=builder /usr/src/app/build /usr/share/nginx/html
 
 

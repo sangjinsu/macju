@@ -248,6 +248,8 @@ const ProfileEdit = () => {
     profileData.flavors = userFlavorData
 
     if (introduce && editUserNickname){
+      console.log(userAroma)
+      console.log(userFlavor)
       profileData["aromas"] = userAroma
       profileData["flavors"] = userFlavor
       axiosInstance.put(USER_UPDATE_PROFILE, profileData)

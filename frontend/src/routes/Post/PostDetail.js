@@ -36,6 +36,12 @@ function PostDetail() {
       const postDeleteUrl = `${POST_DETAIL_URL}/${postId}`
       const rankingPostDeleteUrl = `${RANKING_POST_DLELETE_URL}/${postId}`
       await axiosInstance.delete(postDeleteUrl)
+      .then((res)=>{
+        console.log(res)
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
       dispatch({ type : "postDelete"})
       const imgUrl = postData.photos.map((photo)=> photo.data)
       for (let i = 0; i<imgUrl.length; i++) {

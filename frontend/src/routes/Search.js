@@ -10,15 +10,40 @@ import { useCallback } from 'react';
 
 function Search(props){
   const BEER_URL = process.env.REACT_APP_SERVER + ':8888/v1/beer'
+  const POST_DETAIL_URL = process.env.REACT_APP_SERVER + ':8888/v1/post'
+
   const location = useLocation();
   const [searchClickInput, setSearchClickInput] = useState('')
   const [searchresult, setSearchresult] = useState([])
+  const [userPost, setUserPost] = useState([])
+  const [hash, setHash] = useState('')
   useEffect(()=>{
     if (location.state) {
+
       setSearchClickInput(location.state[1]) 
-      setSearchresult(location.state[0])  
+      setSearchresult(location.state[0]) 
+    } else if (location.Userstate){
+      setUserPost(location.Userstate[0])
+      setHash(location.Userstate[1])
     }
-  },[location.state])
+  },[location.Userstate])
+  const [posts, setPosts] = useState([])
+  useEffect(()=>{
+    const fetchData = async () =>{ 
+      const posts = []
+      for (let i = 0 ; i < userPost.length; i++){
+        await axiosInstance.get(`${POST_DETAIL_URL}/${userPost[i]}`)
+        .then((res)=>{
+          posts.push(res.data)
+        })
+      }
+      setPosts(posts)
+    }
+    if (userPost.length > 0){
+      fetchData()
+    }
+  }, [userPost])
+
   const [beerArr, setBeerArr] = useState([])
   useEffect(()=>{
     const fetchbeerdata = async () => {
@@ -103,9 +128,9 @@ function Search(props){
     }
     if (userdata) {
       if (Object.keys(userdata).length !== 0) {
-        const userNameArr = Object.keys(userdata)       // #asdf
+        const userNameArr = Object.keys(userdata)       
         userNameArr.map(userName=>{
-          const userIdArr = userdata[userName].beers   // [2,18,...]
+          const userIdArr = userdata[userName].beers   
           userIdArr.map(userid=>{
             if (beerIdArr_others.indexOf(userid) === -1) {
               setBeerIdArr_others((beerid) => [...beerid, userid])
@@ -181,7 +206,7 @@ function Search(props){
         <div className="heading_container heading_center">
           <h2>Search Result</h2>
         </div>
-        { currentbeerNameArr.length===0 && currentbeerTagArr.length===0 && currentbeerArr.length===0 
+        { currentbeerNameArr.length===0 && currentbeerTagArr.length===0 && currentbeerArr.length===0 && userPost.length === 0
           ? <Box sx={{ display: 'flex' }} style={{justifyContent:'center', margin:'auto'}}><CircularProgress size={200} style={{color:'#F9CF68'}}/></Box> 
           : null
         }
@@ -354,7 +379,18 @@ function Search(props){
             totalPosts={beerArr.length} 
             paginate={paginate3}  />
       </div>
+            <div className='container'>
+              
+              {posts.length === 0 ? null : 
+              posts.map((post , i)=>
+                <>
+                <h3>#{hash}</h3>
+                <Link key={i} to={`/post/${post.postId}`} className='detailBtn' style={{ textDecoration: 'none', color: 'black' }}><p style={{color:'#F9CF68'}}>"{post.content}"</p></Link>
 
+                </>
+              )
+            }
+            </div>
     </div>
   )
 }

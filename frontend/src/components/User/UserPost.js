@@ -16,6 +16,7 @@ const UserPost = (props) => {
   useEffect(() => {
     const fetchData = async() =>{
       const memberPosts = await axiosInstance.get(`${USER_POST_URL}/${memberId}`)
+      console.log(memberPosts)
       setUserPosts(memberPosts.data)
     }
     fetchData();

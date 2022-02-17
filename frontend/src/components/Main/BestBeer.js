@@ -36,6 +36,7 @@ const BestBeer = (props) => {
 }
 
 
+
 function CustomSlide(props) {
   const BEER_DETAIL_URL = process.env.REACT_APP_SERVER + ':8888/v1/beer'
   const [imgSrc, setImgSrc] = useState()

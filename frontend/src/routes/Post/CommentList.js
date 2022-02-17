@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState, useCallback } from "react"
 import { useDispatch, useSelector, useStore } from 'react-redux';
-import axios from 'axios';
 import "../../styles/CommentList.css"
 import axiosInstance from "CustomAxios";
 
@@ -12,8 +11,7 @@ function CommentList(props) {
   const commentApiUrl = `${COMMENT_LIST_URL}/${postId}/comment` // 조회, 추가 때 사용
 
   // 로그인한 유저 아이디
-  const loginUser = useSelector(state => state.userReducer)
-  const loginMemberId = Number(loginUser.memberId)
+  const loginMemberId = useSelector(state => state.userReducer).memberId
 
   const dispatchComment = useRef();
   const newCommentId = useRef("");
@@ -70,7 +68,7 @@ function CommentList(props) {
         console.log("오류")
       }
     }
-  }, [USER_UPDATE_PROFILE, commentApiUrl, dispatch, inputComment, store])
+  }, [USER_UPDATE_PROFILE, commentApiUrl, dispatch, inputComment, store, loginMemberId])
 
   // 삭제 버튼 누를시 동작
   const deleteComment = useCallback( async (e) => {

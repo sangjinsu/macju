@@ -23,6 +23,10 @@
   color: black;
 }
 
+.fa-edit{
+  margin-right:5px;
+}
+
 .postdetail_section .row {
   -webkit-box-align: center;
       -ms-flex-align: center;

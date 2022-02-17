@@ -19,6 +19,7 @@ const RecommendBeer = (props) => { // 변수명 수정필요
     const RECOMMEND_BEER = process.env.REACT_APP_SERVER + `:8888/v1/recommend/${memberId}` // memberId 추후 수정
     
     const { data: recommendBeer} = await axiosInstance.get(RECOMMEND_BEER)
+    
     setBeer(recommendBeer.recommend)
   }
   

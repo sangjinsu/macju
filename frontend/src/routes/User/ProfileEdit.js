@@ -390,11 +390,11 @@ const ProfileEdit = () => {
       <form>
       <div className="">
         <div className="name-box ">
-          <TextField className="input_box" id="nickname" label="닉네임" defaultValue={editUserNickname} onKeyUp={editNickname} onChange={editNickname}/>
+          <TextField className="input_box" id="nickname" label="닉네임" value={editUserNickname} onKeyUp={editNickname} onChange={editNickname}/>
           <label className={labelNickname} htmlFor="nickname">{ labelNickname === "success" ? '사용 가능한 닉네임입니다.': '사용할 수 없는 닉네임입니다.'}</label>
         </div>
         <div className="content_box ">
-          <TextField className="input_box" id="outlined-basic" label="소개" variant="outlined" defaultValue={introduce} onKeyUp={editIntroduce} onChange={editIntroduce}/>
+          <TextField className="input_box" id="outlined-basic" label="소개" variant="outlined" value={introduce} onKeyUp={editIntroduce} onChange={editIntroduce}/>
         </div>
       </div>
       

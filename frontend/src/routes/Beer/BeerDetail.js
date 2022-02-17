@@ -26,7 +26,8 @@ function BeerDetail() {
   //temp
   const store = useStore((state)=> state)
   const userData = useSelector(state => state.userReducer)
-  const memberId = userData.memeberId
+  console.log(userData)
+  const memberId = Number(userData.memberId)
   console.log(memberId)   
   //react-redux
   const dispatch = useDispatch();  
@@ -87,19 +88,16 @@ function BeerDetail() {
 
       // 로그 보내기
       const hashTagArr = [beerdetail.beerType.en_main, ...beerdetail.aromaHashTags , ...beerdetail.flavorHashTags]
+
       // console.log(hashTagArr)
       const newdata = {
         id : memberId,
         tags : hashTagArr
       }
+      console.log(newdata)
       // console.log(newdata)
-
-      const headers = {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Accept': "application/json; charset=UTF-8"
-      }
-      axiosInstance.post(BEER_DETAIL_LOG_URL, newdata, {headers})    
-      .then()
+      axiosInstance.post(BEER_DETAIL_LOG_URL, newdata)    
+      // .then()
     }
     fetchData();
   }, [BEER_DETAIL_POST_URL, BEER_DETAIL_URL, RATED_BEER_URL, BEER_LIKE_URL, beerid, starrate])

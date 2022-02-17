@@ -79,6 +79,15 @@
   margin: 20px 0;
 }
 
+.reco_none{
+  font-family: 'Nanum Pen Script', cursive;
+  text-align: center;
+  margin: 20px 0;
+  color: black;
+  font-size: 30px;
+  text-decoration : none
+}
+
 .hot_post_hashtag{
   font-family: 'Nanum Pen Script', cursive;
   font-size: 20px;

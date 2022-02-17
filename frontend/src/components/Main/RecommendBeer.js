@@ -42,7 +42,7 @@ const RecommendBeer = (props) => {
             )
           }
         </Slider>
-        : <div className="main_none">맥주 취향을 모르겠나요?</div>
+        : <Link className="reco_none" align="center">취향 설정을 하러 가시겠나요?</Link>
         // <div style={{
         //   display: 'flex',
         //   justifyContent: 'center'

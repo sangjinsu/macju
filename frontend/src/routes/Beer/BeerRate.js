@@ -41,13 +41,26 @@ function BeerRate(props){
   }
 
   const addallFlavor = ((e)=> {
-    const texts = [...e.options]
-    .filter(option => option.selected)
-    .map(option => option.text);
+    console.log(e.options)
 
-    const values = [...e.options]
-    .filter(option => option.selected)
-    .map(option => option.value);
+    const values = [];
+    const texts = [];
+  
+  // options에서 selected 된 element 찾기
+  for(let i=0; i < e.options.length; i++) {
+    const option = e.options[i];
+    if(option.selected) {
+      values.push(option.value);
+      texts.push(option.text);
+    }
+  }
+    // const texts = [...e.options]
+    // .filter(option => option.selected)
+    // .map(option => option.text);
+
+    // const values = [...e.options]
+    // .filter(option => option.selected)
+    // .map(option => option.value);
 
     console.log(texts, values)
     

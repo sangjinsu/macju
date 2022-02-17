@@ -28,7 +28,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("select post from Post post join fetch post.member join fetch post.beer where post.is_deleted = false order by post.updatedAt desc ")
     List<Post> findAllWithDetails(Pageable pageable);
 
-    @Query("select post from Post post where post.member.memberId = :memberId order by post.updatedAt desc")
+    @Query("select post from Post post where post.member.memberId = :memberId and post.is_deleted = false order by post.updatedAt desc")
     List<Post> findByMemberId(@Param("memberId") Long memberId);
 
     @Query("select post from Post post where post.postId = :postId and post.is_deleted = false")

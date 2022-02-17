@@ -13,7 +13,7 @@ public interface MemberLikePostRepository extends JpaRepository<MemberLikePost, 
     List<MemberLikePost> findAllByMember(Member member);
 
     @Query(value = "select mlp.memberLikePostId " +
-            "from MemberLikePost mlp where mlp.member = :member and mlp.post = :post")
+            "from MemberLikePost mlp where mlp.member = :member and mlp.post = :post and mlp.post.is_deleted = false")
     Long findMemberLikePostIdByMemberAndPost(Member member, Post post);
 
 }

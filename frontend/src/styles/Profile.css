@@ -1,0 +1,33 @@
+.bg_color {
+  background-color: #fffaea;
+
+}
+
+.link_btn_all {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 45px 0;
+}
+
+.link_btn {
+  /* background-color: grey; */
+}
+.link_btn .profile_link {
+  text-decoration: none;
+  color: black;
+  padding: 7px 25px;
+  cursor: pointer;
+  border-radius: 25px;
+  /* font-family: 'Dancing Script', cursive; */
+}
+
+.link_btn li.active {
+  background-color: #222831;
+  color: #ffffff;
+}
+
+ .font {
+  font-family: 'Dancing Script', cursive;
+}

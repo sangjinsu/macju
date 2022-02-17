@@ -1,0 +1,153 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap");
+.postcreate {
+  font-family: "Open Sans", sans-serif;
+  color: #0c0c0c;
+  background-color: #fffaea;;
+  overflow-x: hidden;
+}
+
+.layout_padding_postcreate {
+  padding-top: 70px;
+  padding-bottom: 90px;
+}
+.postcreate_section {
+  /* position: relative; */
+  display: flex;
+  justify-content: center;
+}
+.postcreate_section h1,
+.postcreate_section h2 {
+  font-family: 'Dancing Script', cursive;
+}
+
+/* 뒤로가기버튼 */
+.backBtn_postcreate {
+  margin-bottom: 20px;
+}
+.backBtn_text {
+  color: black;
+  text-decoration: none;
+  border: none;
+  background-color: #fffaea;
+}
+
+
+/* Create Post 제목 */
+.heading_postcreate {
+  margin-bottom: 40px;
+
+}
+.heading_postcreate h2 {
+  margin-bottom: 0;
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* 사진 업로드 버튼 */
+.input_file_btn {
+  padding: 6px 15px;
+  background-color:#F9CF68;;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+}
+
+/* 포스트 업로드할 이미지 */
+.postcreate_section .image_container {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  overflow: auto;
+  position : relative;
+}
+.postcreate_section .image_container .postimage {
+  width: 50%;
+  height: 50%;
+  margin-left: 25%;
+}
+.postcreate_section .image_container .deleteImgBtn {
+  position: absolute;
+  right: 27%;
+  top: 4%;
+  border: none;
+  background-color: #ff5833c0;
+  color: white;
+  border-radius: 20px;
+  padding: 0 7px;
+}
+
+/* 입력창 */
+.input_postcreate {
+  margin: 0 auto;
+}
+.input_postcreate .postcreate_textarea {
+  resize: none;
+  width: 100%;
+  border: 1px solid #999;
+  outline: none;
+  color: #000000;
+  border-radius: 5px;
+  outline: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+
+
+
+/* 해시태그 */
+.hashtag_wrap_outer {
+  display: flex;
+}
+
+.hashtag_wrap_inner {
+  margin-top: 5px;
+  background: #ffedbfce;
+  border-radius: 56px;
+  padding: 8px 12px;
+  color: #eeb933;
+  display: inline-block;
+  font-weight: bold;
+  line-height: 20px;
+  margin-right: 5px;
+  cursor: pointer;
+  height: auto;
+}
+.addHashBtn {
+  width: 80px;
+  height: 2rem;
+  background-color: #ffbe33;
+  color: #ffffff;
+  text-transform: uppercase;
+  border-radius: 45px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  border: none;
+  font-size: 0.9rem;
+}
+
+.hashtag_input {
+  margin-bottom: 5px;
+}
+
+
+/* 작성완료버튼 */
+.postcreate_section .form_container .complete_btn {
+  margin-top: 15px;
+  text-transform: uppercase;
+  /* display: inline-block; */
+  padding: 7px 0;
+  background-color: #F9CF68;;
+  color: #ffffff;
+  border-radius: 45px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  border: none;
+}
+
+.postcreate_section .input_file_btn:hover,
+.postcreate_section .addHashBtn:hover,
+.postcreate_section .form_container .complete_btn:hover {
+  background-color: #ffdf90;
+}

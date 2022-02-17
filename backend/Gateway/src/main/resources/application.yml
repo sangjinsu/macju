@@ -1,0 +1,113 @@
+server:
+  port: 8888
+
+spring:
+  cloud:
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: http://localhost:3000, http://i6c107.p.ssafy.io:3000
+            allowedHeaders:
+              - x-requested-with
+              - authorization
+              - content-type
+              - credential
+              - X-AUTH-TOKEN
+              - X-CSRF-TOKEN
+              - AccessToken
+            allowedMethods:
+              - POST
+              - GET
+              - PUT
+              - OPTIONS
+              - DELETE
+      routes:
+        - id: member-validate-service
+          uri: http://i6c107.p.ssafy.io:8080
+          predicates:
+            - Path=/v1/member/validatenickname/**
+        - id: member-sign-service
+          uri: http://i6c107.p.ssafy.io:8080
+          predicates:
+            - Path=/v1/member/signup
+          filters:
+            - name: MemberFilter
+              args:
+                baseMessage: Spring Cloud Gateway GlobaFilter
+                preLogger: true
+                postLogger: true
+        - id: member-service
+          uri: http://i6c107.p.ssafy.io:8080
+          predicates:
+            - Path=/v1/member/{memberId},/v1/member/profile/{memberId},/v1/member/profile/color/{memberId},/v1/member/profile,/v1/member/{memberId}/like/beer,/v1/member/beer/{memberId}/like/{beerId},/v1/member/{memberId}/like/post,/v1/member/{memberId}/rates,/v1/member/post/{memberId}/like/{postId},/v1/member/{memberId}/follow/{followingMemberId},/v1/member/{memberId}/followings,/v1/member/{memberId}/followers
+          filters:
+            - name: AuthFilter
+              args:
+                baseMessage: Member Service
+                preLogger: true
+                postLogger: true
+        - id: beer-service
+          uri: http://i6c107.p.ssafy.io:8080
+          predicates:
+            - Path=/v1/beer/**
+          filters:
+            - name: AuthFilter
+              args:
+                baseMessage: Beer Service
+                preLogger: true
+                postLogger: true
+        - id: post-service
+          uri: http://i6c107.p.ssafy.io:8080
+          predicates:
+            - Path=/v1/post/**
+          filters:
+            - name: AuthFilter
+              args:
+                baseMessage: Post Service
+                preLogger: true
+                postLogger: true
+        - id: log-service
+          uri: http://i6c107.p.ssafy.io:8080
+          predicates:
+            - Path=/v1/log/**
+          filters:
+            - name: AuthFilter
+              args:
+                baseMessage: Log Service
+                preLogger: true
+                postLogger: true
+        - id: recommend-service
+          uri: http://i6c107.p.ssafy.io:8000
+          predicates:
+            - Path=/v1/recommend/{memberId}
+          filters:
+            - name: AuthFilter
+              args:
+                baseMessage: Recommend Service
+                preLogger: true
+                postLogger: true
+        - id: search-service
+          uri: http://i6c107.p.ssafy.io:8082
+          predicates:
+            - Path=/v1/search/**
+          filters:
+            - name: AuthFilter
+              args:
+                baseMessage: Search Service
+                preLogger: true
+                postLogger: true
+        - id: ranking-service
+          uri: http://i6c107.p.ssafy.io:8081
+          predicates:
+            - Path=/beer/**,/post/**
+          filters:
+            - name: AuthFilter
+              args:
+                baseMessage: Ranking Service
+                preLogger: true
+                postLogger: true
+        - id: auth-service
+          uri: http://i6c107.p.ssafy.io:8752
+          predicates:
+            - Path=/oauth/login/response

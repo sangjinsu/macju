@@ -1,0 +1,18 @@
+.login_heading {
+  font-family: 'Dancing Script', cursive;
+  margin-top: 80px;
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.loginBtn {
+  margin-top: 50px;
+  margin-bottom: 150px;
+}
+
+.login_section {
+  background-color: #fffaea;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

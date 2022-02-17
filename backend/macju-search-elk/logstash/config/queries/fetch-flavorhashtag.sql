@@ -1,0 +1,1 @@
+SELECT * FROM dbmaster.flavor_hash_tag

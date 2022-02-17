@@ -1,0 +1,109 @@
+/* 전체 */
+.user-profile {
+  background-color: #fffaea;
+  /* background-color: rgb(240, 240, 240); */
+  /* margin: 20px; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* 유저 프로필 사진 */
+.userprofile_container .user-profile .img-box {
+  width: 150px;
+  height: 150px;
+  margin: 40px 0;
+  /* margin-right: 10px; */
+  /* background-color: orange; */
+  /* border-color: black; */
+}
+
+
+.userprofile_container .user-profile .img-box .profile-image-box {
+  -webkit-transition: all .2s;
+  transition: all .2s;
+}
+
+
+.userprofile_container .user-profile .img-box:hover .profile-image-box {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+
+/* 유저아이콘 큰거 */
+.usericon {
+  width: 90%;
+  height: 90%;
+  margin-left: 5%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+/* 닉네임 */
+#nickname {
+  /* 폰트 적용할것 */
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  
+}
+
+/* 수정하기 아이콘 버튼 */
+.editBtn {
+  margin-left: 10px;
+  border: none;
+  color: black; 
+}
+
+/* 게시글 수 */
+.postnum {
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+/* follow 버튼 */
+.follow_all {
+  display: flex;
+}
+.follower, .following {
+  margin-right: 5px;
+  font-size: 12px;
+}
+#followbtn{
+  background-color: #f9d068c4;
+  border: none;
+  /* margin-left: 20%; */
+  margin-bottom: 10px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: smaller;
+}
+.followerBtn {
+  width: auto;
+  height: 20px;
+  font-size: 12px;
+  background-color: #f9d068c4;
+  border: none;
+  border-radius: 4px;
+}
+.followCtn {
+  padding: 0 8px 0 5px;
+  font-size: 15px;
+}
+
+#nickname div{
+  margin-right: 15px;
+}
+
+/* 한줄소개 */
+.user_intro {
+  margin: 15px 20px 0 0;
+}
+#profile-box{
+  margin: 50px 0;
+}
+/* 
+button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+} */

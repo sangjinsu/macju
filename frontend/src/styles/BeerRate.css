@@ -1,0 +1,74 @@
+/* 모달 */
+.ratemodal_section {
+  z-index: 1000;
+}
+
+.modal_heading {
+  text-align: center;
+  font-family: 'Dancing Script', cursive;
+  font-weight: bold;
+}
+
+.submitRateBtn {
+  font-size: smaller;
+  display: inline-block;
+  margin-left: 80%;
+  margin-top: 10px;
+  padding: 7px;
+  background-color: #e69c00;
+  color: #ffffff;
+  border-radius: 45px;
+  border: none;
+}
+.submitRateBtn:hover {
+  background-color: #e69c00;
+}
+.selecttag_box h4{
+  font-family: 'Dancing Script', cursive;
+  margin: 10px 0 5px;
+}
+.selecttag_box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.ratemodal_section .rate_select {
+  border: none;
+  height: 100px;
+  width: 120px;
+  margin: 0 10px;
+  padding-left: 5px;
+  border: 1px solid #999;
+  outline: none;
+  color: #000000;
+  border-radius: 5px;
+  outline: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.ratemodal_section .rate_select::-webkit-input-placeholder {
+  color: #222222;
+}
+
+.ratemodal_section .rate_select:-ms-input-placeholder {
+  color: #222222;
+}
+
+.ratemodal_section .rate_select::-ms-input-placeholder {
+  color: #222222;
+}
+
+.ratemodal_section .rate_select::placeholder {
+  color: #222222;
+}
+
+.flavortag_div, .aromatag_div {
+  display: inline-block;
+  
+}
+
+.flavor_wrap_inner, 
+.aroma_wrap_inner {
+  background-color: #fcf3da;
+}

@@ -1,0 +1,127 @@
+version: '3.2'
+
+services:
+  es01:
+    build:
+      context: elasticsearch/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    container_name: macju-search_es01
+    volumes:
+      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro,z
+      - data01:/usr/share/elasticsearch/data:z
+    ports:
+      - "9201:9200"
+      - "9301:9300"
+    environment:
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      # - "ELASTIC_PASSWORD=macju"
+      - node.name=es01
+      - cluster.name=es-search-cluster
+      - discovery.seed_hosts=es02,es03
+      - cluster.initial_master_nodes=es01,es02,es03
+      - bootstrap.memory_lock=true
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      - search_elk
+  
+  es02:
+    build:
+      context: elasticsearch/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    container_name: macju-search_es02
+    volumes:
+      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro,z
+      - data02:/usr/share/elasticsearch/data:z
+    environment:
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      #- "ELASTIC_PASSWORD=macju"
+      - node.name=es02
+      - cluster.name=es-search-cluster
+      - discovery.seed_hosts=es01,es03
+      - cluster.initial_master_nodes=es01,es02,es03
+      - bootstrap.memory_lock=true
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      - search_elk
+
+  es03:
+    build:
+      context: elasticsearch/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    container_name: macju-search_es03
+    volumes:
+      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro,z
+      - data03:/usr/share/elasticsearch/data:z
+    environment:
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      #- "ELASTIC_PASSWORD=macju"
+      - node.name=es03
+      - cluster.name=es-search-cluster
+      - discovery.seed_hosts=es01,es02
+      - cluster.initial_master_nodes=es01,es02,es03
+      - bootstrap.memory_lock=true
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      - search_elk
+
+  logstash:
+    build:
+      context: logstash/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    container_name: macju-search_logstash
+    volumes:
+      - ./logstash/pipeline/:/usr/share/logstash/pipeline/
+      - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
+      - ./logstash/config/pipelines.yml:/usr/share/logstash/config/pipelines.yml
+      - ./logstash/config/queries/:/usr/share/logstash/config/queries/
+    ports:
+      - "5045:5044"
+      - "5001:5000/tcp"
+      - "5001:5000/udp"
+      - "9601:9600"
+    environment:
+      LS_JAVA_OPTS: "-Xms512m -Xmx512m"
+    networks:
+      - search_elk
+    depends_on:
+      - es01
+
+  kibana:
+    build:
+      context: kibana/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    container_name: macju-search_kibana
+    volumes:
+      - ./kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml:ro,z
+    ports:
+      - "5602:5601"
+    networks:
+      - search_elk
+    depends_on:
+      - es03
+
+networks:
+  search_elk:
+    driver: bridge
+
+volumes:
+  data01:
+    driver: local
+  data02:
+    driver: local
+  data03:
+    driver: local

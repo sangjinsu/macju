@@ -1,0 +1,13 @@
+button > input {
+  width: 0;
+  height: 0;
+}
+
+button.active {
+  color: white;
+  background-color: darkblue;
+}
+button.inactive {
+  color: black;
+  background-color: #ffffff;
+}

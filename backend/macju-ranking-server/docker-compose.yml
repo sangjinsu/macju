@@ -1,0 +1,12 @@
+version: '3.2'
+services:
+  redis-server:
+    image: 'redis'
+    container_name: 'macju-ranking-redis'
+    ports:
+      - "6380:6379"
+  macju-ranking-server:
+    image: 'sangjs39/macju-ranking-server'
+    container_name: 'macju-ranking-server'
+    ports:
+      - "8081:8081"

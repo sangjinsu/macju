@@ -1,0 +1,228 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap");
+.PostDetail body {
+  font-family: "Open Sans", sans-serif;
+  color: #0c0c0c;
+  background-color: #fffaea;
+  /* background-color: #ffffff; */
+  overflow-x: hidden;
+}
+
+.layout_padding_postdetail {
+  padding-top: 50px ;
+  padding-bottom: 90px;
+}
+
+/* 제목 */
+.PostDetail h1,
+.PostDetail h2 {
+  font-family: 'Dancing Script', cursive;
+}
+
+.postdetail_section {
+  background-color: #fffaea;
+  color: black;
+}
+
+.fa-edit{
+  margin-right:5px;
+}
+
+.postdetail_section .row {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+/* 목록으로 버튼 */
+.postdetail_section .backBtn {
+  margin-bottom: 30px;
+}
+.postdetail_section .backBtn .btnText {
+  color: #000000;
+  text-decoration: none;
+}
+
+
+/* 포스트 이미지 */
+.postdetail_section .img-box {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  max-height: 300px;
+
+}
+
+.postdetail_section .detail-box{
+  /* width: auto; */
+  margin-top: 40px;
+}
+
+/* 이미지 크기 */
+img {
+  /* height: 300px; */
+  width: auto;
+}
+/* .postdetail_section .img-box img {
+  height: 200px;
+  max-width: 200px;
+  max-height: 200px;
+  position: relative;
+  z-index: 2;
+} */
+
+/* 포스트 좋아요,댓글, 맥주이름 */
+.postdetail_heading {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* 맥주이름 chip */
+.postdetail_section .maintype {
+  text-decoration: none;
+  color: #ae9048;
+  border-color:  #F9CF68;
+  border-width: 2px;
+  font-weight: bold;
+}
+.postdetail_section .maintype:hover {
+  cursor: pointer;
+}
+
+/* 좋아요 하트 */
+.postdetail_likecomment {
+  display: flex;
+}
+.postdetail_section .heartInline, 
+.postdetail_section .commentInline {
+  display: flex;
+  align-items: center;
+}
+.postdetail_section .commentInline {
+  padding-left: 20px;
+}
+.postdetail_section .heartInline .heartIcon {
+  margin-top: 7px;
+  color: red;
+}
+.heartIcon:hover {
+  cursor: pointer;
+}
+.postdetail_section .postdetail_likecomment .count{
+  padding-left: 8px;
+  font-size: 25px;
+}
+
+
+/* 해시태그 */
+.postdetail_hashtag {
+  margin: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.postdetail_hashtag .postTag {
+  padding-right: 8px;
+  font-size: 20px;
+  
+}
+
+/* 작성자, 작성날짜 */
+.postdetail_section .userdetail {
+  color: grey;
+  margin: 5px 0;
+}
+.postdetail_section .userdetail .date {
+  margin: 10px 0 0 0;
+  font-size: smaller;
+}
+.postdetail_section .post-trash{
+  border-color: #0c0c0c;
+  border-style: solid;
+  border-width: 3px;
+  display: inline;
+  padding: 1px
+}
+
+.postdetail_section .fa-edit{
+  color:#F9CF68
+}
+
+.postdetail_section .fa-trash{
+  color:red;
+}
+
+.postdetail_section .postdetail_spacebetween {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+
+/* 포스트 수정 input창 */
+.postdetail_section .postupdate_input {
+  resize: none;
+  width: 100%;
+  height: 100px;
+  border: 1px solid #999;
+  color: #000000;
+  border-radius: 5px;
+  margin: 10px 0;
+}
+
+.postdetail_section .postcreate_textarea {
+  resize: none;
+  width: 100%;
+  border: 1px solid #999;
+  outline: none;
+  color: #000000;
+  border-radius: 5px;
+  outline: none;
+}
+
+/* 해시태그 */
+.postdetail_section .hashtag_wrap_outer {
+  display: flex;
+}
+.postdetail_section .hashtag_wrap_inner {
+  margin-top: 5px;
+  background: #ffedbfce;
+  border-radius: 56px;
+  padding: 8px 12px;
+  color: #eeb933;
+  display: inline-block;
+  font-weight: bold;
+  line-height: 20px;
+  margin-right: 5px;
+  cursor: pointer;
+  height: auto;
+}
+.postdetail_section .addHashBtn {
+  width: 80px;
+  height: 2rem;
+  background-color: #F9CF68;
+  color: #ffffff;
+  text-transform: uppercase;
+  border-radius: 45px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  border: none;
+  font-size: 0.9rem;
+}
+
+.postdetail_section .post_sumbit_button {
+  margin-top: 15px;
+  padding: 7px 25px;
+  background-color: #F9CF68;
+  color: #ffffff;
+  border-radius: 45px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  border: none;
+  
+}
+

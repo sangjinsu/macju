@@ -1,0 +1,23 @@
+.memberbeerlike_container {
+  background-color: #fffaea;
+  padding: 0 0 40px;
+  font-family: "Open Sans", sans-serif;
+}
+
+/* .memberbeerlike_container .font {
+  font-family: 'Dancing Script', cursive;
+} */
+
+.likebeer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.likebeer_img {
+  height: 8rem;
+
+}
+#text{
+  font-family: 'Nanum Pen Script', cursive;
+  font-size: xx-large;
+}

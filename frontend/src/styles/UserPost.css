@@ -1,0 +1,151 @@
+.userpost_section.layout_padding_postlist {
+  padding: 10px 0 40px 0
+}
+
+/* 제목 */
+.userpost_section .noPost {
+  font-family: 'Nanum Pen Script', cursive;
+  font-size: x-large;
+  text-align: center;
+}
+.userpost_section .postlist_header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+.userpost_section .postlist_header h2 {
+  position: relative;
+  margin-bottom: 40px;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+.userpost_section .postlist_header.heading_center {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+}
+
+/* 정렬 방법 게시 */
+.postlist_order {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* fade in */
+@keyframes fadeIn {
+  from {
+     opacity: 0;
+  }
+  to {
+     opacity: 1;
+  }
+}
+.userpost_section .fadein {
+ opacity: 0;
+ animation: fadeIn ease-in 1;
+ animation-fill-mode: forwards;
+ animation-duration: 1s;
+}
+
+
+
+/* 포스트 카드 박스 */
+.userpost_section .postlist_box {
+  position: relative;
+  margin-top: 25px;
+  border-radius: 15px;
+  border-color: #F9CF68;
+  border-width: 2px;  
+  border-style: solid;
+  color: #ffffff;
+  border-radius: 15px;
+  color: black;
+  overflow: hidden;
+  background: linear-gradient(to bottom, #ffffff 25px);
+  line-height: 1.25em;
+
+}
+
+/* 포스트 이미지 */
+.userpost_section .postlist_box .img-box {
+  background: #ffe6a6;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 215px;
+  margin: -1px;
+}
+.userpost_section .postlist_box .img-box img {
+  /* max-width: 100%;
+  max-height: 145px; */
+  -webkit-transition: all .2s;
+  transition: all .2s;
+}
+.userpost_section .box:hover .img-box img {
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+}
+
+/* 포스트 카드 내용 */
+.userpost_section .postlist_box .postdetail-box {
+  padding: 15px;
+  padding-bottom: 10px;
+}
+.userpost_section .postlist_box .postdetail-box h5 {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.userpost_section .postlist_box .postdetail-box h6 {
+  margin-top: 10px;
+}
+
+/* 포스트 내용 + 자세히버튼 한줄 */
+.userpost_section .postdetail-box .postdetail-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 3px;
+}
+
+/* 자세히 버튼 */
+.userpost_section .postdetail-title .detailBtn {
+  font-size: 5px;
+  padding: 2px;
+  background-color: #F9CF68;;
+  color: white;
+  border-radius: 10px;
+  text-decoration: none;
+}
+
+/* 포스트 작성 정보 */
+.userpost_section .post-meta{
+  margin-right: 20px;
+  opacity: 0.6;
+  color:grey;
+  font-size: 0.75rem;
+}
+
+/* 포스트 좋아요수 */
+.userpost_section .fontaws{
+  float:right
+}
+
+#text{
+  font-family: 'Nanum Pen Script', cursive;
+  font-size: xx-large;
+}

@@ -1,0 +1,103 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap");
+.Signup {
+  background-color: #fffaea;
+}
+.Signup body {
+  font-family: "Open Sans", sans-serif;
+  color: #0c0c0c;
+  background-color: #fffaea;
+  overflow-x: hidden;
+}
+
+.layout_padding_signup {
+  padding: 90px 0;
+}
+
+
+/* Signup 제목 */
+.signup_section .signup_heading_container {
+  margin-bottom: 40px;
+}
+.Signup .signup_heading {
+  /* font-family: 'Oswald ', cursive; */
+  font-family: 'Dancing Script', cursive;
+  margin-bottom: 0;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  /* text-align: center; */
+}
+
+
+/* 입력창 */
+.signup_section .form_container .form-control {
+  width: 100%;
+  border: none;
+  height: 50px;
+  margin-bottom: 25px;
+  padding-left: 25px;
+  border: 1px solid #999;
+  outline: none;
+  color: #000000;
+  border-radius: 5px;
+  outline: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+.signup_section .form_container .form-control::-webkit-input-placeholder {
+  color: #222222;
+}
+.signup_section .form_container .form-control:-ms-input-placeholder {
+  color: #222222;
+}
+.signup_section .form_container .form-control::-ms-input-placeholder {
+  color: #222222;
+}
+.signup_section .form_container .form-control::placeholder {
+  color: #222222;
+}
+.signup_section .form_container .nice-select .current {
+  font-size: 16px;
+}
+
+.text_center {
+  text-align: center;
+}
+
+
+/* 완료 버튼 */
+.signup_section .btn_box {
+  text-align: right;
+}
+.signup_section .form_container button {
+  margin-top: 15px;
+  border: none;
+  text-transform: uppercase;
+  display: inline-block;
+  padding: 10px 55px;
+  background-color: #F9CF68;
+  color: #ffffff;
+  border-radius: 45px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.signup_section .form_container button:hover {
+  background-color: #F9CF68;
+}
+
+
+/* 이미지? */
+.signup_section .map_container {
+  width: 100%;
+  height: 345px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.signup_section .map_container #signupImg {
+  height: 100%;
+}
+
+.map_container {
+  text-align: center;
+}

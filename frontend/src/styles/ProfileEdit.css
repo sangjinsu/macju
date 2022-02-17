@@ -1,0 +1,67 @@
+.edit-box {
+  background-color: #fffaea;;
+  border: 1px solid #dbdbdb;
+  border: 1px solid rgba(var(--b6a,219,219,219),1);
+  border-radius: 3px;
+  /* margin: 60px auto 0; */
+  max-width: 935px;
+  width: 100%;
+  padding: 80px 20px 20px 20px;
+  font-family: 'Secular One', sans-serif;
+}
+.edit-box Link{
+  font-weight: 100;
+  /* 수정 필요 */
+}
+
+
+/* 닉네임 박스 */
+.nickname, .content {
+  text-align: center;
+  font-size: 15px;
+}
+.name-box {
+  margin: 10px 0;
+}
+.name-box #nickname {
+  /* border-color: gray; */
+  margin-bottom: 0;
+}
+.input_box {
+  width: 80%;
+}
+.success {
+  color: blue;
+}
+.fail {
+  color:tomato
+}
+
+/* 한줄소개 박스 */
+.input_box {
+  /* margin: 10px 0; */
+  /* height: 40px; */
+}
+
+/* 취향생성 박스 */
+.intro-box {
+  /* margin-left: 10px; */
+  margin-top: 10px;
+}
+.intro-box textarea {
+  margin-left: 100px;
+}
+
+/* 완료 버튼 */
+.profile-btn {
+  padding: 7px 20px;
+  cursor: pointer;
+  border-radius: 25px;
+  font-family: 'Secular One', sans-serif;
+  background-color: #F9CF68;
+  color: #ffffff; 
+}
+#btn-box {
+  display: flex;
+  justify-content: right;
+}

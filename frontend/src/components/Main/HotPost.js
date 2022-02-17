@@ -24,7 +24,6 @@ const HotPost = (props) => {
       setSlideNum(rankingPost.length)
     }catch(err){
       setSlideNum(false)
-      console.log(err)
     }
   }
 

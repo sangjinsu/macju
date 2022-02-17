@@ -192,7 +192,9 @@ function SearchBar(){
       history.replace({pathname:`/search/${searchInput}`, searchInput:searchInput, searchAll:searchAll})
     }
   }
-
+  const removeSearch = () =>{
+    setSearchresult([])
+  }
   
 
   return(
@@ -228,7 +230,7 @@ function SearchBar(){
                       className='searchbar_results'
                       style={{ textDecoration: 'none' }}
               > 
-                <ListGroup.Item>{type}({results[type].beers.length}개)</ListGroup.Item>
+                <ListGroup.Item onClick={removeSearch}>{type}({results[type].beers.length}개)</ListGroup.Item>
               </Link>
             )})
           }
@@ -242,7 +244,7 @@ function SearchBar(){
         if (searchResult[0].value.data.length !== 0)
           return searchResult[0].value.data.map((result, i) =>
             <Link to={{pathname: `/beer/${result.beer_id}`}} key={i} style={{ textDecoration: 'none' }} className='searchbar_results'>
-              <ListGroup.Item > {result.beer_name}</ListGroup.Item> 
+              <ListGroup.Item onClick={removeSearch}> {result.beer_name}</ListGroup.Item> 
             </Link>
         )       
       })()
@@ -260,7 +262,7 @@ function SearchBar(){
               style={{ textDecoration: 'none' }}
               key={i}
         >
-        <ListGroup.Item> {result.beer_name}</ListGroup.Item></Link> 
+        <ListGroup.Item onClick={removeSearch}> {result.beer_name}</ListGroup.Item></Link> 
         )       
       })()
     }
@@ -276,7 +278,7 @@ function SearchBar(){
                       className='searchbar_results'
                       style={{ textDecoration: 'none' }}
            >
-          <ListGroup.Item >{Object.keys(searchResult[2].value.data)[0]}({searchResult[2].value.data[Object.keys(searchResult[2].value.data)[0]].beers.length}개)</ListGroup.Item>
+          <ListGroup.Item onClick={removeSearch}>{Object.keys(searchResult[2].value.data)[0]}({searchResult[2].value.data[Object.keys(searchResult[2].value.data)[0]].beers.length}개)</ListGroup.Item>
           </Link>
         )
       })()
@@ -294,7 +296,25 @@ function SearchBar(){
                       className='searchbar_results'
                       style={{ textDecoration: 'none' }}
            >
-          <ListGroup.Item >{Object.keys(searchResult[3].value.data)[0]}({searchResult[3].value.data[Object.keys(searchResult[3].value.data)[0]].beers.length}개)</ListGroup.Item>
+          <ListGroup.Item onClick={removeSearch}>{Object.keys(searchResult[3].value.data)[0]}({searchResult[3].value.data[Object.keys(searchResult[3].value.data)[0]].beers.length}개)</ListGroup.Item>
+          </Link>
+        )
+      })()
+    }
+    {
+      (()=>{
+
+        if (searchResult.length === 0) return null
+        if (searchResult[5].status !== "fulfilled") return null        
+        if (!_.isEmpty(searchResult[5].value.data)) return (
+          <Link to= {{pathname: `/search/${Object.keys(searchResult[5].value.data)}`,
+                  Userstate: [searchResult[5].value.data[Object.keys(searchResult[5].value.data)[0]].posts, Object.keys(searchResult[5].value.data)[0]]
+                  }}           
+                      className='searchbar_results'
+                      style={{ textDecoration: 'none' }}
+           >
+             
+          <ListGroup.Item onClick={removeSearch}>{Object.keys(searchResult[5].value.data)[0]}({searchResult[5].value.data[Object.keys(searchResult[5].value.data)[0]].posts.length})</ListGroup.Item>
           </Link>
         )
       })()

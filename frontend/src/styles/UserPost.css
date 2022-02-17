@@ -3,10 +3,6 @@
 }
 
 /* 제목 */
-/* .userpost_section h1,
-.userpost_section h2 {
-  font-family: 'Oswald', sans-serif;
-} */
 .userpost_section .noPost {
   font-family: 'Nanum Pen Script', cursive;
   font-size: x-large;
@@ -75,11 +71,12 @@
   overflow: hidden;
   background: linear-gradient(to bottom, #ffffff 25px);
   line-height: 1.25em;
+
 }
 
 /* 포스트 이미지 */
 .userpost_section .postlist_box .img-box {
-  background: #f1f2f3;
+  background: #ffe6a6;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -112,10 +109,7 @@
   font-weight: 600;
   font-size: 15px;
 }
-.userpost_section .postlist_box .postdetail-box p {
-  font-size: 14px;
-  color: black;
-}
+
 .userpost_section .postlist_box .postdetail-box h6 {
   margin-top: 10px;
 }
@@ -140,10 +134,10 @@
 
 /* 포스트 작성 정보 */
 .userpost_section .post-meta{
-  margin-right: 15px;
+  margin-right: 20px;
   opacity: 0.6;
   color:grey;
-  font-size: 0.85em;
+  font-size: 0.75rem;
 }
 
 /* 포스트 좋아요수 */

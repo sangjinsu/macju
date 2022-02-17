@@ -236,14 +236,14 @@ const ProfileEdit = () => {
     const userAromaData = []
     userAroma.map(async (data, i) =>{
       if (data === true){
-        await userAromaData.push(i)
+        await userAromaData.push(i + 1)
       }
       return
     })
     const userFlavorData = []
     userFlavor.map(async (data, i) =>{
       if (data === true){
-        await userFlavorData.push(i)
+        await userFlavorData.push(i + 1)
       }
       return
     })

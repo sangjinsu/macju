@@ -108,6 +108,6 @@ spring:
                 preLogger: true
                 postLogger: true
         - id: auth-service
-          uri: http://ic6107.p.ssafy.io:8752
+          uri: http://i6c107.p.ssafy.io:8752
           predicates:
             - Path=/oauth/login/response

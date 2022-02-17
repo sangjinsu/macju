@@ -85,7 +85,7 @@ const ProfileEdit = () => {
   }
   useEffect(()=>{
     fetchData();
-  }, [user])
+  }, [])
 
 
   useEffect(()=>{
@@ -98,7 +98,7 @@ const ProfileEdit = () => {
 			alert('권한이 없습니다.')
 			history.push('/home')
 		}
-	}, [history, store, userId])
+	}, [])
 
   useEffect(()=>{
     if (labelNickname === "fail"){
@@ -143,10 +143,12 @@ const ProfileEdit = () => {
           <div style={{backgroundColor:'#f9d06880', borderStyle:"solid", borderColor:"#F9CF68", borderRadius:'15px'}}>
             
             <div className="container">
-              
-            {flavors.length !== 0 ? flavors.map((flavor, i)=>
+              {console.log(flavors.length)}
+              {console.log(aromas)}
+              {console.log(flavors)}
+            {/* {flavors.length !== 0 ? flavors.map((flavor, i)=>
               <FormControlLabel key={i} control={<Checkbox checked={flavor} onChange={handleChange(i + 1)} />} label={flavorName[i]} /> 
-            ):null}
+            ):null} */}
 
             </div>
           </div>
@@ -154,9 +156,9 @@ const ProfileEdit = () => {
           <h3>Select Choices[Aroma]</h3>
           <div style={{backgroundColor:'#f9d06880', borderStyle:"solid", borderColor:"#F9CF68", borderRadius:'15px'}}>
           <div className="container">
-          {aromas.length !== 0 ? aromas.map((aroma, i)=>
+          {/* {aromas.length !== 0 ? aromas.map((aroma, i)=>
               <FormControlLabel key={i} control={<Checkbox checked={aroma} onChange={handleChange(i + 13)} />} label={aromaName[i]} /> 
-            ):null}
+            ):null} */}
           </div>  
           </div>
 

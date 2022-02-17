@@ -2,12 +2,16 @@ import axios from 'axios';
 import React, { useEffect, useState, useCallback } from 'react'
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { useCookies } from "react-cookie"
 import '../../styles/Signup.css'
 
 function Signup(props) {
   const VALIDATE_NICKNAME_URL = process.env.REACT_APP_SERVER + ':8888/v1/member/validatenickname'
   const USER_SIGNUP_URL = process.env.REACT_APP_SERVER + ":8888/v1/member/signup"
   const userData = props.location.userData
+
+  const setCookie = useCookies(["AccessToken"])[1]
+  const date = new Date(Date.now() + (60 * 60 * 60 * 60))
   
   const dispatch = useDispatch()
   const history = useHistory()
@@ -55,7 +59,7 @@ function Signup(props) {
  
       const {data : singupResponse} = await axios.post(USER_SIGNUP_URL, singupData, headers)
       
-      window.localStorage.setItem("AccessToken", userData.AccessToken)
+      setCookie("AccessToken", userData.AccessToken, {path: "/", expire:date.toUTCString()})
 
       userData.memberId = singupResponse.memberId
       dispatch({type:"loginSuccess", userData:userData})

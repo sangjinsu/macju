@@ -13,27 +13,38 @@ const RecommendBeer = (props) => {
   const userData = useSelector(state => state.userReducer)
   const memberId = Number(userData.memberId)
 
-  const getRecommend = async () => {
-    const RECOMMEND_BEER = process.env.REACT_APP_SERVER + `:8888/v1/recommend/${memberId}`  
-    const { data: recommendBeer} = await axiosInstance.get(RECOMMEND_BEER)
-    setBeer(recommendBeer.recommend)
-  }
+  const getRecommend = useCallback( async () => {
+    try{
+      const RECOMMEND_BEER = process.env.REACT_APP_SERVER + `:8888/v1/recommend/${memberId}`  
+      const { data: recommendBeer} = await axiosInstance.get(RECOMMEND_BEER)
+      setBeer(recommendBeer.recommend)
+    }catch{
+      setBeer(false)
+    }
+  }, [memberId])
+
   useEffect( () => {
     getRecommend()
-  }, [])
+  }, [getRecommend])
+  
   return(
     <div className="SlickTest">
       <h3 className="recommendtitle pt-5" align="center">Recommend Beer</h3>
-      <Slider {...settings}>
-        {
-          beerList&&beerList.map((beerid, i) => 
-            <CustomSlide beerid={beerid} key={i} />
-          )
-        }
-      </Slider>
+      {beerList 
+        ?
+        <Slider {...settings}>
+          {
+            beerList&&beerList.map((beerid, i) => 
+              <CustomSlide beerid={beerid} key={i} />
+            )
+          }
+        </Slider>
+        : <div className="main_none">맥주 취향을 모르겠어요??</div>
+      }
     </div>
   )
 }
+
 function CustomSlide(props) {
   const BEER_DETAIL_URL = process.env.REACT_APP_SERVER + ':8888/v1/beer'
   const [imgSrc, setImgSrc] = useState()

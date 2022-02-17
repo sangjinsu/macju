@@ -11,26 +11,36 @@ const BestBeer = (props) => {
   settings.fade = true
   settings.slidesToShow = 1
 
-  useEffect( () => {
-    const PopBeer = async () => {
+  const PopBeer = async () => {
+    try{
       const RANKING_POPBEER = process.env.REACT_APP_SERVER + ':8888/beer/popbeer'
       const { data : rankingBeer } = await axiosInstance.get(RANKING_POPBEER)
       const rankingBeerId = rankingBeer.map( (beer) => beer.beerId )
       setRanking(rankingBeerId)
+    }catch{
+      setRanking(false)
     }
+  }
+  useEffect( () => {
     PopBeer()
   }, [])
 
   return(
     <div className="SlickTest">
       <h3 className="bestbeer pt-5" align="center">Best Beer</h3>
-      <Slider {...settings}>
-        {
-          rankingBeerList&&rankingBeerList.map((beerid, i) => 
-            <CustomSlide beerid={beerid} key={i} />
-          )
-        }
-      </Slider>
+      {
+        rankingBeerList
+        ?
+        <Slider {...settings}>
+          {
+            rankingBeerList&&rankingBeerList.map((beerid, i) => 
+              <CustomSlide beerid={beerid} key={i} />
+            )
+          }
+        </Slider>
+        :
+        <div className="main_none">맥주에게 관심을 주세요!!</div>
+      }
     </div>
   )
 }
@@ -41,13 +51,11 @@ function CustomSlide(props) {
   const BEER_DETAIL_URL = process.env.REACT_APP_SERVER + ':8888/v1/beer'
   const [imgSrc, setImgSrc] = useState()
   const [beerName, setName] = useState()
-  const [beerContent, setBeerContent] = useState()
   useEffect( () => {
     const fetchData = async ()=>{
       const { data : beerDetail } = await axiosInstance.get(`${BEER_DETAIL_URL}/${props.beerid}`)
       setImgSrc(beerDetail.photoPath)
       setName(beerDetail.name)
-      setBeerContent(beerDetail.content)
     }
     fetchData();
   }, [BEER_DETAIL_URL, props.beerid])

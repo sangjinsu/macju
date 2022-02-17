@@ -6,31 +6,15 @@ import {useStore} from "react-redux"
 import axiosInstance from "CustomAxios.js";
 
 function BeerRate(props){
-  //url
-  const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8888/v1/member/profile'
   const BEER_RATE_URL = process.env.REACT_APP_SERVER + ':8888/v1/beer'
-
-
-  //useState
-  // 맛 해시태그 
-  const [flavorArr, setFlavorArr] = useState([])      //보여주기용
-  const [flavorIdArr, setFlavorIdArr] = useState([])  //데이터전송용 아이디배열
-  const [aromaArr, setAromaArr] = useState([])      //보여주기용
-  const [aromaIdArr, setAromaIdArr] = useState([])  //데이터전송용 아이디배열
-
-
-  //react-redux
+  const [flavorArr, setFlavorArr] = useState([])     
+  const [flavorIdArr, setFlavorIdArr] = useState([]) 
+  const [aromaArr, setAromaArr] = useState([])      
+  const [aromaIdArr, setAromaIdArr] = useState([])  
   const store = useStore((state)=>state)
   const memberId = store.getState().userReducer.memberId 
-
-  //temp
-  // const memberId = memberId    // test용 멤버 아이디
-
-  //props
   const starrate = props.starrate
   const beerid = props.beerid
-
-
   const modal_style = {
     overlay: {
       position: 'fixed',
@@ -68,9 +52,6 @@ function BeerRate(props){
     const nowtag = e.target.outerText.substring(1)
     setFlavorArr(flavorArr.filter((flavor) => flavor !== nowtag ))
   }
-
-  // 향 해시태그 
-
   const addAroma = ((e)=>{
     const nowtag = e.target.innerText.substring(1)
     const nowid = e.target.value
@@ -81,17 +62,12 @@ function BeerRate(props){
   })
   const deleteAroma = (e) => {
     const nowtag = e.target.outerText.substring(1)
-    console.log(nowtag)
     setAromaArr(aromaArr.filter((aroma) => aroma !== nowtag ))
   }
-
-  // 평가완료했을때 starrate 수정
   const updateRate = async ()=>{
     const {data:ratedata} = await axiosInstance.get(`${BEER_RATE_URL}/${beerid}/member/${memberId}`)
     props.setStarrate(ratedata.rate)
   }
-
-  /////// 평가완료 = post 보내기
   const submitRate = ()=> {
     const newrate = {
       aromaHashTags : aromaIdArr,
@@ -109,20 +85,6 @@ function BeerRate(props){
         updateRate()
         props.setIsRated(true)
         
-      })
-      .then((res)=>{
-        console.log(res)
-        //아래는 등급 기능임.
-      //   const profiledata = store.getState().profileReducer
-      //   profiledata['grade'] = profiledata['grade'] + 5
-      //   axiosInstance.put(USER_UPDATE_PROFILE, profiledata)
-      // .then((res)=>{
-      //   axiosInstance.get(`${USER_UPDATE_PROFILE}/1`)
-      // .then((res)=>{
-      //   //redirect 시켜줘야함.
-      //   console.log('점수 올리기 성공')
-      // })
-      // })
       })
     } else {
       alert('평가를 완료해주세요!')
@@ -165,7 +127,6 @@ function BeerRate(props){
             }) }
           </div>
         </div>   
-        {/* 향 해시태그 선택 */}
         <div className="selecttag_box col-6"> 
           <h4>Aroma</h4>
           <div></div>
@@ -212,7 +173,6 @@ function BeerRate(props){
           </div>
         </div>
       </div>
-      {/* 평가완료버튼 */}
       <button className="submitRateBtn" onClick={submitRate}>완료</button>
     </div>
   </Modal>

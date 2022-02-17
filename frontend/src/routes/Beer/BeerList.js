@@ -11,26 +11,14 @@ import axiosInstance from "CustomAxios";
 
 
 function BeerList(){
-
   const BEER_LIST_URL = process.env.REACT_APP_SERVER + ':8888/v1/beer'
-  
-
-
-
   const [beerdata, setbeerdata] = useState([])
   const [tempdata, setTempdata] = useState([])
   const [nowbeerArr, setnowbeerArr] = useState([])
   const [categoryBeer, setCategoryBeer] = useState([])
-
-
-
   const [isActive, setIsActive] = useState('all')  
-
-
   const store = useStore((state)=>state)
   const dispatch = useDispatch();
-
-
   const headers = {
     headers: {
       "AccessToken":window.localStorage.getItem("AccessToken"),
@@ -144,12 +132,6 @@ function BeerList(){
                             <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
                           </div>
                         </div>
-                        <div className='beer_content'>
-                          {/* {beer.content.length > 15 } */}
-                        </div>
-                        {/* <div className='beer_volume'>
-                          ALC : {beer.volume}%
-                        </div> */}
                         <div className='beer_hashtag_all'>
                           { beer.aromaHashTags.length > 2 
                             ? beer.aromaHashTags.slice(0,2).map((aroma,a) => 
@@ -171,7 +153,6 @@ function BeerList(){
                           }
                         </div>
                         <div className="options">
-                          {/* <Chip label={beer.beerType.en_main} /> */}
                             <div className='beerCategory'>
                               {beer.beerType.en_main}
                             </div>

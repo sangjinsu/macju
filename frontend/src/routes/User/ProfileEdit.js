@@ -1,15 +1,11 @@
-import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
-import { Button } from "react-bootstrap";
 import { useStore } from "react-redux";
-import { Link, Redirect, Route, useHistory, useLocation, useParams } from "react-router-dom";
+import {  useHistory, useLocation } from "react-router-dom";
 import "../../styles/ProfileEdit.css"
 import axiosInstance from "CustomAxios";
-import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox"
-import { borderColor, flexbox, fontFamily } from "@mui/system";
 import TextField  from "@mui/material/TextField"
 
 const ProfileEdit = () => {
@@ -23,7 +19,7 @@ const ProfileEdit = () => {
   const user = store.getState().userReducer
   const history = useHistory();
   const location = useLocation();
-  const userId = location.state   // id 배열 형식
+  const userId = location.state  
 
 
 
@@ -267,7 +263,6 @@ const [userFlavor, setUserFlavor] = useState([checked1, checked2, checked3, chec
   const nickNameCheck = async () =>{
     if (!(editUserNickname === '')){
       const data = await axiosInstance.get(`${USER_NICKNAME_CHECK}/${editUserNickname}`)
-      //차후 동일 닉네임 요청 전처리 필요
       setLabelNickname(data.data)
      
   }
@@ -334,18 +329,12 @@ const [userFlavor, setUserFlavor] = useState([checked1, checked2, checked3, chec
       <h1>{editUserNickname}'s Profile</h1>
       <br></br>
       <form>
-      {/* <h3>User 정보</h3> */}
       <div className="">
-        {/* 닉네임 수정 */}
         <div className="name-box ">
-          {/* <h5 className="col-2 nickname">닉네임</h5> */}
-          {/* <input id="nickname" defaultValue={editUserNickname} onKeyUp={editNickname} onChange={editNickname}/> */}
           <TextField className="input_box" id="nickname" label="닉네임" defaultValue={editUserNickname} onKeyUp={editNickname} onChange={editNickname}/>
           <label className={labelNickname} htmlFor="nickname">{ labelNickname === "success" ? '사용 가능한 닉네임입니다.': '사용할 수 없는 닉네임입니다.'}</label>
         </div>
-        {/* 한줄소개 수정 */}
         <div className="content_box ">
-          {/* <h5 className="content">소개</h5> */}
           <TextField className="input_box" id="outlined-basic" label="소개" variant="outlined" defaultValue={introduce} onKeyUp={editIntroduce} onChange={editIntroduce}/>
         </div>
       </div>
@@ -373,7 +362,6 @@ const [userFlavor, setUserFlavor] = useState([checked1, checked2, checked3, chec
             <FormControlLabel control={<Checkbox checked={checked13} onChange={handleChange13} />} label="청량한맛" />
             </div>
           </div>
-          {/* <hr></hr> */}
           <br/>
           <h3>Select Choices[Aroma]</h3>
           <div style={{backgroundColor:'#f9d06880', borderStyle:"solid", borderColor:"#F9CF68", borderRadius:'15px'}}>

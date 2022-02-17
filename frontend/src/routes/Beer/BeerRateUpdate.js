@@ -6,24 +6,13 @@ import axiosInstance from "CustomAxios.js";
 import { useStore } from "react-redux";
 
 function BeerRate(props){
-  //url
   const BEER_RATE_URL = process.env.REACT_APP_SERVER + ':8888/v1/beer'
-
-
-
-  //useState
-  // 맛 해시태그 
-  const [flavorArr, setFlavorArr] = useState([])      //보여주기용
-  const [flavorIdArr, setFlavorIdArr] = useState([])  //데이터전송용 아이디배열
-  // 향 해시태그 
-  const [aromaArr, setAromaArr] = useState([])      //보여주기용
-  const [aromaIdArr, setAromaIdArr] = useState([])  //데이터전송용 아이디배열
-  //temp
-  // const memberId = 3    // test용 멤버 아이디
+  const [flavorArr, setFlavorArr] = useState([])     
+  const [flavorIdArr, setFlavorIdArr] = useState([])  
+  const [aromaArr, setAromaArr] = useState([])      
+  const [aromaIdArr, setAromaIdArr] = useState([])  
   const store = useStore((state)=>state)
   const memberId = store.getState().userReducer.memberId 
-
-  //props
   const starrate = props.starrate
   const beerid = props.beerid
 
@@ -52,7 +41,6 @@ function BeerRate(props){
       WebkitOverflowScrolling: 'touch',
       borderRadius: '4px',
       outline: 'none',
-      // padding: '20px'
     }
   }
 
@@ -82,14 +70,10 @@ function BeerRate(props){
     const nowtag = e.target.outerText.substring(1)
     setAromaArr(aromaArr.filter((aroma) => aroma !== nowtag ))
   }
-
-  // 평가수정했을때 starrate 수정
   const updateRate = async ()=>{
     const {data:ratedata} = await axiosInstance.get(`${BEER_RATE_URL}/${beerid}/member/${memberId}`)
     props.setStarrate(ratedata.rate)
   }
-
-  /////// 평가수정 = put 보내기
   const submitRate = ()=> {
     const newrate = {
       aromaHashTags : aromaIdArr,
@@ -110,8 +94,6 @@ function BeerRate(props){
       alert('평가를 완료해주세요!')
     }
   }
-
-  // 평가했던 값들 불러오기
 
   useEffect(()=>{
     const fetchData = async ()=>{
@@ -143,8 +125,6 @@ function BeerRate(props){
       <h4 className="modal_heading">Beer Rate</h4>
       <StarRate setStarrate={props.setStarrate} starrate={props.starrate}></StarRate>
       <div className="row"> 
-
-        {/* 맛 해시태그 선택 */}
         <div className="selecttag_box col-6"> 
           <h4>Flavor</h4>
           <select className="rate_select"  multiple>
@@ -173,9 +153,6 @@ function BeerRate(props){
             }) }
           </div>
         </div>
-      
-
-        {/* 향 해시태그 선택 */}
         <div className="selecttag_box col-6"> 
           <h4>Aroma</h4>
           <div></div>
@@ -222,8 +199,6 @@ function BeerRate(props){
           </div>
         </div>
       </div>
-
-      {/* 평가완료버튼 */}
       <button className="submitRateBtn" onClick={submitRate}>완료</button>
     </div>
   </Modal>

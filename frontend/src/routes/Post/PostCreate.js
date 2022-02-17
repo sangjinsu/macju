@@ -14,25 +14,17 @@ import axiosInstance from "CustomAxios";
 function PostCreate(props) {
   const POST_CREATE_URL = process.env.REACT_APP_SERVER + ':8888/v1/post'
   const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8888/v1/member/profile'
-
   const userData = useSelector(state => state.userReducer)
   const memberid = userData.memberId
-  const beerid = props.location.state.beerid    // 작성하고있는 포스트의 맥주아이디
-
-  const storage = getStorage(); //firebase
-  
+  const beerid = props.location.state.beerid    
+  const storage = getStorage(); 
   const history = useHistory();
-  // DB upload
   const [browserImages, setBrowserImages] =useState([]);
   const [firebaseImages, setFirebaseImages] = useState([]) 
   const [content, setContent] = useState("");
-  // hash(post)
   const [hashtagArr, setHashtagArr] = useState([]);
   const [hashtag, setHashtag] = useState("");
   const store = useStore((state)=>state);
-
-
-  //carousel setting
   const carouselSettings = {
     dots: true,
     infinite: true,
@@ -41,8 +33,6 @@ function PostCreate(props) {
     slidesToScroll: 1,
     adaptiveHeight: true,
   };
-  
-  // 사진 선택 버튼 click, 사진 업로드는 5개
   const uploadBtn = useCallback( async (e) => {
     try{
       if (browserImages.length === 0){
@@ -50,17 +40,14 @@ function PostCreate(props) {
         spinner.removeAttribute('hidden')
       }
       e.preventDefault()
-      const files = e.target.files  // 현재 선택한 사진들
+      const files = e.target.files  
       const fileList = [...browserImages]
-
       const options = {
         maxSizeMB: 2,
         maxWidthOrHeight: 400
       }
-
       const nowFileNames = Object.values(files).map( (nowFile) => nowFile.name )
       const preFileNames = Object.values(files).map( (preFile) => preFile.name)
-
       for (let i = 0; i < files.length; i++){
         if (!(nowFileNames in preFileNames) ){      
           const compressedFile = await imageCompression(files[i], options)
@@ -73,7 +60,6 @@ function PostCreate(props) {
           fileList.push(compressedFile)
           const storageRef = ref(storage, newName)
           const res = await uploadBytes(storageRef, compressedFile)
-          console.log(res)
           setFirebaseImages((prev)=>[...prev, res])
         }
       }
@@ -82,26 +68,17 @@ function PostCreate(props) {
       console.log(error)
     }
   }, [browserImages, storage])
-
-  // 사진 삭제 버튼 click
   const deleteImg = useCallback ((e) => { 
     e.preventDefault()
     const deletedArray = [...browserImages]
     const index = e.target.attributes.idx.value
-
-    // setBrowserImages(deletedArray)
-    // 
     for (let i = 0; i < deletedArray.length; i++) {
       if (parseInt(index) === browserImages[i].index) {
         deletedArray.splice(i, 1)
         for (let j = 0; j <firebaseImages.length; j++){
           if(browserImages[i].uploadName === firebaseImages[j].metadata.name) {
             const desertRef = ref(storage, firebaseImages[j].metadata.name)
-            deleteObject(desertRef).then(()=>{
-              console.log('deleted successfully')
-            }).catch((err)=>{
-              console.log(err)
-            })
+            deleteObject(desertRef)
             break
           } 
         }
@@ -110,26 +87,18 @@ function PostCreate(props) {
     }
     setBrowserImages(deletedArray)      
   }, [browserImages, firebaseImages, storage])
-
-  // comment
   const input_content = ((e)=>{
     setContent(e.target.value)
   })
-
-  // hastag comment
   const input_hashtags = ((e)=>{
     setHashtag(e.target.value)
   })
-
-  // 해시태그 추가, 띄어쓰기(32) Enter(13) 금지
   const keyup_hashtag = (e)=>{
     if (e.keyCode === 32 || e.keyCode === 13) {
       e.target.value = e.target.value.replace(' ','')
       e.target.value = e.target.value.replace('\n','')
     }
   }
-
-  // 해시태그 추가
   const addHashTag = useCallback((e) => {
     e.preventDefault()
     const $HashWrapOuter = document.querySelector('.hashtag_wrap')
@@ -146,8 +115,6 @@ function PostCreate(props) {
       setHashtag('')
       }
     }, [hashtag, hashtagArr])
-  
-  // post 생성
   const postCreateSubmit = useCallback( (e) =>{
     e.preventDefault();
     if (firebaseImages.length === 0 || content==='' || hashtagArr.length === 0 ) {
@@ -161,7 +128,6 @@ function PostCreate(props) {
     else {
       const imgNames = [];
       for (let i = 0; i < firebaseImages.length; i++){
-        console.log(firebaseImages[i])
         imgNames.push(firebaseImages[i].metadata.name)
       }
       const newpost = {
@@ -175,32 +141,15 @@ function PostCreate(props) {
       axiosInstance.post(POST_CREATE_URL, newpost)
       .then(()=>{
         history.push(`/post`)
-        // const profiledata = store.getState().userProfileReducer
-        // console.log(profiledata)
-        // profiledata['grade'] = profiledata['grade'] + 10
-        // axiosInstance.put(USER_UPDATE_PROFILE, profiledata)
-        // .then(()=>{
-          
-        //   // history.replace(`/beer/${beerid}`)
-        // })
-
       })
       .catch(()=>{
         for (let j = 0; j <firebaseImages.length; j++){
           const desertRef = ref(storage, firebaseImages[j].metadata.name)
           deleteObject(desertRef)
-          .then(()=>{
-            console.log('deleted successfully')
-          })
-          .catch((err)=>{
-            console.log(err)
-          }) 
         }
       })
     } 
   }, [POST_CREATE_URL, USER_UPDATE_PROFILE, beerid, content, firebaseImages, hashtagArr, history, storage, store])
-  
-  // 뒤로가기 버튼 눌렀을 때 firebase에서도 삭제
   const backPage = useCallback( () => {
     for (let i = 0; i < firebaseImages.length; i++) {
       const desertRef = ref(storage, firebaseImages[i].metadata.name)
@@ -213,24 +162,16 @@ function PostCreate(props) {
     <div className="postcreate">
       <section className="postcreate_section layout_padding_postcreate">
         <div className="container">
-          {/* 맥주detail로 가기 버튼 */}
           <div className='backBtn_postcreate'>
             <button className='backBtn_text' onClick={backPage}><i className="fas fa-angle-double-left fa-lg"></i> back</button>
-            {/* <Link className='backBtn_text' to='/beer/1'><i className="fas fa-angle-double-left fa-lg"></i> back</Link> */}
           </div>
-
-          {/* 포스트작성 제목 */}
           <div className="heading_postcreate">
             <h2>Create Post</h2>
           </div>
           <div className="row">
             <div className="col-md-8 offset-md-2">
-              {/* 입력 폼 container */}
               <div className="form_container">
                 <form action={`/beer/${beerid}`} onSubmit={postCreateSubmit}>
-                  
-
-                  {/* 사진 띄우는곳 */}
                   <div>
                   <Slider {...carouselSettings}>
                     { browserImages.length === 0 
@@ -243,14 +184,10 @@ function PostCreate(props) {
                     ))}
                   </Slider>
                   </div>
-
-                  {/* 사진 선택하기 */}
                   <div>
                     <label className="input_file_btn" htmlFor="input_file"><i className="fas fa-images"></i></label>
                     <input id="input_file" type="file" multiple accept="image/*" onChange={uploadBtn} style={{display:"none"}}/>
                   </div>
-
-                  {/* 내용 입력창 input */}
                   <div className='input_postcreate'>
                     <textarea 
                       value={content}
@@ -260,10 +197,8 @@ function PostCreate(props) {
                       required
                       placeholder="문구 입력..."
                       rows="5"
-                      // cols='50'
                     ></textarea>
                     <br/>
-                    {/* 해시태그 추가 input */}
                     <div className="hashtag_wrap">
                       <div className="hashtag_wrap_outer">
                         <textarea 
@@ -273,17 +208,12 @@ function PostCreate(props) {
                           className="postcreate_textarea hashtag_input"
                           placeholder="해시태그 입력..."
                           rows="1"
-                          // cols='50'
                         >
                         </textarea>
                         <button type="submit" className="addHashBtn" onClick={addHashTag}>추가</button>
                       </div>
                     </div>
                   </div>
-
-                 
-
-                  {/* 작성완료 버튼 */}
                   <div className="row">
                     <button type="submit" className="complete_btn col-4 offset-4"> 작성 완료</button>
                   </div>

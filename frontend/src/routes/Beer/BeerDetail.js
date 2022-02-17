@@ -9,8 +9,6 @@ import BeerRateUpdate from "./BeerRateUpdate.js"
 import { useDispatch, useSelector } from "react-redux";
 import Chip from '@mui/material/Chip'
 import axiosInstance from "CustomAxios";
-import { useStore } from "react-redux";
-
 
 function BeerDetail() {
   const BEER_DETAIL_URL = process.env.REACT_APP_SERVER + ':8888/v1/beer'
@@ -68,18 +66,7 @@ function BeerDetail() {
     }
     fetchData();
   }, [BEER_DETAIL_POST_URL, BEER_DETAIL_URL, RATED_BEER_URL, BEER_LIKE_URL, beerid, starrate])
-
-  
-
- 
-  // 모달창 켜지면 스크롤 안움직이게 함
-  { rateModal ? document.body.style.overflow = "hidden" : document.body.style.overflow = "unset" }
-
-  //////// 맥주평가모달창
-
-
-  /////// 좋아요
-  
+  { rateModal ? document.body.style.overflow = "hidden" : document.body.style.overflow = "unset" } 
   const likeButton = async () => {
     try{
       setIsLiked(!isLiked)

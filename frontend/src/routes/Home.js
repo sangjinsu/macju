@@ -3,7 +3,6 @@ import BestBeer from "../components/Main/BestBeer"
 import HotPost from "../components/Main/HotPost"
 import RecommendBeer from "../components/Main/RecommendBeer"
 import "../styles/Home.css"
-import axiosInstance from "CustomAxios";
 function Home() {
   const settings = {
     dots: true,
@@ -15,7 +14,6 @@ function Home() {
     speed: 2000,
     slidesToShow: 1,
     slidesToScroll: 1,
-    // className: "flex"
     centerMode: true,
     centerPadding: '10px',
   };
@@ -53,11 +51,10 @@ function CreateBubble(){
       bubbles.appendChild(bubble);
       i++;
     }else{
-      clearInterval(bubbleEnd); // 충분한 방울 생성되면, setInterval 반환값을 인자로 받아 setInterval 종료
+      clearInterval(bubbleEnd); 
     }
   };
-
-  bubbleEnd = setInterval(generateBubble, 500); // generateBubble를 시간을 두고 실행 
+  bubbleEnd = setInterval(generateBubble, 500); 
 }
 
 export default Home;

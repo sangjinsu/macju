@@ -16,31 +16,25 @@ function Signup(props) {
   const [name, setName] = useState("");
   const [AvailableNick, setAvailable] = useState()
   const [submitBtn, deactivateSubmitBtn] = useState(true)
-  
-  
-  // nickname 변경
   const changeNickName = e => {
     nicknameChange(e.target.value);
   }
 
-  // name 변경
   const changeName = e => {
     setName(e.target.value);
   }
 
-  // 나이 변경
   const changeAge = e => {
     ageChange(e.target.value);
   }
 
-  // 회원가입 버튼 누를시 동작
   const signupBtn = useCallback( async (e) => {
     e.preventDefault()
     try{
       if (age < 20) {
         alert("미성년자는 가입 할 수 없습니다")
         history.replace("/home")
-        return // histroy로 home 넘어가면 DB update랑 store 막아놓기
+        return 
       } 
 
       const singupData = {
@@ -69,14 +63,11 @@ function Signup(props) {
       history.push("/home")
       window.location.reload() 
     }catch(err){
-      // 회원가입 실패시 알람 + 로그인 페이지 다시 이동
       console.log(err)
       alert("회원가입 실패")
       history.replace("/user/login")
     }
   }, [age, userData, nickname, name, USER_SIGNUP_URL, dispatch, history])
-
-  // 닉네임 수정할 때 버튼 막아놓고 시작
   useEffect( () => { 
     deactivateSubmitBtn(true)
     }, [nickname]
@@ -91,8 +82,8 @@ function Signup(props) {
       }else {
         setAvailable(false)
       }
-    }catch{
-      console.log("중복확인 실패")
+    }catch(err){
+      console.log(err)
     }
   }, [nickname, VALIDATE_NICKNAME_URL, userData.AccessToken])
 
@@ -116,13 +107,11 @@ function Signup(props) {
     <div className="Signup">
       <section className="signup_section layout_padding_signup container">
         <div className="row">
-            {/* 추후 추가될 것 (이미지?) */}
             <div className="col-md-6">
               <div className="map_container ">
                 <img id="signupImg" src="/img/logo/MacJu.png" alt="" />
               </div>
             </div>
-          {/* Signup 제목 */}
           <div className="signup_heading_container col-md-6">
             <div className='signup_heading'>
               Signup
@@ -130,8 +119,6 @@ function Signup(props) {
             <div className="">
               <div className="form_container">
                 <form>
-
-                  {/* 별명 입력 */}
                   <div>
                     <input
                       type="text"
@@ -142,8 +129,6 @@ function Signup(props) {
                       onChange={ changeNickName }
                     />
                   </div>
-
-                  {/* 성별 입력 */}
                   <div>
                     <input
                       type="text"
@@ -154,8 +139,6 @@ function Signup(props) {
                       onChange={ changeName }
                     />
                   </div>
-                  
-                  {/* 나이 입력 */}
                   <div>
                     <input
                       type="number"
@@ -166,8 +149,6 @@ function Signup(props) {
                       onChange={ changeAge }
                     />
                   </div>
-
-                  {/* 회원가입 완료 버튼 */}
                   <div className='btn_box'>
                     <button className='delbtn' disabled={submitBtn} onClick={signupBtn}>
                       SignUp Now

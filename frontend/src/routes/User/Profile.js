@@ -6,8 +6,7 @@ import { Route } from 'react-router';
 import { Link,useParams } from "react-router-dom"
 import '../../styles/Profile.css'
 import { useEffect } from "react";
-import { useDispatch, useStore } from "react-redux";
-import axios from "axios";
+import { useDispatch } from "react-redux";
 import axiosInstance from "CustomAxios";
 
 const Profile = () => {

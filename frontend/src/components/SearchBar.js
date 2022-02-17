@@ -13,8 +13,8 @@ const { to, set } = gsap
 function SearchBar(){
   const SEARCH_URL = process.env.REACT_APP_SERVER + ':8888'
   const history = useHistory();
-  const [searchInput, setSearchInput] = useState('');   // 검색할 단어
-  const [searchAll , setSearchAll] = useState([])   // 모든 검색 결과
+  const [searchInput, setSearchInput] = useState('');   
+  const [searchAll , setSearchAll] = useState([]) 
   const [searchResult, setSearchresult] = useState([])
   
   const setInput = async (e) => {

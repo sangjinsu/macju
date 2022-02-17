@@ -1,12 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import '../../styles/StarRate.css';
 
 function StarRate(props) {
   const onRateClick = (e) => {
     return props.setStarrate(Number(e.target.value))
   }
-
-  // 현재 starrate 값에따라 보여주는 별 바꿈
   useEffect(()=>{
     const rateScore = document.getElementsByName('rating')
     for(let i=0; i<5; i++) {

@@ -33,7 +33,7 @@ function LoginAuth() {
       console.log(err)
       history.replace("/user/login")
     }
-  }, [dispatch, history, setCookie]) // date 넣으면 every rendering!!
+  }, [dispatch, history, setCookie]) 
 
   useEffect( () => {
     requestAuth()

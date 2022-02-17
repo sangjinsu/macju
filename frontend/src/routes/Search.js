@@ -19,6 +19,7 @@ function Search(props){
     if (location.state) {
       setSearchClickInput(location.state[1])  // 검색할 값
       setSearchresult(location.state[0])   // id 배열 형식
+      console.log(location.state)
     }
   },[])
   

@@ -35,7 +35,7 @@ function NavBar(){
               {/* <nav className="navbar navbar-expand-xs custom_nav-container "> */}
               <nav className="navbar custom_nav-container ">
                 <div >
-                  <a className="navbar-macju" href="/home">
+                  <a className="navbar-macju" href="/home" style={{ textDecoration: 'none' }}>
                     <span>
                       MacJU
                     </span>

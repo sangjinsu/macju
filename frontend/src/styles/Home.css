@@ -27,6 +27,7 @@
 .main_container {
   margin: auto;
   width: 80vw;
+
 }
 
 /* 캐러셀 밑에 원 */
@@ -44,15 +45,14 @@
 /* 맥주이름 글씨 */
 .beer_name {
   font-weight: bold;
-  font-family: 'Dancing Script', cursive;
+  /* font-family: 'Dancing Script', cursive; */
 
 }
 
 /* slick 이미지  */
 .slick-slide img {
   display: inline-block;
-  /* height: 300px !important; */
-  /* width: 300px !important; */
+  max-height: 300px;
 }
 .slideDiv {
   display: inline-block;
@@ -62,12 +62,5 @@
 @-webkit-keyframes fade{from{bottom:0px;opacity:1;visibility:visible}to{bottom:110%}}
         @keyframes fade{from{bottom:0px;opacity:1;visibility:visible}to{bottom:110%}}
 
-
-/* .slick-slide {
-  display: flex !important;
-  justify-content: center !important;
-  height: 300px !important;
-  font-weight: ;
-} */
 
 

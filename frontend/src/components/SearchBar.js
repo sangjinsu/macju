@@ -229,8 +229,8 @@ function SearchBar(){
         if (searchResult[0].status !== "fulfilled") return null
         if (searchResult[0].value.data.length !== 0)
           return searchResult[0].value.data.map((result, i) =>
-            <Link to={{pathname: `/beer/${result.beer_id}`}} key={i}>
-              <ListGroup.Item> {result.beer_name}</ListGroup.Item> 
+            <Link to={{pathname: `/beer/${result.beer_id}`}} key={i} style={{ textDecoration: 'none' }} className='searchbar_results'>
+              <ListGroup.Item > {result.beer_name}</ListGroup.Item> 
             </Link>
         )       
       })()
@@ -241,9 +241,10 @@ function SearchBar(){
         if (searchResult.length === 0) return null
         if (searchResult[1].status !== "fulfilled") return null        
         if (searchResult[1].value.data.length !== 0) return searchResult[1].value.data.map((result, i) =>
-        <Link to={{pathname:`/search/${result.beer_name}`,
-                  state: result
-                  }}
+        <Link to={{ pathname:`/search/${result.beer_name}`,
+                  state: result }} 
+                      className='searchbar_results'
+                      style={{ textDecoration: 'none' }}
         >
         <ListGroup.Item key={i}> {result.beer_name}</ListGroup.Item></Link> 
         )       
@@ -257,8 +258,10 @@ function SearchBar(){
         if (!_.isEmpty(searchResult[2].value.data)) return (
           <Link to= {{pathname: `/search/${Object.keys(searchResult[2].value.data)[0]}`,
                   state: [searchResult[2].value.data[Object.keys(searchResult[2].value.data)[0]].beers, 
-                          Object.keys(searchResult[2].value.data)[0]]
-                  }}           
+                  Object.keys(searchResult[2].value.data)[0]]
+                }}           
+                      className='searchbar_results'
+                      style={{ textDecoration: 'none' }}
            >
           <ListGroup.Item >{Object.keys(searchResult[2].value.data)[0]}({searchResult[2].value.data[Object.keys(searchResult[2].value.data)[0]].beers.length}개)</ListGroup.Item>
           </Link>
@@ -276,6 +279,8 @@ function SearchBar(){
                   state: [searchResult[3].value.data[Object.keys(searchResult[3].value.data)[0]].beers,
                           Object.keys(searchResult[3].value.data)[0]]
                   }}           
+                      className='searchbar_results'
+                      style={{ textDecoration: 'none' }}
            >
           <ListGroup.Item >{Object.keys(searchResult[3].value.data)[0]}({searchResult[3].value.data[Object.keys(searchResult[3].value.data)[0]].beers.length}개)</ListGroup.Item>
           </Link>
@@ -293,6 +298,8 @@ function SearchBar(){
             Object.keys(results).map((type, j)=>{ return (
               <Link to={{ pathname: `/search/${type}`,
                       state: [results[type].beers, type] }} key={j}
+                      className='searchbar_results'
+                      style={{ textDecoration: 'none' }}
               > 
                 <ListGroup.Item>{type}({results[type].beers.length}개)</ListGroup.Item>
               </Link>

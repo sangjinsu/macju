@@ -9,6 +9,7 @@ const BestBeer = (props) => {
 
   const settings = props.settings
   settings.fade = true
+  settings.slidesToShow = 1
 
   useEffect( () => {
     const PopBeer = async () => {
@@ -36,7 +37,7 @@ const BestBeer = (props) => {
 
 
 function CustomSlide(props) {
-  const BEER_DETAIL_URL = process.env.REACT_APP_SERVER + ':8080/v1/beer'
+  const BEER_DETAIL_URL = process.env.REACT_APP_SERVER + ':8888/v1/beer'
   const [imgSrc, setImgSrc] = useState()
   const [beerName, setName] = useState()
   const [beerContent, setBeerContent] = useState()
@@ -51,12 +52,11 @@ function CustomSlide(props) {
   }, [BEER_DETAIL_URL, props.beerid])
   return(
     <div {...props} className="best_beers row text-center">
-      <img className="slideImg best_beer_img col w-50 " src={imgSrc} alt=""/>
+      <img className="slideImg best_beer_img col w-50" src={imgSrc} alt=""/>
       <div className="slideDiv best_beer_content col text-center mb-5">
         <h3 className="beer_name">{beerName}</h3>
         <div></div>
         {/* <h5>{beerContent && beerContent.length > 15 ? beerContent.substr(0, 15) + "....": beerContent}</h5> */}
-
         {/* <span>{beerContent}</span> */}
 
       </div>

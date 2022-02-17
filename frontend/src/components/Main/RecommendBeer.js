@@ -46,10 +46,12 @@ const RecommendBeer = (props) => { // 변수명 수정필요
 function CustomSlide(props) {
   const BEER_DETAIL_URL = process.env.REACT_APP_SERVER + ':8888/v1/beer'
   const [imgSrc, setImgSrc] = useState()
+  const [beerName, setName] = useState()
 
   const imgData = useCallback( async ()=>{
     const { data : beerDetail } = await axiosInstance.get(`${BEER_DETAIL_URL}/${props.beerid}`)
     setImgSrc(beerDetail.photoPath)
+    setName(beerDetail.name)
   },[BEER_DETAIL_URL, props.beerid])
   
   useEffect( () => {
@@ -60,7 +62,7 @@ function CustomSlide(props) {
     <div {...props} className="recommend_beers row text-center ">
       <img className="slideImg beer_img col w-50 " src={imgSrc} alt=""/>
       <div className="slideDiv beer_content col text-center mb-5">
-        <h3 className="beer_name">곰표맥주</h3>
+        <h3 className="beer_name">{beerName}</h3>
       </div>
     </div>
   )

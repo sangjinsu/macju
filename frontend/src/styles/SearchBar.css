@@ -46,6 +46,12 @@
   color: #ae9048;
 }
 
+.searchbar_results {
+  text-decoration: none;
+}
+.searchbar_results:hover {
+  font-weight: bold;
+}
 
 .input.clearing, .input:focus-within {
   --border-width: 1.5px;

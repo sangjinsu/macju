@@ -251,6 +251,7 @@ function PostDetail() {
                   </div>
 
                   <Switch>
+                    {/* 포스트 수정하기창 */}
                     <Route path="/post/:postId/update">
                       <input
                         type="text"
@@ -285,6 +286,8 @@ function PostDetail() {
                       <button onClick={changePost}>완료</button>
 
                     </Route>
+
+                    {/* 포스트 디테일창 */}
                     <Route path="/post/:postId">
                       {/* 해시태그 */}
                       <div className="postdetail_hashtag">

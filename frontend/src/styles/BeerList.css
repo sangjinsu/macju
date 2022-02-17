@@ -154,6 +154,7 @@
 .beerlist_section .star-ratings {
   /* color: #aaa9a9;  */
   /* color: white;  */
+  color: #F9CF68; 
   position: relative;
   unicode-bidi: bidi-override;
   width: max-content;
@@ -213,9 +214,8 @@
 }
 .beerlist_section .beer_hashtag{
   padding-right: 5px;
-  /* color: #FFA500	; */
-  /* color: #FFB400; */
-  color: #F9CF68;
+  /* color: #F9CF68; */
+  color: black;
 }
 
 

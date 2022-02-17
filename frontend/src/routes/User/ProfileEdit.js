@@ -22,7 +22,7 @@ const ProfileEdit = () => {
   const userId = location.state  
 
 
-
+  
 
   const handleChange1 = (e) =>{
     setChecked1(e.target.checked)
@@ -232,21 +232,25 @@ const ProfileEdit = () => {
     "flavors":[],
   }
   const submitProfile = async () =>{
+    console.log(userFlavor, userAroma)
     const userAromaData = []
-    for (let i = 1; i < userAroma.length + 1; i++){
-      if (userAroma[i-1] === true) {
-        await userAromaData.push(i)
+    userAroma.map(async (data, i) =>{
+      if (data){
+        await userAromaData.push(i + 1)
       }
-    }
+      return
+    })
     const userFlavorData = []
-    for (let i = 1; i < userFlavor.length + 1; i++){
-      if (userFlavor[i-1] === true) {
-        await userFlavorData.push(i)
+    userFlavor.map(async (data, i) =>{
+      if (data){
+        await userFlavorData.push(i + 1)
       }
-    }
+      return
+    })
+    console.log(Promise.all(userAromaData))
+    console.log(userFlavorData)
     if (introduce && editUserNickname){
-      console.log(userAromaData)
-      console.log(userFlavorData)
+      
       profileData["aromas"] = userAromaData
       profileData["flavors"] = userFlavorData
       await axiosInstance.put(USER_UPDATE_PROFILE, profileData)

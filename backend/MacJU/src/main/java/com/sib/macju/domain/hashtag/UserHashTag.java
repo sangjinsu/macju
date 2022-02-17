@@ -2,6 +2,7 @@ package com.sib.macju.domain.hashtag;
 
 import com.sib.macju.domain.post.Post;
 import lombok.Getter;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -23,6 +24,7 @@ public class UserHashTag {
     @JoinColumn(name = "post_id")
     private Post post;
 
+    @UpdateTimestamp
     private LocalDateTime updated_at;
 
     private boolean is_deleted;

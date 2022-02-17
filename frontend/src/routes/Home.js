@@ -15,7 +15,9 @@ function Home() {
     speed: 2000,
     slidesToShow: 1,
     slidesToScroll: 1,
-    className: "container"
+    // className: "flex"
+    centerMode: true,
+    centerPadding: '10px',
   };
 
   useEffect( () => {
@@ -24,9 +26,11 @@ function Home() {
   return(
     <div className="SlickTest">
       <div id="bubbles">
-        <BestBeer settings={settings} />
-        <RecommendBeer settings={settings} />
-        <HotPost settings={settings} />
+        <div className="main_container">
+          <BestBeer settings={settings} />
+          <RecommendBeer settings={settings} />
+          <HotPost settings={settings} />
+        </div>
       </div>
     </div>
   )

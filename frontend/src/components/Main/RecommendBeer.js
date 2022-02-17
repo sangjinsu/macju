@@ -9,6 +9,7 @@ const RecommendBeer = (props) => { // 변수명 수정필요
   const [beerList, setBeer] = useState()
   
   const settings = props.settings
+  settings.slidesToShow = 1
   //temp
   // const store = useStore((state)=> state)
   const userData = useSelector(state => state.userReducer)
@@ -29,7 +30,7 @@ const RecommendBeer = (props) => { // 변수명 수정필요
   
   return(
     <div className="SlickTest">
-      <h3 className="recommendtitle" align="center">Recommend Beer</h3>
+      <h3 className="recommendtitle pt-5" align="center">Recommend Beer</h3>
       <Slider {...settings}>
         {
           beerList&&beerList.map((beerid, i) => 
@@ -56,12 +57,10 @@ function CustomSlide(props) {
   }, [BEER_DETAIL_URL, props.beerid, imgData])
 
   return(
-    <div {...props} className="row">
-      <img className="slideImg col-7" src={imgSrc} alt=""/>
-      <div className="slideDiv col-5">
-        <h3>곰표맥주</h3>
-        <br></br>
-        <span>조회 수 : ??</span>
+    <div {...props} className="recommend_beers row text-center ">
+      <img className="slideImg beer_img col w-50 " src={imgSrc} alt=""/>
+      <div className="slideDiv beer_content col text-center mb-5">
+        <h3 className="beer_name">곰표맥주</h3>
       </div>
     </div>
   )

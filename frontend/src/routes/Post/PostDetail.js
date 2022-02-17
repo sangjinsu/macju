@@ -251,6 +251,7 @@ function PostDetail() {
                   </div>
 
                   <Switch>
+                    {/* 포스트 수정하기창 */}
                     <Route path="/post/:postId/update">
                       <input
                         type="text"
@@ -285,6 +286,8 @@ function PostDetail() {
                       <button onClick={changePost}>완료</button>
 
                     </Route>
+
+                    {/* 포스트 디테일창 */}
                     <Route path="/post/:postId">
                       {/* 해시태그 */}
                       <div className="postdetail_hashtag">
@@ -310,12 +313,13 @@ function PostDetail() {
 
                         <div className="update_delete_icon">
                           {/* 수정 아이콘 */}
-                          { memberId === postData.member.memberId?(
-                          <Link to={`/post/${postId}/update`}><i className="far fa-edit fa-2x"></i></Link>,
-                          <i className="fas fa-trash fa-2x trash-icon" onClick={DeletePost}></i>
-                          )
-                          :
-                          <div>sdf</div> // 다르게 수정
+                          { memberId === postData.member.memberId
+                          ?<Link to={`/post/${postId}/update`}><i className="far fa-edit fa-2x"></i></Link>
+                          :null
+                          }
+                          { memberId === postData.member.memberId
+                          ?<i className="fas fa-trash fa-2x trash-icon" onClick={DeletePost}></i>
+                          :null
                           }
                           {/* 삭제 아이콘 */}
                         </div>

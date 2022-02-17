@@ -22,7 +22,7 @@ const BestBeer = (props) => {
 
   return(
     <div className="SlickTest">
-      <h3 className="bestbeer" align="center">Best Beer</h3>
+      <h3 className="bestbeer pt-5" align="center">Best Beer</h3>
       <Slider {...settings}>
         {
           rankingBeerList&&rankingBeerList.map((beerid, i) => 
@@ -50,12 +50,15 @@ function CustomSlide(props) {
     fetchData();
   }, [BEER_DETAIL_URL, props.beerid])
   return(
-    <div {...props} className="row">
-      <img className="best_beer_img col-7" src={imgSrc} alt=""/>
-      <div className="slideDiv col-5">
-        <h3>{beerName}</h3>
-        <br></br>
-        <span>{beerContent}</span>
+    <div {...props} className="best_beers row text-center">
+      <img className="slideImg best_beer_img col w-50 " src={imgSrc} alt=""/>
+      <div className="slideDiv best_beer_content col text-center mb-5">
+        <h3 className="beer_name">{beerName}</h3>
+        <div></div>
+        {/* <h5>{beerContent && beerContent.length > 15 ? beerContent.substr(0, 15) + "....": beerContent}</h5> */}
+
+        {/* <span>{beerContent}</span> */}
+
       </div>
     </div>
   )

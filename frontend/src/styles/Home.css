@@ -65,6 +65,8 @@
 .main_none{
   font-family: 'Nanum Pen Script', cursive;
   text-align: center;
+  font-size: 30px;
+  margin: 20px 0;
 }
 
 .hot_post_hashtag{

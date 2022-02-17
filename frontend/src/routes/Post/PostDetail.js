@@ -96,7 +96,7 @@ function PostDetail() {
         setPostlikeNum(postlikeNum+1)
       }
       axiosInstance.post(`${POST_LIKE_URL}/post/${memberId}/like/${postId}`)
-      const rankingPostLikeeUrl = `${RANKING_POST_LIKE_URL}/${postId}/1`
+      const rankingPostLikeeUrl = `${RANKING_POST_LIKE_URL}/${postId}/${memberId}`
       await axiosInstance.get(rankingPostLikeeUrl)
     }catch(err){
       console.log(err)
@@ -173,13 +173,16 @@ function PostDetail() {
                       <Chip className="maintype" label={postData.beer.name} variant="outlined" />
                     </Link>
                   </div>
+
                   <Switch>
+                    {/* 포스트 수정하기 페이지 */}
                     <Route path="/post/:postId/update">
-                      <input
+                      <textarea
                         type="text"
                         value={updateContent}
                         onChange={UpdateContent}
-                      ></input>
+                        className="postupdate_input"
+                      ></textarea>
                       <div className="hashtag_wrap">
                         <div className="hashtag_wrap_outer">
                           <textarea 
@@ -187,19 +190,22 @@ function PostDetail() {
                             onKeyUp={pressKey}
                             onChange={inputHashTag}
                             className="postcreate_textarea hashtag_input"
-                            placeholder="해시태그 입력..."
+                            placeholder="해시태그를 클릭하면 지워집니다!"
                             rows="1"
                           >
                           </textarea>
                           <button type="submit" className="addHashBtn" onClick={addHashTag}>추가</button>
                         </div>
                         {hashtagArr.map((hash, i)=>
-                          <div className="hashtag_wrap_inner" key={i} onClick={deleteHashTag}>{hash}</div>
+                          <div className="hashtag_wrap_inner" key={i} onClick={deleteHashTag}>#{hash}</div>
                         )}
-                        
                       </div>
-                      <button onClick={changePost}>완료</button>
+                      <div className="row">
+                        <button className="post_sumbit_button col-4 offset-4" onClick={changePost}>완료</button>
+                      </div>
                     </Route>
+
+                    {/* 포스트 디테일 페이지 */}
                     <Route path="/post/:postId">
                       <div className="postdetail_hashtag">
                         {postData.userHashTags.map((hash, i)=>

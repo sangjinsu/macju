@@ -94,15 +94,11 @@
 }
 
 
+
+
 /* 해시태그 */
-/* .hashtag_wrap {
-  display: flex;
-  justify-content: stretch;
-} */
 .hashtag_wrap_outer {
   display: flex;
-  /* flex-wrap: wrap; */
-  /* justify-content: stretch; */
 }
 
 .hashtag_wrap_inner {
@@ -112,14 +108,10 @@
   padding: 8px 12px;
   color: #eeb933;
   display: inline-block;
-  /* justify-content: center; */
-  /* align-items: center; */
   font-weight: bold;
-  /* font-size: 1.4rem; */
   line-height: 20px;
   margin-right: 5px;
   cursor: pointer;
-  /* width: 7rem; */
   height: auto;
 }
 .addHashBtn {
@@ -136,15 +128,6 @@
 }
 
 .hashtag_input {
-  /* width: auto;
-  margin: 10px;
-  display: inline-flex;
-  outline: none;
-  cursor: text;
-  line-height: 2rem;
-  margin-bottom: 0.75rem;
-  min-width: 8rem;
-  border: none; */
   margin-bottom: 5px;
 }
 

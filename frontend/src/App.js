@@ -27,7 +27,7 @@ function App() {
           <Route path="/post">
             <Switch>
               <Route exact path="/post/new" component={PageAuth(PostCreate, true)} />
-              <Route exact path="/post/:postId" component={PageAuth(PostDetail, true)} />
+              <Route path="/post/:postId" component={PageAuth(PostDetail, true)} />
               <Route exact path="/post" component={PageAuth(PostList, true)} />
               <Route path="*" component={PageNotFound} />
             </Switch>

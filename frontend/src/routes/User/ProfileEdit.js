@@ -231,17 +231,17 @@ const ProfileEdit = () => {
     "aromas":[],
     "flavors":[],
   }
-  const submitProfile = () =>{
+  const submitProfile = async () =>{
     const userAromaData = []
     for (let i = 1; i < userAroma.length + 1; i++){
       if (userAroma[i-1] === true) {
-        userAromaData.push(i)
+        await userAromaData.push(i)
       }
     }
     const userFlavorData = []
     for (let i = 1; i < userFlavor.length + 1; i++){
       if (userFlavor[i-1] === true) {
-        userFlavorData.push(i)
+        await userFlavorData.push(i)
       }
     }
     if (introduce && editUserNickname){
@@ -249,7 +249,7 @@ const ProfileEdit = () => {
       console.log(userFlavorData)
       profileData["aromas"] = userAromaData
       profileData["flavors"] = userFlavorData
-      axiosInstance.put(USER_UPDATE_PROFILE, profileData)
+      await axiosInstance.put(USER_UPDATE_PROFILE, profileData)
       .then((res)=>{
         console.log(res)
         history.push(`/profile/${user.memberId}/profile`)

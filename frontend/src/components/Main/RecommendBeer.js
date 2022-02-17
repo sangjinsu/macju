@@ -3,14 +3,20 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axiosInstance from "CustomAxios";
+import { useSelector, useStore } from "react-redux";
 
 const RecommendBeer = (props) => { // 변수명 수정필요
   const [beerList, setBeer] = useState()
   
   const settings = props.settings
+  //temp
+  // const store = useStore((state)=> state)
+  const userData = useSelector(state => state.userReducer)
+  // console.log(userData)
+  const memberId = Number(userData.memberId)
 
   const getRecommend = async () => {
-    const RECOMMEND_BEER = process.env.REACT_APP_SERVER + ':8888/v1/recommend/15' // memberId 추후 수정
+    const RECOMMEND_BEER = process.env.REACT_APP_SERVER + `:8888/v1/recommend/${memberId}` // memberId 추후 수정
     
     const { data: recommendBeer} = await axiosInstance.get(RECOMMEND_BEER)
     setBeer(recommendBeer.recommend)

@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const SearchResult = (props) =>{  
   const searchResult = props.data
-  console.log(searchResult)
+  // console.log(searchResult)
   return (  
     <ListGroup style={{marginTop:40 ,position:'fixed', zIndex:12000}}>   
     {

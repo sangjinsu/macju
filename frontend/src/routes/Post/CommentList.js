@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useCallback } from "react"
-import { useDispatch, useStore } from 'react-redux';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 import axios from 'axios';
 import "../../styles/CommentList.css"
 import axiosInstance from "CustomAxios";
@@ -10,6 +10,10 @@ function CommentList(props) {
   const COMMENT_LIST_URL = process.env.REACT_APP_SERVER + ':8888/v1/post'
   const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8888/v1/member/profile'
   const commentApiUrl = `${COMMENT_LIST_URL}/${postId}/comment` // 조회, 추가 때 사용
+
+  // 로그인한 유저 아이디
+  const loginUser = useSelector(state => state.userReducer)
+  const loginMemberId = Number(loginUser.memberId)
 
   const dispatchComment = useRef();
   const newCommentId = useRef("");
@@ -42,21 +46,15 @@ function CommentList(props) {
       try{
         const postData = {
           "content": inputComment,
-          "memberId": 1
-        }
-        const headers = {
-          headers: {
-            "Accept" : "application/json;charset=UTF-8",
-            "Content-Type" : "application/json;charset=UTF-8"
-          }
+          "memberId": loginMemberId
         }
         
-        const { data : addData} = await axiosInstance.post(commentApiUrl, postData, headers)
+        const { data : addData} = await axiosInstance.post(commentApiUrl, postData)
         newCommentId.current = addData // comment가 생성될 때 comment id값 받아와서 사용 -> redux 관리 위해
         dispatchComment.current = {
           "commentId": newCommentId.current,
           "content": inputComment,
-          "memberId": 1, // 수정 필요
+          "memberId": loginMemberId,
           "nickname": "kimdongiln" // 수정필요
         }
         dispatch({ type : "addComment", inputComment : dispatchComment.current })
@@ -143,9 +141,15 @@ function CommentList(props) {
                   currentComments.map( (comment, i) => {
                     return(
                       <div className="commentList" key={i}>
+                        {loginMemberId === comment.memberId ?
                         <div>
                           {comment.nickname} : { comment.content }  <i className="fas fa-trash trash-icon" commentid={comment.commentId} onClick={deleteComment}></i>
                         </div>
+                        : 
+                        <div>
+                          {comment.nickname} : { comment.content }
+                        </div>
+                        }
                       </div>
                     )
                   })

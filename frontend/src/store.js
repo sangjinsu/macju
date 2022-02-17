@@ -16,11 +16,21 @@ const headerReducer = (state = [], action) =>{
   return headers
 }
 
-const userReducer = (state=[], action) => {
+const notLoginUser = {
+  AccessToken:"",
+  first_check:"",
+  kakaoId:"",
+  memberId:null,
+  result:""
+}
+
+const userReducer = (state=notLoginUser, action) => {
   if (action.type === "loginSuccess"){
-    return action.userData
+    const userData = action.userData
+    userData.memberId = Number(userData.memberId)
+    return userData
   } else if (action.type === "logout") {
-    const logoutState = {}
+    const logoutState = notLoginUser
     return logoutState
   }
   return state

@@ -21,7 +21,7 @@ const UserLike = (props) => {
     } else {
       setLikeBeers(store.getState().userLikeReducer.data.data)
     }
-    
+
   },[USER_LIKE_URL])
 
   return (

@@ -141,7 +141,7 @@ function PostDetail() {
   }, [RANKING_POST_URL, postId, memberId])
 
   useEffect(() => {
-    spendData()
+    spendData();
   }, [spendData])
 
   return (

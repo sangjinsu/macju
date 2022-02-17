@@ -6,6 +6,7 @@ import "../../styles/PostList.css"
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import axiosInstance from "CustomAxios";
+import { useCallback } from "react";
 
 
 function PostListComponent(){
@@ -38,15 +39,15 @@ function PostListComponent(){
   //eslint-disable-next-line
   }, [newPost])
 
-  const fetchPostListData = async() =>{
+  const fetchPostListData = useCallback( async() =>{
     const data = await axiosInstance.get(POST_LIST_URL)
     setNewPost(data.data)
-  }
+  }, [POST_LIST_URL])
 
-  const fetchBeerDetailData = async() =>{
+  const fetchBeerDetailData = useCallback( async() =>{
     const data =await axiosInstance.get(`${BEER_DETAIL_POST_URL}/${beerid}`)
     setNewPost(data.data)
-  }
+  }, [BEER_DETAIL_POST_URL, beerid])
 
   useEffect(()=>{
     if (beerid) {
@@ -54,7 +55,7 @@ function PostListComponent(){
     } else {
       fetchPostListData();    
     }
-  }, [POST_LIST_URL])
+  }, [POST_LIST_URL, beerid, fetchBeerDetailData, fetchPostListData])
 
 
   return(

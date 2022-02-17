@@ -51,8 +51,8 @@ function Footer(){
             MacJU
           </h2>
           <p>SSAFY 1st Project</p>
-          <span>Jinsu Sang, Jeonghoon Jang</span> <br />
-          <span>Soohan Choi, Dongil Kim</span> <br />
+          <span>Jinsu Sang, Junghun Jang</span> <br />
+          <span>Suhan Choi, Dongil Kim</span> <br />
           <span>Hyunsong Kim, Sohee Kim </span> <br />
         </div>
       </div>

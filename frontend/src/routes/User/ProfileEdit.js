@@ -7,6 +7,7 @@ import axiosInstance from "CustomAxios";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox"
 import TextField  from "@mui/material/TextField"
+import { useCallback } from "react";
 
 const ProfileEdit = () => {
   
@@ -260,13 +261,12 @@ const [userFlavor, setUserFlavor] = useState([checked1, checked2, checked3, chec
       alert('내용을 입력하세요')
     }
    }
-  const nickNameCheck = async () =>{
+  const nickNameCheck = useCallback( async () =>{
     if (!(editUserNickname === '')){
       const data = await axiosInstance.get(`${USER_NICKNAME_CHECK}/${editUserNickname}`)
       setLabelNickname(data.data)
-     
-  }
-}
+    }
+  }, [USER_NICKNAME_CHECK, editUserNickname])
 
   const editIntroduce = (e) =>{
     setIntroduce(e.target.value)
@@ -301,12 +301,14 @@ const [userFlavor, setUserFlavor] = useState([checked1, checked2, checked3, chec
 
     }
     fetchData();
+    
   }, [user])
 
 
 
   useEffect(()=>{
     nickNameCheck();
+    
   }, [editUserNickname, nickNameCheck])
 
   
@@ -316,14 +318,14 @@ const [userFlavor, setUserFlavor] = useState([checked1, checked2, checked3, chec
 			history.push('/home')
 		}
 		
-	}, [])
+	}, [history, store, userId])
 
 
 
 
 
   return (
-    <div className="edit-box">
+    <div className="container edit-box" >
       <h1>{editUserNickname}'s Profile</h1>
       <br></br>
       <form>
@@ -333,7 +335,7 @@ const [userFlavor, setUserFlavor] = useState([checked1, checked2, checked3, chec
           <label className={labelNickname} htmlFor="nickname">{ labelNickname === "success" ? '사용 가능한 닉네임입니다.': '사용할 수 없는 닉네임입니다.'}</label>
         </div>
         <div className="content_box ">
-          <TextField className="input_box" id="outlined-basic" label="소개" variant="outlined" defaultValue={introduce} onKeyUp={editIntroduce} onChange={editIntroduce}/>
+          <TextField placeholder="150자 이내로 작성해주세요" className="input_box" id="outlined-basic" label="소개" variant="outlined" defaultValue={introduce} onKeyUp={editIntroduce} onChange={editIntroduce}/>
         </div>
       </div>
       

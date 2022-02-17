@@ -23,7 +23,6 @@ const Followings = (props) => {
     } else {
       setFollowings(store.getState().followingsReducer)
     }
-    
   }, [store])
   return (
     <div className={open ? 'openModal modal' : 'modal'}>

@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { useHistory } from 'react-router-dom';
-import {useSelector, useStore} from "react-redux"
+import {useSelector} from "react-redux"
 import { deleteObject, getStorage, ref, uploadBytes } from "firebase/storage";
 import "../../firebase_config"
 import imageCompression from 'browser-image-compression';
@@ -13,7 +13,7 @@ import axiosInstance from "CustomAxios";
 
 function PostCreate(props) {
   const POST_CREATE_URL = process.env.REACT_APP_SERVER + ':8888/v1/post'
-  const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8888/v1/member/profile'
+  // const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8888/v1/member/profile'
   const userData = useSelector(state => state.userReducer)
   const memberid = userData.memberId
   const beerid = props.location.state.beerid    
@@ -24,7 +24,7 @@ function PostCreate(props) {
   const [content, setContent] = useState("");
   const [hashtagArr, setHashtagArr] = useState([]);
   const [hashtag, setHashtag] = useState("");
-  const store = useStore((state)=>state);
+  // const store = useStore((state)=>state);
   const carouselSettings = {
     dots: true,
     infinite: true,
@@ -149,7 +149,7 @@ function PostCreate(props) {
         }
       })
     } 
-  }, [POST_CREATE_URL, USER_UPDATE_PROFILE, beerid, content, firebaseImages, hashtagArr, history, storage, store])
+  }, [POST_CREATE_URL, beerid, content, firebaseImages, hashtagArr, history, storage, memberid])
   const backPage = useCallback( () => {
     for (let i = 0; i < firebaseImages.length; i++) {
       const desertRef = ref(storage, firebaseImages[i].metadata.name)
@@ -195,7 +195,7 @@ function PostCreate(props) {
                       className="postcreate_textarea"
                       maxLength="2200"
                       required
-                      placeholder="문구 입력..."
+                      placeholder="2200자 이내로 작성해주세요"
                       rows="5"
                     ></textarea>
                     <br/>

@@ -67,7 +67,7 @@ const UserProfile = (props) => {
 			const profiledata = await axiosInstance.get(`${USER_PROFILE_URL}`)
 			setUser(profiledata.data)
 		}
-		fetchData();		
+		fetchData();
 	},[store, userid])
 
 

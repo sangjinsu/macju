@@ -65,7 +65,8 @@ function BeerDetail() {
       axiosInstance.post(BEER_DETAIL_LOG_URL, newdata)    
     }
     fetchData();
-  }, [BEER_DETAIL_POST_URL, BEER_DETAIL_URL, RATED_BEER_URL, BEER_LIKE_URL, beerid, starrate])
+  }, [BEER_DETAIL_POST_URL, BEER_DETAIL_URL, RATED_BEER_URL, BEER_LIKE_URL, beerid, starrate, BEER_DETAIL_LOG_URL, dispatch, memberId])
+
   { rateModal ? document.body.style.overflow = "hidden" : document.body.style.overflow = "unset" } 
   const likeButton = async () => {
     try{
@@ -103,7 +104,8 @@ function BeerDetail() {
       }
     }
     spendData()
-  }, [])
+
+  }, [RANKING_BEER_URL, beerid, memberId])
 
   return (
     <div className="BeerDetail">

@@ -60,13 +60,15 @@ function PostListComponent(){
   return(
     
     <div className="row grid postlist_component">    
-      { newPost.length ===0 ? <div>  </div> : newPost.map((post) =>
+      { newPost.length ===0 ? <Box sx={{ display: 'flex' }} style={{justifyContent:'center', margin:'auto'}}><CircularProgress size={200} style={{color:'#F9CF68'}}/></Box> 
+      : newPost.map((post) =>
         <div className="col-md-6 col-lg-4 fadein" key={post.postId}>
             <div className="box">
               <div className="postlist_box">
               <Link to={`/post/${post.postId}`} className='detailBtn' style={{ textDecoration: 'none', color: 'black' }}>
               <div className="img-box">
-                {newPostImage.length === 0 ? <Box sx={{ display: 'flex' }} style={{justifyContent:'center', margin:'auto'}}><CircularProgress size={100}/></Box>:newPostImage.map((data, i)=> data.id === post.postId ? 
+                {newPostImage.length === 0 ? <Box sx={{ display: 'flex' }} style={{justifyContent:'center', margin:'auto'}}><CircularProgress size={100} style={{color:'#F9CF68'}}/></Box>
+                :newPostImage.map((data, i)=> data.id === post.postId ? 
                 <div key={i} className="img-box box">
                   <img src={data.res} alt="" style={{maxHeight:210, maxWidth:350 }}></img>                  
                 </div> : null

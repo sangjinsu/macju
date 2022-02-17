@@ -120,7 +120,7 @@ function BeerList(){
           <FadeIn>
             <div className="row grid">
             
-            { categoryBeer.length === 0 ? <Box sx={{ display: 'flex' }} style={{justifyContent:'center', marginTop:100}}><CircularProgress size={200}/></Box>
+            { categoryBeer.length === 0 ? <Box sx={{ display: 'flex' }} style={{justifyContent:'center', marginTop:100}}><CircularProgress size={200} style={{color:'#F9CF68'}}/></Box>
             : categoryBeer.map((beer) => 
               <div className={`col-sm-6 col-md-4 col-lg-3 fadein all ${beer.beerType.en_main}`} key={beer.beerId} >
                 <Link to={`/beer/${beer.beerId}`} style={{ textDecoration: 'none', color: 'white' }} className='detailBtn'>          

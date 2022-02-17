@@ -148,15 +148,16 @@ function Search(props){
   const [beerTagArr, setBeerTagArr] = useState([])
   useEffect( () => {
     const fetchbeerdata1 = async () => {
-      setBeerNameArr([])
       const eachbeerdata = await axiosInstance.get(`${BEER_URL}?size=500`)
-      eachbeerdata.data.map((eachbeer) => {
-        beerIdArr_name.map((id)=>{
+      for (let i =0 ; i < eachbeerdata.length; i++){
+        for (let j = 0; j <beerIdArr_name.length; j++){
           if (eachbeer.beerId === id) {
             setBeerNameArr((name)=>[...name, eachbeer])
+            break
           }
-        })  
-      })
+
+        }
+      }
     }
     fetchbeerdata1();
   },[beerIdArr_name, beerKodata, beerEndata, BEER_URL])

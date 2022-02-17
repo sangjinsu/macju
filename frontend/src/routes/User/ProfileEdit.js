@@ -85,7 +85,7 @@ const ProfileEdit = () => {
   }
   useEffect(()=>{
     fetchData();
-  }, [user])
+  }, [])
 
 
   useEffect(()=>{
@@ -98,7 +98,7 @@ const ProfileEdit = () => {
 			alert('권한이 없습니다.')
 			history.push('/home')
 		}
-	}, [history, store, userId])
+	}, [])
 
   useEffect(()=>{
     if (labelNickname === "fail"){

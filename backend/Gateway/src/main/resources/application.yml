@@ -67,6 +67,16 @@ spring:
                 baseMessage: Post Service
                 preLogger: true
                 postLogger: true
+        - id: log-service
+          uri: http://i6c107.p.ssafy.io:8080
+          predicates:
+            - Path=/v1/log/**
+          filters:
+            - name: AuthFilter
+              args:
+                baseMessage: Log Service
+                preLogger: true
+                postLogger: true
         - id: recommend-service
           uri: http://i6c107.p.ssafy.io:8000
           predicates:

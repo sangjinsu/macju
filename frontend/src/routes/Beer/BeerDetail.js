@@ -26,7 +26,7 @@ function BeerDetail() {
   //temp
   const store = useStore((state)=> state)
   const userData = useSelector(state => state.userReducer)
-  console.log(userData)
+  // console.log(userData)
   const memberId = Number(userData.memberId)
   console.log(memberId)   
   //react-redux

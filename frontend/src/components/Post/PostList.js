@@ -71,44 +71,44 @@ function PostListComponent(){
       { newPost.length ===0 ? <div>  </div> : newPost.map((post) =>
         <div className="col-md-6 col-lg-4 fadein" key={post.postId}>
           <Link to={`/post/${post.postId}`} className='detailBtn' style={{ textDecoration: 'none', color: 'black' }}>
-          <div className="box">
-            <div className="postlist_box">
-            <div className="img-box">
-              {/* 포스트 이미지 */}
-              {newPostImage.length === 0 ? <Box sx={{ display: 'flex' }} style={{justifyContent:'center', margin:'auto'}}><CircularProgress size={100}/></Box>:newPostImage.map((data, i)=> data.id === post.postId ? 
-              <div key={i} className="img-box box">
-                {/* 기본이미지 하나 구해야겠네요 */}
-                <img src={data.res} alt="" style={{maxHeight:210, maxWidth:350 }}></img>
-                {/* <img src={post.photo.data}></img> */}
-                
-              </div> : null
-              )
-              }
-              </div>
-              
-              
-              {/* 포스트 카드 내용 */}
-              <div className="postdetail-box">
-                {/* 포스트 내용  */}
-                <div className="postdetail-title">
-                  <h5>{post.content && post.content.length > 15 ? post.content.substr(0, 15) + "....": post.content}</h5>
-                  {/* 포스트 좋아요 */}
-                  <p className="fontaws"><i className="fas fa-heart" style={{color:"red"}}></i> {post.likes}</p>
+            <div className="box">
+              <div className="postlist_box">
+              <div className="img-box">
+                {/* 포스트 이미지 */}
+                {newPostImage.length === 0 ? <Box sx={{ display: 'flex' }} style={{justifyContent:'center', margin:'auto'}}><CircularProgress size={100}/></Box>:newPostImage.map((data, i)=> data.id === post.postId ? 
+                <div key={i} className="img-box box">
+                  {/* 기본이미지 하나 구해야겠네요 */}
+                  <img src={data.res} alt="" style={{maxHeight:210, maxWidth:350 }}></img>
+                  {/* <img src={post.photo.data}></img> */}
+                  
+                </div> : null
+                )
+                }
                 </div>
+                
+                
+                {/* 포스트 카드 내용 */}
+                <div className="postdetail-box">
+                  {/* 포스트 내용  */}
+                  <div className="postdetail-title">
+                    <h5>{post.content && post.content.length > 15 ? post.content.substr(0, 15) + "....": post.content}</h5>
+                    {/* 포스트 좋아요 */}
+                    <p className="fontaws"><i className="fas fa-heart" style={{color:"red"}}></i> {post.likes}</p>
+                  </div>
 
-                
-                
-                {/* 포스트 작성 정보 */}
-                <div className="post-meta">
-                  <Link to={`/profile/${post.member.memberId}/post`} style={{ textDecoration: 'none', color:'black' }} className="user">
-                    <div><i className="fas fa-user"></i> {post.member.nickName}</div>
-                  </Link>
-                  <div>{post.updatedAt[0]}.{post.updatedAt[1]}.{post.updatedAt[2]}</div>
+                  
+                  
+                  {/* 포스트 작성 정보 */}
+                  <div className="post-meta">
+                    <Link to={`/profile/${post.member.memberId}/post`} style={{ textDecoration: 'none', color:'black' }} className="user">
+                      <div><i className="fas fa-user"></i> {post.member.nickName}</div>
+                    </Link>
+                    <div>{post.updatedAt[0]}.{post.updatedAt[1]}.{post.updatedAt[2]}</div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </Link>
+          </Link>
         </div> 
       )}
 

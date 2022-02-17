@@ -1,7 +1,3 @@
-application.properties
-application.yml
-*.sql
-
 ### Java template
 # Compiled class file
 *.class

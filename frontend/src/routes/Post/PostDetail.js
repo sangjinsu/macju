@@ -19,6 +19,7 @@ function PostDetail() {
   const RANKING_POST_URL = process.env.REACT_APP_SERVER + ":8081/post/view"
   const POST_LIKE_URL = process.env.REACT_APP_SERVER + ':8080/v1/member'
   
+  
   //basic data
   
   const history = useHistory();
@@ -41,7 +42,7 @@ function PostDetail() {
   const [postlikeNum, setPostlikeNum] = useState()
 
   // memberId
-  const memberId = store.getState().userReducer.memberId
+  const memberId = Number(store.getState().userReducer.memberId)
 
   //function
   // Content 수정 (/post/:postId/update)
@@ -158,6 +159,7 @@ function PostDetail() {
       const responseDetail = await axiosInstance.get(`${POST_DETAIL_URL}/${postId}`)
       
       const postDetail = responseDetail.data
+      console.log(postDetail)
 
       const hashTagArr = [postDetail.beer.beerType.main, ...postDetail.beer.aromaHashTags , ...postDetail.beer.flavorHashTags]
       const newdata = {
@@ -184,7 +186,7 @@ function PostDetail() {
     }catch (error) {
       console.log(error)
     }
-  }, [POST_DETAIL_LOG_URL, POST_DETAIL_URL, POST_LIKE_URL, dispatch, postId, store])
+  }, [POST_DETAIL_LOG_URL, POST_DETAIL_URL, POST_LIKE_URL, dispatch, postId, store, memberId])
 
   // postDetail 불러오는 것 (리덕스에 저장)
   useEffect(()=>{
@@ -199,7 +201,7 @@ function PostDetail() {
     }catch{
       console.log("오류입니다")
     }
-  }, [RANKING_POST_URL, postId])
+  }, [RANKING_POST_URL, postId, memberId])
 
   useEffect(() => {
     spendData()
@@ -307,9 +309,14 @@ function PostDetail() {
 
                         <div className="update_delete_icon">
                           {/* 수정 아이콘 */}
-                          <Link to={`/post/${postId}/update`}><i className="far fa-edit fa-2x"></i></Link>
-                          {/* 삭제 아이콘 */}
+                          { memberId === postData.member.memberId?(
+                          <Link to={`/post/${postId}/update`}><i className="far fa-edit fa-2x"></i></Link>,
                           <i className="fas fa-trash fa-2x trash-icon" onClick={DeletePost}></i>
+                          )
+                          :
+                          <div>sdf</div> // 다르게 수정
+                          }
+                          {/* 삭제 아이콘 */}
                         </div>
                       </div>
 

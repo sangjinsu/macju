@@ -169,7 +169,6 @@ def create_df_log_value(memberId):
                 }
             ]
         })
-
     user_logs = list(map(lambda log: json.loads(log['_source']
                          ['message']).get('tags'), docs['hits']['hits']))
 

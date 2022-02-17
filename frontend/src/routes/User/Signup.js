@@ -59,7 +59,7 @@ function Signup(props) {
  
       const {data : singupResponse} = await axios.post(USER_SIGNUP_URL, singupData, headers)
       
-      setCookie("AccessToken", userData.current.AccessToken, {path: "/", expire:date.toUTCString()})
+      setCookie("AccessToken", userData.AccessToken, {path: "/", expire:date.toUTCString()})
 
       userData.memberId = singupResponse.memberId
       dispatch({type:"loginSuccess", userData:userData})

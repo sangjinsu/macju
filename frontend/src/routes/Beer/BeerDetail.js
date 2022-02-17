@@ -89,15 +89,11 @@ function BeerDetail() {
       // 로그 보내기
       const hashTagArr = [beerdetail.beerType.en_main, ...beerdetail.aromaHashTags , ...beerdetail.flavorHashTags]
       
-      // console.log(hashTagArr)
       const newdata = {
         id : memberId,
         tags : hashTagArr
       }
-      console.log(newdata)
-      // console.log(newdata)
       axiosInstance.post(BEER_DETAIL_LOG_URL, newdata)    
-      // .then()
     }
     fetchData();
   }, [BEER_DETAIL_POST_URL, BEER_DETAIL_URL, RATED_BEER_URL, BEER_LIKE_URL, beerid, starrate])
@@ -131,8 +127,8 @@ function BeerDetail() {
         'Accept': "application/json; charset=UTF-8"
       }
       await axiosInstance.get(rankingBeerLikeeUrl, headers)
-    }catch{
-      console.log("오류")
+    }catch(err){
+      console.log(err)
     }
   }
 
@@ -144,8 +140,8 @@ function BeerDetail() {
           'Accept': "application/json; charset=UTF-8"
         }
         await axiosInstance.get(rankingBeerUrl, headers)
-      }catch{
-        console.log("오류입니다")
+      }catch(err){
+        console.log(err)
       }
     }
     spendData()

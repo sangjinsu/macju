@@ -20,7 +20,6 @@ const UserPost = (props) => {
   useEffect(() => {
     const fetchData = async() =>{
       const memberPosts = await axiosInstance.get(`${USER_POST_URL}/${memberId}`)
-      console.log(memberPosts)
       setUserPosts(memberPosts.data)
     }
     fetchData();
@@ -58,7 +57,6 @@ const UserPost = (props) => {
     <div className="container">
       <h1 className="font">Posts</h1>
       <div className="row grid postlist_component">
-    {console.log(userPosts)}
       { userPosts.length === 0 ? <div className="noPost"> 포스트를 작성해주세요~! </div> : userPosts.map((post) =>
         <div className="col-md-6 col-lg-4 fadein" key={post.postId}>
           <div className="box">
@@ -69,7 +67,7 @@ const UserPost = (props) => {
               
                 <div key={i} className="img-box">
                   {/* 기본이미지 하나 구해야겠네요 */}
-                  <img src={data.res} alt=""></img>
+                  <img src={data.res} alt="" style={{maxHeight:210, maxWidth:350 }}></img>
                   {/* <img src={post.photo.data}></img> */}
                 </div> : <>
             <UserIcon grade={2500}/>

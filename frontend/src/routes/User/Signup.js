@@ -84,7 +84,6 @@ function Signup(props) {
 
   const validationNinkname = useCallback( async () => {
     try{
-      console.log(userData.AccessToken)
       const { data : nicknameStatus } = await axios.get(`${VALIDATE_NICKNAME_URL}/${nickname}`)
       
       if (nicknameStatus === "success") {

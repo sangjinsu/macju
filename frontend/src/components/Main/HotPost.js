@@ -22,8 +22,8 @@ const HotPost = (props) => {
       
       setRanking(rankingPostId)
       setSlideNum(rankingPost.length)
-    }catch{
-      console.log("불러오기 실패")
+    }catch(err){
+      console.log(err)
     }
   }
 

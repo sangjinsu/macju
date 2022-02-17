@@ -6,9 +6,7 @@ import "../../styles/Modal.css"
 import {useStore} from 'react-redux'
 import axiosInstance from "CustomAxios";
 const Followers = (props) => {
-  // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close, header } = props;
-
   const memberNum = useParams();
   const memberId = memberNum.userid
   const FOLLOWERS_URL = process.env.REACT_APP_SERVER + `:8888/v1/member/${memberId}/followers`
@@ -18,8 +16,6 @@ const Followers = (props) => {
     const res = await axiosInstance.get(FOLLOWERS_URL)
     setFollowers(res.data.data)
   }
-
-
   useEffect(()=>{
     if (store.getState().followersReducer.length === 0) {
       fetchData()
@@ -29,7 +25,6 @@ const Followers = (props) => {
     
   }, [])
   return (
-    // 모달이 열릴때 openModal 클래스가 생성된다.
     <div className={open ? 'openModal modal' : 'modal'}>
       {open ? (
         <section>
@@ -42,7 +37,6 @@ const Followers = (props) => {
           </header>
           <main>
           {followers.length === 0 ? <p>아직 팔로워가 없습니다.</p>: followers.map((person, idx)=>
-          //{memberId, nickName, name, comment, age, grade}
           <div key={idx}>{parseInt(person.memberId)=== parseInt(memberId) ? <p>아직 팔로워가 없습니다.</p> : 
             <>
             {person.nickName}
@@ -50,13 +44,9 @@ const Followers = (props) => {
             </>
           
           }
-          
-          
           </div>
           )}
           </main>
-          
-          
           <footer>
             <button className="close" onClick={close}>
               {' '}

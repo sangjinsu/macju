@@ -69,9 +69,10 @@ function PostListComponent(){
       {/* { newPost.length ===0 ? <div> 포스트를 작성해주세요~! </div> : newPost.map((post) => */}
       { newPost.length ===0 ? <div>  </div> : newPost.map((post) =>
         <div className="col-md-6 col-lg-4 fadein" key={post.postId}>
-          <Link to={`/post/${post.postId}`} className='detailBtn' style={{ textDecoration: 'none', color: 'black' }}>
             <div className="box">
               <div className="postlist_box">
+              <Link to={`/post/${post.postId}`} className='detailBtn' style={{ textDecoration: 'none', color: 'black' }}>
+
               <div className="img-box">
                 {/* 포스트 이미지 */}
                 {newPostImage.length === 0 ? <Box sx={{ display: 'flex' }} style={{justifyContent:'center', margin:'auto'}}><CircularProgress size={100}/></Box>:newPostImage.map((data, i)=> data.id === post.postId ? 
@@ -84,7 +85,7 @@ function PostListComponent(){
                 )
                 }
                 </div>
-                
+                </Link>
                 
                 {/* 포스트 카드 내용 */}
                 <div className="postdetail-box">
@@ -99,6 +100,7 @@ function PostListComponent(){
                   
                   {/* 포스트 작성 정보 */}
                   <div className="post-meta">
+                  
                     <Link to={`/profile/${post.member.memberId}/post`} style={{ textDecoration: 'none', color:'black' }} className="user">
                       <div><i className="fas fa-user"></i> {post.member.nickName}</div>
                     </Link>
@@ -107,7 +109,7 @@ function PostListComponent(){
                 </div>
               </div>
             </div>
-          </Link>
+          
         </div> 
       )}
 

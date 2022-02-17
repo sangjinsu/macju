@@ -189,7 +189,7 @@ function SearchBar(){
   const removeSearch = () =>{
     setSearchresult([])
   }
-  
+
 
   return(
     <>
@@ -197,7 +197,9 @@ function SearchBar(){
 
         <button type="submit" className="searchicon"><i className="fa fa-search"></i></button>
         <div className="text" id="dropdown">
+        <form onSubmit="return false">
           <input id="input" type="text" placeholder="검색..." onChange={setInput} autoComplete={"off"} value={searchInput}/>
+          </form>
         </div>
         
         <button className="clear" onClick={ eraseInput } >

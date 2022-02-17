@@ -15,15 +15,12 @@ const Followings = (props) => {
   const [followings, setFollowings] = useState();
   const fetchData = async () =>{
     const res = await axiosInstance.get(FOLLOWINGS_URL)
+    console.log(res)
     setFollowings(res.data.data)
   }
   useEffect(()=>{
-    if (store.getState().followingsReducer.length === 0) {
-      fetchData()
-    } else {
-      setFollowings(store.getState().followingsReducer)
-    }
-  }, [store])
+    fetchData();
+  }, [])
   return (
     <div className={open ? 'openModal modal' : 'modal'}>
       {open ? (

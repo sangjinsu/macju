@@ -4,24 +4,23 @@ import '../styles/Responsive.css'
 import { Link, useHistory } from "react-router-dom"
 import SearchBar from './SearchBar.js'
 import { useDispatch, useSelector, useStore } from 'react-redux';
-
+import { useCookies } from "react-cookie"
 
 function NavBar(){
+  const removeCookie = useCookies(["AccessToken"])[2]
 
   const store = useStore((state) => state)
   const dispatch = useDispatch()
   const history = useHistory()
   const loginUser = useSelector(state => state.userReducer).memberId
   const logOut = () => {
-    localStorage.removeItem("AccessToken");
+    removeCookie("AccessToken")
     dispatch({type:"logout"})
     alert("로그아웃 되었습니다!!")
-    history.push("/home")
+    history.push("/login")
   }
 
-  
   return(
-    
       <div className='navbar_page'>
         
         <div className="navbar_area">

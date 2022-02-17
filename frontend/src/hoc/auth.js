@@ -1,19 +1,21 @@
-import React from "react"
-import { useEffect } from "react";
-import {useCookies} from "react-cookie";
+import React, { useEffect } from "react"
+import { useSelector } from "react-redux";
+import AccessToken from "../AccessToken.js"
 
 const auth = (Component, option) => {
   const AuthenticateCheck = (props) => {
-    const cookies = useCookies(["AccessToken"])[0];
-    const AccessToken = cookies.AccessToken
+    const userToken = AccessToken
+
+    // 로그인한 유저 아이디
+   const loginMemberId = useSelector(state => state.userReducer).memberId
     
     useEffect(() => {
-      if (!AccessToken && option) { 
+      if ((userToken === null || loginMemberId === null) && option) { 
         props.history.push("/user/login");
-      } else if (AccessToken && !option) { 
+      } else if (userToken && loginMemberId && !option) {  
         props.history.push("/home")
       }
-    }, [AccessToken, props.history]);
+    }, [userToken, props.history, loginMemberId]);
     return (
       <Component {...props} />
     )

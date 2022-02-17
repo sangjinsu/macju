@@ -53,7 +53,7 @@ function App() {
               <Route path="*" component={PageNotFound} />
             </Switch>
           </Route>
-          <Route path="/oauth/login/resopnse" component={PageAuth(LoginAuth, false)}/>
+          <Route path="/oauth/login/response" component={PageAuth(LoginAuth, false)}/>
           <Route path="/search" component={PageAuth(Search, true)} />
 
           <Route path="*" component={PageNotFound} />

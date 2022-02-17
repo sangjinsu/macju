@@ -1,7 +1,7 @@
 import "../../styles/UserProfile.css"
 import { useEffect, useState } from "react";
-import Followers from "components/Modals/Followers.js"
-import Followings from "components/Modals/Followings.js"
+import Followers from "../Modals/Followers.js"
+import Followings from "../Modals/Followings.js"
 import { Link } from "react-router-dom";
 import { useDispatch, useStore } from "react-redux";
 import UserIcon from "./UserIcon";

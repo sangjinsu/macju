@@ -98,7 +98,10 @@ const ProfileEdit = () => {
 
   useEffect(()=>{
     if (labelNickname === "fail"){
-      document.getElementsByClassName('profile-btn').disabled
+      document.getElementsByClassName('profile-btn').disabled = true
+    }
+    if (labelNickname === 'success'){
+      document.getElementsByClassName('profile-btn').disabled = false
     }
   }, [labelNickname])
   function handleChange(e){

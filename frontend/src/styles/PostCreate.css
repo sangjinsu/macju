@@ -71,7 +71,7 @@
   right: 27%;
   top: 4%;
   border: none;
-  background-color: #ff5833;
+  background-color: #ff5833c0;
   color: white;
   border-radius: 20px;
   padding: 0 7px;
@@ -107,10 +107,10 @@
 
 .hashtag_wrap_inner {
   margin-top: 5px;
-  background: #ffeee7;
+  background: #ffedbfce;
   border-radius: 56px;
   padding: 8px 12px;
-  color: #ff6e35;
+  color: #eeb933;
   display: inline-block;
   /* justify-content: center; */
   /* align-items: center; */

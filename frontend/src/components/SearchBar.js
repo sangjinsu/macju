@@ -39,8 +39,7 @@ function SearchBar(){
   
   // 검색결과 get 요청
   const fetchSearchResult = async () =>{
-    const nowsearch = []
-    // setSearchAll([])
+    await setSearchAll([])
     const beerKosearch = axiosInstance.get(`${SEARCH_URL}/v1/search/name?query=${searchInput}&lang=ko`)
     const beerEnsearch = axiosInstance.get(`${SEARCH_URL}/v1/search/name?query=${searchInput}&lang=en`)
     const aromasearch = axiosInstance.get(`${SEARCH_URL}/v1/search/aroma?query=${searchInput}`)
@@ -51,13 +50,10 @@ function SearchBar(){
     .then((results)=>
       results.map((result, i) => {
         if (result.status === 'fulfilled') {
-          nowsearch.push(result.value)
-          // setSearchAll((prev)=>[...prev, result.value]) 
+          setSearchAll((prev)=>[...prev, result.value]) 
         }
       })
     )
-    setSearchAll(nowsearch)
-     
   }
 
 

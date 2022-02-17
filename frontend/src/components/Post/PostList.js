@@ -78,11 +78,7 @@ function PostListComponent(){
                   <div className="postdetail-title">
                     <h5>{post.content && post.content.length > 15 ? post.content.substr(0, 15) + "....": post.content}</h5>
                     <p className="fontaws"><i className="fas fa-heart" style={{color:"red"}}></i> {post.likes}</p>
-                  </div>
-
-                  
-                  
-                  {/* 포스트 작성 정보 */}
+                  </div>                 
                   <div className="post-meta">
                   
                     <Link to={`/profile/${post.member.memberId}/post`} style={{ textDecoration: 'none', color:'black' }} className="user">

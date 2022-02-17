@@ -189,6 +189,7 @@ function SearchBar(){
   const handelKeyPress = (e) =>{
     if (e.key === 'Enter'){
       history.replace({pathname:`/search/${searchInput}`, searchInput:searchInput, searchAll:searchAll})
+      setSearchresult([])
     }
   }
 

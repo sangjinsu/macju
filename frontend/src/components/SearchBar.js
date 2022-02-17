@@ -15,7 +15,6 @@ const { to, set } = gsap
 
 function SearchBar(){
   const SEARCH_URL = process.env.REACT_APP_SERVER + ':8888'
-  const location = useLocation();
   const history = useHistory();
   const [searchInput, setSearchInput] = useState('');   // 검색할 단어
   const [searchAll , setSearchAll] = useState([])   // 모든 검색 결과
@@ -37,7 +36,6 @@ function SearchBar(){
   })
   useEffect(()=>{
     setSearchresult(searchAll)
-    console.log('g')
   }, [searchAll])
   
   // 검색결과 get 요청

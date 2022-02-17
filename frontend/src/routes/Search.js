@@ -1,12 +1,11 @@
-// import { getDownloadURL, getStorage , ref } from "firebase/storage";
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom"
-import axios from "axios"
 import "../styles/Search.css"
 import SearchPagination from './SearchPagination.js';
 import axiosInstance from 'CustomAxios'
-import { isEmpty } from 'lodash';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 function Search(props){
   const BEER_URL = process.env.REACT_APP_SERVER + ':8888/v1/beer'
@@ -165,11 +164,14 @@ function Search(props){
 
   useEffect( () => {
     // console.log('맛향종류유저 결과', beerIdArr_others)
+
     const fetchbeerdata2 = async () => {
       if (beerIdArr_others.length) {
+        const setbeerIdArr_others = new Set(beerIdArr_others)
+        const newArr = Array.from(setbeerIdArr_others)
         const eachbeerdata = await axiosInstance.get(`${BEER_URL}?size=500`)
         eachbeerdata.data.map((eachbeer) => {
-          beerIdArr_others.map((id)=>{
+          newArr.map((id)=>{
             if (eachbeer.beerId === id) {
               setBeerTagArr((name)=>[...name, eachbeer])
             }
@@ -229,223 +231,228 @@ function Search(props){
           <h2>Search Result</h2>
           {/* <h4>' {searchInput} '  검색 결과</h4> */}
         </div>
-        
-        {/* 맥주이름으로 검색했을 때 */}
-        <div className="search_beer">
-          { !!currentbeerNameArr.length && <h4>' {searchInput} '  검색 결과</h4> }
-          { currentbeerNameArr && 
-            <div className='row'>
-              { currentbeerNameArr.map((beer, i)=>{
-                return (
-                  <div className='col-sm-6 col-md-4 col-lg-3 fadein all' key={beer.beerId}>
-                    {/* {console.log(beer)} */}
-                    
-                    <Link to={`/beer/${beer.beerId}`} style={{ textDecoration: 'none', color: 'white' }} className='detailBtn'>
-                      <div className="beerlist_box">
-                        <div>
-                          {/* 맥주 이미지 */}
-                          <div className="img-box"> 
-                          {/* 여기도 기본 이미지가 필요하네용 */}
-                            <img src={beer.photoPath} alt=''></img>
+        { currentbeerNameArr.length===0 && currentbeerTagArr.length===0 && currentbeerArr.length===0 
+          ? <Box sx={{ display: 'flex' }} style={{justifyContent:'center', margin:'auto'}}><CircularProgress size={200} style={{color:'#F9CF68'}}/></Box> 
+          : null
+        }
+
+          {/* 맥주이름으로 검색했을 때 */}
+          <div className="search_beer">
+            { !!currentbeerNameArr.length && <h4>' {searchInput} '  검색 결과</h4> }
+            { currentbeerNameArr && 
+              <div className='row'>
+                { currentbeerNameArr.map((beer, i)=>{
+                  return (
+                    <div className='col-sm-6 col-md-4 col-lg-3 fadein all' key={beer.beerId}>
+                      {/* {console.log(beer)} */}
+                      
+                      <Link to={`/beer/${beer.beerId}`} style={{ textDecoration: 'none', color: 'white' }} className='detailBtn'>
+                        <div className="beerlist_box">
+                          <div>
+                            {/* 맥주 이미지 */}
+                            <div className="img-box"> 
+                            {/* 여기도 기본 이미지가 필요하네용 */}
+                              <img src={beer.photoPath} alt=''></img>
+                            </div>
+
+                            {/* 맥주 설명란 */}
+                            <div className="beerdetail-box">
+
+                            {/* 맥주 이름 + 자세히 버튼 */}
+                            <div className='beerdetail-title'>
+                              <h5>{beer.name}</h5>
+                              <div>{beer.englishName}</div>
+                              {/* <Link to={`/beer/${beer.beerId}`} className='detailBtn'>자세히</Link> */}
+                            </div>
+
+
+                            {/* 맥주 카테고리 */}
+                            <div className="options">
+                              <div className='options_space_between'>
+                                <h6 className='beerCategory'>
+                                  {beer.beerType.en_main}
+                                </h6>
+                                { beer.beerType.ko_detail !== null
+                                  ? <h6 className='beerCategory'>
+                                      {beer.beerType.en_detail}
+                                    </h6>
+                                  : null }
+                              </div>
+                            </div>
+
+                            </div>
                           </div>
+                        </div>
+                      </Link>
+                    </div>
+                  )})
+                }
+              </div>
+            }
+          </div>
+          <SearchPagination 
+            postPerPage={postPerPage} 
+            totalPosts={beerNameArr.length} 
+            paginate={paginate1}  />
 
-                          {/* 맥주 설명란 */}
-                          <div className="beerdetail-box">
 
-                          {/* 맥주 이름 + 자세히 버튼 */}
-                          <div className='beerdetail-title'>
-                            <h5>{beer.name}</h5>
-                            <div>{beer.englishName}</div>
-                            {/* <Link to={`/beer/${beer.beerId}`} className='detailBtn'>자세히</Link> */}
-                          </div>
+          {/* 태그로 검색했을 때 */}
+          <div className="search_beer">
+            { !!currentbeerTagArr.length && <h4>' #{searchInput} '  검색 결과</h4> }
+            { currentbeerTagArr && 
+              <div className='row'>
+                { currentbeerTagArr.map((beer, i)=>{
+                  return (
+                    <div className='col-sm-6 col-md-4 col-lg-3 fadein all' key={beer.beerId}>
+                      {/* {console.log(beer)} */}
+                      <Link to={`/beer/${beer.beerId}`} style={{ textDecoration: 'none', color: 'white' }} className='detailBtn'>
+                        <div className="beerlist_box">
+                          <div>
+                            {/* 맥주 이미지 */}
+                            <div className="img-box"> 
+                            {/* 여기도 기본 이미지가 필요하네용 */}
+                              <img src={beer.photoPath} alt=''></img>
+                            </div>
+
+                            {/* 맥주 설명란 */}
+                            <div className="beerdetail-box">
+
+                            {/* 맥주 이름 + 자세히 버튼 */}
+                            <div className='beerdetail-title'>
+                              <h5>{beer.name}</h5>
+                              {/* <Link to={`/beer/${beer.beerId}`} className='detailBtn'>자세히</Link> */}
+                            </div>
 
 
-                          {/* 맥주 카테고리 */}
-                          <div className="options">
-                            <div className='options_space_between'>
+                            {/* 맥주 해시태그 */}
+                            <div className='beer_hashtag_all'>
+                              {beer.aromaHashTags.map((aroma,a) => {
+                                return <div key={a} className='beer_hashtag'>#{aroma}</div>
+                              })}
+                            </div>
+                            <div className='beer_hashtag_all'>
+                              {beer.flavorHashTags.map((flavor,f) => {
+                                return <div key={f} className='beer_hashtag'>#{flavor}</div>
+                              })}
+                            </div>
+
+                            {/* 맥주 카테고리 */}
+                            <div className="options">
+                              <div className='options_space_between'>
                               <h6 className='beerCategory'>
-                                {beer.beerType.en_main}
-                              </h6>
-                              { beer.beerType.ko_detail !== null
-                                ? <h6 className='beerCategory'>
-                                    {beer.beerType.en_detail}
-                                  </h6>
-                                : null }
+                                  {beer.beerType.en_main}
+                                </h6>
+                                { beer.beerType.ko_detail !== null
+                                  ? <h6 className='beerCategory'>
+                                      {beer.beerType.en_detail}
+                                    </h6>
+                                  : null }
+                              </div>
                             </div>
-                          </div>
 
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </Link>
-                  </div>
-                )})
-              }
-            </div>
-          }
-        </div>
-        <SearchPagination 
-          postPerPage={postPerPage} 
-          totalPosts={beerNameArr.length} 
-          paginate={paginate1}  />
+                      </Link>
+                    </div>
+                  )})
+                }
+              </div>
+            }
+          </div>
+          <SearchPagination 
+            postPerPage={postPerPage} 
+            totalPosts={beerTagArr.length} 
+            paginate={paginate2}  />
 
 
-        {/* 태그로 검색했을 때 */}
-        <div className="search_beer">
-          { !!currentbeerTagArr.length && <h4>' #{searchInput} '  검색 결과</h4> }
-          { currentbeerTagArr && 
-            <div className='row'>
-              { currentbeerTagArr.map((beer, i)=>{
-                return (
-                  <div className='col-sm-6 col-md-4 col-lg-3 fadein all' key={beer.beerId}>
-                    {/* {console.log(beer)} */}
-                    <Link to={`/beer/${beer.beerId}`} style={{ textDecoration: 'none', color: 'white' }} className='detailBtn'>
-                      <div className="beerlist_box">
-                        <div>
-                          {/* 맥주 이미지 */}
-                          <div className="img-box"> 
-                          {/* 여기도 기본 이미지가 필요하네용 */}
-                            <img src={beer.photoPath} alt=''></img>
-                          </div>
-
-                          {/* 맥주 설명란 */}
-                          <div className="beerdetail-box">
-
-                          {/* 맥주 이름 + 자세히 버튼 */}
-                          <div className='beerdetail-title'>
-                            <h5>{beer.name}</h5>
-                            {/* <Link to={`/beer/${beer.beerId}`} className='detailBtn'>자세히</Link> */}
-                          </div>
-
-
-                          {/* 맥주 해시태그 */}
-                          <div className='beer_hashtag_all'>
-                            {beer.aromaHashTags.map((aroma,a) => {
-                              return <div key={a} className='beer_hashtag'>#{aroma}</div>
-                            })}
-                          </div>
-                          <div className='beer_hashtag_all'>
-                            {beer.flavorHashTags.map((flavor,f) => {
-                              return <div key={f} className='beer_hashtag'>#{flavor}</div>
-                            })}
-                          </div>
-
-                          {/* 맥주 카테고리 */}
-                          <div className="options">
-                            <div className='options_space_between'>
-                            <h6 className='beerCategory'>
-                                {beer.beerType.en_main}
-                              </h6>
-                              { beer.beerType.ko_detail !== null
-                                ? <h6 className='beerCategory'>
-                                    {beer.beerType.en_detail}
-                                  </h6>
-                                : null }
+          {/* 클릭해서 검색했을 때 */}
+          <div className="search_beer">
+            { !!currentbeerArr.length && <h4>' {searchClickInput} '  검색 결과</h4> }
+            { currentbeerArr && 
+              <div className='row'>
+                { currentbeerArr.map((beer, i)=>{
+                  return (
+                    <div className='col-sm-6 col-md-4 col-lg-3 fadein all' key={beer.beerId}>
+                      {/* {console.log(beer)} */}
+                      <Link to={`/beer/${beer.beerId}`} style={{ textDecoration: 'none', color: 'white' }} className='detailBtn'>
+                        <div className="beerlist_box">
+                          <div>
+                            {/* 맥주 이미지 */}
+                            <div className="img-box"> 
+                            {/* 여기도 기본 이미지가 필요하네용 */}
+                              <img src={beer.photoPath} alt=''></img>
                             </div>
-                          </div>
 
+                            {/* 맥주 설명란 */}
+                            <div className="beerdetail-box">
+
+                            {/* 맥주 이름 + 자세히 버튼 */}
+                            <div className='beerdetail-title'>
+                              <h5>{beer.name}</h5>
+                              {/* <Link to={`/beer/${beer.beerId}`} className='detailBtn'>자세히</Link> */}
+                            </div>
+
+                            {/* 맥주 별점 */}
+                            <div className="star-ratings">
+                              <div 
+                                className="star-ratings-fill space-x-2 text-lg"
+                                style={{width:`${beer.averageRate*20}%` }}
+                              >
+                                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                              </div>
+                              <div className="star-ratings-base space-x-2 text-lg">
+                                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                              </div>
+                            </div>
+
+                            {/* 맥주 설명 */}
+                            <div className='beer_volume'>
+                              ALC : {beer.volume}%
+                            </div>
+
+                            {/* 맥주 해시태그 */}
+                            <div className='beer_hashtag_all'>
+                              {beer.aromaHashTags.map((aroma,a) => {
+                                return <div key={a} className='beer_hashtag'>#{aroma}</div>
+                              })}
+                            </div>
+                            <div className='beer_hashtag_all'>
+                              {beer.flavorHashTags.map((flavor,f) => {
+                                return <div key={f} className='beer_hashtag'>#{flavor}</div>
+                              })}
+                            </div>
+
+                            {/* 맥주 카테고리 */}
+                            <div className="options">
+                              <div className='options_space_between'>
+                                <h6 className='beerCategory'>
+                                  {beer.beerType.en_main}
+                                </h6>
+                                { beer.beerType.ko_detail !== null
+                                  ? <h6 className='beerCategory'>
+                                      {beer.beerType.en_detail}
+                                    </h6>
+                                  : null }
+                              </div>
+                            </div>
+
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </Link>
-                  </div>
-                )})
-              }
-            </div>
-          }
-        </div>
-        <SearchPagination 
-          postPerPage={postPerPage} 
-          totalPosts={beerTagArr.length} 
-          paginate={paginate2}  />
-
-
-        {/* 클릭해서 검색했을 때 */}
-        <div className="search_beer">
-          { !!currentbeerArr.length && <h4>' {searchClickInput} '  검색 결과</h4> }
-          { currentbeerArr && 
-            <div className='row'>
-              { currentbeerArr.map((beer, i)=>{
-                return (
-                  <div className='col-sm-6 col-md-4 col-lg-3 fadein all' key={beer.beerId}>
-                    {/* {console.log(beer)} */}
-                    <Link to={`/beer/${beer.beerId}`} style={{ textDecoration: 'none', color: 'white' }} className='detailBtn'>
-                      <div className="beerlist_box">
-                        <div>
-                          {/* 맥주 이미지 */}
-                          <div className="img-box"> 
-                          {/* 여기도 기본 이미지가 필요하네용 */}
-                            <img src={beer.photoPath} alt=''></img>
-                          </div>
-
-                          {/* 맥주 설명란 */}
-                          <div className="beerdetail-box">
-
-                          {/* 맥주 이름 + 자세히 버튼 */}
-                          <div className='beerdetail-title'>
-                            <h5>{beer.name}</h5>
-                            {/* <Link to={`/beer/${beer.beerId}`} className='detailBtn'>자세히</Link> */}
-                          </div>
-
-                          {/* 맥주 별점 */}
-                          <div className="star-ratings">
-                            <div 
-                              className="star-ratings-fill space-x-2 text-lg"
-                              style={{width:`${beer.averageRate*20}%` }}
-                            >
-                              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                            </div>
-                            <div className="star-ratings-base space-x-2 text-lg">
-                              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                            </div>
-                          </div>
-
-                          {/* 맥주 설명 */}
-                          <div className='beer_volume'>
-                            ALC : {beer.volume}%
-                          </div>
-
-                          {/* 맥주 해시태그 */}
-                          <div className='beer_hashtag_all'>
-                            {beer.aromaHashTags.map((aroma,a) => {
-                              return <div key={a} className='beer_hashtag'>#{aroma}</div>
-                            })}
-                          </div>
-                          <div className='beer_hashtag_all'>
-                            {beer.flavorHashTags.map((flavor,f) => {
-                              return <div key={f} className='beer_hashtag'>#{flavor}</div>
-                            })}
-                          </div>
-
-                          {/* 맥주 카테고리 */}
-                          <div className="options">
-                            <div className='options_space_between'>
-                              <h6 className='beerCategory'>
-                                {beer.beerType.en_main}
-                              </h6>
-                              { beer.beerType.ko_detail !== null
-                                ? <h6 className='beerCategory'>
-                                    {beer.beerType.en_detail}
-                                  </h6>
-                                : null }
-                            </div>
-                          </div>
-
-                          </div>
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
-                )})
-              }
-            </div>
-          }
-        </div>
-        <SearchPagination 
-          postPerPage={postPerPage} 
-          totalPosts={beerArr.length} 
-          paginate={paginate3}  />
+                      </Link>
+                    </div>
+                  )})
+                }
+              </div>
+            }
+          </div>
+          <SearchPagination 
+            postPerPage={postPerPage} 
+            totalPosts={beerArr.length} 
+            paginate={paginate3}  />
       </div>
+
     </div>
   )
 }

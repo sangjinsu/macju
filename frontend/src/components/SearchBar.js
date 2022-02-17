@@ -216,6 +216,25 @@ function SearchBar(){
       </form>
 
       <ListGroup style={{marginTop:40 ,position:'fixed', zIndex:12000}}>   
+      {
+      (()=>{
+        if (searchResult.length === 0) return null
+        if (searchResult[4].status !== "fulfilled") return null        
+        searchResult[4].value.data.map((results, i)=> { 
+          if (!_.isEmpty(results)) {
+            Object.keys(results).map((type, j)=>{ return (
+              <Link to={{ pathname: `/search/${type}`,
+                      state: [results[type].beers, type] }} key={j}
+                      className='searchbar_results'
+                      style={{ textDecoration: 'none' }}
+              > 
+                <ListGroup.Item>{type}({results[type].beers.length}개)</ListGroup.Item>
+              </Link>
+            )})
+          }
+        })
+      })()
+    }    
     {
       (()=>{
         if (searchResult.length === 0) return null
@@ -280,25 +299,7 @@ function SearchBar(){
         )
       })()
     }
-    {
-      (()=>{
-        if (searchResult.length === 0) return null
-        if (searchResult[4].status !== "fulfilled") return null        
-        searchResult[4].value.data.map((results, i)=> { 
-          if (!_.isEmpty(results)) {
-            Object.keys(results).map((type, j)=>{ return (
-              <Link to={{ pathname: `/search/${type}`,
-                      state: [results[type].beers, type] }} key={j}
-                      className='searchbar_results'
-                      style={{ textDecoration: 'none' }}
-              > 
-                <ListGroup.Item>{type}({results[type].beers.length}개)</ListGroup.Item>
-              </Link>
-            )})
-          }
-        })
-      })()
-    }    
+    
       </ListGroup>
     
 

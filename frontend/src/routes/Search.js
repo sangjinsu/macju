@@ -167,9 +167,6 @@ function Search(props){
       if (beerIdArr_others.length) {
         const setbeerIdArr_others = new Set(beerIdArr_others)
         const newArr = Array.from(setbeerIdArr_others)
-        console.log(beerIdArr_others)
-        console.log(setbeerIdArr_others)
-        console.log(newArr)
         const eachbeerdata = await axiosInstance.get(`${BEER_URL}?size=500`)
         eachbeerdata.data.map((eachbeer) => {
           newArr.map((id)=>{

@@ -40,14 +40,42 @@ function BeerRate(props){
     }
   }
 
-  const addflavor = ((e)=>{
-    const nowtag = e.target.innerText.substring(1)
-    const nowid = e.target.value
-    if (flavorArr.indexOf(nowtag) === -1) {
-      setFlavorArr((flavorArr) => [...flavorArr, nowtag])
-      setFlavorIdArr((flavorid) => [...flavorid, nowid])
-    }
+  const addallFlavor = ((e)=> {
+    const texts = [...e.options]
+    .filter(option => option.selected)
+    .map(option => option.text);
+
+    const values = [...e.options]
+    .filter(option => option.selected)
+    .map(option => option.value);
+
+    console.log(texts, values)
+    
+    // tag 값들
+    texts.map((nowtag)=>{
+      if (flavorArr.indexOf(nowtag) === -1) {
+        setFlavorArr((flavorArr) => [...flavorArr, nowtag])
+      }
+    })
+    // id 들
+    values.map((nowId)=>{
+      if (flavorArr.indexOf(nowId) === -1) {
+        setFlavorIdArr((flavorid) => [...flavorid, nowId])
+      }
+    })
+    // values = value값들(id)
+    // texts = html 값들(맛)
   })
+
+
+  // const addflavor = ((e)=>{
+  //   const nowtag = e.target.innerText.substring(1)
+  //   const nowid = e.target.value
+  //   if (flavorArr.indexOf(nowtag) === -1) {
+  //     setFlavorArr((flavorArr) => [...flavorArr, nowtag])
+  //     setFlavorIdArr((flavorid) => [...flavorid, nowid])
+  //   }
+  // })
   const deleteFlavor = (e) => {
     const nowtag = e.target.outerText.substring(1)
     setFlavorArr(flavorArr.filter((flavor) => flavor !== nowtag ))
@@ -101,11 +129,25 @@ function BeerRate(props){
         {/* 맛 해시태그 선택 */}
         <div className="selecttag_box col-6"> 
           <h4>Flavor</h4>
-          <select className="rate_select"  multiple>
+          <select className="rate_select"  multiple onChange={addallFlavor}>
             <option value="" disabled>
               맛 선택!
             </option>
-            <option onClick={addflavor} value="1" >#단맛</option>
+            <option value="1" >#단맛</option>
+            <option value="2" >#쓴맛</option>
+            <option value="3" >#신맛</option>
+            <option value="4" >#감칠맛</option>
+            <option value="5" >#떫은맛</option>
+            <option value="6" >#드라이함</option>
+            <option value="7" >#알싸한맛</option>
+            <option value="8" >#고소한맛</option>
+            <option value="9" >#상큼한맛</option>
+            <option value="10">#시큼한맛</option>
+            <option value="11">#씁쓸한맛</option>
+            <option value="12">#새콤한맛</option>
+            <option value="13">#청량한맛</option>
+
+            {/* <option onClick={addflavor} value="1" >#단맛</option>
             <option onClick={addflavor} value="2" >#쓴맛</option>
             <option onClick={addflavor} value="3" >#신맛</option>
             <option onClick={addflavor} value="4" >#감칠맛</option>
@@ -117,7 +159,7 @@ function BeerRate(props){
             <option onClick={addflavor} value="10">#시큼한맛</option>
             <option onClick={addflavor} value="11">#씁쓸한맛</option>
             <option onClick={addflavor} value="12">#새콤한맛</option>
-            <option onClick={addflavor} value="13">#청량한맛</option>
+            <option onClick={addflavor} value="13">#청량한맛</option> */}
           </select>
           <div className="flavortag_div">
             { flavorArr && flavorArr.map((flavor, i)=>{

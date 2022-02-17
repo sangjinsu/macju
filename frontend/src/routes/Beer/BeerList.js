@@ -8,6 +8,7 @@ import { useDispatch, useStore } from 'react-redux';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import axiosInstance from "CustomAxios";
+import { useCallback } from 'react';
 
 
 function BeerList(){
@@ -19,13 +20,7 @@ function BeerList(){
   const [isActive, setIsActive] = useState('all')  
   const store = useStore((state)=>state)
   const dispatch = useDispatch();
-  const headers = {
-    headers: {
-      "AccessToken":window.localStorage.getItem("AccessToken"),
-      "Accept":"application/json;charset=UTF-8",
-      "Content-Type":"application/json;charset=UTF-8"
-    }
-  }
+
   const ScrollBottom = () =>{
     const {scrollHeight, scrollTop, clientHeight} = document.documentElement
     if (scrollHeight - Math.round(scrollTop) <= 2*clientHeight){
@@ -46,12 +41,13 @@ function BeerList(){
       eachbeer[i].classList.add('displaynone')         
     }
   }
-  const fetchBeerlist = async () =>{
+  const fetchBeerlist = useCallback( async () =>{
     const data = await axiosInstance.get(`${BEER_LIST_URL}?size=500`)
     dispatch({type:"getBeerList", data:data})
     setTempdata(data.data)
     setbeerdata(store.getState().beerListReducer.data)
-  }
+  }, [BEER_LIST_URL, dispatch, store])
+
   useEffect(()=>{
     if (isActive === 'Ale') {
       const nowbeer = nowbeerArr.filter(beer => {
@@ -81,7 +77,7 @@ function BeerList(){
 
   useEffect(()=>{
     fetchBeerlist();
-  },[])
+  },[fetchBeerlist])
 
 
   useEffect(()=> {

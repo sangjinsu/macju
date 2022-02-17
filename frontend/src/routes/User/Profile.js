@@ -38,7 +38,7 @@ const Profile = () => {
     }
 
     fetchData();
-  }, [memberId])
+  }, [memberId, USER_LIKE_URL, USER_POST_URL, USER_PROFILE_URL, USER_REVIEW_URL, dispatch])
 
   return (
     <div className="bg_color">

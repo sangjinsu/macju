@@ -7,6 +7,7 @@ import axiosInstance from 'CustomAxios'
 import { ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import _ from "lodash"
+import { useCallback } from "react";
 const { to, set } = gsap
 
 
@@ -34,7 +35,7 @@ function SearchBar(){
     setSearchresult(searchAll)
   }, [searchAll])
   
-  const fetchSearchResult = async () =>{
+  const fetchSearchResult = useCallback( async () =>{
     if (searchInput === "") {
       setSearchAll([])
       return
@@ -48,7 +49,7 @@ function SearchBar(){
     const usersearch = axiosInstance.get(`${SEARCH_URL}/v1/search/user?query=${searchInput}`)
     Promise.allSettled([beerKosearch, beerEnsearch, aromasearch, flavorsearch, typesearch,usersearch])
     .then((results)=>setSearchAll(results))   
-  }
+  }, [SEARCH_URL, searchInput])
   
 
 
@@ -185,7 +186,7 @@ function SearchBar(){
   useEffect( () => {
     fetchSearchResult()
 
-  }, [searchInput])  
+  }, [searchInput, fetchSearchResult])  
   const handelKeyPress = (e) =>{
     if (e.key === 'Enter'){
       history.replace({pathname:`/search/${searchInput}`, searchInput:searchInput, searchAll:searchAll})

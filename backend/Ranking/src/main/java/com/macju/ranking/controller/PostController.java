@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://i6c107.p.ssafy.io/:8888/**", allowedHeaders = "*")
 @RequestMapping("post")
 public class PostController {
     @Autowired

@@ -19,7 +19,15 @@ public class BeerType {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private BeerMainType main;
+    private BeerENMainType en_main;
 
-    private String detail;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private BeerKOMainType ko_main;
+
+    private String ko_detail;
+
+    private String en_detail;
+
+
 }

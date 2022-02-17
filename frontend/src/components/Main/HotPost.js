@@ -23,6 +23,7 @@ const HotPost = (props) => {
       setRanking(rankingPostId)
       setSlideNum(rankingPost.length)
     }catch(err){
+      setSlideNum(false)
       console.log(err)
     }
   }
@@ -34,13 +35,19 @@ const HotPost = (props) => {
   return(
     <div className="SlickTest">
       <h3 className="hotPost pt-5" align="center">Hot Post</h3>
-      <Slider {...settings}>
-        {
-          rankingPostList&&rankingPostList.map((postid, i) => 
-            <CustomSlide postid={postid} key={i} />
-          )
-        }
-      </Slider>
+      {
+        slideNum
+        ?
+        <Slider {...settings}>
+          {
+            rankingPostList&&rankingPostList.map((postid, i) => 
+              <CustomSlide postid={postid} key={i} />
+            )
+          }
+        </Slider>
+        :
+        <div className="main_none">맥주 마시러 갈 사람!?</div>
+      }
     </div>
   )
 }

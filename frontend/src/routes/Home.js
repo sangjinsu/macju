@@ -3,7 +3,7 @@ import BestBeer from "../components/Main/BestBeer"
 import HotPost from "../components/Main/HotPost"
 import RecommendBeer from "../components/Main/RecommendBeer"
 import "../styles/Home.css"
-import axiosInstance from "CustomAxios";
+
 function Home() {
   const settings = {
     dots: true,
@@ -24,11 +24,11 @@ function Home() {
     CreateBubble()
   }, [])
   return(
-    <div className="SlickTest">
+    <div className="home">
       <div id="bubbles">
         <div className="main_container">
-          <BestBeer settings={settings} />
-          <RecommendBeer settings={settings} />
+          <BestBeer settings={settings} /> <hr></hr>
+          <RecommendBeer settings={settings} /><hr></hr>
           <HotPost settings={settings} />
         </div>
       </div>

@@ -6,12 +6,14 @@ import axiosInstance from "CustomAxios";
 function CommentList(props) {
   const postId = props.postId; // PostDetail 에서 postId값을 props로 받기
 
-  const COMMENT_LIST_URL = process.env.REACT_APP_SERVER + ':8888/v1/post'
-  const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8888/v1/member/profile'
-  const commentApiUrl = `${COMMENT_LIST_URL}/${postId}/comment` // 조회, 추가 때 사용
-
   // 로그인한 유저 아이디
   const loginMemberId = useSelector(state => state.userReducer).memberId
+
+  const COMMENT_LIST_URL = process.env.REACT_APP_SERVER + ':8888/v1/post'
+  // const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8888/v1/member/profile'
+  const commentApiUrl = `${COMMENT_LIST_URL}/${postId}/comment` // 조회, 추가 때 사용
+  const USER_PROFILE_URL = process.env.REACT_APP_SERVER + `:8888/v1/member/profile/${loginMemberId}`
+
 
   const dispatchComment = useRef();
   const newCommentId = useRef("");
@@ -19,6 +21,7 @@ function CommentList(props) {
   const dispatch = useDispatch();
   const [comments, setcomments] = useState([]);
   const [inputComment, inputCommentChange] = useState("");
+  const [user, setUser] = useState("");
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
   const commentPerPage = 10; // 페이지당 포스트 개수
 
@@ -53,7 +56,7 @@ function CommentList(props) {
           "commentId": newCommentId.current,
           "content": inputComment,
           "memberId": loginMemberId,
-          "nickname": "kimdongiln" // 수정필요
+          "nickname": user.nickName // 수정필요
         }
         dispatch({ type : "addComment", inputComment : dispatchComment.current })
         setcomments(store.getState().commentReducer)
@@ -68,7 +71,7 @@ function CommentList(props) {
         console.log("오류")
       }
     }
-  }, [USER_UPDATE_PROFILE, commentApiUrl, dispatch, inputComment, store, loginMemberId])
+  }, [commentApiUrl, dispatch, inputComment, store, loginMemberId, user.nickName])
 
   // 삭제 버튼 누를시 동작
   const deleteComment = useCallback( async (e) => {
@@ -88,7 +91,7 @@ function CommentList(props) {
     catch{
       console.log("오류")
     }
-  }, [COMMENT_LIST_URL, USER_UPDATE_PROFILE, dispatch, postId, store])
+  }, [COMMENT_LIST_URL, dispatch, postId, store])
   
   // Comment 데이터 불러오기
   const fetchData = useCallback( async () =>{
@@ -96,11 +99,14 @@ function CommentList(props) {
       const responseData = await axiosInstance.get(commentApiUrl)
       dispatch({type:"dataLoading", responseData : responseData.data})
       setcomments(store.getState().commentReducer)
+
+      const {data : profiledata} = await axiosInstance.get(`${USER_PROFILE_URL}`)
+		  setUser(profiledata)
     }
     catch{
       console.log("데이터 불러오기 실패")
     }
-  }, [commentApiUrl, dispatch, store])
+  }, [commentApiUrl, dispatch, store, USER_PROFILE_URL])
 
   useEffect(()=>{
     fetchData();
@@ -156,7 +162,7 @@ function CommentList(props) {
                   <nav>
                     <ul className="pagination">
                       {pageNumbers.map(num => <li key={num}>
-                      <a onClick={() => paginate(num)}>{num}</a>
+                      <button className="pagebutton" onClick={() => paginate(num)}>{num}</button>
                       </li>)} 
                     </ul>
                   </nav>

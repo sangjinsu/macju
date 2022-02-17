@@ -30,6 +30,8 @@
   color: #000000;
   border-radius: 5px;
   outline: none;
+  width: 80%;
+  margin: 10px 0;
   -webkit-box-shadow: none;
           box-shadow: none;
 }
@@ -53,6 +55,8 @@
   display: flex;
   align-items: baseline;
   padding-top: 7px;
+  font-family: 'Nanum Pen Script', cursive;
+  font-size: 25px;
 }
 
 
@@ -60,28 +64,15 @@
 .trash-icon{
   color: #fcb400;
 }
-/* .comment_section button.deletebtn{
-  display: inline-block;
-  background-color: #ff3333;
-  color: #ffffff;
-  border-radius: 45px;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  border: none;
-  padding: 2px 8px;
-  margin: 5px 0;
-  margin-left: 5px;
-  fill: #ffffff;
-  font-size: 12px;
-} */
 
 /* pagination */
 .comment_section .pagination {
   margin: 20px 10px;
 }
-.comment_section .pagination a:hover{
-  font-weight: bold;
-}
-.comment_section .pagination a {
- cursor: pointer;
+
+.pagination .pagebutton {
+  background-color: #fffaea;
+  border-radius: 5px;
+  border-width: 3px;
+  border-color: #F9CF68;
 }

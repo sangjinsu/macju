@@ -1,7 +1,7 @@
 package com.sib.macju.service.beer;
 
 import com.sib.macju.domain.beer.Beer;
-import com.sib.macju.domain.beer.BeerMainType;
+import com.sib.macju.domain.beer.BeerENMainType;
 import com.sib.macju.domain.member.Member;
 import com.sib.macju.domain.member.MemberRateBeer;
 import com.sib.macju.domain.member.RateHasAromaHashTag;
@@ -44,8 +44,8 @@ public class BeerService {
         return beerRepository.findAllWithBeerType(pageable);
     }
 
-    public List<Beer> fetchBeersByBeerType(BeerMainType beerMainType) {
-        return beerRepository.findByBeerMainType(beerMainType);
+    public List<Beer> fetchBeersByBeerType(BeerENMainType beerENMainType) {
+        return beerRepository.findByBeerMainType(beerENMainType);
     }
 
     @Transactional

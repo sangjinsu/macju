@@ -5,11 +5,13 @@ import com.sib.macju.dto.post.PostDetailDto;
 import com.sib.macju.dto.post.PostDto;
 import com.sib.macju.dto.post.RequestCreatePostDto;
 import com.sib.macju.dto.post.RequestUpdatePostDto;
+import com.sib.macju.repository.post.PostRepository;
 import com.sib.macju.service.post.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,10 +20,11 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("v1/post")
 @RequiredArgsConstructor
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PostController {
 
     private final PostService postService;
+    private final PostRepository postRepository;
 
     @ResponseBody
     @PostMapping()

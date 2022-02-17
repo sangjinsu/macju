@@ -1,0 +1,13 @@
+version: '3.2'
+services:
+  auth-redis:
+    image: redis
+    container_name: macju-auth-redis-server
+    ports:
+      - "6381:6379"
+
+  macju-auth-server:
+    image: 'sangjs39/macju-auth-server'
+    container_name: macju-auth-server
+    ports:
+      - "8752:8752"

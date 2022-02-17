@@ -7,10 +7,11 @@ import org.hibernate.annotations.ColumnDefault;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Getter
-@ToString
+@Setter
 @Table(name = "member")
 @NoArgsConstructor//(access = AccessLevel.PROTECTED)
 public class Member {
@@ -19,6 +20,9 @@ public class Member {
     @Column(name = "member_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long memberId;
+
+    @Column(name = "kakao_id", unique = true, nullable = false)
+    private Long kakaoId;
 
     @Column(
             name = "nick_name",
@@ -40,12 +44,7 @@ public class Member {
     @Column(nullable = false)
     private int age;
 
-    @Setter
-    @Enumerated(EnumType.STRING)
-    @Column(name = "profile_color")
-    private ProfileColor profileColor = ProfileColor.White;
-
-    @ColumnDefault("0")
+    @ColumnDefault("1")
     private int grade;
 
     @OneToMany(mappedBy = "following")
@@ -56,4 +55,11 @@ public class Member {
 
     @OneToMany(mappedBy = "member")
     private List<Post> posts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MemberFondAromaHashTag> memberFondAromaHashTags = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MemberFondFlavorHashTag> memberFondFlavorHashTags = new ArrayList<>();
+
 }

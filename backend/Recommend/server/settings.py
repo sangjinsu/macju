@@ -24,8 +24,17 @@ SECRET_KEY = 'django-insecure-s8qv2c!%y=_!5w1kbo)7vkjz&ed8p&=)h5jp&*wd438*x8yby3
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+ALLOWED_HOSTS = ['*']
 
-ALLOWED_HOSTS = []
+CORS_ORIGIN_WHITELIST = [
+    'http://127.0.0.1:3000',
+    'http://localhost:3000',
+    'http://i6c107.p.ssafy.io:8888',
+]
+
+CORS_ALLOW_METHODS = [
+    "GET",
+]
 
 
 # Application definition
@@ -39,11 +48,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'corsheaders',
 
     'recommend',
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -80,7 +91,7 @@ WSGI_APPLICATION = 'server.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'testsang',
+        'NAME': 'dbmaster',
         'USER': 'dbmasteruser',
         'PASSWORD': 'E$}O%$6t8MF*!Zll#$vVwsBV~:=[8V(j',
         'HOST': 'ls-2f83fa6c87cf7eb81f10d22ed5043bce0dd69eee.c6a334v7wlev.ap-northeast-2.rds.amazonaws.com',

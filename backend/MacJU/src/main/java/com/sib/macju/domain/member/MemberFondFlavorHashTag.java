@@ -2,12 +2,17 @@ package com.sib.macju.domain.member;
 
 
 import com.sib.macju.domain.hashtag.FlavorHashTag;
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
-@Data
+@Getter
+@Setter
+@RequiredArgsConstructor
 @Table(name = "member_fond_flavor_hash_tag")
 public class MemberFondFlavorHashTag {
 
@@ -24,4 +29,14 @@ public class MemberFondFlavorHashTag {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    public static MemberFondFlavorHashTag createMemberFondFlavorHashTag(
+            FlavorHashTag flavorHashTag,
+            Member member
+    ) {
+
+        MemberFondFlavorHashTag memberFondFlavorHashTag = new MemberFondFlavorHashTag();
+        memberFondFlavorHashTag.setFlavorHashTag(flavorHashTag);
+        memberFondFlavorHashTag.setMember(member);
+        return memberFondFlavorHashTag;
+    }
 }

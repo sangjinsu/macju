@@ -1,7 +1,7 @@
 package com.sib.macju.controller.beer;
 
 import com.sib.macju.domain.beer.Beer;
-import com.sib.macju.domain.beer.BeerMainType;
+import com.sib.macju.domain.beer.BeerENMainType;
 import com.sib.macju.domain.member.MemberRateBeer;
 import com.sib.macju.dto.beer.BeerDto;
 import com.sib.macju.dto.beer.RequestEvaluationDto;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("v1/beer")
 @RequiredArgsConstructor
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class BeerController {
 
     private final BeerService beerService;
@@ -49,8 +49,8 @@ public class BeerController {
     public List<BeerDto> fetchBeersByBeerType(@PathVariable("search") String search) {
         String firstLetter = search.substring(0, 1).toUpperCase();
         String remainLetter = search.substring(1).toLowerCase();
-        BeerMainType beerMainType = BeerMainType.valueOf(firstLetter + remainLetter);
-        List<Beer> beers = beerService.fetchBeersByBeerType(beerMainType);
+        BeerENMainType beerENMainType = BeerENMainType.valueOf(firstLetter + remainLetter);
+        List<Beer> beers = beerService.fetchBeersByBeerType(beerENMainType);
         return beers.stream().map(BeerDto::new).collect(Collectors.toList());
     }
 

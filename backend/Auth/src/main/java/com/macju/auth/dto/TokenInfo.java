@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TokenInfo {
 
-    private String kakaoMemberId;
+    private String kakaoId;
 
     private String accessToken;
 

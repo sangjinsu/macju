@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://i6c107.p.ssafy.io:8888/**", allowedHeaders = "*")
 @RequestMapping("beer")
 public class BeerController {
 
@@ -33,23 +33,6 @@ public class BeerController {
     public void beerLike(@PathVariable("beerId") Long beerId, @PathVariable("memberId") Long memberId) {
         beerService.saveBeerLike(beerId, memberId);
     }
-
-//    @GetMapping("/like")
-//    public List<BeerVo> fetchBeerLike() { //@PathVariable("beerId") Long beerId) {
-//        List<BeerLike> beer = beerService.fetchBeerLike();
-//        return beer.stream().map(BeerVo::new).collect(Collectors.toList());
-//    }
-//
-//    @GetMapping("/view")
-//    public List<BeerVo> fetchBeerView() { // @PathVariable("beerId") Long beerId) {
-//        List<BeerView> beer = beerService.fetchBeerView();
-//        return beer.stream().map(BeerVo::new).collect(Collectors.toList());
-//    }
-
-//    @DeleteMapping("/delete")
-//    public void deleteAll() {
-//        beerService.deleteAll();
-//    }
 
     @GetMapping("/popbeer")
     public List<BeerVo> getPopBeer() {

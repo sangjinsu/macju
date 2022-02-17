@@ -20,13 +20,11 @@ function Search(props){
       setSearchClickInput(location.state[1])  // 검색할 값
       setSearchresult(location.state[0])   // id 배열 형식
     }
-    console.log(location.state)
   },[])
   
 
   const [beerArr, setBeerArr] = useState([])
   useEffect(()=>{
-    console.log('클릭 결과', searchresult)
     const fetchbeerdata = async () => {
       if (searchresult) {
         const eachbeerdata = await axiosInstance.get(`${BEER_URL}?size=500`)
@@ -58,13 +56,12 @@ function Search(props){
   const searchAll = props.location.searchAll
   useEffect(()=>{
     if (searchAll) {
-      console.log(searchAll)
-      setBeerKodata(searchAll[0].data)
-      setBeerEndata(searchAll[1].data)
-      setAromadata(searchAll[2].data)
-      setFlavordata(searchAll[3].data)
-      setTypedata(searchAll[4].data)
-      setUserdata(searchAll[5].data)
+      setBeerKodata(searchAll[0].value.data)
+      setBeerEndata(searchAll[1].value.data)
+      setAromadata(searchAll[2].value.data)
+      setFlavordata(searchAll[3].value.data)
+      setTypedata(searchAll[4].value.data)
+      setUserdata(searchAll[5].value.data)
     }
   },[searchInput])
   

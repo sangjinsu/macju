@@ -104,6 +104,7 @@ function BeerDetail() {
       }
     }
     spendData()
+
   }, [RANKING_BEER_URL, beerid, memberId])
 
   return (

@@ -11,7 +11,6 @@ const UserReview = (props) =>{
 
   const fetchData = async() =>{
     const data = await axiosInstance.get(`${USER_REVIEW_URL}/${memberId}/rates`)
-    
     setUserReviews(data.data.data)
   }
 

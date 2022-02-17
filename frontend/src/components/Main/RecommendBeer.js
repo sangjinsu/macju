@@ -57,6 +57,7 @@ function CustomSlide(props) {
   },[BEER_DETAIL_URL, props.beerid])
   useEffect( () => {
     imgData();
+    console.log('h')
   }, [BEER_DETAIL_URL, props.beerid, imgData])
   return(
     <div {...props} className="recommend_beers row text-center ">

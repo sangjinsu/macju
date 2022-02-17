@@ -45,12 +45,12 @@ function Search(props){
   const searchAll = props.location.searchAll
   useEffect(()=>{
     if (searchAll) {
-      setBeerKodata(searchAll[0].data)
-      setBeerEndata(searchAll[1].data)
-      setAromadata(searchAll[2].data)
-      setFlavordata(searchAll[3].data)
-      setTypedata(searchAll[4].data)
-      setUserdata(searchAll[5].data)
+      setBeerKodata(searchAll[0].value.data)
+      setBeerEndata(searchAll[1].value.data)
+      setAromadata(searchAll[2].value.data)
+      setFlavordata(searchAll[3].value.data)
+      setTypedata(searchAll[4].value.data)
+      setUserdata(searchAll[5].value.data)
     }
   },[searchInput, searchAll])
   const [beerIdArr_name, setBeerIdArr_name] = useState([])

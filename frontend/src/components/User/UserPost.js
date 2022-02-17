@@ -18,7 +18,7 @@ const UserPost = (props) => {
       const memberPosts = await axiosInstance.get(`${USER_POST_URL}/${memberId}`)
       setUserPosts(memberPosts.data)
     }
-    fetchData();  
+    fetchData();
   },[USER_POST_URL, memberId])
   
   useEffect(()=> {
@@ -32,11 +32,9 @@ const UserPost = (props) => {
             imageList.push({id:userPosts[i].postId, res})
           }
         })
-        
     }
     setUserPostImages(imageList)
   }
-
     fetchData();
   //eslint-disable-next-line
   }, [userPosts])
@@ -50,18 +48,19 @@ const UserPost = (props) => {
     <div className="container">
       <h1 className="font">Posts</h1>
       <div className="row grid postlist_component">
-      { userPosts.length === 0 ? <div className="noPost"> 포스트를 작성해주세요~! </div> : userPosts.map((post) =>
+      <div className="noPost row grid postlist_component">
+      { userPosts.length === 0 ?  <>
+            <UserIcon grade={2500}/>
+
+            <div id="text" style={{marginTop:50 ,textAlign:'center'}}>아직 작성한 게시글이 없습니다.</div>
+            </> : userPosts.map((post) =>
         <div className="col-md-6 col-lg-4 fadein" key={post.postId}>
           <div className="box">
             <div className="postlist_box">            
               {userPostImages&&userPostImages.map((data, i)=> data.id === post.postId ? 
                 <div key={i} className="img-box">
                   <img src={data.res} alt="" style={{maxHeight:210, maxWidth:350 }}></img>
-                </div> : <>
-            <UserIcon grade={2500}/>
-
-            <div id="text" style={{marginTop:50 ,textAlign:'center'}}>아직 작성한 게시글이 없습니다.</div>
-            </>
+                </div> : null
                 )
               }       
               <div className="postdetail-box">
@@ -81,6 +80,7 @@ const UserPost = (props) => {
       )}
  
       </div>
+    </div>
     </div>
     </section>
   )

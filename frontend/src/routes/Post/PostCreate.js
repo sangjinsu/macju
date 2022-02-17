@@ -195,7 +195,7 @@ function PostCreate(props) {
                       className="postcreate_textarea"
                       maxLength="2200"
                       required
-                      placeholder="2200이내.."
+                      placeholder="2200자 이내로 작성해주세요"
                       rows="5"
                     ></textarea>
                     <br/>

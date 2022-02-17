@@ -113,9 +113,8 @@ function BeerRate(props){
         }
       })
     }
-    
     fetchData();
-  }, [BEER_RATE_URL, aromaArr, beerid, flavorArr, memberId, props])
+  }, [])
 
 
 

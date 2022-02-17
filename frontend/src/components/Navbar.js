@@ -3,7 +3,7 @@ import '../styles/Navbar.css'
 import '../styles/Responsive.css'
 import { Link, useHistory } from "react-router-dom"
 import SearchBar from './SearchBar.js'
-import { useDispatch, useStore } from 'react-redux';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 
 
 function NavBar(){
@@ -11,6 +11,10 @@ function NavBar(){
   const store = useStore((state) => state)
   const dispatch = useDispatch()
   const history = useHistory()
+
+  // 로그인 유저 정보
+  const loginUser = useSelector(state => state.userReducer).memberId
+  console.log(loginUser)
 
   const logOut = () => {
     localStorage.removeItem("AccessToken");
@@ -66,12 +70,15 @@ function NavBar(){
                         <i className="fa fa-user" aria-hidden="true"></i>
                       </Link>
                     </li>
+                    { loginUser === null?
                     <li className="order_online">
                       <Link className='dropdown-item nav_login' to='/user/login'>login</Link>
                     </li>
+                    :
                     <li className="order_online">
                       <div className='dropdown-item nav_login' onClick={logOut}>Logout</div>
                     </li>
+                    }
                   </ul>
                   
                 </div>

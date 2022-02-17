@@ -233,7 +233,9 @@ function PostCreate(props) {
                   {/* 사진 띄우는곳 */}
                   <div>
                   <Slider {...carouselSettings}>
-                    { browserImages.length === 0 ? <Box hidden id="spinner" sx={{ display: 'flex' }} style={{justifyContent:'center', marginTop:100, marginBottom:100}}><CircularProgress size={200}/></Box>:browserImages.map((img)=>(
+                    { browserImages.length === 0 
+                    ? <Box hidden id="spinner" sx={{ display: 'flex' }} style={{justifyContent:'center', marginTop:100, marginBottom:100}}><CircularProgress size={200} style={{color:'#F9CF68'}}/></Box>
+                    :browserImages.map((img)=>(
                       <div className='image_container' key={img.index}>
                         <img alt="sample" src={img.url} className="postimage"/>
                         <div className="deleteImgBtn" role={'button'} onClick={deleteImg} idx={img.index}>X</div>

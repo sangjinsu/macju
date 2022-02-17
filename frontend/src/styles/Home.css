@@ -52,7 +52,7 @@
 /* slick 이미지  */
 .slick-slide img {
   display: inline-block;
-  max-height: 300px;
+  /* max-height: 300px; */
 }
 .slideDiv {
   display: inline-block;

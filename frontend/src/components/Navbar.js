@@ -14,8 +14,6 @@ function NavBar(){
 
   // 로그인 유저 정보
   const loginUser = useSelector(state => state.userReducer).memberId
-  console.log(loginUser)
-
   const logOut = () => {
     localStorage.removeItem("AccessToken");
     dispatch({type:"logout"})

@@ -60,7 +60,7 @@ function PostListComponent(){
   return(
     
     <div className="row grid postlist_component">    
-      { newPost.length ===0 ? <Box sx={{ display: 'flex' }} style={{justifyContent:'center', margin:'auto'}}><CircularProgress size={200} style={{color:'#F9CF68'}}/></Box> 
+      { newPost.length ===0 ? <div className="noPost">포스트가 없어요!</div> 
       : newPost.map((post) =>
         <div className="col-md-6 col-lg-4 fadein" key={post.postId}>
             <div className="box">

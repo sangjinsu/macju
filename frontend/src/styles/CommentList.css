@@ -37,17 +37,9 @@
 }
 
 /* 댓글 작성 버튼 */
-.comment_section .comment_button {
-  display: inline-block;
-  padding: 10px 30px;
-  background-color: #ffbe33;
-  color: #ffffff;
-  border-radius: 45px;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
+.comment_section .commentSubmit {
+  background: none;
   border: none;
-  padding: 5px 20px;
-  margin-left: 5px;
 }
 
 /* 댓글목록 */
@@ -62,7 +54,7 @@
 
 /* 댓글 삭제 버튼 */
 .trash-icon{
-  color: #fcb400;
+  color: #ff4646;
 }
 
 /* pagination */

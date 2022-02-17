@@ -34,7 +34,7 @@ const HotPost = (props) => {
 
   return(
     <div className="SlickTest">
-      <h3 className="hotPost pt-5" align="center">Hot Post</h3>
+      <h3 className="hotPost pt-4" align="center">Hot Post</h3>
       {
         slideNum
         ?

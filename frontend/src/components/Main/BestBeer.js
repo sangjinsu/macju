@@ -27,7 +27,7 @@ const BestBeer = (props) => {
 
   return(
     <div className="SlickTest">
-      <h3 className="bestbeer pt-5" align="center">Best Beer</h3>
+      <h3 className="bestbeer pt-4" align="center">Best Beer</h3>
       {
         rankingBeerList
         ?

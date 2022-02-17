@@ -4,7 +4,7 @@ import "../../styles/CommentList.css"
 import axiosInstance from "CustomAxios";
 
 function CommentList(props) {
-  const postId = props.postId; 
+  const postId = props.postId;
 
   // 로그인한 유저 아이디
   const loginMemberId = useSelector(state => state.userReducer).memberId
@@ -16,18 +16,18 @@ function CommentList(props) {
 
   const dispatchComment = useRef();
   const newCommentId = useRef("");
-  const store = useStore((state)=>state)
+  const store = useStore((state) => state)
   const dispatch = useDispatch();
   const [comments, setcomments] = useState([]);
   const [inputComment, inputCommentChange] = useState("");
   const [user, setUser] = useState("");
-  const [currentPage, setCurrentPage] = useState(1); 
-  const commentPerPage = 10; 
-  const indexOfLastComment = currentPage * commentPerPage 
+  const [currentPage, setCurrentPage] = useState(1);
+  const commentPerPage = 10;
+  const indexOfLastComment = currentPage * commentPerPage
   const indexOfFirstPost = indexOfLastComment - commentPerPage
   const currentComments = comments.slice(indexOfFirstPost, indexOfLastComment)
   const pageNumbers = [];
-  for (let i=1; i<=Math.ceil(comments.length / commentPerPage); i++){
+  for (let i = 1; i <= Math.ceil(comments.length / commentPerPage); i++) {
     pageNumbers.push(i)
   }
 
@@ -35,63 +35,63 @@ function CommentList(props) {
   const changeComment = (e) => {
     inputCommentChange(e.target.value);
   }
-  const addComment = useCallback (async (e) => {
+  const addComment = useCallback(async (e) => {
     e.preventDefault()
     if (inputComment) {
-      try{
+      try {
         const postData = {
           "content": inputComment,
           "memberId": loginMemberId
         }
-        const { data : addData} = await axiosInstance.post(commentApiUrl, postData)
-        newCommentId.current = addData 
+        const { data: addData } = await axiosInstance.post(commentApiUrl, postData)
+        newCommentId.current = addData
         dispatchComment.current = {
           "commentId": newCommentId.current,
           "content": inputComment,
           "memberId": loginMemberId,
-          "nickname": user.nickName 
+          "nickname": user.nickName
         }
-        dispatch({ type : "addComment", inputComment : dispatchComment.current })
+        dispatch({ type: "addComment", inputComment: dispatchComment.current })
         setcomments(store.getState().commentReducer)
         inputCommentChange("")
       }
-      catch(err){
+      catch (err) {
         console.log(err)
       }
     }
   }, [commentApiUrl, dispatch, inputComment, store, loginMemberId, user.nickName])
-  const deleteComment = useCallback( async (e) => {
-    try{
+  const deleteComment = useCallback(async (e) => {
+    try {
       const commentId = e.target.attributes.commentid.value
       const deleteApiUrl = `${COMMENT_LIST_URL}/${postId}/comment/${commentId}`
 
       await axiosInstance.delete(deleteApiUrl)
-      dispatch({ type : "deleteComment", commentKey : commentId })
+      dispatch({ type: "deleteComment", commentKey: commentId })
       setcomments(store.getState().commentReducer)
     }
-    catch(err){
+    catch (err) {
       console.log(err)
     }
   }, [COMMENT_LIST_URL, dispatch, postId, store])
-  const fetchData = useCallback( async () =>{
-    try{
+  const fetchData = useCallback(async () => {
+    try {
       const responseData = await axiosInstance.get(commentApiUrl)
-      dispatch({type:"dataLoading", responseData : responseData.data})
+      dispatch({ type: "dataLoading", responseData: responseData.data })
       setcomments(store.getState().commentReducer)
 
-      const {data : profiledata} = await axiosInstance.get(`${USER_PROFILE_URL}`)
-		  setUser(profiledata)
+      const { data: profiledata } = await axiosInstance.get(`${USER_PROFILE_URL}`)
+      setUser(profiledata)
     }
-    catch(err){
+    catch (err) {
       console.log(err)
     }
   }, [commentApiUrl, dispatch, store, USER_PROFILE_URL])
 
-  useEffect(()=>{
+  useEffect(() => {
     fetchData();
-    }, [commentApiUrl, dispatch, store, fetchData])
+  }, [commentApiUrl, dispatch, store, fetchData])
 
-  return(
+  return (
     <div className="CommentList">
       <section className="comment_section layout_padding_comment">
         <div className="container">
@@ -102,41 +102,43 @@ function CommentList(props) {
                 <div className="heading_container">
                   <h2>Comment</h2>
                 </div>
-                <form>
+
+                <form onSubmit={addComment} >
                   <input
                     type="text"
                     name="inputComment"
                     className="comment_input"
                     placeholder="댓글 입력..."
-                    value={ inputComment }
-                    onChange={ changeComment }
+                    value={inputComment}
+                    onChange={changeComment}
                     required
                   />
-                  <i className="fas fa-location-arrow fa-lg" onClick={ addComment }></i>
+                  <button type='submit' className="commentSubmit"><i className="fas fa-location-arrow fa-lg"></i></button>
                 </form>
+
                 {
-                  currentComments.map( (comment, i) => {
-                    return(
+                  currentComments.map((comment, i) => {
+                    return (
                       <div className="commentList" key={i}>
                         {loginMemberId === comment.memberId ?
-                        <div>
-                          {comment.nickname} : { comment.content }  <i className="fas fa-trash trash-icon" commentid={comment.commentId} onClick={deleteComment}></i>
-                        </div>
-                        : 
-                        <div>
-                          {comment.nickname} : { comment.content }
-                        </div>
+                          <div>
+                            {comment.nickname} : {comment.content}  <i className="fas fa-trash trash-icon" commentid={comment.commentId} onClick={deleteComment}></i>
+                          </div>
+                          :
+                          <div>
+                            {comment.nickname} : {comment.content}
+                          </div>
                         }
                       </div>
                     )
                   })
                 }
-                { comments && 
+                {comments &&
                   <nav>
                     <ul className="pagination">
                       {pageNumbers.map(num => <li key={num}>
-                      <button className="pagebutton" onClick={() => paginate(num)}>{num}</button>
-                      </li>)} 
+                        <button className="pagebutton" onClick={() => paginate(num)}>{num}</button>
+                      </li>)}
                     </ul>
                   </nav>
                 }

@@ -29,7 +29,7 @@ const RecommendBeer = (props) => {
   
   return(
     <div className="SlickTest">
-      <h3 className="recommendtitle pt-5" align="center">Recommend Beer</h3>
+      <h3 className="recommendtitle pt-4" align="center">Recommend Beer</h3>
       {beerList 
         ?
         <Slider {...settings}>
@@ -39,7 +39,7 @@ const RecommendBeer = (props) => {
             )
           }
         </Slider>
-        : <div className="main_none">맥주 취향을 모르겠어요??</div>
+        : <div className="main_none">맥주 취향을 모르겠나요?</div>
       }
     </div>
   )

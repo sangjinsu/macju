@@ -17,7 +17,7 @@ function NavBar(){
     removeCookie("AccessToken")
     dispatch({type:"logout"})
     alert("로그아웃 되었습니다!!")
-    history.push("/login")
+    history.push("/user/login")
   }
 
   return(

@@ -234,7 +234,7 @@ function Search(props){
                                 <h6 className='beerCategory'>
                                   {beer.beerType.en_main}
                                 </h6>
-                                { beer.beerType.ko_detail !== null
+                                { beer.beerType.en_detail !== null
                                   ? <h6 className='beerCategory'>
                                       {beer.beerType.en_detail}
                                     </h6>
@@ -288,7 +288,7 @@ function Search(props){
                               <h6 className='beerCategory'>
                                   {beer.beerType.en_main}
                                 </h6>
-                                { beer.beerType.ko_detail !== null
+                                { beer.beerType.en_detail !== null
                                   ? <h6 className='beerCategory'>
                                       {beer.beerType.en_detail}
                                     </h6>
@@ -356,7 +356,7 @@ function Search(props){
                                 <h6 className='beerCategory'>
                                   {beer.beerType.en_main}
                                 </h6>
-                                { beer.beerType.ko_detail !== null
+                                { beer.beerType.en_detail !== null
                                   ? <h6 className='beerCategory'>
                                       {beer.beerType.en_detail}
                                     </h6>

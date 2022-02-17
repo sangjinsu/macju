@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axiosInstance from "CustomAxios";
+import { Link } from "react-router-dom";
 const BestBeer = (props) => {
   const [rankingBeerList, setRanking] = useState()
 
@@ -41,7 +42,6 @@ const BestBeer = (props) => {
         :
         <div className="main_none"> 
           <div>맥주에게 관심을 주세요!!</div>
-          
         </div>
       }
     </div>
@@ -64,11 +64,13 @@ function CustomSlide(props) {
   }, [BEER_DETAIL_URL, props.beerid])
   return(
     <div {...props} className="best_beers row text-center">
-      <img className="slideImg best_beer_img col w-50 " src={imgSrc} alt="" style={{maxHeight:400, maxWidth:300 }}/>
-      <div className="slideDiv best_beer_content col text-center mb-5">
-        <h3 className="beer_name">{beerName}</h3>
-        <div></div>
-      </div>
+      <Link to={`/beer/${props.beerid}`}>
+        <img className="slideImg best_beer_img col w-50 " src={imgSrc} alt="" style={{maxHeight:400, maxWidth:300 }}/>
+        <div className="slideDiv best_beer_content col text-center mb-5">
+          <h3 className="beer_name">{beerName}</h3>
+          <div></div>
+        </div>
+      </Link>
     </div>
   )
 }

@@ -145,7 +145,7 @@ const ProfileEdit = () => {
             <div className="container">
               
             {flavors.length !== 0 ? flavors.map((flavor, i)=>
-              <FormControlLabel control={<Checkbox checked={flavor} onChange={handleChange(i + 1)} />} label={flavorName[i]} /> 
+              <FormControlLabel key={i} control={<Checkbox checked={flavor} onChange={handleChange(i + 1)} />} label={flavorName[i]} /> 
             ):null}
 
             </div>
@@ -155,7 +155,7 @@ const ProfileEdit = () => {
           <div style={{backgroundColor:'#f9d06880', borderStyle:"solid", borderColor:"#F9CF68", borderRadius:'15px'}}>
           <div className="container">
           {aromas.length !== 0 ? aromas.map((aroma, i)=>
-              <FormControlLabel control={<Checkbox checked={aroma} onChange={handleChange(i + 13)} />} label={aromaName[i]} /> 
+              <FormControlLabel key={i} control={<Checkbox checked={aroma} onChange={handleChange(i + 13)} />} label={aromaName[i]} /> 
             ):null}
           </div>  
           </div>

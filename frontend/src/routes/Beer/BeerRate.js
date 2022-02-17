@@ -44,7 +44,7 @@ function BeerRate(props){
     const texts = [...e.options]
     .filter(option => option.selected)
     .map(option => option.text);
-    
+
     const values = [...e.options]
     .filter(option => option.selected)
     .map(option => option.value);
@@ -59,7 +59,7 @@ function BeerRate(props){
     })
     // id 들
     values.map((nowId)=>{
-      if (flavorArr.indexOf(nowtag) === -1) {
+      if (flavorArr.indexOf(nowId) === -1) {
         setFlavorIdArr((flavorid) => [...flavorid, nowId])
       }
     })
@@ -133,7 +133,21 @@ function BeerRate(props){
             <option value="" disabled>
               맛 선택!
             </option>
-            <option onClick={addflavor} value="1" >#단맛</option>
+            <option value="1" >#단맛</option>
+            <option value="2" >#쓴맛</option>
+            <option value="3" >#신맛</option>
+            <option value="4" >#감칠맛</option>
+            <option value="5" >#떫은맛</option>
+            <option value="6" >#드라이함</option>
+            <option value="7" >#알싸한맛</option>
+            <option value="8" >#고소한맛</option>
+            <option value="9" >#상큼한맛</option>
+            <option value="10">#시큼한맛</option>
+            <option value="11">#씁쓸한맛</option>
+            <option value="12">#새콤한맛</option>
+            <option value="13">#청량한맛</option>
+
+            {/* <option onClick={addflavor} value="1" >#단맛</option>
             <option onClick={addflavor} value="2" >#쓴맛</option>
             <option onClick={addflavor} value="3" >#신맛</option>
             <option onClick={addflavor} value="4" >#감칠맛</option>
@@ -145,7 +159,7 @@ function BeerRate(props){
             <option onClick={addflavor} value="10">#시큼한맛</option>
             <option onClick={addflavor} value="11">#씁쓸한맛</option>
             <option onClick={addflavor} value="12">#새콤한맛</option>
-            <option onClick={addflavor} value="13">#청량한맛</option>
+            <option onClick={addflavor} value="13">#청량한맛</option> */}
           </select>
           <div className="flavortag_div">
             { flavorArr && flavorArr.map((flavor, i)=>{

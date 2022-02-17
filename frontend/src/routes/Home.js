@@ -3,18 +3,32 @@ import BestBeer from "../components/Main/BestBeer"
 import HotPost from "../components/Main/HotPost"
 import RecommendBeer from "../components/Main/RecommendBeer"
 import "../styles/Home.css"
-
 function Home() {
+  const settings = {
+    dots: true,
+    infinite: true,
+    autoplay: true,
+    arrows: false,
+    fade:true,
+    autoplaySpeed: 3000,
+    speed: 2000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    centerMode: true,
+    centerPadding: '10px',
+  };
+
   useEffect( () => {
     CreateBubble()
   }, [])
-
   return(
-    <div className="SlickTest">
+    <div className="home">
       <div id="bubbles">
-        <BestBeer />
-        <RecommendBeer/>
-        <HotPost />
+        <div className="main_container">
+          <BestBeer settings={settings} /> <hr></hr>
+          <RecommendBeer settings={settings} /><hr></hr>
+          <HotPost settings={settings} />
+        </div>
       </div>
     </div>
   )
@@ -37,11 +51,10 @@ function CreateBubble(){
       bubbles.appendChild(bubble);
       i++;
     }else{
-      clearInterval(bubbleEnd); // 충분한 방울 생성되면, setInterval 반환값을 인자로 받아 setInterval 종료
+      clearInterval(bubbleEnd); 
     }
   };
-
-  bubbleEnd = setInterval(generateBubble, 500); // generateBubble를 시간을 두고 실행 
+  bubbleEnd = setInterval(generateBubble, 500); 
 }
 
 export default Home;

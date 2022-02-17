@@ -6,19 +6,24 @@ import axiosInstance from "CustomAxios";
 function CommentList(props) {
   const postId = props.postId; 
 
-  const COMMENT_LIST_URL = process.env.REACT_APP_SERVER + ':8888/v1/post'
-  const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8888/v1/member/profile'
-  const commentApiUrl = `${COMMENT_LIST_URL}/${postId}/comment` 
+  // 로그인한 유저 아이디
   const loginMemberId = useSelector(state => state.userReducer).memberId
+
+  const COMMENT_LIST_URL = process.env.REACT_APP_SERVER + ':8888/v1/post'
+  const commentApiUrl = `${COMMENT_LIST_URL}/${postId}/comment`
+  const USER_PROFILE_URL = process.env.REACT_APP_SERVER + `:8888/v1/member/profile/${loginMemberId}`
+
+
   const dispatchComment = useRef();
   const newCommentId = useRef("");
   const store = useStore((state)=>state)
   const dispatch = useDispatch();
   const [comments, setcomments] = useState([]);
   const [inputComment, inputCommentChange] = useState("");
+  const [user, setUser] = useState("");
   const [currentPage, setCurrentPage] = useState(1); 
-  const commentPerPage = 10;
-  const indexOfLastComment = currentPage * commentPerPage  
+  const commentPerPage = 10; 
+  const indexOfLastComment = currentPage * commentPerPage 
   const indexOfFirstPost = indexOfLastComment - commentPerPage
   const currentComments = comments.slice(indexOfFirstPost, indexOfLastComment)
   const pageNumbers = [];
@@ -44,7 +49,7 @@ function CommentList(props) {
           "commentId": newCommentId.current,
           "content": inputComment,
           "memberId": loginMemberId,
-          "nickname": "kimdongiln" 
+          "nickname": user.nickName 
         }
         dispatch({ type : "addComment", inputComment : dispatchComment.current })
         setcomments(store.getState().commentReducer)
@@ -54,7 +59,7 @@ function CommentList(props) {
         console.log(err)
       }
     }
-  }, [USER_UPDATE_PROFILE, commentApiUrl, dispatch, inputComment, store, loginMemberId])
+  }, [commentApiUrl, dispatch, inputComment, store, loginMemberId, user.nickName])
   const deleteComment = useCallback( async (e) => {
     try{
       const commentId = e.target.attributes.commentid.value
@@ -67,17 +72,20 @@ function CommentList(props) {
     catch(err){
       console.log(err)
     }
-  }, [COMMENT_LIST_URL, USER_UPDATE_PROFILE, dispatch, postId, store])
+  }, [COMMENT_LIST_URL, dispatch, postId, store])
   const fetchData = useCallback( async () =>{
     try{
       const responseData = await axiosInstance.get(commentApiUrl)
       dispatch({type:"dataLoading", responseData : responseData.data})
       setcomments(store.getState().commentReducer)
+
+      const {data : profiledata} = await axiosInstance.get(`${USER_PROFILE_URL}`)
+		  setUser(profiledata)
     }
     catch(err){
       console.log(err)
     }
-  }, [commentApiUrl, dispatch, store])
+  }, [commentApiUrl, dispatch, store, USER_PROFILE_URL])
 
   useEffect(()=>{
     fetchData();
@@ -127,7 +135,7 @@ function CommentList(props) {
                   <nav>
                     <ul className="pagination">
                       {pageNumbers.map(num => <li key={num}>
-                      <a onClick={() => paginate(num)}>{num}</a>
+                      <button className="pagebutton" onClick={() => paginate(num)}>{num}</button>
                       </li>)} 
                     </ul>
                   </nav>

@@ -60,6 +60,11 @@
 }
 
 
+.postlist_section .noPost {
+  text-align: left;
+  font-family: 'Nanum Pen Script', cursive;
+  font-size: 25px;
+}
 
 /* 포스트 카드 박스 */
 .postlist_section .postlist_box {

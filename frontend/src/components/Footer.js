@@ -59,7 +59,6 @@ function Footer(){
       <div className="footer-info">
         <p>
           &copy; <span id="displayYear"></span> Distributed By MacJU
-          {/* <a href="https://themewagon.com/" target="_blank"> MacJU</a> */}
         </p>
       </div>
     </div>

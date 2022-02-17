@@ -13,7 +13,6 @@ import { useStore } from "react-redux";
 
 
 function BeerDetail() {
-  //url
   const BEER_DETAIL_URL = process.env.REACT_APP_SERVER + ':8888/v1/beer'
   const BEER_DETAIL_POST_URL = process.env.REACT_APP_SERVER + ':8888/v1/post/beer'
   const RATED_BEER_URL = process.env.REACT_APP_SERVER + ':8888/v1/member'
@@ -21,36 +20,16 @@ function BeerDetail() {
   const RANKING_BEER_URL = process.env.REACT_APP_SERVER + ':8888/beer/view'
   const RANKING_BEER_LIKE_URL = process.env.REACT_APP_SERVER + ':8888/beer/like'
   const BEER_LIKE_URL = process.env.REACT_APP_SERVER + ':8888/v1/member'
-
-  
-  //temp
-  const store = useStore((state)=> state)
   const userData = useSelector(state => state.userReducer)
-  // console.log(userData)
   const memberId = Number(userData.memberId)
-  console.log(memberId)   
-  //react-redux
   const dispatch = useDispatch();  
-  
-  // 맥주 data
   const [beer, setbeer] = useState()
-  // 맥주의 posts
-  const [beerpost, setbeerpost] = useState()
-
-  // 평가한 맥주들
-  const [ratebeers, setRatebeers] = useState([])
   const [isRated, setIsRated] = useState(false)
   const [rateModal, set_rateModal] = useState(false)
-  // 좋아한 맥주들
   const [likebeers, setLikebeers] = useState([])
   const [isLiked, setIsLiked] = useState(false)
-  // 좋아요수
-  // const [likes, setLikes] = useState()
   const [beerlikeNum, setBeerlikeNum] = useState()
-
   const { beerid } = useParams();
-
-  // 별점
   const [starrate, setStarrate] = useState()
 
   
@@ -62,42 +41,30 @@ function BeerDetail() {
     const fetchData = async ()=>{
       const { data : beerdetail } = await axiosInstance.get(`${BEER_DETAIL_URL}/${beerid}`)
       setbeer(beerdetail)
-      // 맥주별 포스트 목록
       const beer_postdetail = await axiosInstance.get(`${BEER_DETAIL_POST_URL}/${beerid}`)
       dispatch({type:'beerDetailPost', beerdetaildata:beer_postdetail})
-
-
-      // 평가한 맥주 목록
       const { data : rated_beer } = await axiosInstance.get(`${RATED_BEER_URL}/${memberId}/rates`)
       const rated = rated_beer.data
       for (let i in rated) {
         if (rated[i].beer.beerId === Number(beerid)) {
-          setIsRated(true)    // 이 맥주 평가했으면 isRated=true
+          setIsRated(true)   
         }
       }
-      
-      // 좋아한 맥주 목록
       const { data : beerlikedata } = await axiosInstance.get(`${BEER_LIKE_URL}/${memberId}/like/beer`)
       setLikebeers(beerlikedata.data)
       for (let i in beerlikedata.data) {
         if (beerlikedata.data[i].beerId === Number(beerid)) {
-          setIsLiked(true)    // 이 맥주 좋아요 눌렀으면 isLiked=true
+          setIsLiked(true)   
         } 
       }
-      setBeerlikeNum(beerdetail.likes)    // 좋아요수 처음에 가져오기
-
-      // 로그 보내기
+      setBeerlikeNum(beerdetail.likes)  
       const hashTagArr = [beerdetail.beerType.en_main, ...beerdetail.aromaHashTags , ...beerdetail.flavorHashTags]
       
-      // console.log(hashTagArr)
       const newdata = {
         id : memberId,
         tags : hashTagArr
       }
-      console.log(newdata)
-      // console.log(newdata)
       axiosInstance.post(BEER_DETAIL_LOG_URL, newdata)    
-      // .then()
     }
     fetchData();
   }, [BEER_DETAIL_POST_URL, BEER_DETAIL_URL, RATED_BEER_URL, BEER_LIKE_URL, beerid, starrate])
@@ -122,30 +89,30 @@ function BeerDetail() {
         setBeerlikeNum(beerlikeNum+1)
       }
 
-      // 좋아요 post 보내기
+
       axiosInstance.post(`${BEER_LIKE_URL}/beer/${memberId}/like/${beerid}`)
       
-      // 랭킹 get
+
       const rankingBeerLikeeUrl = `${RANKING_BEER_LIKE_URL}/${beerid}/1`
       const headers = {
         'Accept': "application/json; charset=UTF-8"
       }
       await axiosInstance.get(rankingBeerLikeeUrl, headers)
-    }catch{
-      console.log("오류")
+    }catch(err){
+      console.log(err)
     }
   }
 
   useEffect(() => {
     const spendData = async () => {
       try{
-        const rankingBeerUrl = `${RANKING_BEER_URL}/${beerid}/${memberId}` //추후 memberId 수정필요
+        const rankingBeerUrl = `${RANKING_BEER_URL}/${beerid}/${memberId}` 
         const headers = {
           'Accept': "application/json; charset=UTF-8"
         }
         await axiosInstance.get(rankingBeerUrl, headers)
-      }catch{
-        console.log("오류입니다")
+      }catch(err){
+        console.log(err)
       }
     }
     spendData()
@@ -157,33 +124,23 @@ function BeerDetail() {
         <div>
         <section className="beerdetail_section layout_padding_beer">
           <div className="container">
-            {/* 목록으로 가기 버튼 */}
             <div className='backBtn'>
               <Link className='btnText' to='/beer'><i className="fas fa-angle-double-left fa-lg"></i> 목록으로</Link>
             </div>
             <div className="row">
-              {/* 맥주 이미지 */}
               <div className="col-md-6 ">
                 <div className="img-box">
-                  {/* <img src={beerImg}></img> */}
-                  {/* 여기도 기본이미지가... */}
                   <img src={beer.photoPath} alt=""></img>
                 </div>
               </div>
-              {/* 맥주 디테일 */}
               <div className="col-md-6">
                 <div className="detail-box">
-                  {/* 맥주 종류 */}
                   <Chip className="maintype" label={beer.beerType.en_main} variant="outlined" />
-                  {/* <div className="beerCategory" href="">{beer.beerType.en_main}</div> */}
                   { beer.beerType.ko_detail !== null
-                    // ? <div className="beerCategory_detail" href="">{beer.beerType.en_detail}</div> 
                     ? <Chip className="maintype" label={beer.beerType.en_detail} variant="outlined" />
                     : null }
-                  {/* 맥주 이름 + 하트 */}
                   <div className="heading_title">
                     <h2>{beer.name}</h2>
-                    {/* <h2>{beer.englishName}</h2> */}
                     <div className="heartInline">
                       {
                         isLiked === true
@@ -193,11 +150,8 @@ function BeerDetail() {
                       <div className="like_count">({beerlikeNum})</div>
                     </div>
                   </div>
-
-                  {/* 맥주 별점 + 평가하기버튼 */}
                   <div className="rate_spacebetween">
                     <div className='starInline'>
-                      {/* 맥주 별점 */}
                       <div className="star-ratings">
                         <div 
                           className="star-ratings-fill space-x-2 text-lg"
@@ -211,12 +165,8 @@ function BeerDetail() {
                       </div>
                       <div>({beer.averageRate})</div>
                     </div>
-                    {/* 평가하기 버튼 */}
                     <button className="RateBtn" onClick={()=> set_rateModal(true)}>평가하기</button>
                   </div>
-
-                  {/* 평가창 모달 */}
-                  {/* 평가했는지 여부에 따라 보여줄 모달이 다름 */}
                   { isRated 
                     ? <BeerRateUpdate 
                         starrate={starrate}
@@ -234,16 +184,11 @@ function BeerDetail() {
                         beerid={Number(beerid)}
                       />
                   }
-                  
-
-
-                  {/* 맥주 detail 내용 */
+                  {
                   <div className='beer_volume'>
                     ALC : {beer.volume}%
                   </div>}
                   <p className="beer_content">{ beer.content }</p>
-
-                  {/* 맥주 # 해시태그 */}
                   <div className="hashtag_all">
                     {
                       beer.aromaHashTags.map((tag, i)=>{
@@ -266,12 +211,12 @@ function BeerDetail() {
           </div>
         </section>
 
-        {/* 맥주별 포스트 목록 */}
+
         <section className="postlist_section">
           <div className="container">
             <div className='heading_posts'>
               <h1>Post</h1>
-              {/* 포스팅하기 버튼 */}
+
               <div className='newPostBtn'>
                 <Link 
                   className='btnText' 

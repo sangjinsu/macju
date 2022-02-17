@@ -3,31 +3,24 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axiosInstance from "CustomAxios";
-import { useSelector, useStore } from "react-redux";
+import { useSelector } from "react-redux";
 
-const RecommendBeer = (props) => { // 변수명 수정필요
+const RecommendBeer = (props) => {
   const [beerList, setBeer] = useState()
   
   const settings = props.settings
   settings.slidesToShow = 1
-  //temp
-  // const store = useStore((state)=> state)
   const userData = useSelector(state => state.userReducer)
-  // console.log(userData)
   const memberId = Number(userData.memberId)
 
   const getRecommend = async () => {
-    const RECOMMEND_BEER = process.env.REACT_APP_SERVER + `:8888/v1/recommend/${memberId}` // memberId 추후 수정
-    
+    const RECOMMEND_BEER = process.env.REACT_APP_SERVER + `:8888/v1/recommend/${memberId}`  
     const { data: recommendBeer} = await axiosInstance.get(RECOMMEND_BEER)
-    
     setBeer(recommendBeer.recommend)
   }
-  
   useEffect( () => {
     getRecommend()
   }, [])
-  
   return(
     <div className="SlickTest">
       <h3 className="recommendtitle pt-5" align="center">Recommend Beer</h3>
@@ -41,8 +34,6 @@ const RecommendBeer = (props) => { // 변수명 수정필요
     </div>
   )
 }
-
-
 function CustomSlide(props) {
   const BEER_DETAIL_URL = process.env.REACT_APP_SERVER + ':8888/v1/beer'
   const [imgSrc, setImgSrc] = useState()
@@ -53,11 +44,9 @@ function CustomSlide(props) {
     setImgSrc(beerDetail.photoPath)
     setName(beerDetail.name)
   },[BEER_DETAIL_URL, props.beerid])
-  
   useEffect( () => {
     imgData();
   }, [BEER_DETAIL_URL, props.beerid, imgData])
-
   return(
     <div {...props} className="recommend_beers row text-center ">
       <img className="slideImg beer_img col w-50 " src={imgSrc} alt=""/>
@@ -67,5 +56,4 @@ function CustomSlide(props) {
     </div>
   )
 }
-
 export default RecommendBeer;

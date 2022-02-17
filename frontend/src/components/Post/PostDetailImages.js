@@ -63,7 +63,6 @@ function PostDetailImages(){
     setPostDetailImage(imageList)
   }, [POST_DETAIL_URL, postDetailImage, postId, storage])
 
-  //useEffect
   useEffect(()=>{
     if (images) {
       fetchData();

@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
-import { Button } from "react-bootstrap";
 import { Link,useParams } from "react-router-dom";
 import "../../styles/Modal.css"
 import {useStore} from 'react-redux'
@@ -9,7 +8,6 @@ import axiosInstance from "CustomAxios";
 
 
 const Followings = (props) => {
-  // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close, header } = props;
   const memberNum = useParams();
   const memberId = memberNum.userid
@@ -20,7 +18,6 @@ const Followings = (props) => {
     const res = await axiosInstance.get(FOLLOWINGS_URL)
     setFollowings(res.data.data)
   }
-
   useEffect(()=>{
     if (store.getState().followingsReducer.length === 0) {
       fetchData()
@@ -30,7 +27,6 @@ const Followings = (props) => {
     
   }, [store])
   return (
-    // 모달이 열릴때 openModal 클래스가 생성된다.
     <div className={open ? 'openModal modal' : 'modal'}>
       {open ? (
         <section>
@@ -42,9 +38,7 @@ const Followings = (props) => {
             </button>
           </header>
           <main>
-            
           {followings.length === 0 ? <p>아직 팔로잉 하는 사람이 없습니다.</p>: followings.map((person, idx)=>
-          //{memberId, nickName, name, comment, age, grade}
           <div key={idx}>{person.nickName}
           <Link to={`/profile/${person.memberId}/post`}><button style={{marginLeft:10}} role={'button'} id="profilebtn"> 이동</button></Link>
           

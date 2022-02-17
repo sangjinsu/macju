@@ -1,8 +1,6 @@
 import { Table } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { useStore } from "react-redux";
-import {useParams} from "react-router-dom"
 import axiosInstance from "CustomAxios";
 import UserIcon from "./UserIcon"
 const UserReview = (props) =>{
@@ -41,9 +39,7 @@ const UserReview = (props) =>{
                 <div id="text" style={{marginTop:50 ,textAlign:'center'}}>아직 평가 한 맥주가 없습니다.</div>
                 </> : 
         <div className="container">
-        <Table striped bordered hover>
-          {/* 각 테이블별로 맥주 detail page 링크 달기. */}
-        
+        <Table striped bordered hover>       
           <thead>
             <tr>
               <th>#</th>

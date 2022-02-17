@@ -4,8 +4,12 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axiosInstance from "CustomAxios";
 import { useSelector } from "react-redux";
-
+import { useStore } from "react-redux";
+import {Link} from "react-router-dom"
+import "../../styles/RecommendBeer.css"
 const RecommendBeer = (props) => {
+  const store = useStore((state) => state)
+  const userid = store.getState().userReducer.memberId
   const [beerList, setBeer] = useState()
   
   const settings = props.settings
@@ -39,7 +43,22 @@ const RecommendBeer = (props) => {
             )
           }
         </Slider>
-        : <div className="main_none">맥주 취향을 모르겠나요?</div>
+
+        : 
+          <div style={{display:'flex',
+           justifyContent:'center'}}>
+            <div >  <div className="main_none">맥주 취향을 모르겠나요?</div>
+ 
+        <Link to={{
+          pathname : `/profile/edit`,
+          state: userid
+        }} style={{textDecoration:'none', justifyContent:'center'}}
+        ><div id="btn" style={{maxWidth:200}}><p>프로필 페이지로 이동</p></div>  </Link>
+        </div>
+
+        </div>
+
+        
       }
     </div>
   )

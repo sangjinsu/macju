@@ -49,10 +49,10 @@ function Search(props){
     const fetchbeerdata = async () => {
       if (searchresult) {
         const eachbeerdata = await axiosInstance.get(`${BEER_URL}?size=500`)
-        eachbeerdata.data.map((eachbeer) => {
-          searchresult.map((id)=>{
+        eachbeerdata.data.map((eachbeer) =>  {
+           searchresult.map((id)=>{
             if (eachbeer.beerId === id) {
-              setBeerArr((name)=>[...name, eachbeer])
+              return setBeerArr((name)=>[...name, eachbeer])
             }
           })  
         })
@@ -83,10 +83,10 @@ function Search(props){
 
   const fetchSearchResult = useCallback( async () =>{
     beerKodata&&beerKodata.map(beerKo => {
-      setBeerIdArr_name((id)=> [...id, beerKo.beer_id])
+      return setBeerIdArr_name((id)=> [...id, beerKo.beer_id])
     })
     beerEndata&&beerEndata.map(beerEn => {
-      setBeerIdArr_name((id)=> [...id, beerEn.beer_id])
+      return setBeerIdArr_name((id)=> [...id, beerEn.beer_id])
     })
     if (aromadata) {
       if (Object.keys(aromadata).length !== 0) {

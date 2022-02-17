@@ -3,9 +3,9 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axiosInstance from "CustomAxios";
-
 const BestBeer = (props) => {
   const [rankingBeerList, setRanking] = useState()
+
 
   const settings = props.settings
   settings.fade = true
@@ -39,7 +39,10 @@ const BestBeer = (props) => {
           }
         </Slider>
         :
-        <div className="main_none">맥주에게 관심을 주세요!!</div>
+        <div className="main_none"> 
+          <div>맥주에게 관심을 주세요!!</div>
+          
+        </div>
       }
     </div>
   )

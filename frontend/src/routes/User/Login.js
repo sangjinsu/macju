@@ -3,7 +3,7 @@ import '../../styles/Login.css'
 
 function Login() { 
   const client_id = "5832f41d4634b598305eaa378a104b94"
-  const redirect_url = "http://localhost:3000/oauth/login/resopnse"
+  const redirect_url = "http://i6c107.p.ssafy.io:3000/oauth/login/resopnse"
 
   return(
     <div className='login_section'>

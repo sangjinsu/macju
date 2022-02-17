@@ -278,7 +278,7 @@ const [userFlavor, setUserFlavor] = useState([checked1, checked2, checked3, chec
 
   useEffect(()=>{
     const fetchData = async() =>{
-      const data = await axiosInstance.get(`http://i6c107.p.ssafy.io:8080/v1/member/profile/${user.memberId}`)
+      const data = await axiosInstance.get(`http://i6c107.p.ssafy.io:8888/v1/member/profile/${user.memberId}`)
       setEditUserNickname(data.data.nickName)
       setIntroduce(data.data.intro)
       const checkedFlavor = data.data.flavors
@@ -331,11 +331,11 @@ const [userFlavor, setUserFlavor] = useState([checked1, checked2, checked3, chec
       <form>
       <div className="">
         <div className="name-box ">
-          <TextField className="input_box" id="nickname" label="닉네임" defaultValue={editUserNickname} onKeyUp={editNickname} onChange={editNickname}/>
+          <TextField className="input_box" id="nickname" label="닉네임" value={editUserNickname} onKeyUp={editNickname} onChange={editNickname}/>
           <label className={labelNickname} htmlFor="nickname">{ labelNickname === "success" ? '사용 가능한 닉네임입니다.': '사용할 수 없는 닉네임입니다.'}</label>
         </div>
         <div className="content_box ">
-          <TextField placeholder="150자 이내로 작성해주세요" className="input_box" id="outlined-basic" label="소개" variant="outlined" defaultValue={introduce} onKeyUp={editIntroduce} onChange={editIntroduce}/>
+          <TextField placeholder="150자 이내로 작성해주세요" className="input_box" id="outlined-basic" label="소개" variant="outlined" value={introduce} onKeyUp={editIntroduce} onChange={editIntroduce}/>
         </div>
       </div>
       

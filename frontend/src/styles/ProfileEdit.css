@@ -38,8 +38,9 @@
 }
 
 /* 한줄소개 박스 */
-.content_box {
-  margin: 10px 0;
+.input_box {
+  /* margin: 10px 0; */
+  /* height: 40px; */
 }
 
 /* 취향생성 박스 */

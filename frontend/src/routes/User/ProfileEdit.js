@@ -25,21 +25,27 @@ const ProfileEdit = () => {
   
 
   const handleChange1 = (e) =>{
+    console.log(e.target.checked)
     setChecked1(e.target.checked)
   }
   const handleChange2 = (e) =>{
+    console.log(e.target.checked)
     setChecked2(e.target.checked)
   }
   const handleChange3 = (e) =>{
+    console.log(e.target.checked)
     setChecked3(e.target.checked)
   }
   const handleChange4 = (e) =>{
+    console.log(e.target.checked)
     setChecked4(e.target.checked)
   }
   const handleChange5 = (e) =>{
+    console.log(e.target.checked)
     setChecked5(e.target.checked)
   }
   const handleChange6 = (e) =>{
+    console.log(e.target.checked)
     setChecked6(e.target.checked)
   }
   const handleChange7 = (e) =>{
@@ -351,7 +357,7 @@ const ProfileEdit = () => {
           <div style={{backgroundColor:'#f9d06880', borderStyle:"solid", borderColor:"#F9CF68", borderRadius:'15px'}}>
             
             <div className="container">
-            <FormControlLabel color="warning" control={<Checkbox checked={checked1} onChange={handleChange1} />} label="단맛" />
+            <FormControlLabel control={<Checkbox checked={checked1} onChange={handleChange1} />} label="단맛" />
             <FormControlLabel control={<Checkbox checked={checked2} onChange={handleChange2} />} label="쓴맛" />
             <FormControlLabel control={<Checkbox checked={checked3} onChange={handleChange3} />} label="신맛" />
             <FormControlLabel control={<Checkbox checked={checked4} onChange={handleChange4} />} label="감칠맛" />

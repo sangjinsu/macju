@@ -42,21 +42,26 @@ const RecommendBeer = (props) => {
             )
           }
         </Slider>
-        :
-        <div style={{
-          display: 'flex',
-          justifyContent: 'center'
-        }}>
-          <div >  <div className="main_none">맥주 취향을 모르겠나요?</div>
+        : <div className="main_none">맥주 취향을 모르겠나요?</div>
+        // <div style={{
+        //   display: 'flex',
+        //   justifyContent: 'center'
+        // }}>
+          // <div >  <div className="main_none">맥주 취향을 모르겠나요?</div>
 
-            <Link to={{
-              pathname: `/profile/edit`,
-              state: userid
-            }} style={{ textDecoration: 'none', justifyContent: 'center' }}
-            ><div id="btn" style={{ maxWidth: 200 }}><p>프로필 페이지로 이동</p></div>  </Link>
-          </div>
+            // <Link to={{
+            //   pathname: `/profile/edit`,
+            //   state: userid
+            // }} style={{ textDecoration: 'none', justifyContent: 'center' }}
+            // ><div id="btn" style={{ maxWidth: 200 }}><p>프로필 페이지로 이동</p></div>  </Link>
+          // </div>
 
-        </div>
+        // </div>
+      }
+      {beerList
+      ?null
+      :
+      <Link to={{pathname: `/profile/edit`, state: userid}}>프로필 페이지로 이동</Link>
       }
     </div>
   )

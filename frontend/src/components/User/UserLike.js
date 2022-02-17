@@ -1,10 +1,8 @@
-import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import '../../styles/UserLike.css'
 import {useStore} from "react-redux"
 import axiosInstance from "CustomAxios";
-import { useParams } from "react-router-dom";
 import UserIcon from "./UserIcon"
 const UserLike = (props) => {
   
@@ -31,20 +29,16 @@ const UserLike = (props) => {
       <div className="container" justify-content="space-around">
         <h1 className="font">Like Beers</h1>
         <div className="row grid" style={{justifyContent:'center'}}>
-          {console.log(likebeers)}
           {likebeers.length !== 0 ? likebeers.map((beer)=>
               <div className="col-4 col-lg-2 likebeer" key={beer.beerId}>
                 <div>
-                  {/* 여기도 기본이미지가 필요하네용 */}
                   <img className="likebeer_img" src={beer.photoPath} alt=""></img>
-                  {/* <div>{beer.beerName}</div> */}
                 </div>
               </div>
             )
             : 
             <>
             <UserIcon grade={2500}/>
-
             <div id="text" style={{marginTop:50 ,textAlign:'center'}}>아직 좋아요한 맥주가 없습니다.</div>
             </>
              }

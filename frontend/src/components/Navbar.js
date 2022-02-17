@@ -11,8 +11,6 @@ function NavBar(){
   const store = useStore((state) => state)
   const dispatch = useDispatch()
   const history = useHistory()
-
-  // 로그인 유저 정보
   const loginUser = useSelector(state => state.userReducer).memberId
   const logOut = () => {
     localStorage.removeItem("AccessToken");
@@ -28,11 +26,9 @@ function NavBar(){
         
         <div className="navbar_area">
           <div className="bg-box">
-            {/* <img src="img/hero-bg.jpg" alt=""></img> */}
           </div>
           <header className="navbar_section">
             <div className="container">
-              {/* <nav className="navbar navbar-expand-xs custom_nav-container "> */}
               <nav className="navbar custom_nav-container ">
                 <div >
                   <a className="navbar-macju" href="/home">
@@ -46,7 +42,6 @@ function NavBar(){
                   <SearchBar/>
                 </div>
 
-                {/* 드롭다운(토글) */}
                 <div className="dropdown">
                   <button className="btn dropdown-toggle dropdownBtn" id="dropdownMenuButton1" data-toggle="dropdown" aria-expanded="false">
                   </button>

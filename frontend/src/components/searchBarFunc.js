@@ -1,9 +1,3 @@
-/* input 효과 */
-/* npm i gsap@3.4.0 react-gsap*/
-import { gsap } from "gsap/dist/gsap";
-
-const { to, set } = gsap
-
 export function Delay(fn, ms) {
   let timer = 0
   return function(...args) {

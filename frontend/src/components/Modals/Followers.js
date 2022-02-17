@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import { Button } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import "../../styles/Modal.css"
 import {useStore} from 'react-redux'

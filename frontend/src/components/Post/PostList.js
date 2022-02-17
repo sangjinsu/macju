@@ -11,7 +11,6 @@ import axiosInstance from "CustomAxios";
 function PostListComponent(){
   const POST_LIST_URL = process.env.REACT_APP_SERVER + ':8888/v1/post/new'
   const BEER_DETAIL_POST_URL = process.env.REACT_APP_SERVER + ':8888/v1/post/beer'
-  const USER_PROFILE_URL = process.env.REACT_APP_SERVER + `:8888/v1/member/profile/`
   const [newPost, setNewPost] = useState([])
   const [newPostImage, setNewPostImage] = useState([])
   const storage = getStorage()
@@ -39,13 +38,11 @@ function PostListComponent(){
   //eslint-disable-next-line
   }, [newPost])
 
-  // 전체 포스트 리스트
   const fetchPostListData = async() =>{
     const data = await axiosInstance.get(POST_LIST_URL)
     setNewPost(data.data)
   }
 
-  // 맥주 디테일 - 포스트 리스트
   const fetchBeerDetailData = async() =>{
     const data =await axiosInstance.get(`${BEER_DETAIL_POST_URL}/${beerid}`)
     setNewPost(data.data)
@@ -53,46 +50,33 @@ function PostListComponent(){
 
   useEffect(()=>{
     if (beerid) {
-      fetchBeerDetailData();  // 각 맥주 포스트
+      fetchBeerDetailData();
     } else {
-      fetchPostListData();    // 전체 포스트
+      fetchPostListData();    
     }
   }, [POST_LIST_URL])
 
 
   return(
     
-    <div className="row grid postlist_component">
-
-    {/* 포스트 카드 각각 */}
-    
-      {/* { newPost.length ===0 ? <div> 포스트를 작성해주세요~! </div> : newPost.map((post) => */}
+    <div className="row grid postlist_component">    
       { newPost.length ===0 ? <div>  </div> : newPost.map((post) =>
         <div className="col-md-6 col-lg-4 fadein" key={post.postId}>
             <div className="box">
               <div className="postlist_box">
               <Link to={`/post/${post.postId}`} className='detailBtn' style={{ textDecoration: 'none', color: 'black' }}>
-
               <div className="img-box">
-                {/* 포스트 이미지 */}
                 {newPostImage.length === 0 ? <Box sx={{ display: 'flex' }} style={{justifyContent:'center', margin:'auto'}}><CircularProgress size={100}/></Box>:newPostImage.map((data, i)=> data.id === post.postId ? 
                 <div key={i} className="img-box box">
-                  {/* 기본이미지 하나 구해야겠네요 */}
-                  <img src={data.res} alt="" style={{maxHeight:210, maxWidth:350 }}></img>
-                  {/* <img src={post.photo.data}></img> */}
-                  
+                  <img src={data.res} alt="" style={{maxHeight:210, maxWidth:350 }}></img>                  
                 </div> : null
                 )
                 }
                 </div>
                 </Link>
-                
-                {/* 포스트 카드 내용 */}
                 <div className="postdetail-box">
-                  {/* 포스트 내용  */}
                   <div className="postdetail-title">
                     <h5>{post.content && post.content.length > 15 ? post.content.substr(0, 15) + "....": post.content}</h5>
-                    {/* 포스트 좋아요 */}
                     <p className="fontaws"><i className="fas fa-heart" style={{color:"red"}}></i> {post.likes}</p>
                   </div>
 
@@ -112,7 +96,6 @@ function PostListComponent(){
           
         </div> 
       )}
-
     </div>
   )
 }

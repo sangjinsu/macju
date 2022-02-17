@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import '../styles/SearchBar.css'
-// import { useDispatch } from "react-redux";
-// import { ListGroup } from "react-bootstrap";
-import {Delay, GetPoint, GetPath} from './searchBarFunc'
+import {Delay, GetPath} from './searchBarFunc'
 import { gsap } from "gsap/dist/gsap";
-// import SearchResult from "./SearchResult";
 import axiosInstance from 'CustomAxios'
 import { ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -29,7 +26,6 @@ function SearchBar(){
     setSearchInput("");
   }
 
-  // enter or click 했을때
   const SearchSubmit = ((e)=> {
     e.preventDefault()
     history.replace({pathname:`/search/${searchInput}`, searchInput:searchInput, searchAll:searchAll})
@@ -38,7 +34,6 @@ function SearchBar(){
     setSearchresult(searchAll)
   }, [searchAll])
   
-  // 검색결과 get 요청
   const fetchSearchResult = async () =>{
     if (searchInput === "") {
       setSearchAll([])
@@ -203,13 +198,11 @@ function SearchBar(){
     <>
       <form className="input" onSubmit={SearchSubmit}>
 
-        {/* 검색창 */}
         <button type="submit" className="searchicon"><i className="fa fa-search"></i></button>
         <div className="text" id="dropdown">
           <input id="input" type="text" placeholder="검색..." onChange={setInput} autoComplete={"off"} value={searchInput} onKeyPress={handelKeyPress}/>
         </div>
         
-        {/* 지우기 버튼 */}
         <button className="clear" onClick={ eraseInput } >
           <svg viewBox="0 0 24 24">
             <path className="line" d="M2 2L22 22" />
@@ -223,7 +216,6 @@ function SearchBar(){
 
       <ListGroup style={{marginTop:40 ,position:'fixed', zIndex:12000}}>   
     {
-      // 맥주 이름 한글 => 클릭하면 바로 맥주디테일로
       (()=>{
         if (searchResult.length === 0) return null
         if (searchResult[0].status !== "fulfilled") return null
@@ -236,7 +228,6 @@ function SearchBar(){
       })()
     }
     {
-      // 맥주 이름 영어 => 클릭하면 바로 맥주디테일로
       (()=>{
         if (searchResult.length === 0) return null
         if (searchResult[1].status !== "fulfilled") return null        
@@ -244,13 +235,13 @@ function SearchBar(){
         <Link to={{pathname:`/search/${result.beer_name}`,
                   state: result
                   }}
+              key={i}
         >
-        <ListGroup.Item key={i}> {result.beer_name}</ListGroup.Item></Link> 
+        <ListGroup.Item> {result.beer_name}</ListGroup.Item></Link> 
         )       
       })()
     }
     {
-      // aroma 향
       (()=>{
         if (searchResult.length === 0) return null
         if (searchResult[2].status !== "fulfilled") return null        
@@ -266,7 +257,6 @@ function SearchBar(){
       })()
     }
     {
-      // flavor 맛
       (()=>{
 
         if (searchResult.length === 0) return null
@@ -283,13 +273,11 @@ function SearchBar(){
       })()
     }
     {
-      // Type 맥주 종류
       (()=>{
         if (searchResult.length === 0) return null
         if (searchResult[4].status !== "fulfilled") return null        
         searchResult[4].value.data.map((results, i)=> { 
           if (!_.isEmpty(results)) {
-            // const alltype = Object.keys(results)
             Object.keys(results).map((type, j)=>{ return (
               <Link to={{ pathname: `/search/${type}`,
                       state: [results[type].beers, type] }} key={j}
@@ -300,18 +288,7 @@ function SearchBar(){
           }
         })
       })()
-    }
-    {/* userdata */}
-    {/* {
-      (()=>{
-        if (searchResult.length === 0) return null
-        if (!_.isEmpty(searchResult[5].data)) return searchResult[5].data[Object.keys(searchResult[5].data)[0]].beers.map((result, i) =>
-        <ListGroup.Item key={i}> {result}({Object.keys(searchResult[5].data)[0]})</ListGroup.Item> 
-        )       
-      })()
-    } */}
-
-     
+    }    
       </ListGroup>
     
 

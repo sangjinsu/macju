@@ -67,6 +67,10 @@
   text-align: center;
 }
 
+.hot_post_hashtag{
+  font-family: 'Nanum Pen Script', cursive;
+  font-size: 20px;
+}
 
 @-webkit-keyframes fade{from{bottom:0px;opacity:1;visibility:visible}to{bottom:110%}}
         @keyframes fade{from{bottom:0px;opacity:1;visibility:visible}to{bottom:110%}}

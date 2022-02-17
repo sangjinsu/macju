@@ -40,14 +40,42 @@ function BeerRate(props){
     }
   }
 
-  const addflavor = ((e)=>{
-    const nowtag = e.target.innerText.substring(1)
-    const nowid = e.target.value
-    if (flavorArr.indexOf(nowtag) === -1) {
-      setFlavorArr((flavorArr) => [...flavorArr, nowtag])
-      setFlavorIdArr((flavorid) => [...flavorid, nowid])
-    }
+  const addallFlavor = ((e)=> {
+    const texts = [...e.options]
+    .filter(option => option.selected)
+    .map(option => option.text);
+    
+    const values = [...e.options]
+    .filter(option => option.selected)
+    .map(option => option.value);
+
+    console.log(texts, values)
+    
+    // tag 값들
+    texts.map((nowtag)=>{
+      if (flavorArr.indexOf(nowtag) === -1) {
+        setFlavorArr((flavorArr) => [...flavorArr, nowtag])
+      }
+    })
+    // id 들
+    values.map((nowId)=>{
+      if (flavorArr.indexOf(nowtag) === -1) {
+        setFlavorIdArr((flavorid) => [...flavorid, nowId])
+      }
+    })
+    // values = value값들(id)
+    // texts = html 값들(맛)
   })
+
+
+  // const addflavor = ((e)=>{
+  //   const nowtag = e.target.innerText.substring(1)
+  //   const nowid = e.target.value
+  //   if (flavorArr.indexOf(nowtag) === -1) {
+  //     setFlavorArr((flavorArr) => [...flavorArr, nowtag])
+  //     setFlavorIdArr((flavorid) => [...flavorid, nowid])
+  //   }
+  // })
   const deleteFlavor = (e) => {
     const nowtag = e.target.outerText.substring(1)
     setFlavorArr(flavorArr.filter((flavor) => flavor !== nowtag ))
@@ -101,7 +129,7 @@ function BeerRate(props){
         {/* 맛 해시태그 선택 */}
         <div className="selecttag_box col-6"> 
           <h4>Flavor</h4>
-          <select className="rate_select"  multiple>
+          <select className="rate_select"  multiple onChange={addallFlavor}>
             <option value="" disabled>
               맛 선택!
             </option>

@@ -25,27 +25,21 @@ const ProfileEdit = () => {
   
 
   const handleChange1 = (e) =>{
-    console.log(e.target.checked)
     setChecked1(e.target.checked)
   }
   const handleChange2 = (e) =>{
-    console.log(e.target.checked)
     setChecked2(e.target.checked)
   }
   const handleChange3 = (e) =>{
-    console.log(e.target.checked)
     setChecked3(e.target.checked)
   }
   const handleChange4 = (e) =>{
-    console.log(e.target.checked)
     setChecked4(e.target.checked)
   }
   const handleChange5 = (e) =>{
-    console.log(e.target.checked)
     setChecked5(e.target.checked)
   }
   const handleChange6 = (e) =>{
-    console.log(e.target.checked)
     setChecked6(e.target.checked)
   }
   const handleChange7 = (e) =>{
@@ -198,38 +192,7 @@ const ProfileEdit = () => {
   const [checked40, setChecked40] = useState(false)
   const [checked41, setChecked41] = useState(false)
   const [checked42, setChecked42] = useState(false)
-  const [userFlavor, setUserFlavor] = useState([checked1, checked2, checked3, checked4, checked5, checked6, checked7, checked8, checked9, checked10, checked11, checked12, checked13])
-  const [userAroma, setUserAroma] = useState([
-      checked14,
-      checked15,
-      checked16,
-      checked17,
-      checked18,
-      checked19,
-      checked20,
-      checked21,
-      checked22,
-      checked23,
-      checked24,
-      checked25,
-      checked26,
-      checked27,
-      checked28,
-      checked29,
-      checked30,
-      checked31,
-      checked32,
-      checked33,
-      checked34,
-      checked35,
-      checked36,
-      checked37,
-      checked38,
-      checked39,
-      checked40,
-      checked41,
-      checked42,
-    ])
+
   const profileData = {
     "memberId": user.memberId,
     "nickName": editUserNickname,
@@ -238,32 +201,136 @@ const ProfileEdit = () => {
     "flavors":[],
   }
   const submitProfile = async () =>{
-    console.log(userFlavor, userAroma)
-    const userAromaData = []
-    userAroma.map(async (data, i) =>{
-      if (data){
-        await userAromaData.push(i + 1)
-      }
-      return
-    })
-    const userFlavorData = []
-    userFlavor.map(async (data, i) =>{
-      if (data){
-        await userFlavorData.push(i + 1)
-      }
-      return
-    })
-    console.log(Promise.all(userAromaData))
-    console.log(userFlavorData)
+    if (checked1) {
+      profileData.flavors = [...profileData.flavors, 1]
+    }
+    if (checked2) {
+      profileData.flavors = [...profileData.flavors, 2]
+    }
+    if (checked3) {
+      profileData.flavors = [...profileData.flavors, 3]
+    }
+    if (checked4) {
+      profileData.flavors = [...profileData.flavors, 4]
+    }
+    if (checked5) {
+      profileData.flavors = [...profileData.flavors, 5]
+    }
+    if (checked6) {
+      profileData.flavors = [...profileData.flavors, 6]
+    }
+    if (checked7) {
+      profileData.flavors = [...profileData.flavors, 7]
+    }
+    if (checked8) {
+      profileData.flavors = [...profileData.flavors, 8]
+    }
+    if (checked9) {
+      profileData.flavors = [...profileData.flavors, 9]
+    }
+    if (checked10) {
+      profileData.flavors = [...profileData.flavors, 10]
+    }
+    if (checked11) {
+      profileData.flavors = [...profileData.flavors, 11]
+    }
+    if (checked12) {
+      profileData.flavors = [...profileData.flavors, 12]
+    }
+    if (checked13) {
+      profileData.flavors = [...profileData.flavors, 13]
+    }
+    if (checked14) {
+      profileData.aromas = [...profileData.aromas, 1]
+    }
+    if (checked15) {
+      profileData.aromas = [...profileData.aromas, 2]
+    }
+    if (checked16) {
+      profileData.aromas = [...profileData.aromas, 3]
+    }
+    if (checked17) {
+      profileData.aromas = [...profileData.aromas, 4]
+    }
+    if (checked18) {
+      profileData.aromas = [...profileData.aromas, 5]
+    }
+    if (checked19) {
+      profileData.aromas = [...profileData.aromas, 6]
+    }
+    if (checked20) {
+      profileData.aromas = [...profileData.aromas, 7]
+    }
+    if (checked21) {
+      profileData.aromas = [...profileData.aromas, 8]
+    }
+    if (checked22) {
+      profileData.aromas = [...profileData.aromas, 9]
+    }
+    if (checked23) {
+      profileData.aromas = [...profileData.aromas, 10]
+    }
+    if (checked24) {
+      profileData.aromas = [...profileData.aromas, 11]
+    }
+    if (checked25) {
+      profileData.aromas = [...profileData.aromas, 12]
+    }
+    if (checked26) {
+      profileData.aromas = [...profileData.aromas, 13]
+    }
+    if (checked27) {
+      profileData.aromas = [...profileData.aromas, 14]
+    }
+    if (checked28) {
+      profileData.aromas = [...profileData.aromas, 15]
+    }
+    if (checked29) {
+      profileData.aromas = [...profileData.aromas, 16]
+    }
+    if (checked30) {
+      profileData.aromas = [...profileData.aromas, 17]
+    }
+    if (checked31) {
+      profileData.aromas = [...profileData.aromas, 18]
+    }
+    if (checked32) {
+      profileData.aromas = [...profileData.aromas, 19]
+    }
+    if (checked33) {
+      profileData.aromas = [...profileData.aromas, 20]
+    }
+    if (checked34) {
+      profileData.aromas = [...profileData.aromas, 21]
+    }
+    if (checked35) {
+      profileData.aromas = [...profileData.aromas, 22]
+    }
+    if (checked36) {
+      profileData.aromas = [...profileData.aromas, 23]
+    }
+    if (checked37) {
+      profileData.aromas = [...profileData.aromas, 24]
+    }
+    if (checked38) {
+      profileData.aromas = [...profileData.aromas, 25]
+    }
+    if (checked39) {
+      profileData.aromas = [...profileData.aromas, 26]
+    }
+    if (checked41) {
+      profileData.aromas = [...profileData.aromas, 27]
+    }
+    if (checked42) {
+      profileData.aromas = [...profileData.aromas, 28]
+    }
+
+
     if (introduce && editUserNickname){
-      
-      profileData["aromas"] = userAromaData
-      profileData["flavors"] = userFlavorData
       await axiosInstance.put(USER_UPDATE_PROFILE, profileData)
       .then((res)=>{
         console.log(res)
         history.push(`/profile/${user.memberId}/profile`)
-       
       })
       .catch((err)=>{
         console.log(err)
@@ -293,24 +360,6 @@ const ProfileEdit = () => {
       const data = await axiosInstance.get(`http://i6c107.p.ssafy.io:8080/v1/member/profile/${user.memberId}`)
       setEditUserNickname(data.data.nickName)
       setIntroduce(data.data.intro)
-      const checkedFlavor = data.data.flavors
-      const checkedAroma = data.data.aromas
-      const copiedFlavor = [...userFlavor]
-      const copiedAroma = [...userAroma]
-      for (let i = 1; i < copiedFlavor.length + 1; i++){
-
-        if (i in checkedFlavor) {
-          copiedFlavor[i - 1] = true 
-        }
-      }
-      setUserFlavor(copiedFlavor)
-      for (let i = 1; i < copiedAroma.length + 1; i++){
-        if (i in checkedAroma) {
-          copiedAroma[i - 1] = true
-        }
-      }
-      setUserAroma(copiedAroma)
-
     }
     fetchData();
   }, [user])

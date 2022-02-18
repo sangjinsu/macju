@@ -2,6 +2,10 @@
 
 ## 맥주 큐레이팅 SNS
 
+### [Notion Final Organization](https://like-slip-2f1.notion.site/MacJu-bf7653cdc5504c559c8c54306bd2a4a2)
+
+****
+
 ### BACKEND
 
 #### URL

@@ -11,11 +11,9 @@ const Followings = (props) => {
   const memberNum = useParams();
   const memberId = memberNum.userid
   const FOLLOWINGS_URL = process.env.REACT_APP_SERVER + `:8888/v1/member/${memberId}/followings`
-  const store = useStore((state) => state)
   const [followings, setFollowings] = useState();
   const fetchData = async () =>{
     const res = await axiosInstance.get(FOLLOWINGS_URL)
-    console.log(res)
     setFollowings(res.data.data)
   }
   useEffect(()=>{

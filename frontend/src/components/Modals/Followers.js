@@ -9,19 +9,13 @@ const Followers = (props) => {
   const memberNum = useParams();
   const memberId = memberNum.userid
   const FOLLOWERS_URL = process.env.REACT_APP_SERVER + `:8888/v1/member/${memberId}/followers`
-  const store = useStore((state) => state)
   const [followers, setFollowers] = useState();
   const fetchData = async () =>{
     const res = await axiosInstance.get(FOLLOWERS_URL)
     setFollowers(res.data.data)
   }
   useEffect(()=>{
-    if (store.getState().followersReducer.length === 0) {
-      fetchData()
-    } else {
-      setFollowers(store.getState().followersReducer)
-    }
-    
+    fetchData();
   }, [])
   return (
     <div className={open ? 'openModal modal' : 'modal'}>

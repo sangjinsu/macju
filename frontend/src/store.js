@@ -43,21 +43,6 @@ const kakaoIdReducer = (state = -1, action) => {
   return state
 }
 
-const followersReducer = (state = [], action) => {
-  if (action.type === 'followers') {
-    return action.followers
-  } 
-  return state
-}
-
-
-const followingsReducer = (state = [], action) => {
-  if (action.type === 'followings') {
-    return action.followings
-  }
-  return state
-}
-
 
 
 
@@ -225,8 +210,6 @@ const rootReducer = combineReducers
      userLikeReducer,
      userReviewReducer,
      navbarReducer,
-     followersReducer,
-     followingsReducer,
      headerReducer,
      checkBoxFlavorReducer,
      checkBoxAromaReducer,

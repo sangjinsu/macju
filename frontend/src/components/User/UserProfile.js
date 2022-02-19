@@ -41,19 +41,14 @@ const UserProfile = (props) => {
 			res.data.data.map((person, i) =>{
 				if (parseInt(store.getState().userReducer.memberId) === parseInt(person.memberId)){
 					setFollowButton(false)
+					return
 				} 
 			})
-			dispatch({type:'followers', followers:res.data.data})
+
 		}
 		fetchData()
 	}, [location])
-	useEffect(()=>{
-		const fetchData = async () =>{
-			const res = await axiosInstance.get(FOLLOW_GET_URL)			
-			dispatch({type:'followings', followings:res.data.data})
-		}
-		fetchData();
-	}, [location])
+
 
 
 	useEffect(() =>{

@@ -6,6 +6,7 @@ import "../../styles/ProfileEdit.css"
 import axiosInstance from "CustomAxios";
 import TextField  from "@mui/material/TextField"
 import UserCheckBox from "components/User/UserCheckBox";
+import { useCallback } from "react";
 const ProfileEdit = () => {
   
   const USER_UPDATE_PROFILE =  process.env.REACT_APP_SERVER + ':8888/v1/member/profile'
@@ -19,14 +20,16 @@ const ProfileEdit = () => {
   const user = store.getState().userReducer
   const history = useHistory();
   const location = useLocation();
+  const beforeName = location.state.nickName
   const userId = location.state 
+
   
-  
 
 
-  const flavors = ["단맛", "쓴맛", "신맛", "감칠맛", "떫은맛", "드라이함", "알싸한맛", "고소한맛",  "상큼한맛" ,"시큼한맛", "씁쓸한맛", "새콤한맛", "청량한맛"]
-  const aromas = ["무향", "꽃향", "캐러멜향" , "허브향", "커피향", "소나무향", "초콜릿향", "건포도향", "스모크향", "바닐라향", "코코넛향", "홉향", "옥수수향", "보리향", "귀리향",  "풀향", "곡물향", "민트향", "과일향", "바나나향", "오렌지향",  "자두향", "자몽향", "복숭아향",  "망고향" ,  "귤향", "레몬향" ,"청포도향", "살구향"]
-
+  const [flavors,setFlavors] = useState(["단맛", "쓴맛", "신맛", "감칠맛", "떫은맛", "드라이함", "알싸한맛", "고소한맛",  "상큼한맛" ,"시큼한맛", "씁쓸한맛", "새콤한맛", "청량한맛"])
+  const [aromas, setAromas] = useState(["무향", "꽃향", "캐러멜향" , "허브향", "커피향", "소나무향", "초콜릿향", "건포도향", "스모크향", "바닐라향", "코코넛향", "홉향", "옥수수향", "보리향", "귀리향",  "풀향", "곡물향", "민트향", "과일향", "바나나향", "오렌지향",  "자두향", "자몽향", "복숭아향",  "망고향" ,  "귤향", "레몬향" ,"청포도향", "살구향"])
+  const [checkedFlavors, setCheckedFlavors]  = useState(Array.from({length:13}, ()=>false))
+  const [checkedAromas, setCheckedAromas] = useState(Array.from({length: 29}, ()=>false))
   const profileData = {
     "memberId": user.memberId,
     "nickName": editUserNickname,
@@ -34,22 +37,19 @@ const ProfileEdit = () => {
     "aromas":[],
     "flavors":[],
   }
-  
+  store.subscribe(()=>{
+    profileData.flavors = store.getState().checkBoxFlavorReducer
+  })
+  store.subscribe(()=>{
+    profileData.aromas = store.getState().checkBoxAromaReducer
+    
+  })
   const submitProfile = async () =>{
-    store.subscribe(()=>{
-      profileData.flavors = store.getState().checkBoxFlavorReducer
-      console.log(store.getState().checkBoxFlavorReducer)
-      console.log(profileData.flavors)
-    })
-    console.log(store.getState().checkBoxAromaReducer)
-    store.subscribe(()=>{
-      profileData.aromas = store.getState().checkBoxAromaReducer
-    })
+
     if (introduce && editUserNickname){
       await axiosInstance.put(USER_UPDATE_PROFILE, profileData)
       .then((res)=>{
-        console.log(res)
-        history.push(`/profile/${user.memberId}/profile`)
+         history.push(`/profile/${user.memberId}/profile`)
       })
       .catch((err)=>{
         console.log(err)
@@ -61,7 +61,14 @@ const ProfileEdit = () => {
   const nickNameCheck = async () =>{
     if (!(editUserNickname === '')){
       const data = await axiosInstance.get(`${USER_NICKNAME_CHECK}/${editUserNickname}`)
-      setLabelNickname(data.data)
+
+      
+      if (beforeName === editUserNickname){
+        return
+      } else {
+
+        setLabelNickname(data.data)
+      }
      
   }
 }
@@ -73,25 +80,39 @@ const ProfileEdit = () => {
   const editNickname = (e)=>{
     setEditUserNickname(e.target.value)
   }
+  const fetchData = async() =>{
+    const data = await axiosInstance.get(`http://i6c107.p.ssafy.io:8080/v1/member/profile/${user.memberId}`)
+    const temp = [...checkedFlavors]
+    for (let i of data.data.flavors) {
+      temp[i - 1] = true
+    }
+
+    setCheckedFlavors(temp)
+    const temp2 = [...checkedAromas]
+    for (let i of data.data.aromas){
+      temp2[i - 1] = true
+    }
+    setCheckedAromas(temp2)
+
+
+    setEditUserNickname(data.data.nickName)
+    setIntroduce(data.data.intro)
+
+    setFlavors([...flavors])
+    setAromas([...aromas])
+  }
+
+
 
   useEffect(()=>{
-    const fetchData = async() =>{
-      const data = await axiosInstance.get(`http://i6c107.p.ssafy.io:8080/v1/member/profile/${user.memberId}`)
-      setEditUserNickname(data.data.nickName)
-      setIntroduce(data.data.intro)
-      setBeforeAroma(data.data.aromas)
-      setBeforeFlavor(data.data.flavors)
-    }
     fetchData();
-  }, [user])
-
+  }, [])
 
 
   useEffect(()=>{
     nickNameCheck();
   }, [editUserNickname, nickNameCheck])
 
-  
   useEffect(()=>{
 		if (Number(userId) !== Number(store.getState().userReducer.memberId)){
 			alert('권한이 없습니다.')
@@ -100,24 +121,7 @@ const ProfileEdit = () => {
 		
 	}, [])
 
-  function flavorChecked(num){
-    if (beforeFlavor.indexOf(num) <0){
-      return false
-    } else {
-      return true
-    }
-  }
-  function aromaChecked(num){
-    if (beforeAroma.indexOf(num - 13) < 0){
-      return false
-    } else {
-      return true
-    }
-  }
-
-  
-
-  
+    
 
 
   return (
@@ -143,10 +147,12 @@ const ProfileEdit = () => {
           <div style={{backgroundColor:'#f9d06880', borderStyle:"solid", borderColor:"#F9CF68", borderRadius:'15px'}}>
             
             <div className="container">
-            {flavors.map((value, idx)=>
-              <UserCheckBox key={idx + 1} label={value} idx={idx +1} checked={beforeFlavor.indexOf(idx + 1) >= 0 ? true: false}/>
-              // flavorChecked(idx + 1)
-            )}
+              
+            {flavors.map((value, idx)=>{
+
+              return <UserCheckBox key={idx + 1} label={value} idx={idx +1} checked={checkedFlavors[idx]}/>
+
+            })}
             </div>
           </div>
           <br/>
@@ -155,8 +161,8 @@ const ProfileEdit = () => {
           <div className="container">
 
           {aromas.map((value, idx)=>
-            <UserCheckBox key={idx+14} label={value} idx={idx+14} checked={beforeAroma.indexOf(idx + 1) >= 0 ? true:false}/>
-            // aromaChecked(idx + 14)
+            <UserCheckBox key={idx+14} label={value} idx={idx+14} checked={checkedAromas[idx]}/>
+
           )}
           </div>  
           </div>

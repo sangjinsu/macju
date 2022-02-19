@@ -11,11 +11,13 @@ const UserProfile = (props) => {
 	const store = useStore((state)=>state)
 	const dispatch = useDispatch();
 	const location = useLocation()
-	const userid = props.state
-	const USER_PROFILE_URL = process.env.REACT_APP_SERVER + `:8888/v1/member/profile/${userid}`
-	const FOLLOW_POST_URL = process.env.REACT_APP_SERVER + `:8888/v1/member/${store.getState().userReducer.memberId}/follow/${userid}`
-	const FOLLOW_GET_URL = process.env.REACT_APP_SERVER + `:8888/v1/member/${userid}/followings`
-	const FOLLOWER_GET_URL = process.env.REACT_APP_SERVER + `:8888/v1/member/${userid}/followers`
+	// const userid = props.state
+	//${store.getState().userReducer.memberId}
+	const userid = 11
+	const USER_PROFILE_URL = process.env.REACT_APP_SERVER + `:8080/v1/member/profile/${userid}`
+	const FOLLOW_POST_URL = process.env.REACT_APP_SERVER + `:8080/v1/member/11/follow/${userid}`
+	const FOLLOW_GET_URL = process.env.REACT_APP_SERVER + `:8080/v1/member/${userid}/followings`
+	const FOLLOWER_GET_URL = process.env.REACT_APP_SERVER + `:8080/v1/member/${userid}/followers`
  	const [user, setUser] = useState('')
 	const [followButton, setFollowButton] = useState(true)
 	const setFollow = async () =>{
@@ -91,7 +93,7 @@ const UserProfile = (props) => {
 							<h1>{user.nickName}</h1>
 							<Link to={{
 								pathname : `/profile/edit`,
-								state : userid
+								state : user
 								}} >
 								<div className="editBtn"><i className="fas fa-user-edit fa-lg"></i></div>
 							</Link>

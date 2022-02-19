@@ -65,9 +65,8 @@ function SearchBar(){
 
 
   useEffect(() => {
-    console.log('g')
     fetchSearchResult()
-  }, [searchInput, fetchSearchResult])  
+  }, [searchInput])  
   const removeSearch = () =>{
     setSearchresult([])
   }

@@ -165,11 +165,11 @@ const checkFlavorArray = []
 const checkBoxFlavorReducer = (state= [], action) => {
   if (action.data > 13) return checkFlavorArray
   if (action.type === "addAromaCheck"){
-    if (checkFlavorArray.indexOf(action.data) < 0){
-      checkFlavorArray.push(action.data)
+    if (checkFlavorArray.indexOf(parseInt(action.data)) < 0){
+      checkFlavorArray.push(parseInt(action.data))
     }
   } else if (action.type === "removeAromaCheck"){
-    const index = checkFlavorArray.indexOf(action.data)
+    const index = checkFlavorArray.indexOf(parseInt(action.data))
     if (index >= 1) {
       checkFlavorArray.splice(index, 1)
       return checkFlavorArray

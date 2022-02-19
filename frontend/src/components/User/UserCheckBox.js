@@ -10,8 +10,13 @@ import { useDispatch } from "react-redux";
 const UserCheckBox = (props) =>{
   const dispatch = useDispatch();
   const [checked, setChecked] = useState(props.checked)
+  useEffect(()=>{
+    setChecked(props.checked)
+  }, [props])
+
+
   const handleChange = () =>{
-    setChecked(!checked)
+    this.setState({checked : checked})
   }
 
 

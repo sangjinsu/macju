@@ -110,7 +110,7 @@ const ProfileEdit = () => {
     }
   }
   function aromaChecked(num){
-    if (beforeAroma.indexOf(num) < 0){
+    if (beforeAroma.indexOf(num - 13) < 0){
       return false
     } else {
       return true

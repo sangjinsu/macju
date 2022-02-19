@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import _ from "lodash"
 import { useCallback } from "react";
 import {EraseEffect }from "./searchBarFunc"
+import { timers } from "jquery";
 
 
 
@@ -16,8 +17,32 @@ function SearchBar(){
   const [searchInput, setSearchInput] = useState('');   
   const [searchAll , setSearchAll] = useState([]) 
   const [searchResult, setSearchresult] = useState([])
-  
-  const setInput = async (e) => {
+  const [testInput, setTestInput] = useState('')
+
+
+  useEffect(()=>{
+    checkInput();
+  }, [testInput])
+
+  const timer = (beforeInput) =>{
+    setTimeout(()=>{
+      if (searchInput === beforeInput){
+        fetchSearchResult();
+        return
+      } else {
+        return
+      }
+    }, 500);
+  }
+  const checkInput = () =>{
+    const beforeInput = searchInput
+    timer(beforeInput)
+  }
+
+
+
+
+  const setInput = (e) => {
     setSearchInput(e.target.value);
   }
   
@@ -54,15 +79,14 @@ function SearchBar(){
 
 
   
-
   useEffect( () => {
     EraseEffect()
   }, [])
 
 
-  useEffect( () => {
-    fetchSearchResult()
-  }, [searchInput, fetchSearchResult])  
+
+ 
+
   const removeSearch = () =>{
     setSearchresult([])
   }
@@ -70,7 +94,8 @@ function SearchBar(){
 
   return(
     <>
-      <form className="input" onSubmit={SearchSubmit}>
+    
+       <form className="input" onSubmit={SearchSubmit}>
 
         <button type="submit" className="searchicon"><i className="fa fa-search"></i></button>
         <div className="text" id="dropdown">

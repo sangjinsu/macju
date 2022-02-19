@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import { Link,useLocation,useParams } from "react-router-dom";
+import { Link ,useParams } from "react-router-dom";
 import "../../styles/Modal.css"
-import {useStore} from 'react-redux'
 import axiosInstance from "CustomAxios";
 
 
@@ -14,7 +13,7 @@ const Followings = (props) => {
   const [followings, setFollowings] = useState();
   useEffect(()=>{
     fetchData();
-  }, [person])
+  }, [person, memberId])
   const fetchData = async () =>{
     const res = await axiosInstance.get(FOLLOWINGS_URL)
     setFollowings(res.data.data)

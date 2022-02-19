@@ -34,16 +34,17 @@ const ProfileEdit = () => {
     "aromas":[],
     "flavors":[],
   }
-  store.subscribe(()=>{
-    profileData.flavors = store.getState().checkBoxFlavorReducer
-    console.log(store.getState().checkBoxFlavorReducer)
-    console.log(profileData.flavors)
-  })
-  store.subscribe(()=>{
-    profileData.aromas = store.getState().checkBoxAromaReducer
-  })
+  
   const submitProfile = async () =>{
-    console.log(profileData)
+    store.subscribe(()=>{
+      profileData.flavors = store.getState().checkBoxFlavorReducer
+      console.log(store.getState().checkBoxFlavorReducer)
+      console.log(profileData.flavors)
+    })
+    console.log(store.getState().checkBoxAromaReducer)
+    store.subscribe(()=>{
+      profileData.aromas = store.getState().checkBoxAromaReducer
+    })
     if (introduce && editUserNickname){
       await axiosInstance.put(USER_UPDATE_PROFILE, profileData)
       .then((res)=>{

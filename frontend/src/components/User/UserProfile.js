@@ -47,7 +47,7 @@ const UserProfile = (props) => {
 
 		}
 		fetchData()
-	}, [location])
+	}, [location,userid])
 
 
 

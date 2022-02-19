@@ -16,7 +16,7 @@ const Followers = (props) => {
   }
   useEffect(()=>{
     fetchData();
-  }, [person])
+  }, [person, memberId])
   return (
     <div className={open ? 'openModal modal' : 'modal'}>
       {open ? (

@@ -12,7 +12,7 @@ const ProfileEdit = () => {
   const USER_NICKNAME_CHECK = process.env.REACT_APP_SERVER +  ':8888/v1/member/validatenickname'
   const [editUserNickname, setEditUserNickname] = useState('')
   const [introduce, setIntroduce] =useState('')
-  const [labelNickname, setLabelNickname] = useState('fail')
+  const [labelNickname, setLabelNickname] = useState('success')
   const [beforeAroma, setBeforeAroma] = useState([])
   const [beforeFlavor, setBeforeFlavor] = useState([])
   const store = useStore((state)=>state)
@@ -34,15 +34,15 @@ const ProfileEdit = () => {
     "aromas":[],
     "flavors":[],
   }
-  const flavorData = store.subscribe(()=>{
+  store.subscribe(()=>{
     profileData.flavors = store.getState().checkBoxFlavorReducer
+    console.log(store.getState().checkBoxFlavorReducer)
+    console.log(profileData.flavors)
   })
-  const aromaData  = store.subscribe(()=>{
+  store.subscribe(()=>{
     profileData.aromas = store.getState().checkBoxAromaReducer
   })
   const submitProfile = async () =>{
-    profileData.aromas = aromaData
-    profileData.flavors = flavorData
     console.log(profileData)
     if (introduce && editUserNickname){
       await axiosInstance.put(USER_UPDATE_PROFILE, profileData)
@@ -77,9 +77,6 @@ const ProfileEdit = () => {
     const fetchData = async() =>{
       const data = await axiosInstance.get(`http://i6c107.p.ssafy.io:8080/v1/member/profile/${user.memberId}`)
       setEditUserNickname(data.data.nickName)
-      if (editUserNickname === data.data.nickName){
-        setLabelNickname('success')
-      }
       setIntroduce(data.data.intro)
       setBeforeAroma(data.data.aromas)
       setBeforeFlavor(data.data.flavors)

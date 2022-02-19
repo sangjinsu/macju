@@ -5,7 +5,7 @@ import "../../styles/Modal.css"
 import {useStore} from 'react-redux'
 import axiosInstance from "CustomAxios";
 const Followers = (props) => {
-  const { open, close, header } = props;
+  const { open, close, header, person } = props;
   const memberNum = useParams();
   const memberId = memberNum.userid
   const FOLLOWERS_URL = process.env.REACT_APP_SERVER + `:8888/v1/member/${memberId}/followers`
@@ -16,7 +16,7 @@ const Followers = (props) => {
   }
   useEffect(()=>{
     fetchData();
-  }, [])
+  }, [person])
   return (
     <div className={open ? 'openModal modal' : 'modal'}>
       {open ? (

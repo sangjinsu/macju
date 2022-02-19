@@ -5,9 +5,7 @@ import axiosInstance from 'CustomAxios'
 import { ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import _ from "lodash"
-import { useCallback } from "react";
-import {EraseEffect }from "./searchBarFunc"
-import { timers } from "jquery";
+import { EraseEffect }from "./searchBarFunc"
 
 
 
@@ -17,32 +15,8 @@ function SearchBar(){
   const [searchInput, setSearchInput] = useState('');   
   const [searchAll , setSearchAll] = useState([]) 
   const [searchResult, setSearchresult] = useState([])
-  const [testInput, setTestInput] = useState('')
-
-
-  useEffect(()=>{
-    checkInput();
-  }, [testInput])
-
-  const timer = (beforeInput) =>{
-    setTimeout(()=>{
-      if (searchInput === beforeInput){
-        fetchSearchResult();
-        return
-      } else {
-        return
-      }
-    }, 500);
-  }
-  const checkInput = () =>{
-    const beforeInput = searchInput
-    timer(beforeInput)
-  }
-
-
-
-
-  const setInput = (e) => {
+  
+  const setInput = async (e) => {
     setSearchInput(e.target.value);
   }
   
@@ -54,13 +28,16 @@ function SearchBar(){
 
   const SearchSubmit = ((e)=> {
     e.preventDefault()
+    setSearchInput("")
+    console.log('지워짐')
+    setSearchresult([])
     history.replace({pathname:`/search/${searchInput}`, searchInput:searchInput, searchAll:searchAll})
   })
-  useEffect(()=>{
-    setSearchresult(searchAll)
-  }, [searchAll])
+
+
+
   
-  const fetchSearchResult = useCallback( async () =>{
+  const fetchSearchResult = async () =>{
     if (searchInput === "") {
       setSearchAll([])
       return
@@ -74,19 +51,23 @@ function SearchBar(){
     const usersearch = axiosInstance.get(`${SEARCH_URL}/v1/search/user?query=${searchInput}`)
     Promise.allSettled([beerKosearch, beerEnsearch, aromasearch, flavorsearch, typesearch,usersearch])
     .then((results)=>setSearchAll(results))   
-  }, [SEARCH_URL, searchInput])
+  }
+  
+  useEffect(()=>{
+    setSearchresult(searchAll)
+  }, [searchAll])
+
   
 
-
-  
   useEffect( () => {
     EraseEffect()
   }, [])
 
 
-
- 
-
+  useEffect(() => {
+    console.log('g')
+    fetchSearchResult()
+  }, [searchInput, fetchSearchResult])  
   const removeSearch = () =>{
     setSearchresult([])
   }
@@ -94,12 +75,11 @@ function SearchBar(){
 
   return(
     <>
-    
-       <form className="input" onSubmit={SearchSubmit}>
+      <form className="input" onSubmit={SearchSubmit}>
 
         <button type="submit" className="searchicon"><i className="fa fa-search"></i></button>
         <div className="text" id="dropdown">
-          <input id="input" type="text" placeholder="검색..." onChange={setInput} autoComplete={"off"} value={searchInput}/>
+          <input id="input" type="text" placeholder="검색..." onChange={setInput} autoComplete={"off"} value={searchInput} style={{width:226}}/>
         </div>
         
         <button className="clear" onClick={ eraseInput } >

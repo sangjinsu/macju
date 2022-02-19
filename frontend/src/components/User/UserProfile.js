@@ -107,10 +107,10 @@ const UserProfile = (props) => {
 									<span className="followCtn">{user.followings.length}</span>
 								</div>
 							</div>
-							<Followers open={followersModalOpen} close={followersCloseModal} header="팔로워">
+							<Followers open={followersModalOpen} close={followersCloseModal} header="팔로워" person={user.followers.length}>
 								followers
 							</Followers>
-							<Followings open={followingsModalOpen} close={followingsCloseModal} header="팔로잉">
+							<Followings open={followingsModalOpen} close={followingsCloseModal} header="팔로잉" person={user.followings.length}>
 								followings
 							</Followings>
 							

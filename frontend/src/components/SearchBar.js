@@ -28,6 +28,7 @@ function SearchBar(){
   }
 
   const SearchSubmit = ((e)=> {
+    console.log(e)
     e.preventDefault()
     history.replace({pathname:`/search/${searchInput}`, searchInput:searchInput, searchAll:searchAll})
   })
@@ -197,9 +198,7 @@ function SearchBar(){
 
         <button type="submit" className="searchicon"><i className="fa fa-search"></i></button>
         <div className="text" id="dropdown">
-        <form onSubmit="return false">
           <input id="input" type="text" placeholder="검색..." onChange={setInput} autoComplete={"off"} value={searchInput}/>
-          </form>
         </div>
         
         <button className="clear" onClick={ eraseInput } >

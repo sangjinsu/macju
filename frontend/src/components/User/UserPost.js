@@ -42,13 +42,13 @@ const UserPost = (props) => {
   return (
     <section className="userpost_section layout_padding_postlist">
 
-    <div className="container">
+    <div className="container" style={{justifyContent:'space-around'}}>
       <h1 className="font">Posts</h1>
       <div className="postlist_component">
-        <div className="row grid postlist_component">
+        <div className="row grid" style={{justifyContent:'center'}} >
         { userPosts.length === 0 ?  
           <>
-            <UserIcon grade={2500}/>
+            <UserIcon grade={2500} />
             <div id="text" className="noPost" style={{marginTop:50 ,textAlign:'center'}}>아직 작성한 게시글이 없습니다.</div>
           </> : userPosts.map((post) =>
           <div className="col-md-6 col-lg-4 fadein" key={post.postId}>

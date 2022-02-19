@@ -15,7 +15,7 @@ const UserProfile = (props) => {
 	const USER_PROFILE_URL = process.env.REACT_APP_SERVER + `:8888/v1/member/profile/${userid}`
 	const FOLLOW_POST_URL = process.env.REACT_APP_SERVER + `:8888/v1/member/${store.getState().userReducer.memberId}/follow/${userid}`
 	const FOLLOW_GET_URL = process.env.REACT_APP_SERVER + `:8888/v1/member/${userid}/followings`
-	const FOLLOWING_GET_URL = process.env.REACT_APP_SERVER + `:8888/v1/member/${userid}/followers`
+	const FOLLOWER_GET_URL = process.env.REACT_APP_SERVER + `:8888/v1/member/${userid}/followers`
  	const [user, setUser] = useState('')
 	const [followButton, setFollowButton] = useState(true)
 	const setFollow = async () =>{
@@ -37,7 +37,7 @@ const UserProfile = (props) => {
 
 	useEffect(()=>{
 		const fetchData = async () =>{
-			const res = await axiosInstance.get(FOLLOWING_GET_URL)
+			const res = await axiosInstance.get(FOLLOWER_GET_URL)
 			res.data.data.map((person, i) =>{
 				if (parseInt(store.getState().userReducer.memberId) === parseInt(person.memberId)){
 					setFollowButton(false)

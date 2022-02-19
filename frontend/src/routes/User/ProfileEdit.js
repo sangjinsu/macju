@@ -4,8 +4,6 @@ import { useStore } from "react-redux";
 import {  useHistory, useLocation } from "react-router-dom";
 import "../../styles/ProfileEdit.css"
 import axiosInstance from "CustomAxios";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox"
 import TextField  from "@mui/material/TextField"
 import UserCheckBox from "components/User/UserCheckBox";
 const ProfileEdit = () => {
@@ -37,13 +35,12 @@ const ProfileEdit = () => {
     "flavors":[],
   }
   const flavorData = store.subscribe(()=>{
-    return store.getState().checkBoxFlavorReducer
+    profileData.flavors = store.getState().checkBoxFlavorReducer
   })
   const aromaData  = store.subscribe(()=>{
-    return store.getState().checkBoxAromaReducer
+    profileData.aromas = store.getState().checkBoxAromaReducer
   })
   const submitProfile = async () =>{
-    
     profileData.aromas = aromaData
     profileData.flavors = flavorData
     console.log(profileData)
@@ -122,6 +119,8 @@ const ProfileEdit = () => {
 
   
 
+  
+
 
   return (
     <div className="edit-box">
@@ -147,7 +146,8 @@ const ProfileEdit = () => {
             
             <div className="container">
             {flavors.map((value, idx)=>
-              <UserCheckBox key={idx + 1} label={value} idx={idx +1} checked={flavorChecked(idx + 1)}/>
+              <UserCheckBox key={idx + 1} label={value} idx={idx +1} checked={beforeFlavor.indexOf(idx + 1) >= 0 ? true: false}/>
+              // flavorChecked(idx + 1)
             )}
             </div>
           </div>
@@ -157,7 +157,8 @@ const ProfileEdit = () => {
           <div className="container">
 
           {aromas.map((value, idx)=>
-            <UserCheckBox key={idx+14} label={value} idx={idx+14} checked={aromaChecked(idx + 14)}/>
+            <UserCheckBox key={idx+14} label={value} idx={idx+14} checked={beforeAroma.indexOf(idx + 1) >= 0 ? true:false}/>
+            // aromaChecked(idx + 14)
           )}
           </div>  
           </div>

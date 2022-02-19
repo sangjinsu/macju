@@ -80,6 +80,9 @@ const ProfileEdit = () => {
     const fetchData = async() =>{
       const data = await axiosInstance.get(`http://i6c107.p.ssafy.io:8080/v1/member/profile/${user.memberId}`)
       setEditUserNickname(data.data.nickName)
+      if (editUserNickname === data.data.nickName){
+        setLabelNickname('success')
+      }
       setIntroduce(data.data.intro)
       setBeforeAroma(data.data.aromas)
       setBeforeFlavor(data.data.flavors)

@@ -10,7 +10,7 @@ import pandas as pd
 import numpy as np
 
 LOSS_AVERSION = 12.3
-FOND_WEIGHT = 15
+FOND_WEIGHT = 30
 
 # data to dataframe
 aromaHashTags = pd.DataFrame.from_records(
@@ -142,7 +142,7 @@ def create_df_evaluation_tag(df_like_tag, df_rate_tag, fond_tags):
 
     for fond_tag in fond_tags:
         df_evaluation_tag.at[
-            fond_tag, 'value'] = np.where(df_evaluation_tag.at[fond_tag, 'value'] > 0, df_evaluation_tag.at[fond_tag, 'value'] + FOND_WEIGHT, df_evaluation_tag.at[fond_tag, 'value'])
+            fond_tag, 'value'] = df_evaluation_tag.at[fond_tag, 'value'] + FOND_WEIGHT
 
     return df_evaluation_tag
 

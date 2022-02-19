@@ -3,8 +3,8 @@
 ## https://github.com/elastic/logstash/blob/master/docker/data/logstash/config/logstash-full.yml
 #
 http.host: "0.0.0.0"
-#xpack.monitoring.elasticsearch.hosts: [ "http://i6c107.p.ssafy.io:9200" ]
-xpack.monitoring.elasticsearch.hosts: [ "http://13.125.157.39:9200" ]
+xpack.monitoring.elasticsearch.hosts: [ "http://i6c107.p.ssafy.io:9200" ]
+#xpack.monitoring.elasticsearch.hosts: [ "http://13.125.157.39:9200" ]
 
 config.reload.automatic: true
 

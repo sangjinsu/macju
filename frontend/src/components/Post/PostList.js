@@ -34,6 +34,7 @@ function PostListComponent(){
         .catch(()=>{
           imageList.push({id:newPost[i].postId, res:"/img/icons/beer-3.png"})
         })
+        console.log(imageList)
         
     }
     setNewPostImage(imageList)

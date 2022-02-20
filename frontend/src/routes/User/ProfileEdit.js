@@ -114,11 +114,8 @@ const ProfileEdit = () => {
   }, [editUserNickname, nickNameCheck])
 
   useEffect(()=>{
-    // console.log(userId)
-    // console.log(store.getState().userReducer.memberId)
 		if (Number(userId) !== Number(store.getState().userReducer.memberId)){
 			alert('권한이 없습니다.')
-			// history.push('/home')
 		}
 		
 	}, [])
@@ -162,8 +159,9 @@ const ProfileEdit = () => {
           <div style={{backgroundColor:'#f9d06880', borderStyle:"solid", borderColor:"#F9CF68", borderRadius:'15px'}}>
           <div className="container">
 
-          {aromas.map((value, idx)=>
-            <UserCheckBox key={idx+14} label={value} idx={idx+14} checked={checkedAromas[idx]}/>
+          {aromas.map((value, idx)=>{
+            return <UserCheckBox key={idx+14} label={value} idx={idx+14} checked={checkedAromas[idx]}/>
+          }
 
           )}
           </div>  

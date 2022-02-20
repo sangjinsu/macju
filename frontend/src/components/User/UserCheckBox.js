@@ -15,7 +15,8 @@ const UserCheckBox = (props) =>{
 
 
   const handleChange = () =>{
-    this.setState({checked : checked})
+    // this.setState({checked : checked})
+    setChecked(!checked)
   }
 
 

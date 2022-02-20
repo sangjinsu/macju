@@ -93,7 +93,7 @@ const UserProfile = (props) => {
 							<h1>{user.nickName}</h1>
 							<Link to={{
 								pathname : `/profile/edit`,
-								state : user
+								state : userid
 								}} >
 								<div className="editBtn"><i className="fas fa-user-edit fa-lg"></i></div>
 							</Link>

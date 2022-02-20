@@ -114,12 +114,12 @@ const ProfileEdit = () => {
   }, [editUserNickname, nickNameCheck])
 
   useEffect(()=>{
-    console.log(userId)
-    console.log(store.getState().userReducer.memberId)
-		// if (Number(userId) !== Number(store.getState().userReducer.memberId)){
-		// 	alert('권한이 없습니다.')
-		// 	history.push('/home')
-		// }
+    // console.log(userId)
+    // console.log(store.getState().userReducer.memberId)
+		if (Number(userId) !== Number(store.getState().userReducer.memberId)){
+			alert('권한이 없습니다.')
+			// history.push('/home')
+		}
 		
 	}, [])
 
@@ -127,7 +127,7 @@ const ProfileEdit = () => {
 
 
   return (
-    <div className="edit-box">
+    <div className="container edit-box">
       <h1>{editUserNickname}'s Profile</h1>
       <br></br>
       <form>

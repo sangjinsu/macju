@@ -58,6 +58,7 @@ const RecommendBeer = (props) => {
 
         // </div>
       }
+      <br></br>
       {beerList
       ?null
       :

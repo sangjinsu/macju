@@ -93,8 +93,10 @@
   font-size: 20px;
 }
 
+a {
+  text-decoration: none;
+}
 @-webkit-keyframes fade{from{bottom:0px;opacity:1;visibility:visible}to{bottom:110%}}
         @keyframes fade{from{bottom:0px;opacity:1;visibility:visible}to{bottom:110%}}
-
 
 

@@ -76,7 +76,7 @@ function PostDetail() {
   })
   const deleteHashTag = ((e)=>{
     // e.preventDefault()
-    const hashContent = `#${e.target.textContent.substr(1)}`
+    const hashContent = e.target.textContent.substr(1)
     const existHashList = hashtagArr.filter((hash)=> hash !== hashContent)
     setHashtagArr(existHashList)
   })
@@ -198,7 +198,7 @@ function PostDetail() {
                       ></textarea>
                       <div className="hashtag_wrap">
                         <div className="hashtag_wrap_outer">
-                          <textarea 
+                          <input 
                             value={hashtag}
                             onKeyUp={pressKey}
                             onChange={inputHashTag}
@@ -207,7 +207,7 @@ function PostDetail() {
                             rows="7"
                             cols="40"
                           >
-                          </textarea>
+                          </input>
                           <button type="submit" className="addHashBtn" onClick={addHashTag}>추가</button>
                         </div>
                         {hashtagArr.map((hash, i)=>

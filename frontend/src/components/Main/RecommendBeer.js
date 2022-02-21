@@ -10,8 +10,10 @@ const RecommendBeer = (props) => {
   const [beerList, setBeer] = useState()
   const [userProfile, setProfile] = useState()
 
-  const settings = props.settings
-  settings.slidesToShow = 1
+
+  const recoSettings = JSON.parse(JSON.stringify(props.settings))
+  recoSettings.fade = false
+
   const userData = useSelector(state => state.userReducer)
   const memberId = Number(userData.memberId)
 
@@ -39,7 +41,7 @@ const RecommendBeer = (props) => {
       <h3 className="recommendtitle pt-4" align="center">Recommend Beer</h3>
       {beerList
         ?
-        <Slider {...settings}>
+        <Slider {...recoSettings}>
           {
             beerList && beerList.map((beerid, i) =>
               <CustomSlide beerid={beerid} key={i} />

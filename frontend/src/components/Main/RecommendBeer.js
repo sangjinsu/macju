@@ -19,12 +19,12 @@ const RecommendBeer = (props) => {
 
   const getRecommend = useCallback(async () => {
     try {
+      const {data : profileData} = await axiosInstance.get(`${USER_PROFILE_URL}`)
+      setProfile(profileData)
+
       const RECOMMEND_BEER = process.env.REACT_APP_SERVER + `:8888/v1/recommend/${memberId}`
       const { data: recommendBeer } = await axiosInstance.get(RECOMMEND_BEER)
       setBeer(recommendBeer.recommend)
-
-      const {data : profileData} = await axiosInstance.get(`${USER_PROFILE_URL}`)
-      setProfile(profileData)
     } catch {
       setBeer(false)
     }

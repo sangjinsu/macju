@@ -76,7 +76,7 @@ function PostDetail() {
   })
   const deleteHashTag = ((e)=>{
     // e.preventDefault()
-    const hashContent = e.target.textContent.substr(1)
+    const hashContent = e.target.textContent.substring(1)
     const existHashList = hashtagArr.filter((hash)=> hash !== hashContent)
     setHashtagArr(existHashList)
   })

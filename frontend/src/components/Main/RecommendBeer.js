@@ -3,28 +3,32 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axiosInstance from "CustomAxios";
-import { useSelector, useStore } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom"
 import "../../styles/RecommendBeer.css"
 const RecommendBeer = (props) => {
-  const store = useStore((state) => state)
-  const userid = store.getState().userReducer.memberId
   const [beerList, setBeer] = useState()
+  const [userProfile, setProfile] = useState()
 
   const settings = props.settings
   settings.slidesToShow = 1
   const userData = useSelector(state => state.userReducer)
   const memberId = Number(userData.memberId)
 
+  const USER_PROFILE_URL = process.env.REACT_APP_SERVER + `:8888/v1/member/profile/${memberId}`
+
   const getRecommend = useCallback(async () => {
     try {
       const RECOMMEND_BEER = process.env.REACT_APP_SERVER + `:8888/v1/recommend/${memberId}`
       const { data: recommendBeer } = await axiosInstance.get(RECOMMEND_BEER)
       setBeer(recommendBeer.recommend)
+
+      const {data : profileData} = await axiosInstance.get(`${USER_PROFILE_URL}`)
+      setProfile(profileData)
     } catch {
       setBeer(false)
     }
-  }, [memberId])
+  }, [memberId, USER_PROFILE_URL])
 
   useEffect(() => {
     getRecommend()
@@ -43,25 +47,11 @@ const RecommendBeer = (props) => {
           }
         </Slider>
         : <Link className="reco_none" align="center">취향 설정을 하러 가시겠나요?</Link>
-        // <div style={{
-        //   display: 'flex',
-        //   justifyContent: 'center'
-        // }}>
-          // <div >  <div className="main_none">맥주 취향을 모르겠나요?</div>
-
-            // <Link to={{
-            //   pathname: `/profile/edit`,
-            //   state: userid
-            // }} style={{ textDecoration: 'none', justifyContent: 'center' }}
-            // ><div id="btn" style={{ maxWidth: 200 }}><p>프로필 페이지로 이동</p></div>  </Link>
-          // </div>
-
-        // </div>
       }
       {beerList
       ?null
       :
-      <Link className="reco_none" align="center" to={{pathname: `/profile/edit`, state: userid}}>프로필 페이지로 이동</Link>
+      <Link className="reco_none" align="center" to={{pathname: `/profile/edit`, state: [memberId, userProfile.ninkName]}}>프로필 페이지로 이동</Link>
       }
     </div>
   )

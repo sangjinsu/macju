@@ -75,7 +75,7 @@ function CustomSlide(props) {
     <div {...props} className="row text-center" style={{ textDecoration: "none" }}>
       <Link to={`/post/${props.postid}`}>
       <h6 className="hot_post_hashtag hot_name_color">#{hotPostHashTag}</h6>
-      <img className="hot_post_img col-6 mb-5 " src={imgSrc} alt=""/>
+      <img className="hot_post_img col-6 mb-5 " src={imgSrc} alt="" style={{ maxHeight: 250, maxWidth: 250 }}/>
       </Link>
     </div>
   )

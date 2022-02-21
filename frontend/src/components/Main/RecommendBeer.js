@@ -46,12 +46,12 @@ const RecommendBeer = (props) => {
             )
           }
         </Slider>
-        : <Link className="reco_none" align="center">취향 설정을 하러 가시겠나요?</Link>
+        : <span className="reco_none" align="center">취향 설정을 하러 가시겠나요?</span>
       }
-      {beerList&&memberId&&userProfile
-      ?null
-      :
+      {!beerList&&memberId&&userProfile
+      ?
       <Link className="reco_none" align="center" to={{pathname: `/profile/edit`, state: [memberId, userProfile]}}>프로필 페이지로 이동</Link>
+      :null
       }
     </div>
   )

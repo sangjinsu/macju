@@ -30,16 +30,21 @@ function NavBar(){
             <div className="container">
               <nav className="navbar custom_nav-container ">
                 <div >
-                  <a className="navbar-macju" href="/home" style={{ textDecoration: 'none' }}>
+                  <a className="navbar-macju" href="/" style={{ textDecoration: 'none' }}>
                     <span>
                       MacJU
                     </span>
                   </a>
                 </div>
                 
-                <div className='searchbar' style={{flexDirection: 'column'}}>
-                  <SearchBar/>
-                </div>
+                {
+                  loginUser
+                  ?
+                  <div className='searchbar' style={{flexDirection: 'column'}}>
+                    <SearchBar/>
+                  </div>
+                  :null
+                }
 
                 <div className="dropdown">
                   <button className="btn dropdown-toggle dropdownBtn" id="dropdownMenuButton1" data-toggle="dropdown" aria-expanded="false">
@@ -47,7 +52,7 @@ function NavBar(){
                   
                   <ul className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton1">
                     <li>
-                      <Link className='dropdown-item' to='/home'>Home</Link>
+                      <Link className='dropdown-item' to='/'>Home</Link>
                     </li>
                     <li>
                       <Link className='dropdown-item' to='/beer'>Beer</Link>

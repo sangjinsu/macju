@@ -3,7 +3,6 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axiosInstance from "CustomAxios";
-import { Link } from "react-router-dom";
 const BestBeer = (props) => {
   const [rankingBeerList, setRanking] = useState()
 

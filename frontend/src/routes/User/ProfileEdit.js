@@ -81,7 +81,7 @@ const ProfileEdit = () => {
     setEditUserNickname(e.target.value)
   }
   const fetchData = async() =>{
-    const data = await axiosInstance.get(`http://i6c107.p.ssafy.io:8080/v1/member/profile/${user.memberId}`)
+    const data = await axiosInstance.get(`http://i6c107.p.ssafy.io:8888/v1/member/profile/${user.memberId}`)
     const temp = [...checkedFlavors]
     for (let i of data.data.flavors) {
       temp[i - 1] = true

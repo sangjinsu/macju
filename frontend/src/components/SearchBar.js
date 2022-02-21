@@ -10,7 +10,7 @@ import { EraseEffect }from "./searchBarFunc"
 
 
 function SearchBar(){
-  const SEARCH_URL = process.env.REACT_APP_SERVER + ':8080'
+  const SEARCH_URL = process.env.REACT_APP_SERVER + ':8888'
   const history = useHistory();
   const [searchInput, setSearchInput] = useState('');   
   const [searchAll , setSearchAll] = useState([]) 

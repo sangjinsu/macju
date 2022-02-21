@@ -84,7 +84,7 @@ function CustomSlide(props) {
   return (
     <div {...props} className="recommend_beers row text-center ">
       <Link to={`/beer/${props.beerid}`}>
-        <img className="slideImg beer_img col w-50 " src={imgSrc} alt="" />
+        <img className="slideImg beer_img col w-50 " src={imgSrc} alt="" style={{ maxHeight: 400, maxWidth: 300 }}/>
         <div className="slideDiv beer_content col text-center mb-5">
           <h3 className="beer_name reco_name_color">{beerName}</h3>
         </div>

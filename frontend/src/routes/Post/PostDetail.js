@@ -76,24 +76,28 @@ function PostDetail() {
   })
   const deleteHashTag = ((e)=>{
     // e.preventDefault()
-    const hashContent = e.target.textContent
+    const hashContent = `#${e.target.textContent}`
     const existHashList = hashtagArr.filter((hash)=> hash !== hashContent)
     setHashtagArr(existHashList)
   })
   const changePost = (async (e)=>{
-    try{
-      const putPostApiUrl = `${POST_DETAIL_URL}/${postId}`
-      const requestUpdatePostDto  = {
-        "content": updateContent,
-        "postId": postId,
-        "userHashTags": hashtagArr
+    if (hashtagArr.length === 0) {
+      alert("해시태그를 입력해주세요!!")
+    }else{
+      try{
+        const putPostApiUrl = `${POST_DETAIL_URL}/${postId}`
+        const requestUpdatePostDto  = {
+          "content": updateContent,
+          "postId": postId,
+          "userHashTags": hashtagArr
+        }
+        await axiosInstance.put(putPostApiUrl, requestUpdatePostDto)
+        dispatch({type:"updatePost", updateContent:updateContent, updateHashTag:hashtagArr})
+        setPost(store.getState().postDetailReducer)
+        history.push(`post/${postId}`)
+      }catch(err){
+        console.log(err)
       }
-      await axiosInstance.put(putPostApiUrl, requestUpdatePostDto)
-      dispatch({type:"updatePost", updateContent:updateContent, updateHashTag:hashtagArr})
-      setPost(store.getState().postDetailReducer)
-      history.push(`post/${postId}`)
-    }catch(err){
-      console.log(err)
     }
   })
   const likeButton = async () => {
@@ -200,7 +204,8 @@ function PostDetail() {
                             onChange={inputHashTag}
                             className="postcreate_textarea hashtag_input"
                             placeholder="해시태그를 클릭하면 지워집니다!"
-                            rows="1"
+                            rows="7"
+                            cols="40"
                           >
                           </textarea>
                           <button type="submit" className="addHashBtn" onClick={addHashTag}>추가</button>

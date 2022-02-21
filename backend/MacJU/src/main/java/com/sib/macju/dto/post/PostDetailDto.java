@@ -3,12 +3,14 @@ package com.sib.macju.dto.post;
 import com.sib.macju.domain.beer.Beer;
 import com.sib.macju.domain.beer.BeerENMainType;
 import com.sib.macju.domain.beer.BeerKOMainType;
+import com.sib.macju.domain.hashtag.UserHashTag;
 import com.sib.macju.domain.member.Member;
 import com.sib.macju.domain.post.Post;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,7 +44,7 @@ public class PostDetailDto implements Serializable {
         public BeerDto(Beer beer) {
             beerId = beer.getBeerId();
             name = beer.getName();
-            beerType = new BeerTypeDto(beer.getBeerType().getKo_main(),beer.getBeerType().getEn_main(), beer.getBeerType().getKo_detail(), beer.getBeerType().getEn_detail());
+            beerType = new BeerTypeDto(beer.getBeerType().getKo_main(), beer.getBeerType().getEn_main(), beer.getBeerType().getKo_detail(), beer.getBeerType().getEn_detail());
             aromaHashTags = beer.getBeerHasAromaHashTags()
                     .stream()
                     .map(beerHasAromaHashTag ->
@@ -99,10 +101,14 @@ public class PostDetailDto implements Serializable {
                 .map(photo -> new PhotoDto(photo.getPhotoId(), photo.getData()))
                 .collect(Collectors.toList());
 
-        this.userHashTags = post.getUserHashTags()
-                .stream().map(userHashTag ->
-                        new UserHashTagDto(userHashTag.getUserHashTagId(), userHashTag.getContent()))
-                .collect(Collectors.toList());
+        this.userHashTags = new ArrayList<>();
+        List<UserHashTag> userHashTags = post.getUserHashTags();
+        for (UserHashTag userHashTag :
+                userHashTags) {
+            if (!userHashTag.is_deleted()) {
+                this.userHashTags.add(new UserHashTagDto(userHashTag.getUserHashTagId(), userHashTag.getContent()));
+            }
+        }
 
         this.likeMembers = post.getMemberLikePosts().stream().map(memberLikePost -> {
             Member member = memberLikePost.getMember();

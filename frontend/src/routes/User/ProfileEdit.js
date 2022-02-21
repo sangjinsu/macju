@@ -20,7 +20,7 @@ const ProfileEdit = () => {
   const user = store.getState().userReducer
   const history = useHistory();
   const location = useLocation();
-  const beforeName = location.state[1].nickName
+  const beforeName = location.state[1]
   const userId = location.state[0] 
 
   

@@ -51,7 +51,7 @@ const RecommendBeer = (props) => {
       {beerList
       ?null
       :
-      <Link className="reco_none" align="center" to={{pathname: `/profile/edit`, state: [memberId, userProfile.ninkName]}}>프로필 페이지로 이동</Link>
+      <Link className="reco_none" align="center" to={{pathname: `/profile/edit`, state: [memberId, userProfile]}}>프로필 페이지로 이동</Link>
       }
     </div>
   )

@@ -10,9 +10,9 @@ const HotPost = (props) => {
   const [rankingPostList, setRanking] = useState()
   const [slideNum, setSlideNum] = useState()
 
-  const settings = props.settings
-  settings.fade = false
-  settings.slidesToShow = slideNum <= 2? slideNum : 2
+
+  const hotSettings = JSON.parse(JSON.stringify(props.settings))
+  hotSettings.slidesToShow = slideNum <= 2? slideNum : 2
   
   const hotPost = async () => {
     try{
@@ -38,7 +38,7 @@ const HotPost = (props) => {
       {
         slideNum
         ?
-        <Slider {...settings}>
+        <Slider {...hotSettings}>
           {
             rankingPostList&&rankingPostList.map((postid, i) => 
               <CustomSlide postid={postid} key={i} />

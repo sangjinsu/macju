@@ -6,10 +6,8 @@ import axiosInstance from "CustomAxios";
 const BestBeer = (props) => {
   const [rankingBeerList, setRanking] = useState()
 
-
-  const settings = props.settings
-  settings.fade = true
-  settings.slidesToShow = 1
+  const bestSettings = JSON.parse(JSON.stringify(props.settings))
+  bestSettings.fade = true
 
   const PopBeer = async () => {
     try {
@@ -31,7 +29,7 @@ const BestBeer = (props) => {
       {
         rankingBeerList
           ?
-          <Slider {...settings}>
+          <Slider {...bestSettings}>
             {
               rankingBeerList && rankingBeerList.map((beerid, i) =>
                 <CustomSlide beerid={beerid} key={i} />
@@ -53,13 +51,13 @@ function CustomSlide(props) {
   const BEER_DETAIL_URL = process.env.REACT_APP_SERVER + ':8888/v1/beer'
   const [imgSrc, setImgSrc] = useState()
   const [beerName, setName] = useState()
-  const [urlBeerId, setBeerId] = useState()
+  // const [urlBeerId, setBeerId] = useState()
   useEffect(() => {
     const fetchData = async () => {
       const { data: beerDetail } = await axiosInstance.get(`${BEER_DETAIL_URL}/${props.beerid}`)
       setImgSrc(beerDetail.photoPath)
       setName(beerDetail.name)
-      setBeerId(beerDetail.beerId)
+      // setBeerId(beerDetail.beerId)
     }
     fetchData();
   }, [BEER_DETAIL_URL, props.beerid])

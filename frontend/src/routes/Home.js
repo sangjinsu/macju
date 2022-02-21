@@ -9,7 +9,7 @@ function Home() {
     infinite: true,
     autoplay: true,
     arrows: false,
-    fade:true,
+    fade:false,
     autoplaySpeed: 3000,
     speed: 2000,
     slidesToShow: 1,

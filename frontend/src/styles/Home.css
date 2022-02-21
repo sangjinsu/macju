@@ -81,11 +81,12 @@
 
 .reco_none{
   font-family: 'Nanum Pen Script', cursive;
-  text-align: center;
   margin: 20px 0;
   color: black;
   font-size: 30px;
-  text-decoration : none
+  text-decoration : none;
+  display:flex;
+  justify-content: center;
 }
 
 .hot_post_hashtag{

@@ -13,7 +13,7 @@ const auth = (Component, option) => {
       if ((userToken === null || loginMemberId === null) && option) { 
         props.history.push("/user/login");
       } else if (userToken && loginMemberId && !option) {  
-        props.history.push("/home")
+        props.history.push("/")
       }
     }, [userToken, props.history, loginMemberId]);
     return (

@@ -26,7 +26,7 @@ function LoginAuth() {
         dispatch({type:"loginSuccess", userData:userData.current}) 
         setCookie("AccessToken", userData.current.AccessToken, {path: "/", expire:date.toUTCString()})
 
-        history.replace("/home")
+        history.replace("/")
         window.location.reload()
       }
     }catch(err){

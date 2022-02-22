@@ -68,7 +68,7 @@ function NavBar(){
                         <i className="fa fa-user" aria-hidden="true"></i>
                       </Link>
                     </li>
-                    { loginUser === null && !userToken?
+                    { loginUser === null || !userToken?
                     <li className="order_online">
                       <Link className='dropdown-item nav_login' to='/user/login'>login</Link>
                     </li>

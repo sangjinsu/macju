@@ -43,21 +43,6 @@ const kakaoIdReducer = (state = -1, action) => {
   return state
 }
 
-const followersReducer = (state = [], action) => {
-  if (action.type === 'followers') {
-    return action.followers
-  } 
-  return state
-}
-
-
-const followingsReducer = (state = [], action) => {
-  if (action.type === 'followings') {
-    return action.followings
-  }
-  return state
-}
-
 
 
 
@@ -176,6 +161,41 @@ const navbarReducer = (state=false, action) => {
   }
 }
 
+const checkFlavorArray = []
+const checkBoxFlavorReducer = (state= [], action) => {
+  if (action.data > 13) return checkFlavorArray
+  if (action.type === "addAromaCheck"){
+    if (checkFlavorArray.indexOf(parseInt(action.data)) < 0){
+      checkFlavorArray.push(parseInt(action.data))
+    }
+  } else if (action.type === "removeAromaCheck"){
+    const index = checkFlavorArray.indexOf(parseInt(action.data))
+    if (index >= 1) {
+      checkFlavorArray.splice(index, 1)
+      return checkFlavorArray
+    }
+  }
+  
+  return checkFlavorArray
+}
+const checkAromaArray = []
+const checkBoxAromaReducer = (state= [], action) => {
+  if (action.data <= 13) return checkAromaArray
+  if (action.type === "addAromaCheck"){
+    if (checkAromaArray.indexOf(action.data - 13) < 0){
+      checkAromaArray.push(action.data - 13)
+    }
+  } else if (action.type === "removeAromaCheck"){
+    const index = checkAromaArray.indexOf(action.data - 13)
+    if (index >= 0) {
+      checkAromaArray.splice(index, 1)
+      return checkAromaArray
+    }
+  }
+  
+  return checkAromaArray
+}
+
 const rootReducer = combineReducers
   ( {
     userReducer,
@@ -190,9 +210,9 @@ const rootReducer = combineReducers
      userLikeReducer,
      userReviewReducer,
      navbarReducer,
-     followersReducer,
-     followingsReducer,
      headerReducer,
+     checkBoxFlavorReducer,
+     checkBoxAromaReducer,
   
   } )
 

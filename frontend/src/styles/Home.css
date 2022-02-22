@@ -81,11 +81,12 @@
 
 .reco_none{
   font-family: 'Nanum Pen Script', cursive;
-  text-align: center;
   margin: 20px 0;
   color: black;
   font-size: 30px;
-  text-decoration : none
+  text-decoration : none;
+  display:flex;
+  justify-content: center;
 }
 
 .hot_post_hashtag{
@@ -93,8 +94,10 @@
   font-size: 20px;
 }
 
+a {
+  text-decoration: none;
+}
 @-webkit-keyframes fade{from{bottom:0px;opacity:1;visibility:visible}to{bottom:110%}}
         @keyframes fade{from{bottom:0px;opacity:1;visibility:visible}to{bottom:110%}}
-
 
 

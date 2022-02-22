@@ -23,7 +23,7 @@ function App() {
       <Router>
         <Navbar />
         <Switch>
-          <Route exact path="/home" component={PageAuth(Home, true)} />
+          <Route exact path="/" component={Home} />
           <Route path="/post">
             <Switch>
               <Route exact path="/post/new" component={PageAuth(PostCreate, true)} />

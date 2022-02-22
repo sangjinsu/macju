@@ -37,7 +37,7 @@ function Signup(props) {
     try{
       if (age < 20) {
         alert("미성년자는 가입 할 수 없습니다")
-        history.replace("/home")
+        history.replace("/")
         return 
       } 
 
@@ -64,7 +64,7 @@ function Signup(props) {
       userData.memberId = singupResponse.memberId
       dispatch({type:"loginSuccess", userData:userData})
 
-      history.push("/home")
+      history.push("/")
       window.location.reload() 
     }catch(err){
       console.log(err)

@@ -19,7 +19,6 @@ function Search(props){
   const [hash, setHash] = useState('')
   useEffect(()=>{
     if (location.state) {
-
       setSearchClickInput(location.state[1]) 
       setSearchresult(location.state[0]) 
     } else if (location.Userstate){

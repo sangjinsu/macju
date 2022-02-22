@@ -12,10 +12,12 @@ const UserProfile = (props) => {
 	const dispatch = useDispatch();
 	const location = useLocation()
 	const userid = props.state
+	
+
 	const USER_PROFILE_URL = process.env.REACT_APP_SERVER + `:8888/v1/member/profile/${userid}`
 	const FOLLOW_POST_URL = process.env.REACT_APP_SERVER + `:8888/v1/member/${store.getState().userReducer.memberId}/follow/${userid}`
 	const FOLLOW_GET_URL = process.env.REACT_APP_SERVER + `:8888/v1/member/${userid}/followings`
-	const FOLLOWING_GET_URL = process.env.REACT_APP_SERVER + `:8888/v1/member/${userid}/followers`
+	const FOLLOWER_GET_URL = process.env.REACT_APP_SERVER + `:8888/v1/member/${userid}/followers`
  	const [user, setUser] = useState('')
 	const [followButton, setFollowButton] = useState(true)
 	const setFollow = async () =>{
@@ -37,23 +39,18 @@ const UserProfile = (props) => {
 
 	useEffect(()=>{
 		const fetchData = async () =>{
-			const res = await axiosInstance.get(FOLLOWING_GET_URL)
+			const res = await axiosInstance.get(FOLLOWER_GET_URL)
 			res.data.data.map((person, i) =>{
 				if (parseInt(store.getState().userReducer.memberId) === parseInt(person.memberId)){
 					setFollowButton(false)
+					return
 				} 
 			})
-			dispatch({type:'followers', followers:res.data.data})
+
 		}
 		fetchData()
-	}, [location])
-	useEffect(()=>{
-		const fetchData = async () =>{
-			const res = await axiosInstance.get(FOLLOW_GET_URL)			
-			dispatch({type:'followings', followings:res.data.data})
-		}
-		fetchData();
-	}, [location])
+	}, [location,userid])
+
 
 
 	useEffect(() =>{
@@ -96,7 +93,7 @@ const UserProfile = (props) => {
 							<h1>{user.nickName}</h1>
 							<Link to={{
 								pathname : `/profile/edit`,
-								state : userid
+								state : [userid, user]
 								}} >
 								<div className="editBtn"><i className="fas fa-user-edit fa-lg"></i></div>
 							</Link>
@@ -112,10 +109,10 @@ const UserProfile = (props) => {
 									<span className="followCtn">{user.followings.length}</span>
 								</div>
 							</div>
-							<Followers open={followersModalOpen} close={followersCloseModal} header="팔로워">
+							<Followers open={followersModalOpen} close={followersCloseModal} header="팔로워" person={user.followers.length}>
 								followers
 							</Followers>
-							<Followings open={followingsModalOpen} close={followingsCloseModal} header="팔로잉">
+							<Followings open={followingsModalOpen} close={followingsCloseModal} header="팔로잉" person={user.followings.length}>
 								followings
 							</Followings>
 							

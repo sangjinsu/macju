@@ -5,9 +5,11 @@ import { Link, useHistory } from "react-router-dom"
 import SearchBar from './SearchBar.js'
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { useCookies } from "react-cookie"
+import AccessToken from "../AccessToken.js"
 
 function NavBar(){
   const removeCookie = useCookies(["AccessToken"])[2]
+  const userToken = AccessToken
 
   const store = useStore((state) => state)
   const dispatch = useDispatch()
@@ -38,7 +40,7 @@ function NavBar(){
                 </div>
                 
                 {
-                  loginUser
+                  loginUser&&userToken
                   ?
                   <div className='searchbar' style={{flexDirection: 'column'}}>
                     <SearchBar/>
@@ -66,7 +68,7 @@ function NavBar(){
                         <i className="fa fa-user" aria-hidden="true"></i>
                       </Link>
                     </li>
-                    { loginUser === null?
+                    { loginUser === null && !userToken?
                     <li className="order_online">
                       <Link className='dropdown-item nav_login' to='/user/login'>login</Link>
                     </li>
